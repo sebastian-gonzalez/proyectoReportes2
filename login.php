@@ -1,7 +1,10 @@
 <?php
 include_once 'database.php';
-
+//Inicializar la sesión
 session_start();
+
+
+
 
 if (isset($_GET['cerrar_sesion'])) {
     session_unset();
@@ -48,6 +51,10 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 
 
         if ($row == true) {
+            $id_s = $row[0];
+            $_SESSION['id_usuario'] = $id_s;
+            $nombre = $row[1];
+            $_SESSION['nombre'] = $nombre;
             $rol = $row[5];
             $_SESSION['rol'] = $rol;
             switch ($rol) {

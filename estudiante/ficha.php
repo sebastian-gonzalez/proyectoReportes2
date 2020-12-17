@@ -1,4 +1,23 @@
 <?php
+
+session_start();
+
+$_SESSION['id_usuario'];
+
+if (!isset($_SESSION['rol'])) {
+	header('location: ../login.php');
+} else {
+	if ($_SESSION['rol'] != 4) {
+		header('location: ../login.php');
+	}
+}
+
+
+?>
+
+
+
+<?php
 include("conexion.php");
 ?>
 <!DOCTYPE html>
@@ -45,217 +64,213 @@ Email	 	 : info@obedalvarado.pw
 
 			<?php
 			if (isset($_POST['add'])) {
-
-
-				$Titulo = mysqli_real_escape_string($con, (strip_tags($_POST['titulo'], ENT_QUOTES))); //Escanpando caracteres 		                                    
-				$Planteamiento = mysqli_real_escape_string($con, (strip_tags($_POST["planteamiento"], ENT_QUOTES))); //Escanpando caracteres 
-				$Formulacion = mysqli_real_escape_string($con, (strip_tags($_POST["formulacion"], ENT_QUOTES))); //Escanpando caracteres 
+				$Usuario_id = $_SESSION['id_usuario'];
 				$Programa_id = mysqli_real_escape_string($con, (strip_tags($_POST["programa_id"], ENT_QUOTES))); //Escanpando caracteres 
-                $Sistematizacion	= mysqli_real_escape_string($con, (strip_tags($_POST["sistematizacion"], ENT_QUOTES))); //Escanpando caracteres 
-                $Objetivo_general	= mysqli_real_escape_string($con, (strip_tags($_POST["objetivo_general"], ENT_QUOTES))); //Escanpando caracteres 
-                $Objetivo_especifico	= mysqli_real_escape_string($con, (strip_tags($_POST["objetivos_especificos"], ENT_QUOTES))); //Escanpando caracteres 
-                $Impacto_proyecto	= mysqli_real_escape_string($con, (strip_tags($_POST["impacto_proyecto"], ENT_QUOTES))); //Escanpando caracteres 
-                $Marco_contextual	= mysqli_real_escape_string($con, (strip_tags($_POST["marco_contextual"], ENT_QUOTES))); //Escanpando caracteres 
-                $Marco_legal	= mysqli_real_escape_string($con, (strip_tags($_POST["marco_legal"], ENT_QUOTES))); //Escanpando caracteres 
-                $Marco_otro	= mysqli_real_escape_string($con, (strip_tags($_POST["marco_otro"], ENT_QUOTES))); //Escanpando caracteres 
-                $Jurado	= mysqli_real_escape_string($con, (strip_tags($_POST["jurado"], ENT_QUOTES))); //Escanpando caracteres 
-                $Evaluador	= mysqli_real_escape_string($con, (strip_tags($_POST["evaluador"], ENT_QUOTES))); //Escanpando caracteres 
-                $Metodologia	= mysqli_real_escape_string($con, (strip_tags($_POST["metodologia"], ENT_QUOTES))); //Escanpando caracteres 
-                $Alcance	= mysqli_real_escape_string($con, (strip_tags($_POST["alcance"], ENT_QUOTES))); //Escanpando caracteres 
-                $Documento	= mysqli_real_escape_string($con, (strip_tags($_POST["documento"], ENT_QUOTES))); //Escanpando caracteres 
-                $Observacion_general	= mysqli_real_escape_string($con, (strip_tags($_POST["observacion_general"], ENT_QUOTES))); //Escanpando caracteres 
-                $Director_id	= mysqli_real_escape_string($con, (strip_tags($_POST["director_id"], ENT_QUOTES))); //Escanpando caracteres 
-                $User_id	= mysqli_real_escape_string($con, (strip_tags($_POST["usuario_id"], ENT_QUOTES))); //Escanpando caracteres 
-                $Estado_id	= mysqli_real_escape_string($con, (strip_tags($_POST["estado_id"], ENT_QUOTES))); //Escanpando caracteres 
-                $Cronograma	= mysqli_real_escape_string($con, (strip_tags($_POST["cronograma"], ENT_QUOTES))); //Escanpando caracteres 
-             
+				$Jurado	= mysqli_real_escape_string($con, (strip_tags($_POST["jurado"], ENT_QUOTES))); //Escanpando caracteres 
+				$Evaluador	= mysqli_real_escape_string($con, (strip_tags($_POST["evaluador"], ENT_QUOTES))); //Escanpando caracteres 
+				$Estado_id	= mysqli_real_escape_string($con, (strip_tags($_POST["estado_id"], ENT_QUOTES))); //Escanpando caracteres 
+				$Compa_id = mysqli_real_escape_string($con, (strip_tags($_POST["compa_id"], ENT_QUOTES))); //Escanpando caracteres 
+				$Director_id = mysqli_real_escape_string($con, (strip_tags($_POST["director_id"], ENT_QUOTES))); //Escanpando caracteres 
 
-				$insert = mysqli_query($con, "INSERT INTO fichas (titulo,planteamiento,formulacion,programa_id,sistematizacion,objetivo_general,objetivos_especificos,impacto_proyecto,marco_contextual,
-                marco_legal,marco_otro,jurado,jurado,metodologia,alcance,documento,observacion_general,director_id,usuario_id,estado_id,cronograma )
-				VALUES('$Titulo', '$Planteamiento','$Formulacion','$Programa_id', '$Sistematizacion','$Objetivo_general', '$Objetivo_especifico','$Impacto_proyecto',
-                '$Marco_contextual', '$Marco_legal', '$Marco_otro', '$Jurado', '$Evaluador', '$Metodologia', '$Alcance, '$Documento', '$Observacion_general', '$Director_id', '$User_id', '$Estado_id', '$Cronograma')") or die(mysqli_error($con));
+
+				$insert = mysqli_query($con, "INSERT INTO fichas (usuario_id,programa_id, jurado, evaluador,estado_id,compa_id,director_id)
+
+				VALUES('$Usuario_id','$Programa_id', '$Jurado', '$Evaluador', '$Estado_id', '$Compa_id', '$Director_id')") or die(mysqli_error($con));
+
+
+
+				$id_insert = $Usuario_id;
+
+				if ($_FILES["archivo"]["error"] > 0) {
+					echo "Error al cargar archvio";
+				} else {
+					$permitidos = array('application/pdf');
+					$limite_kb = 200000000;
+					if (in_array($_FILES["archivo"]["type"], $permitidos) && $_FILES["archivo"]["size"] <= $limite_kb * 1024) {
+						$ruta = "../pdf/$id_insert/";
+
+
+
+						$archivo = $ruta . $_FILES["archivo"]["name"];
+
+						if (!file_exists($ruta)) {
+							mkdir($ruta);
+						}
+						if (!file_exists($archivo)) {
+							$resultado = @move_uploaded_file(
+								$_FILES["archivo"]["tmp_name"],
+								$archivo
+							);
+						}
+
+						if ($resultado) {
+							echo "archivo guardado";
+						} else {
+							echo " archivo no guardado";
+						}
+					} else {
+
+						echo "el archivo no esta permitido o excede el tamamaño maximo";
+					}
+				}
+
+
+
+
+
+
 
 				if ($insert) {
-					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
+					echo '<script type="text/javascript">
+					alert("Tarea Guardada");
+					window.location.href="inicio_estudiante.php";
+					</script>';
 				} else {
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
 				}
 			}
 			?>
 
-			<form class="form-horizontal" action="" method="post">
+			<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+
+
+
+
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Titulo de la Ficha</label>
+					<label class="col-sm-3 control-label">Programa Perteneciente</label>
 					<div class="col-sm-4">
-						<input type="text" name="titulo" class="form-control" placeholder="titulo" required>
+						<select name="programa_id" required name="programa_id" id="programa_id" required class="form-control">
+							<option value=""></option>
+							<?php
+							$sql = mysqli_query($con, "SELECT * FROM programas  ");
+							echo '	<option value="" disabled selected>Seleccione el programa</option>';
+
+							while ($valores = mysqli_fetch_array($sql)) {
+
+								echo '<option value="' . $valores["id_p"] . '">' . $valores["nombre_prog"] . '</option>';
+							}
+							?>
+						</select>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Planteamiento</label>
-					<div class="col-sm-4">
-						<input type="text" name="planteamiento" class="form-control" placeholder="planteamiento" required>
-					</div>
-				</div>
-
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Formulacion</label>
-					<div class="col-sm-4">
-						<input type="text" name="formulacion" class="form-control" placeholder="formulacion" required>
-					</div>
-				</div>
-///////////////////////////////////////////
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Id Programa</label>
-					<div class="col-sm-4">
-						<input type="text" name="contrasena" class="form-control" placeholder="contrasena" required>
-					</div>
-				</div>
-////////////////////////////////////////
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Sistematizacion</label>
-					<div class="col-sm-4">
-						<input type="text" name="sistematizacion" class="form-control" placeholder="sistematizacion" required>
-					</div>
-				</div>
-
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Objetivo General</label>
-					<div class="col-sm-4">
-						<input type="text" name="contrasena" class="form-control" placeholder="contrasena" required>
-					</div>
-				</div>
-
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Objetivos Especificos</label>
-					<div class="col-sm-4">
-						<input type="text" name="objetivos_especificos" class="form-control" placeholder="objetivos_especificos" required>
-					</div>
-				</div>
-
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Impacto del proyecto</label>
-					<div class="col-sm-4">
-						<input type="text" name="impacto_proyecto" class="form-control" placeholder="impacto_proyecto" required>
-					</div>
-				</div>
-
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Marco Contextual</label>
-					<div class="col-sm-4">
-						<input type="text" name="marco_contextual" class="form-control" placeholder="marco_contextual" required>
-					</div>
-				</div>
-
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Marco Legal</label>
-					<div class="col-sm-4">
-						<input type="text" name="marco_legal" class="form-control" placeholder="marco_legal" required>
-					</div>
-				</div>
-
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Marco Otro</label>
-					<div class="col-sm-4">
-						<input type="text" name="marco_otro" class="form-control" placeholder="marco_otro" required>
-					</div>
-
-				</div>
-///////////////////////////////////////////////////////////////////////
-                  <div class="form-group">
 					<label class="col-sm-3 control-label">Jurado</label>
 					<div class="col-sm-4">
-						<input type="text" name="jurado" class="form-control" placeholder="jurado" required>
+						<select name="jurado" required name="jurado" id="jurado" required class="form-control">
+							<option value=""></option>
+							<?php
+							$sql = mysqli_query($con, "SELECT * FROM usuarios  WHERE rol_id = 2 ");
+							echo '	<option value="" disabled selected>Seleccione su jurado</option>';
+
+							while ($valores = mysqli_fetch_array($sql)) {
+
+								echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre"] . ' ' . $valores["apellido"] . '</option>';
+							}
+							?>
+						</select>
 					</div>
 				</div>
-////////////////////////////////////////////////////
-////////////////////////////////////////////////////
-                <div class="form-group">
+
+
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Evaluador</label>
 					<div class="col-sm-4">
-						<input type="text" name="evaluador" class="form-control" placeholder="evaluador" required>
-					</div>
-				</div>
-////////////////////////////////////////////////////
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Metodologia</label>
-					<div class="col-sm-4">
-						<input type="text" name="metodologia" class="form-control" placeholder="metodologia" required>
+						<select name="evaluador" required name="evaluador" id="evaluador" required class="form-control">
+							<option value=""></option>
+							<?php
+							$sql = mysqli_query($con, "SELECT * FROM usuarios  WHERE rol_id = 2 ");
+							echo '	<option value="" disabled selected>Seleccione su evaluador</option>';
+
+							while ($valores = mysqli_fetch_array($sql)) {
+
+								echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre"] . ' ' . $valores["apellido"] . '</option>';
+							}
+							?>
+						</select>
 					</div>
 				</div>
 
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Alcance</label>
-					<div class="col-sm-4">
-						<input type="text" name="alcance" class="form-control" placeholder="alcance" required>
-					</div>
-				</div>
-///////////////////////////////////////////////////////////
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Documento</label>
-					<div class="col-sm-4">
-						<input type="text" name="contrasena" class="form-control" placeholder="contrasena" required>
-					</div>
-				</div>
-///////////////////////////////////////////////////////////////
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Observacion General</label>
-					<div class="col-sm-4">
-						<input type="text" name="observacion_general" class="form-control" placeholder="observacion_general" required>
-					</div>
-				</div>
 
-                <div class="form-group">
+
+
+
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Director</label>
 					<div class="col-sm-4">
-						<input type="text" name="director_id" class="form-control" placeholder="director_id" required>
+						<select name="director_id" required name="director_id" id="director_id" required class="form-control">
+							<option value=""></option>
+							<?php
+							$sql = mysqli_query($con, "SELECT * FROM usuarios  WHERE rol_id = 2 ");
+							echo '	<option value="" disabled selected>Seleccione su director</option>';
+
+							while ($valores = mysqli_fetch_array($sql)) {
+
+								echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre"] . ' ' . $valores["apellido"] . '</option>';
+							}
+							?>
+						</select>
 					</div>
 				</div>
-////////////////////////////////////////////////////
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Usuario id</label>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Compañero</label>
 					<div class="col-sm-4">
-						<input type="text" name="usuario_id" class="form-control" placeholder="usuario_id" required>
+						<select name="compa_id" required name="compa_id" id="compa_id" required class="form-control">
+							<option value=""></option>
+							<?php
+							$sql = mysqli_query($con, "SELECT * FROM usuarios  WHERE rol_id = 4 ");
+							echo '	<option value="" disabled selected>Seleccione su compañero</option>';
+
+							while ($valores = mysqli_fetch_array($sql)) {
+
+								echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre"] . ' ' . $valores["apellido"] . '</option>';
+							}
+							?>
+						</select>
 					</div>
 				</div>
-///////////////////////////////////////////////////
-                <div class="form-group">
+
+
+
+
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Documento</label>
+					<div class="col-sm-4">
+						<input type="file" name="archivo" required>
+
+					</div>
+				</div>
+
+
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Estado</label>
 					<div class="col-sm-4">
-						<input type="text" name="estado_id" class="form-control" placeholder="estado_id" required>
-					</div>
-				</div>
-
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Cronograma</label>
-					<div class="col-sm-4">
-						<input type="text" name="cronograma" class="form-control" placeholder="cronograma" required>
-					</div>
-				</div>
-
-            
-
-			
-
-
-
-
-
-
-
-
-				</div>
-				<br>
-				<div class="form-group">
-					<label class="col-sm-3 control-label">&nbsp;</label>
-					<div class="col-sm-6">
-						<input type="submit" name="add" class="btn btn-sm btn-primary" value="Guardar datos">
+						<select name="estado_id" required name="estado_id" id="estado_id" class="form-control>
+			            <option value=">--Selecciona--</option>
+							<option value="1">En revision</option>
+							<option value="2">En correccion</option>
+							<option value="3">Pendiente a evaluacion</option>
+							<option value="4">Aprobado</option>
+						</select>
 
 					</div>
 				</div>
-			</form>
+
+
 		</div>
+		<br>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">&nbsp;</label>
+			<div class="col-sm-6">
+				<input type="submit" name="add" class="btn btn-sm btn-primary" value="Guardar datos">
+
+			</div>
+		</div>
+		</form>
+	</div>
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

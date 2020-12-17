@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-12-2020 a las 19:19:06
+-- Tiempo de generación: 18-12-2020 a las 00:04:05
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.11
 
@@ -20,6 +20,17 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `proyecto_grado`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_ficha`
+--
+
+CREATE TABLE `estado_ficha` (
+  `id` int(11) NOT NULL,
+  `estado` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -48,6 +59,41 @@ INSERT INTO `facultades` (`id_f`, `nombre_facu`) VALUES
 --
 
 CREATE TABLE `fichas` (
+  `id_fi` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `programa_id` int(11) NOT NULL,
+  `jurado` int(11) NOT NULL,
+  `evaluador` int(11) NOT NULL,
+  `director_id` int(11) NOT NULL,
+  `compa_id` int(11) NOT NULL,
+  `estado_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `fichas`
+--
+
+INSERT INTO `fichas` (`id_fi`, `usuario_id`, `programa_id`, `jurado`, `evaluador`, `director_id`, `compa_id`, `estado_id`) VALUES
+(1, 5, 1, 2, 2, 2, 4, 1),
+(2, 5, 1, 2, 2, 2, 4, 1),
+(3, 5, 2, 2, 2, 2, 4, 1),
+(4, 5, 1, 2, 2, 2, 4, 1),
+(5, 5, 1, 2, 2, 2, 4, 1),
+(6, 5, 1, 2, 2, 2, 4, 2),
+(7, 5, 2, 2, 2, 2, 4, 3),
+(8, 5, 1, 2, 7, 2, 4, 3),
+(9, 5, 2, 2, 7, 7, 4, 3),
+(10, 5, 2, 2, 2, 2, 4, 4),
+(11, 5, 1, 2, 2, 2, 5, 3),
+(12, 5, 1, 7, 7, 2, 4, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ficha_demo`
+--
+
+CREATE TABLE `ficha_demo` (
   `id_fi` int(11) NOT NULL,
   `titulo` text NOT NULL,
   `planteamiento` text NOT NULL,
@@ -139,7 +185,8 @@ INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `correo`, `contrasen
 (2, 'Gloria', 'Garcia', 'glg@hotmail.com', '1234', 2),
 (3, 'Daniel', 'Vasquez', 'daniel@hotmail.com', '1234', 3),
 (4, 'Stiven', 'Gil', 'stiven@hotmail.com', '1234', 4),
-(5, 'Yakita', 'k5', 'yakita@hotmail.com', '1234', 4);
+(5, 'Yakita', 'k5', 'yakita@hotmail.com', '1234', 4),
+(7, 'Gloriagggg', 'Garciaggg', 'glgggg@hotmail.com', '1234', 2);
 
 --
 -- Índices para tablas volcadas
@@ -155,6 +202,18 @@ ALTER TABLE `facultades`
 -- Indices de la tabla `fichas`
 --
 ALTER TABLE `fichas`
+  ADD PRIMARY KEY (`id_fi`),
+  ADD KEY `programa_id` (`programa_id`),
+  ADD KEY `jurado` (`jurado`),
+  ADD KEY `evaluador` (`evaluador`),
+  ADD KEY `director_id` (`director_id`),
+  ADD KEY `usuario_id` (`compa_id`),
+  ADD KEY `usuario_id_2` (`usuario_id`);
+
+--
+-- Indices de la tabla `ficha_demo`
+--
+ALTER TABLE `ficha_demo`
   ADD PRIMARY KEY (`id_fi`);
 
 --
@@ -188,6 +247,12 @@ ALTER TABLE `facultades`
   MODIFY `id_f` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `fichas`
+--
+ALTER TABLE `fichas`
+  MODIFY `id_fi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT de la tabla `programas`
 --
 ALTER TABLE `programas`
@@ -203,11 +268,22 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `fichas`
+--
+ALTER TABLE `fichas`
+  ADD CONSTRAINT `fichas_ibfk_1` FOREIGN KEY (`programa_id`) REFERENCES `programas` (`id_p`),
+  ADD CONSTRAINT `fichas_ibfk_2` FOREIGN KEY (`jurado`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `fichas_ibfk_3` FOREIGN KEY (`evaluador`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `fichas_ibfk_4` FOREIGN KEY (`director_id`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `fichas_ibfk_5` FOREIGN KEY (`compa_id`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `fichas_ibfk_6` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`);
 
 --
 -- Filtros para la tabla `programas`

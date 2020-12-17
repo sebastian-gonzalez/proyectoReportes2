@@ -35,7 +35,7 @@
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="">Gestion de Ficha</a></li>
-						<li><a href="logout.php">Cerrar Sesion</a></li>
+						<li><a href="../logout.php">Cerrar Sesion</a></li>
 						<li><a href="../index.php">Salir</a></li>
 
 
