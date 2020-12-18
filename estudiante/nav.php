@@ -35,7 +35,8 @@
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="inicio_estudiante.php">Inicio</a></li>
-						<li><a href="ficha.php">Gestion de Ficha</a></li>
+						<li><a href="crear_ficha.php">Crear Ficha</a></li>
+						<li><a href="fichas.php">Gestion de Ficha</a></li>
 						<li><a href="../logout.php">Cerrar Sesion</a></li>
 						<li><a href="../index.php">Salir</a></li>
 

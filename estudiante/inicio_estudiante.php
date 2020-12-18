@@ -47,7 +47,7 @@ include("../include/conexion.php");
 	<div class="container">
 		<div class="content">
 
-			<h2>Info estudiante </h2>
+			<h2>Info estudiante</h2>
 
 			<section>
 				<h1>Bienvenido <?php echo $_SESSION['nombre'];  ?></h1>

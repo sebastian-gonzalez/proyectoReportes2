@@ -120,15 +120,13 @@ include("conexion.php");
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Rol</label>
-					<div class="col-sm-4">
-						<select name="rol_id" required name="rol_id" id="rol_id" value="<?php echo $row['rol_id']; ?>" class="form-control>
+					<select name="rol_id" required name="rol_id" id="rol_id" value="<?php echo $row['rol_id']; ?>" class="form-control>
 			<option value=">--Selecciona--</option>
-							<option value="1">Administrador</option>
-							<option value="2">Docente</option>
-							<option value="3">Coordinador</option>
-							<option value="4">Estudiante</option>
-						</select>
-					</div>
+						<option value="1">Administrador</option>
+						<option value="2">Docente</option>
+						<option value="3">Coordinador</option>
+						<option value="4">Estudiante</option>
+					</select>
 				</div>
 
 				<br>

@@ -65,6 +65,7 @@ Email	 	 : info@obedalvarado.pw
 			<?php
 			if (isset($_POST['add'])) {
 				$Usuario_id = $_SESSION['id_usuario'];
+				$Titulo = mysqli_real_escape_string($con, (strip_tags($_POST["titulo"], ENT_QUOTES))); //Escanpando caracteres 
 				$Programa_id = mysqli_real_escape_string($con, (strip_tags($_POST["programa_id"], ENT_QUOTES))); //Escanpando caracteres 
 				$Jurado	= mysqli_real_escape_string($con, (strip_tags($_POST["jurado"], ENT_QUOTES))); //Escanpando caracteres 
 				$Evaluador	= mysqli_real_escape_string($con, (strip_tags($_POST["evaluador"], ENT_QUOTES))); //Escanpando caracteres 
@@ -73,9 +74,9 @@ Email	 	 : info@obedalvarado.pw
 				$Director_id = mysqli_real_escape_string($con, (strip_tags($_POST["director_id"], ENT_QUOTES))); //Escanpando caracteres 
 
 
-				$insert = mysqli_query($con, "INSERT INTO fichas (usuario_id,programa_id, jurado, evaluador,estado_id,compa_id,director_id)
+				$insert = mysqli_query($con, "INSERT INTO fichas (usuario_id,titulo,programa_id, jurado, evaluador,estado_id,compa_id,director_id)
 
-				VALUES('$Usuario_id','$Programa_id', '$Jurado', '$Evaluador', '$Estado_id', '$Compa_id', '$Director_id')") or die(mysqli_error($con));
+				VALUES('$Usuario_id','$Titulo','$Programa_id', '$Jurado', '$Evaluador', '$Estado_id', '$Compa_id', '$Director_id')") or die(mysqli_error($con));
 
 
 
@@ -110,7 +111,7 @@ Email	 	 : info@obedalvarado.pw
 						}
 					} else {
 
-						echo "el archivo no esta permitido o excede el tamamaño maximo";
+						echo "el archivo no esta permitido o excede el tamaño maximo";
 					}
 				}
 
@@ -134,6 +135,12 @@ Email	 	 : info@obedalvarado.pw
 			<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
 
 
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Titulo</label>
+					<div class="col-sm-4">
+						<input type="text" name="titulo" class="form-control" placeholder="Titulo" required>
+					</div>
+				</div>
 
 
 
