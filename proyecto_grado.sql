@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-12-2020 a las 00:04:05
+-- Tiempo de generación: 20-12-2020 a las 23:27:53
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.11
 
@@ -28,9 +28,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `estado_ficha` (
-  `id` int(11) NOT NULL,
-  `estado` varchar(20) NOT NULL
+  `id_e` int(50) NOT NULL,
+  `estado` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `estado_ficha`
+--
+
+INSERT INTO `estado_ficha` (`id_e`, `estado`) VALUES
+(1, 'En revisión'),
+(2, 'En corrección'),
+(3, 'Pendiente a evaluación'),
+(4, 'Aprobado');
 
 -- --------------------------------------------------------
 
@@ -61,6 +71,7 @@ INSERT INTO `facultades` (`id_f`, `nombre_facu`) VALUES
 CREATE TABLE `fichas` (
   `id_fi` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
   `programa_id` int(11) NOT NULL,
   `jurado` int(11) NOT NULL,
   `evaluador` int(11) NOT NULL,
@@ -73,50 +84,8 @@ CREATE TABLE `fichas` (
 -- Volcado de datos para la tabla `fichas`
 --
 
-INSERT INTO `fichas` (`id_fi`, `usuario_id`, `programa_id`, `jurado`, `evaluador`, `director_id`, `compa_id`, `estado_id`) VALUES
-(1, 5, 1, 2, 2, 2, 4, 1),
-(2, 5, 1, 2, 2, 2, 4, 1),
-(3, 5, 2, 2, 2, 2, 4, 1),
-(4, 5, 1, 2, 2, 2, 4, 1),
-(5, 5, 1, 2, 2, 2, 4, 1),
-(6, 5, 1, 2, 2, 2, 4, 2),
-(7, 5, 2, 2, 2, 2, 4, 3),
-(8, 5, 1, 2, 7, 2, 4, 3),
-(9, 5, 2, 2, 7, 7, 4, 3),
-(10, 5, 2, 2, 2, 2, 4, 4),
-(11, 5, 1, 2, 2, 2, 5, 3),
-(12, 5, 1, 7, 7, 2, 4, 3);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `ficha_demo`
---
-
-CREATE TABLE `ficha_demo` (
-  `id_fi` int(11) NOT NULL,
-  `titulo` text NOT NULL,
-  `planteamiento` text NOT NULL,
-  `formulacion` text NOT NULL,
-  `programa_id` int(11) NOT NULL,
-  `sistematizacion` text NOT NULL,
-  `objetivo_general` text NOT NULL,
-  `objetivos_especificos` text NOT NULL,
-  `impacto_proyecto` text NOT NULL,
-  `marco_contextual` text NOT NULL,
-  `marco_legal` text NOT NULL,
-  `marco_otro` text NOT NULL,
-  `jurado` text NOT NULL,
-  `evaluador` text NOT NULL,
-  `metodologia` text NOT NULL,
-  `alcance` text NOT NULL,
-  `documento` mediumblob NOT NULL,
-  `observacion_general` text NOT NULL,
-  `director_id` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
-  `estado_id` int(11) NOT NULL,
-  `cronograma` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `fichas` (`id_fi`, `usuario_id`, `titulo`, `programa_id`, `jurado`, `evaluador`, `director_id`, `compa_id`, `estado_id`) VALUES
+(2, 2, 'HOLA', 1, 1, 1, 3, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -169,28 +138,39 @@ INSERT INTO `roles` (`id_rol`, `rol`) VALUES
 
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
+  `cedula` int(20) NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `apellido` varchar(20) NOT NULL,
   `correo` varchar(50) NOT NULL,
   `contrasena` text NOT NULL,
-  `rol_id` int(11) NOT NULL
+  `rol_id` int(11) NOT NULL,
+  `facultad_idd` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `correo`, `contrasena`, `rol_id`) VALUES
-(1, 'Jorge Mario', 'Vasquez Garcia', 'j-mario9715@hotmail.com', '1234', 1),
-(2, 'Gloria', 'Garcia', 'glg@hotmail.com', '1234', 2),
-(3, 'Daniel', 'Vasquez', 'daniel@hotmail.com', '1234', 3),
-(4, 'Stiven', 'Gil', 'stiven@hotmail.com', '1234', 4),
-(5, 'Yakita', 'k5', 'yakita@hotmail.com', '1234', 4),
-(7, 'Gloriagggg', 'Garciaggg', 'glgggg@hotmail.com', '1234', 2);
+INSERT INTO `usuarios` (`id_usuario`, `cedula`, `nombre`, `apellido`, `correo`, `contrasena`, `rol_id`, `facultad_idd`) VALUES
+(1, 0, 'No', 'Asignado', 'No_Asignado@No Asignado', '1234', 1, 1),
+(2, 987654321, 'stiven', 'gil', 'stiven@hotmail.com', '1234', 4, 1),
+(3, 12345689, 'Ney', 'Vasquez', 'ney@hotmail.com', '1234', 2, 1),
+(4, 95175364, 'Gloria', 'Garcia', 'gloria@hotmail.com', '1234', 2, 3),
+(5, 123456789, 'Jorge Mario', 'Vasquez Garcia', 'j-mario9715@hotmail.com', '1234', 1, 1),
+(6, 1234598, 'yakita', 'Kacinco', 'yakita@hotmail.com', '1234', 4, 1),
+(9, 15975640, 'Sebastian', 'Morales', 'sebastik@hotmail.com', '1234', 2, 3),
+(10, 213441414, 'sebastian', 'morales', 'sebitas@hotmail.com', '1234', 4, 1),
+(11, 2147483647, 'negrito', 'kli2o', 'negrito@hotmail.com', '1234', 4, 1);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `estado_ficha`
+--
+ALTER TABLE `estado_ficha`
+  ADD PRIMARY KEY (`id_e`);
 
 --
 -- Indices de la tabla `facultades`
@@ -204,17 +184,9 @@ ALTER TABLE `facultades`
 ALTER TABLE `fichas`
   ADD PRIMARY KEY (`id_fi`),
   ADD KEY `programa_id` (`programa_id`),
-  ADD KEY `jurado` (`jurado`),
-  ADD KEY `evaluador` (`evaluador`),
   ADD KEY `director_id` (`director_id`),
   ADD KEY `usuario_id` (`compa_id`),
   ADD KEY `usuario_id_2` (`usuario_id`);
-
---
--- Indices de la tabla `ficha_demo`
---
-ALTER TABLE `ficha_demo`
-  ADD PRIMARY KEY (`id_fi`);
 
 --
 -- Indices de la tabla `programas`
@@ -234,23 +206,24 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `rol_id` (`rol_id`);
+  ADD KEY `rol_id` (`rol_id`),
+  ADD KEY `facultad_idd` (`facultad_idd`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
+-- AUTO_INCREMENT de la tabla `estado_ficha`
+--
+ALTER TABLE `estado_ficha`
+  MODIFY `id_e` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `facultades`
 --
 ALTER TABLE `facultades`
   MODIFY `id_f` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `fichas`
---
-ALTER TABLE `fichas`
-  MODIFY `id_fi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `programas`
@@ -268,22 +241,11 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `fichas`
---
-ALTER TABLE `fichas`
-  ADD CONSTRAINT `fichas_ibfk_1` FOREIGN KEY (`programa_id`) REFERENCES `programas` (`id_p`),
-  ADD CONSTRAINT `fichas_ibfk_2` FOREIGN KEY (`jurado`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `fichas_ibfk_3` FOREIGN KEY (`evaluador`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `fichas_ibfk_4` FOREIGN KEY (`director_id`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `fichas_ibfk_5` FOREIGN KEY (`compa_id`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `fichas_ibfk_6` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`);
 
 --
 -- Filtros para la tabla `programas`
