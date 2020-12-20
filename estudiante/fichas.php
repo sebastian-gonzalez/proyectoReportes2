@@ -2,7 +2,8 @@
 
 session_start();
 
-$_SESSION['id_usuario'];
+
+
 
 if (!isset($_SESSION['rol'])) {
     header('location: ../login.php');
@@ -94,14 +95,14 @@ include("conexion.php");
                     </tr>
                     <?php
                     $nik = $_SESSION['id_usuario'];
-                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE compa_id = id_usuario and  usuario_id =$nik ORDER By id_fi ASC");
+                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE compa_id = id_usuario and  usuario_id =$nik or compa_id =$nik ORDER By id_fi ASC");
 
                     while ($record = mysqli_fetch_assoc($sql)) {
 
                         $compa = $record['nombre'] . ' ' . $record['apellido'];
                     }
 
-                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE jurado = id_usuario and  usuario_id =$nik ORDER By id_fi ASC");
+                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE jurado = id_usuario and  usuario_id =$nik or compa_id =$nik ORDER By id_fi ASC");
 
                     while ($record2 = mysqli_fetch_assoc($sql)) {
 
@@ -109,14 +110,14 @@ include("conexion.php");
                         break;
                     }
 
-                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE evaluador = id_usuario and  usuario_id =$nik ORDER By id_fi ASC");
+                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE evaluador = id_usuario and  usuario_id =$nik or compa_id =$nik ORDER By id_fi ASC");
 
                     while ($record3 = mysqli_fetch_assoc($sql)) {
 
                         $evaluador = $record3['nombre'] . ' ' . $record3['apellido'];
                         break;
                     }
-                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE director_id = id_usuario and  usuario_id =$nik ORDER By id_fi ASC");
+                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE director_id = id_usuario and  usuario_id =$nik or compa_id =$nik ORDER By id_fi ASC");
 
                     while ($record4 = mysqli_fetch_assoc($sql)) {
 
@@ -124,27 +125,32 @@ include("conexion.php");
                         break;
                     }
 
-                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN programas WHERE programa_id = id_p and  usuario_id =$nik ORDER By id_fi ASC");
+                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN programas WHERE programa_id = id_p and  usuario_id =$nik or compa_id =$nik ORDER By id_fi ASC");
 
                     while ($record5 = mysqli_fetch_assoc($sql)) {
 
                         $programa = $record5['nombre_prog'];
                         break;
                     }
+                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN estado_ficha WHERE estado_id = id_e and  usuario_id =$nik or compa_id =$nik ORDER By id_fi ASC");
 
+                    while ($record6 = mysqli_fetch_assoc($sql)) {
 
-
+                        $estado = $record6['estado'];
+                        break;
+                    }
 
                     $nik = $_SESSION['id_usuario'];
 
-                    $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE jurado=id_usuario and  usuario_id =$nik ORDER By id_fi ASC");
+                    //LLamado de la tabla HPTA FICHA
+                    $sql_consulta = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE usuario_id=id_usuario  and  usuario_id =$nik or compa_id =$nik   ORDER By id_fi ASC");
 
-                    if (mysqli_num_rows($sql) == 0) {
+
+                    if (mysqli_num_rows($sql_consulta) == 0) {
                     } else {
+
                         $no = 1;
-
-
-                        while ($row = mysqli_fetch_assoc($sql)) {
+                        while ($row = mysqli_fetch_assoc($sql_consulta)) {
 
                             echo '
 						<tr>
@@ -156,11 +162,10 @@ include("conexion.php");
                             <td>' . $evaluador . '</td>
                             <td>' . $director . '</td>
                             <td>' . $compa . '</td>
-                            <td>' . $row['estado_id'] . '</td>
-                            
+                            <td>' . $estado . '</td>
 							<td>
 
-							<a href="editar_facultad.php?nik=' . $row['id_fi'] . '" title="Editar datos" class="	"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+							<a href="editar_ficha.php?nik=' . $row['id_fi'] . '" title="Editar datos" class="	"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
 							<a href="fichas.php?aksi=delete&nik=' . $row['id_fi'] . '" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos ' . $row['titulo'] . '?\')" class=" "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                             </td>
                             <td>

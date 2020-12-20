@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-$_SESSION['nombre'];
 
 if (!isset($_SESSION['rol'])) {
 	header('location: ../login.php');
@@ -50,7 +49,7 @@ include("../include/conexion.php");
 			<h2>Info estudiante</h2>
 
 			<section>
-				<h1>Bienvenido <?php echo $_SESSION['nombre'];  ?></h1>
+				<h1>Bienvenido <?php echo $_SESSION['nombre']; ?></h1>
 			</section>
 			<hr />
 			<center>

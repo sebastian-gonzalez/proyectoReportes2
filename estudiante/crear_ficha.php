@@ -64,19 +64,21 @@ Email	 	 : info@obedalvarado.pw
 
 			<?php
 			if (isset($_POST['add'])) {
+
+				$Ficha_id = $_SESSION['id_usuario'];
 				$Usuario_id = $_SESSION['id_usuario'];
 				$Titulo = mysqli_real_escape_string($con, (strip_tags($_POST["titulo"], ENT_QUOTES))); //Escanpando caracteres 
-				$Programa_id = mysqli_real_escape_string($con, (strip_tags($_POST["programa_id"], ENT_QUOTES))); //Escanpando caracteres 
-				$Jurado	= mysqli_real_escape_string($con, (strip_tags($_POST["jurado"], ENT_QUOTES))); //Escanpando caracteres 
-				$Evaluador	= mysqli_real_escape_string($con, (strip_tags($_POST["evaluador"], ENT_QUOTES))); //Escanpando caracteres 
-				$Estado_id	= mysqli_real_escape_string($con, (strip_tags($_POST["estado_id"], ENT_QUOTES))); //Escanpando caracteres 
+				$Facultad_id = $_SESSION['facultad_idd'];
+				$Jurado	= 1;
+				$Evaluador	= 1;
+				$Estado_id	= 1;
 				$Compa_id = mysqli_real_escape_string($con, (strip_tags($_POST["compa_id"], ENT_QUOTES))); //Escanpando caracteres 
 				$Director_id = mysqli_real_escape_string($con, (strip_tags($_POST["director_id"], ENT_QUOTES))); //Escanpando caracteres 
 
 
-				$insert = mysqli_query($con, "INSERT INTO fichas (usuario_id,titulo,programa_id, jurado, evaluador,estado_id,compa_id,director_id)
+				$insert = mysqli_query($con, "INSERT INTO fichas (id_fi,usuario_id,titulo,programa_id, jurado, evaluador,estado_id,compa_id,director_id)
 
-				VALUES('$Usuario_id','$Titulo','$Programa_id', '$Jurado', '$Evaluador', '$Estado_id', '$Compa_id', '$Director_id')") or die(mysqli_error($con));
+				VALUES('$Ficha_id','$Usuario_id','$Titulo','$Facultad_id', '$Jurado', '$Evaluador', '$Estado_id', '$Compa_id', '$Director_id')") or die(mysqli_error($con));
 
 
 
@@ -145,71 +147,12 @@ Email	 	 : info@obedalvarado.pw
 
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Programa Perteneciente</label>
-					<div class="col-sm-4">
-						<select name="programa_id" required name="programa_id" id="programa_id" required class="form-control">
-							<option value=""></option>
-							<?php
-							$sql = mysqli_query($con, "SELECT * FROM programas  ");
-							echo '	<option value="" disabled selected>Seleccione el programa</option>';
-
-							while ($valores = mysqli_fetch_array($sql)) {
-
-								echo '<option value="' . $valores["id_p"] . '">' . $valores["nombre_prog"] . '</option>';
-							}
-							?>
-						</select>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Jurado</label>
-					<div class="col-sm-4">
-						<select name="jurado" required name="jurado" id="jurado" required class="form-control">
-							<option value=""></option>
-							<?php
-							$sql = mysqli_query($con, "SELECT * FROM usuarios  WHERE rol_id = 2 ");
-							echo '	<option value="" disabled selected>Seleccione su jurado</option>';
-
-							while ($valores = mysqli_fetch_array($sql)) {
-
-								echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre"] . ' ' . $valores["apellido"] . '</option>';
-							}
-							?>
-						</select>
-					</div>
-				</div>
-
-
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Evaluador</label>
-					<div class="col-sm-4">
-						<select name="evaluador" required name="evaluador" id="evaluador" required class="form-control">
-							<option value=""></option>
-							<?php
-							$sql = mysqli_query($con, "SELECT * FROM usuarios  WHERE rol_id = 2 ");
-							echo '	<option value="" disabled selected>Seleccione su evaluador</option>';
-
-							while ($valores = mysqli_fetch_array($sql)) {
-
-								echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre"] . ' ' . $valores["apellido"] . '</option>';
-							}
-							?>
-						</select>
-					</div>
-				</div>
-
-
-
-
-
-				<div class="form-group">
 					<label class="col-sm-3 control-label">Director</label>
 					<div class="col-sm-4">
 						<select name="director_id" required name="director_id" id="director_id" required class="form-control">
 							<option value=""></option>
 							<?php
-							$sql = mysqli_query($con, "SELECT * FROM usuarios  WHERE rol_id = 2 ");
+							$sql = mysqli_query($con, "SELECT * FROM usuarios  WHERE rol_id = 2 AND facultad_idd = 1 ");
 							echo '	<option value="" disabled selected>Seleccione su director</option>';
 
 							while ($valores = mysqli_fetch_array($sql)) {
@@ -227,7 +170,8 @@ Email	 	 : info@obedalvarado.pw
 						<select name="compa_id" required name="compa_id" id="compa_id" required class="form-control">
 							<option value=""></option>
 							<?php
-							$sql = mysqli_query($con, "SELECT * FROM usuarios  WHERE rol_id = 4 ");
+							$Usuario_id = $_SESSION['id_usuario'];
+							$sql = mysqli_query($con, "SELECT * FROM usuarios  WHERE rol_id = 4 AND id_usuario != $Usuario_id");
 							echo '	<option value="" disabled selected>Seleccione su compañero</option>';
 
 							while ($valores = mysqli_fetch_array($sql)) {
@@ -252,19 +196,6 @@ Email	 	 : info@obedalvarado.pw
 				</div>
 
 
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Estado</label>
-					<div class="col-sm-4">
-						<select name="estado_id" required name="estado_id" id="estado_id" class="form-control>
-			            <option value=">--Selecciona--</option>
-							<option value="1">En revision</option>
-							<option value="2">En correccion</option>
-							<option value="3">Pendiente a evaluacion</option>
-							<option value="4">Aprobado</option>
-						</select>
-
-					</div>
-				</div>
 
 
 		</div>

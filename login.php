@@ -41,22 +41,39 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
     $contrasena = htmlentities(addslashes($_POST['contrasena']));
 
     $db = new Database();
+
+    $query_compa = $db->connect()->prepare('SELECT compa_id FROM fichas');
+    $row_compa = $query_compa->fetch(PDO::FETCH_NUM);
+
+    if (is_array($row_compa)) {
+        if ($row_compa == true) {
+            $compa = $row_compa[7];
+        }
+    }
+
+
     $query = $db->connect()->prepare('SELECT *FROM usuarios WHERE correo = :correo AND contrasena = :contrasena');
-
     $query->execute(['correo' => $correo, 'contrasena' => $contrasena]);
-
 
     $row = $query->fetch(PDO::FETCH_NUM);
     if (is_array($row)) {
 
 
-        if ($row == true) {
+        if (($row) == true) {
             $id_s = $row[0];
             $_SESSION['id_usuario'] = $id_s;
-            $nombre = $row[1];
+
+            $nombre = $row[2];
             $_SESSION['nombre'] = $nombre;
-            $rol = $row[5];
+
+            $facultad = $row[7];
+            $_SESSION['facultad_idd'] = $facultad;
+
+            $_SESSION['compa_id'] = $compa;
+
+            $rol = $row[6];
             $_SESSION['rol'] = $rol;
+
             switch ($rol) {
 
                     //administrador
@@ -80,6 +97,7 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
                 default:
             }
         } else {
+
             // no existe el usuario
 
             $errorLogin = "Nombre de usuario y/o password incorrecto";
@@ -127,10 +145,10 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 
         </center>
         <p style="color:white;">Correo: <br>
-            <input style="color:black" type="email" name="correo"></p>
+            <input style="color:black" type="email" name="correo" required></p>
 
         <p style="color:white;">Contraseña: <br>
-            <input style="color:black" type="password" name="contrasena"></p>
+            <input style="color:black" type="password" name="contrasena" required></p>
         <p class="center"><input type="submit" value="Iniciar Sesión"></p>
 
 

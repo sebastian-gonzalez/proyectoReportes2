@@ -53,17 +53,16 @@ include("conexion.php");
 			<?php
 			if (isset($_POST['add'])) {
 
-
+				$Cedula = mysqli_real_escape_string($con, (strip_tags($_POST['cedula'], ENT_QUOTES))); //Escanpando caracteres 	
 				$Nombre = mysqli_real_escape_string($con, (strip_tags($_POST['nombre'], ENT_QUOTES))); //Escanpando caracteres 		                                    
 				$Apellido = mysqli_real_escape_string($con, (strip_tags($_POST["apellido"], ENT_QUOTES))); //Escanpando caracteres 
 				$Correo	= mysqli_real_escape_string($con, (strip_tags($_POST["correo"], ENT_QUOTES))); //Escanpando caracteres 
 				$Contrasena	= mysqli_real_escape_string($con, (strip_tags($_POST["contrasena"], ENT_QUOTES))); //Escanpando caracteres 
-
 				$Rol_id	= mysqli_real_escape_string($con, (strip_tags($_POST["rol_id"], ENT_QUOTES))); //Escanpando caracteres 
+				$Facultad_id	= mysqli_real_escape_string($con, (strip_tags($_POST["facultad_idd"], ENT_QUOTES))); //Escanpando caracteres 
 
-
-				$insert = mysqli_query($con, "INSERT INTO usuarios (nombre,apellido,correo,contrasena,rol_id)
-															VALUES('$Nombre', '$Apellido','$Correo','$Contrasena', '$Rol_id')") or die(mysqli_error($con));
+				$insert = mysqli_query($con, "INSERT INTO usuarios (cedula,nombre,apellido,correo,contrasena,rol_id,facultad_idd)
+															VALUES('$Cedula','$Nombre', '$Apellido','$Correo','$Contrasena', '$Rol_id', '$Facultad_id')") or die(mysqli_error($con));
 
 				if ($insert) {
 					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
@@ -74,6 +73,13 @@ include("conexion.php");
 			?>
 
 			<form class="form-horizontal" action="" method="post">
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Cedula</label>
+					<div class="col-sm-4">
+						<input type="number" name="cedula" class="form-control" placeholder="cedula" required>
+					</div>
+				</div>
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombres</label>
@@ -92,7 +98,7 @@ include("conexion.php");
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Correo</label>
 					<div class="col-sm-4">
-						<input type="text" name="correo" class="form-control" placeholder="correo" required>
+						<input type="email" name="correo" class="form-control" placeholder="correo" required>
 					</div>
 				</div>
 
@@ -105,10 +111,10 @@ include("conexion.php");
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Rol</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 
-						<select name="rol_id" required name="rol_id" id="rol_id" class="form-control>
-			            <option value=">--Selecciona--</option>
+						<select name="rol_id" name="rol_id" id="rol_id" class="form-control" required>
+							<option disabled selected value="">Seleccione el rol</option>
 							<option value="1">Administrador</option>
 							<option value="2">Docente</option>
 							<option value="3">Coordinador</option>
@@ -117,6 +123,25 @@ include("conexion.php");
 					</div>
 
 				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Facultad perteneciente</label>
+					<div class="col-sm-4">
+						<select name="facultad_idd" name="facultad_idd" id="facultad_idd" class="form-control" required>
+
+							<?php
+							$sql = mysqli_query($con, "SELECT * FROM facultades  ");
+							echo '	<option disabled selected value="">Seleccione la facultad</option>';
+
+							while ($valores = mysqli_fetch_array($sql)) {
+
+								echo '<option value="' . $valores["id_f"] . '">' . $valores["nombre_facu"] . '</option>';
+							}
+							?>
+						</select>
+					</div>
+				</div>
+
 				<br>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">&nbsp;</label>

@@ -26,7 +26,7 @@ include("conexion.php");
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Datos de empleados</title>
+	<title>Datos de usuario</title>
 
 	<!-- Bootstrap -->
 
@@ -63,18 +63,20 @@ include("conexion.php");
 				$row = mysqli_fetch_assoc($sql);
 			}
 			if (isset($_POST['add'])) {
+
+				$Cedula = mysqli_real_escape_string($con, (strip_tags($_POST['cedula'], ENT_QUOTES))); //Escanpando caracteres 	
 				$Nombre = mysqli_real_escape_string($con, (strip_tags($_POST['nombre'], ENT_QUOTES))); //Escanpando caracteres 		                                    
 				$Apellido = mysqli_real_escape_string($con, (strip_tags($_POST["apellido"], ENT_QUOTES))); //Escanpando caracteres 
 				$Correo	= mysqli_real_escape_string($con, (strip_tags($_POST["correo"], ENT_QUOTES))); //Escanpando caracteres 
 				$Contrasena	= mysqli_real_escape_string($con, (strip_tags($_POST["contrasena"], ENT_QUOTES))); //Escanpando caracteres 
-
 				$Rol_id	= mysqli_real_escape_string($con, (strip_tags($_POST["rol_id"], ENT_QUOTES))); //Escanpando caracteres 
+				$Facultad_id	= mysqli_real_escape_string($con, (strip_tags($_POST["facultad_idd"], ENT_QUOTES))); //Escanpando caracteres 
 
 
 
 
 
-				$update = mysqli_query($con, "UPDATE usuarios  SET nombre='$Nombre', apellido='$Apellido', correo='$Correo', contrasena='$Contrasena', rol_id='$Rol_id' WHERE id_usuario='$nik'") or die(mysqli_error($con));
+				$update = mysqli_query($con, "UPDATE usuarios  SET cedula='$Cedula',nombre='$Nombre', apellido='$Apellido', correo='$Correo', contrasena='$Contrasena', rol_id='$Rol_id', facultad_idd='$Facultad_id' WHERE id_usuario='$nik'") or die(mysqli_error($con));
 				if ($update) {
 					header("Location: ./usuarios.php?nik=" . $nik . "&pesan=sukses");
 				} else {
@@ -88,6 +90,14 @@ include("conexion.php");
 			?>
 
 			<form class="form-horizontal" action="" method="post">
+
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Cedula</label>
+					<div class="col-sm-4">
+						<input type="number" name="cedula" value="<?php echo $row['cedula']; ?>" class="form-control" placeholder="cedula" required>
+					</div>
+				</div>
 
 
 				<div class="form-group">
@@ -106,14 +116,14 @@ include("conexion.php");
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Correo</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input name="correo" class="form-control" value="<?php echo $row['correo']; ?>" placeholder="correo">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Contraseña</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input name="contrasena" class="form-control" value="<?php echo $row['contrasena']; ?>" placeholder="contrasena">
 					</div>
 				</div>
@@ -121,12 +131,32 @@ include("conexion.php");
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Rol</label>
 					<div class="col-sm-4">
-						<select name="rol_id" required name="rol_id" id="rol_id" value="<?php echo $row['rol_id']; ?>" class="form-control>
-			<option value=">--Selecciona--</option>
+
+						<select name="rol_id" name="rol_id" id="rol_id" class="form-control" required>
+							<option disabled selected value="">Seleccione el rol</option>
 							<option value="1">Administrador</option>
 							<option value="2">Docente</option>
 							<option value="3">Coordinador</option>
 							<option value="4">Estudiante</option>
+						</select>
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Facultad perteneciente</label>
+					<div class="col-sm-4">
+						<select name="facultad_idd" name="facultad_idd" id="facultad_idd" class="form-control" required>
+
+							<?php
+							$sql = mysqli_query($con, "SELECT * FROM facultades  ");
+							echo '	<option disabled selected value="">Seleccione la facultad</option>';
+
+							while ($valores = mysqli_fetch_array($sql)) {
+
+								echo '<option value="' . $valores["id_f"] . '">' . $valores["nombre_facu"] . '</option>';
+							}
+							?>
 						</select>
 					</div>
 				</div>
