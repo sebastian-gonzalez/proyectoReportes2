@@ -28,11 +28,8 @@ include("conexion.php");
 
         <?php
         $nik = $_SESSION['id_usuario'];
-        $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE compa_id = id_usuario and  usuario_id =$nik ORDER By id_fi ASC");
-
+        $sql = mysqli_query($con, "SELECT * FROM fichas INNER JOIN usuarios WHERE compa_id = id_usuario and  (usuario_id =$nik or compa_id =$nik ) ORDER By id_fi ASC");
         while ($record = mysqli_fetch_assoc($sql)) {
-
-
         ?>
 
             <div class="card hovercard">
@@ -40,8 +37,6 @@ include("conexion.php");
                 </div>
                 <div class="card-body info">
                     <div class="title">
-
-
                     </div>
                     <h3>
                         <?php

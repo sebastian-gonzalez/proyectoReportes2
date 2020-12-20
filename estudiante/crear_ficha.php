@@ -124,6 +124,7 @@ Email	 	 : info@obedalvarado.pw
 
 
 				if ($insert) {
+
 					echo '<script type="text/javascript">
 					alert("Tarea Guardada");
 					window.location.href="inicio_estudiante.php";
