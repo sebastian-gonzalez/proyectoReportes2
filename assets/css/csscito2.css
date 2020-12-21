@@ -3353,7 +3353,7 @@ body:before {
 #header > .item {
   color: #ffffff;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 100;
   height: inherit;
   line-height: inherit;
   padding: 0 1.25rem;

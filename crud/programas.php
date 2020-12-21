@@ -45,7 +45,7 @@ include("conexion.php");
 
     <div class="container">
         <div class="content">
-            <h2>Lista de Programas Academicos</h2>
+            <h2>Lista de Programas Academicos <a class="item" href="add_programa.php">( + )</a> </h2>
             <hr />
 
             <?php
@@ -95,10 +95,9 @@ include("conexion.php");
                 <table class="table table-striped table-hover">
                     <tr>
 
-                        <th>Código</th>
+
                         <th>Nombre del Programa</th>
                         <th>Titulo</th>
-                        <th>Id Facultad</th>
                         <th>Facultad</th>
 
 
@@ -120,10 +119,9 @@ include("conexion.php");
                             echo '
 						<tr>
 					
-							<td>' . $row['id_p'] . '</td>
+							
 							<td>' . $row['nombre_prog'] . '</td>
-                            <td>' . $row['titulo'] . '</td>
-                            <td>' . $row['facultad_id'] . '</td>
+                            <td>' . $row['titulo'] . '</td>      
                             <td>' . $row['nombre_facu'] . '</td>
 							
 							

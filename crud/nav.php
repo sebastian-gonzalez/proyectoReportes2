@@ -36,9 +36,8 @@
 						<li><a href="usuarios.php">Gestion de Usuarios</a></li>
 						<li><a href="facultad.php">Gestion de Facultades</a></li>
 						<li><a href="programas.php">Gestion de Programas</a></li>
-						<li><a href="add_usuario.php">Registrar Usuario</a></li>
-						<li><a href="add_facultad.php">Registrar Facultad</a></li>
-						<li><a href="add_programa.php">Registrar Programa Academico</a></li>
+
+
 						<li><a href="../logout.php">Cerrar Sesion</a></li>
 						<li><a href="../index.php">Salir</a></li>
 

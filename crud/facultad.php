@@ -45,7 +45,7 @@ include("conexion.php");
 
 	<div class="container">
 		<div class="content">
-			<h2>Lista de Facultades</h2>
+			<h2>Lista de Facultades <a class="item" href="add_facultad.php">( + )</a> </h2>
 			<hr />
 
 			<?php
@@ -93,7 +93,7 @@ include("conexion.php");
 				<table class="table table-striped table-hover">
 					<tr>
 
-						<th>Código</th>
+
 						<th>Nombre de la Facultad</th>
 
 
@@ -112,7 +112,7 @@ include("conexion.php");
 							echo '
 						<tr>
 						
-							<td>' . $row['id_f'] . '</td>
+							
 							<td>' . $row['nombre_facu'] . '</td>
                             
 							<td>

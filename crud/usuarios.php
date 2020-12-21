@@ -48,7 +48,7 @@ include("conexion.php");
 	<div class="container">
 		<div class="content">
 
-			<h2>Lista de usuarios </h2>
+			<h2>Lista de usuarios <a class="item" href="add_usuario.php">( + )</a> </h2>
 
 			<hr />
 
@@ -102,7 +102,7 @@ include("conexion.php");
 				<table class="table table-striped table-hover">
 					<tr>
 
-						<th>Código</th>
+
 						<th>Cedula</th>
 						<th>Nombre</th>
 						<th>Apellido</th>
@@ -114,10 +114,10 @@ include("conexion.php");
 					</tr>
 					<?php
 					if ($filter) {
-						$sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN facultades WHERE id_f=facultad_idd and rol_id='$filter' ORDER BY id_usuario ASC");
+						$sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN facultades WHERE id_f=facultad_idd and id_usuario !=1 and rol_id='$filter' ORDER BY id_usuario ASC");
 					} else {
 
-						$sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN facultades WHERE id_f=facultad_idd  ORDER BY id_usuario ASC");
+						$sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN facultades WHERE id_f=facultad_idd and id_usuario !=1 ORDER BY id_usuario ASC");
 					}
 					if (mysqli_num_rows($sql) == 0) {
 						echo '<tr><td colspan="8">No hay datos.</td></tr>';
@@ -127,7 +127,7 @@ include("conexion.php");
 							echo '
 						<tr>
 						
-							<td>' . $row['id_usuario'] . '</td>
+						
 							<td>' . $row['cedula'] . '</td>
 							<td>' . $row['nombre'] . '</td>
                             <td>' . $row['apellido'] . '</td>
