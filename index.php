@@ -12,7 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
-	<link rel="stylesheet" href="assets/css/csscito.css" />
+	<link rel="stylesheet" href="assets/css/index.css" />
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<link rel="icon" href="images/favicon.ico" type="image/gif" />
@@ -23,7 +23,7 @@
 
 	<!-- Header -->
 	<header id="header">
-		<a class="logo" href="index.php">PG</a>
+		<a class="logo" href="index.php"></a>
 		<nav>
 			<a href="#menu">Menu</a>
 		</nav>
