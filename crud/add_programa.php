@@ -2,10 +2,10 @@
 
 session_start();
 
-if (!isset($_SESSION['rol'])) {
+if (!isset($_SESSION['id_rol_usu'])) {
 	header('location: ../login.php');
 } else {
-	if ($_SESSION['rol'] != 1) {
+	if ($_SESSION['id_rol_usu'] != 1) {
 		header('location: ../login.php');
 	}
 }
@@ -15,7 +15,7 @@ if (!isset($_SESSION['rol'])) {
 
 
 <?php
-include("conexion.php");
+include("../include/conexion.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -54,12 +54,12 @@ include("conexion.php");
 			if (isset($_POST['add'])) {
 
 
-				$Nombre = mysqli_real_escape_string($con, (strip_tags($_POST['nombre_prog'], ENT_QUOTES))); //Escanpando caracteres 		                                    
-				$Titulo = mysqli_real_escape_string($con, (strip_tags($_POST["titulo"], ENT_QUOTES))); //Escanpando caracteres 
-				$Facultad_id	= mysqli_real_escape_string($con, (strip_tags($_POST["facultad_id"], ENT_QUOTES))); //Escanpando caracteres 
+				$Nombre = mysqli_real_escape_string($con, (strip_tags($_POST['nombre_pro'], ENT_QUOTES))); //Escanpando caracteres 		                                    
+				$Titulo = mysqli_real_escape_string($con, (strip_tags($_POST["titulo_pro"], ENT_QUOTES))); //Escanpando caracteres 
+				$Facultad_id	= mysqli_real_escape_string($con, (strip_tags($_POST["id_facultad_pro"], ENT_QUOTES))); //Escanpando caracteres 
 
 
-				$insert = mysqli_query($con, "INSERT INTO programas (nombre_prog,titulo,facultad_id)
+				$insert = mysqli_query($con, "INSERT INTO programa (nombre_pro,titulo_pro,id_facultad_pro)
 															VALUES('$Nombre', '$Titulo','$Facultad_id')") or die(mysqli_error($con));
 
 				if ($insert) {
@@ -75,14 +75,14 @@ include("conexion.php");
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre del Programa</label>
 					<div class="col-sm-4">
-						<input type="text" name="nombre_prog" class="form-control" placeholder="nombre_prog" required>
+						<input type="text" name="nombre_pro" class="form-control" placeholder="Nombre Programa" required>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Titulo adquirido</label>
 					<div class="col-sm-4">
-						<input type="text" name="titulo" class="form-control" placeholder="titulo" required>
+						<input type="text" name="titulo_pro" class="form-control" placeholder="Titulo" required>
 					</div>
 				</div>
 
@@ -90,15 +90,14 @@ include("conexion.php");
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Facultad perteneciente</label>
 					<div class="col-sm-4">
-						<select name="facultad_id" required name="facultad_id" id="facultad_id" required class="form-control">
-							<option value=""></option>
+						<select name="id_facultad_pro" name="id_facultad_pro" id="id_facultad_pro" class="form-control" required>
 							<?php
-							$sql = mysqli_query($con, "SELECT * FROM facultades  ");
+							$sql = mysqli_query($con, "SELECT * FROM facultad  ");
 							echo '	<option value="" disabled selected>Seleccione la facultad</option>';
 
 							while ($valores = mysqli_fetch_array($sql)) {
 
-								echo '<option value="' . $valores["id_f"] . '">' . $valores["nombre_facu"] . '</option>';
+								echo '<option value="' . $valores["id_facultad"] . '">' . $valores["nombre_facultad"] . '</option>';
 							}
 							?>
 						</select>
@@ -112,7 +111,7 @@ include("conexion.php");
 			<label class="col-sm-3 control-label">&nbsp;</label>
 			<div class="col-sm-6">
 				<input type="submit" name="add" class="btn btn-sm btn-primary" value="Guardar datos">
-
+				<input type="submit" class="btn  btn-danger" onclick="window.location='./programas.php';" value="Cancelar" />
 			</div>
 		</div>
 		</form>

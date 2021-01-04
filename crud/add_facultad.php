@@ -2,10 +2,10 @@
 
 session_start();
 
-if (!isset($_SESSION['rol'])) {
+if (!isset($_SESSION['id_rol_usu'])) {
 	header('location: ../login.php');
 } else {
-	if ($_SESSION['rol'] != 1) {
+	if ($_SESSION['id_rol_usu'] != 1) {
 		header('location: ../login.php');
 	}
 }
@@ -15,7 +15,7 @@ if (!isset($_SESSION['rol'])) {
 
 
 <?php
-include("conexion.php");
+include("../include/conexion.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -54,10 +54,9 @@ include("conexion.php");
 			if (isset($_POST['add'])) {
 
 
-				$Nombre = mysqli_real_escape_string($con, (strip_tags($_POST["nombre_facu"], ENT_QUOTES))); //Escanpando caracteres 
+				$Nombre = mysqli_real_escape_string($con, (strip_tags($_POST['nombre_facultad'], ENT_QUOTES))); //Escanpando caracteres 
 
-
-				$insert = mysqli_query($con, "INSERT INTO facultades (nombre_facu)
+				$insert = mysqli_query($con, "INSERT INTO facultad (nombre_facultad)
 															VALUES('$Nombre')") or die(mysqli_error($con));
 
 				if ($insert) {
@@ -73,7 +72,7 @@ include("conexion.php");
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre Facultad</label>
 					<div class="col-sm-4">
-						<input type="text" name="nombre_facu" class="form-control" placeholder="Facultad" required>
+						<input type="text" name="nombre_facultad" class="form-control" placeholder="Facultad" required>
 					</div>
 				</div>
 
@@ -84,6 +83,7 @@ include("conexion.php");
 			<label class="col-sm-3 control-label">&nbsp;</label>
 			<div class="col-sm-6">
 				<input type="submit" name="add" class="btn btn-sm btn-primary" value="Guardar datos">
+				<input type="submit" class="btn  btn-danger" onclick="window.location='./facultad.php';" value="Cancelar" />
 
 			</div>
 		</div>

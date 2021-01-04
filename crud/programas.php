@@ -2,10 +2,10 @@
 
 session_start();
 
-if (!isset($_SESSION['rol'])) {
+if (!isset($_SESSION['id_rol_usu'])) {
     header('location: ../login.php');
 } else {
-    if ($_SESSION['rol'] != 1) {
+    if ($_SESSION['id_rol_usu'] != 1) {
         header('location: ../login.php');
     }
 }
@@ -15,7 +15,7 @@ if (!isset($_SESSION['rol'])) {
 
 
 <?php
-include("conexion.php");
+include("../include/conexion.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -53,12 +53,12 @@ include("conexion.php");
                 // escaping, additionally removing everything that could be (html/javascript-) code
 
                 $nik = mysqli_real_escape_string($con, (strip_tags($_GET["nik"], ENT_QUOTES)));
-                $cek = mysqli_query($con, "SELECT * FROM programas  WHERE id_p='$nik'");
+                $cek = mysqli_query($con, "SELECT * FROM programa  WHERE id_programa='$nik'");
                 if (mysqli_num_rows($cek) == 0) {
                     echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
                 } else {
 
-                    $delete = mysqli_query($con, "DELETE FROM programas  WHERE id_p='$nik'");
+                    $delete = mysqli_query($con, "DELETE FROM programa  WHERE id_programa='$nik'");
                     if ($delete) {
                         echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Datos eliminado correctamente.</div>';
                     } else {
@@ -73,11 +73,11 @@ include("conexion.php");
 
 
                     <select name="filter" class="form-control" onchange="form.submit()">
-                        <option value="0">Seleccione programa:</option>
+                        <option value="0">Seleccione Facultad:</option>
                         <?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);
-                        $sql = mysqli_query($con, "SELECT * FROM facultades");
+                        $sql = mysqli_query($con, "SELECT * FROM facultad");
                         while ($valores = mysqli_fetch_array($sql)) {
-                            echo '<option value="' . $valores["id_f"] . '">' . $valores["nombre_facu"] . '</option>';
+                            echo '<option value="' . $valores["id_facultad"] . '">' . $valores["nombre_facultad"] . '</option>';
                         }
                         ?>
                         <div class="form-group">
@@ -106,9 +106,9 @@ include("conexion.php");
                     </tr>
                     <?php
                     if ($filter) {
-                        $sql = mysqli_query($con, "SELECT * FROM programas INNER JOIN facultades WHERE id_f=facultad_id and id_f='$filter' ORDER BY id_p ASC");
+                        $sql = mysqli_query($con, "SELECT * FROM programa INNER JOIN facultad WHERE id_facultad=id_facultad_pro and id_facultad='$filter' ORDER BY id_programa ASC");
                     } else {
-                        $sql = mysqli_query($con, "SELECT * FROM programas INNER JOIN facultades WHERE id_f=facultad_id ORDER By id_p ASC");
+                        $sql = mysqli_query($con, "SELECT * FROM programa INNER JOIN facultad WHERE id_facultad=id_facultad_pro ORDER By id_programa ASC");
                     }
                     if (mysqli_num_rows($sql) == 0) {
                         echo '<tr><td colspan="8">No hay datos.</td></tr>';
@@ -120,15 +120,15 @@ include("conexion.php");
 						<tr>
 					
 							
-							<td>' . $row['nombre_prog'] . '</td>
-                            <td>' . $row['titulo'] . '</td>      
-                            <td>' . $row['nombre_facu'] . '</td>
+							<td>' . $row['nombre_pro'] . '</td>
+                            <td>' . $row['titulo_pro'] . '</td>      
+                            <td>' . $row['nombre_facultad'] . '</td>
 							
 							
 							<td>
 
-								<a href="editar_programa.php?nik=' . $row['id_p'] . '" title="Editar datos" class="	"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-								<a href="programas.php?aksi=delete&nik=' . $row['id_p'] . '" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos ' . $row['nombre_prog'] . '?\')" class=" "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+								<a href="editar_programa.php?nik=' . $row['id_programa'] . '" title="Editar datos" class="	"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+								<a href="programas.php?aksi=delete&nik=' . $row['id_programa'] . '" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos ' . $row['nombre_pro'] . '?\')" class=" "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';
@@ -141,7 +141,8 @@ include("conexion.php");
         </div>
     </div>
     <center>
-        <p>&copy; Sistemas Web <?php echo date("Y"); ?></p </center> <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+        <p>&copy; Sistemas Web <?php echo date("Y"); ?></p </center>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
         </script>
         <script src="../js/bootstrap.min.js"></script>
 </body>

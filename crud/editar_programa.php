@@ -2,10 +2,10 @@
 
 session_start();
 
-if (!isset($_SESSION['rol'])) {
+if (!isset($_SESSION['id_rol_usu'])) {
 	header('location: ../login.php');
 } else {
-	if ($_SESSION['rol'] != 1) {
+	if ($_SESSION['id_rol_usu'] != 1) {
 		header('location: ../login.php');
 	}
 }
@@ -16,7 +16,7 @@ if (!isset($_SESSION['rol'])) {
 
 
 <?php
-include("conexion.php");
+include("../include/conexion.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -55,7 +55,7 @@ include("conexion.php");
 			<?php
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			$nik = mysqli_real_escape_string($con, (strip_tags($_GET["nik"], ENT_QUOTES)));
-			$sql = mysqli_query($con, "SELECT * FROM programas WHERE id_p='$nik'");
+			$sql = mysqli_query($con, "SELECT * FROM programa WHERE id_programa='$nik'");
 
 
 			if (mysqli_num_rows($sql) == 0) {
@@ -64,15 +64,15 @@ include("conexion.php");
 				$row = mysqli_fetch_assoc($sql);
 			}
 			if (isset($_POST['add'])) {
-				$Nombre = mysqli_real_escape_string($con, (strip_tags($_POST['nombre_prog'], ENT_QUOTES))); //Escanpando caracteres 
-				$Titulo = mysqli_real_escape_string($con, (strip_tags($_POST['titulo'], ENT_QUOTES))); //Escanpando caracteres 
-				$Facu_id = mysqli_real_escape_string($con, (strip_tags($_POST['facultad_id'], ENT_QUOTES))); //Escanpando caracteres 		                                    
+				$Nombre = mysqli_real_escape_string($con, (strip_tags($_POST['nombre_pro'], ENT_QUOTES))); //Escanpando caracteres 
+				$Titulo = mysqli_real_escape_string($con, (strip_tags($_POST['titulo_pro'], ENT_QUOTES))); //Escanpando caracteres 
+				$Facu_id = mysqli_real_escape_string($con, (strip_tags($_POST['id_facultad_pro'], ENT_QUOTES))); //Escanpando caracteres 		                                    
 
-				$update = mysqli_query($con, "UPDATE programas SET nombre_prog='$Nombre', 
+				$update = mysqli_query($con, "UPDATE programa SET nombre_pro='$Nombre', 
 				
-				titulo='$Titulo',facultad_id='$Facu_id' WHERE id_p='$nik'") or die(mysqli_error($con));
+				titulo_pro='$Titulo',id_facultad_pro='$Facu_id' WHERE id_programa='$nik'") or die(mysqli_error($con));
 
-				// UPDATE `programas` SET `facultad_id` = '1' WHERE `programas`.`id` = 2;
+
 
 				if ($update) {
 					header("Location: ./programas.php?nik=" . $nik . "&pesan=sukses");
@@ -92,14 +92,14 @@ include("conexion.php");
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre Programa</label>
 					<div class="col-sm-4">
-						<input type="text" name="nombre_prog" value="<?php echo $row['nombre_prog']; ?>" class="form-control" placeholder="nombre_prog" required>
+						<input type="text" name="nombre_pro" value="<?php echo $row['nombre_pro']; ?>" class="form-control" placeholder="Nombre Prograna" required>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Titulo Otorgado</label>
 					<div class="col-sm-4">
-						<input type="text" name="titulo" value="<?php echo $row['titulo']; ?>" class="form-control" placeholder="titulo" required>
+						<input type="text" name="titulo_pro" value="<?php echo $row['titulo_pro']; ?>" class="form-control" placeholder="Titulo Programa" required>
 					</div>
 				</div>
 
@@ -108,15 +108,14 @@ include("conexion.php");
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Facultad perteneciente</label>
 					<div class="col-sm-4">
-						<select name="facultad_id" required name="facultad_id" id="facultad_id" required class="form-control">
-							<option value=""></option>
+						<select name="id_facultad_pro" name="id_facultad_pro" id="id_facultad_pro" class="form-control" required>
 							<?php
-							$sql = mysqli_query($con, "SELECT * FROM facultades  ");
+							$sql = mysqli_query($con, "SELECT * FROM facultad  ");
 							echo '	<option value="" disabled selected>Seleccione la facultad</option>';
 
 							while ($valores = mysqli_fetch_array($sql)) {
 
-								echo '<option value="' . $valores["id_f"] . '">' . $valores["nombre_facu"] . '</option>';
+								echo '<option value="' . $valores["id_facultad"] . '">' . $valores["nombre_facultad"] . '</option>';
 							}
 							?>
 						</select>
@@ -131,7 +130,7 @@ include("conexion.php");
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
 						<input type="submit" name="add" class="btn  btn-primary " value="Guardar datos">
-						<a href="./programas.php" class="btn btn-danger">Cancelar</a>
+						<input type="submit" class="btn  btn-danger" onclick="window.location='./programas.php';" value="Cancelar" />
 					</div>
 				</div>
 			</form>

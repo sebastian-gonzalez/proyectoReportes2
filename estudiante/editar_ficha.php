@@ -3,10 +3,10 @@
 session_start();
 $_SESSION['id_usuario'];
 
-if (!isset($_SESSION['rol'])) {
+if (!isset($_SESSION['id_rol_usu'])) {
 	header('location: ../login.php');
 } else {
-	if ($_SESSION['rol'] != 4) {
+	if ($_SESSION['id_rol_usu'] != 4) {
 		header('location: ../login.php');
 	}
 }
@@ -16,7 +16,7 @@ if (!isset($_SESSION['rol'])) {
 
 
 <?php
-include("conexion.php");
+include("../include/conexion.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">

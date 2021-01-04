@@ -2,10 +2,10 @@
 
 session_start();
 
-if (!isset($_SESSION['rol'])) {
+if (!isset($_SESSION['id_rol_usu'])) {
 	header('location: ../login.php');
 } else {
-	if ($_SESSION['rol'] != 1) {
+	if ($_SESSION['id_rol_usu'] != 1) {
 		header('location: ../login.php');
 	}
 }
@@ -16,7 +16,7 @@ if (!isset($_SESSION['rol'])) {
 
 
 <?php
-include("conexion.php");
+include("../include/conexion.php");
 ?>
 
 <!DOCTYPE html>
@@ -109,15 +109,15 @@ include("conexion.php");
 						<th>Correo</th>
 						<th>Contraseña</th>
 						<th>Tipo Rol</th>
-						<th>Facultad</th>
+						<th>Programa</th>
 
 					</tr>
 					<?php
 					if ($filter) {
-						$sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN facultades WHERE id_f=facultad_idd and id_usuario !=1 and rol_id='$filter' ORDER BY id_usuario ASC");
+						$sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN programa WHERE id_programa_usu=id_programa  and id_rol_usu='$filter' ORDER BY id_usuario ASC");
 					} else {
 
-						$sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN facultades WHERE id_f=facultad_idd and id_usuario !=1 ORDER BY id_usuario ASC");
+						$sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN programa WHERE id_programa_usu=id_programa  ORDER BY id_usuario ASC");
 					}
 					if (mysqli_num_rows($sql) == 0) {
 						echo '<tr><td colspan="8">No hay datos.</td></tr>';
@@ -128,29 +128,29 @@ include("conexion.php");
 						<tr>
 						
 						
-							<td>' . $row['cedula'] . '</td>
-							<td>' . $row['nombre'] . '</td>
-                            <td>' . $row['apellido'] . '</td>
-							<td>' . $row['correo'] . '</td>
-							<td>' . $row['contrasena'] . '</td>
+							<td>' . $row['cedula_usu'] . '</td>
+							<td>' . $row['nombre_usu'] . '</td>
+                            <td>' . $row['apellido_usu'] . '</td>
+							<td>' . $row['correo_usu'] . '</td>
+							<td>' . $row['contrasena_usu'] . '</td>
 	
 							<td>';
-							if ($row['rol_id'] == '1') {
+							if ($row['id_rol_usu'] == '1') {
 								echo '<span class="label label-success">Administrador </span>';
-							} else if ($row['rol_id'] == '2') {
+							} else if ($row['id_rol_usu'] == '2') {
 								echo '<span class="label label-info">Docente</span>';
-							} else if ($row['rol_id'] == '3') {
+							} else if ($row['id_rol_usu'] == '3') {
 								echo '<span class="label label-info">Coordinador</span>';
-							} else if ($row['rol_id'] == '4') {
+							} else if ($row['id_rol_usu'] == '4') {
 								echo '<span class="label label-info">Estudiante</span>';
 							}
 							echo '
 							</td>
-							<td>' . $row['nombre_facu'] . '</td>
+							<td>' . $row['nombre_pro'] . '</td>
 							<td>
 
 								<a href="editar_usuario.php?nik=' . $row['id_usuario'] . '" title="Editar datos" class="	"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-								<a href="usuarios.php?aksi=delete&nik=' . $row['id_usuario'] . '" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos del usuario ' . $row['nombre'] . '?\')" class=" "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+								<a href="usuarios.php?aksi=delete&nik=' . $row['id_usuario'] . '" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos del usuario ' . $row['nombre_usu'] . '?\')" class=" "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';
@@ -163,7 +163,8 @@ include("conexion.php");
 		</div>
 	</div>
 	<center>
-		<p>&copy; Sistemas Web <?php echo date("Y"); ?></p </center> <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+		<p>&copy; Sistemas Web <?php echo date("Y"); ?></p </center>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 		</script>
 		<script src="../js/bootstrap.min.js"></script>
 </body>

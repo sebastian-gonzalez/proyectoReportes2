@@ -2,10 +2,10 @@
 
 session_start();
 
-if (!isset($_SESSION['rol'])) {
+if (!isset($_SESSION['id_rol_usu'])) {
 	header('location: ../login.php');
 } else {
-	if ($_SESSION['rol'] != 4) {
+	if ($_SESSION['id_rol_usu'] != 4) {
 		header('location: ../login.php');
 	}
 }
@@ -49,11 +49,12 @@ include("../include/conexion.php");
 			<h2>Info estudiante</h2>
 
 			<section>
-				<h1>Bienvenido <?php echo $_SESSION['nombre']; ?></h1>
+				<h1>Bienvenido <?php echo $_SESSION['nombre_usu']; ?></h1>
 			</section>
 			<hr />
 			<center>
-				<p>&copy; Sistemas Web <?php echo date("Y"); ?></p </center> <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+				<p>&copy; Sistemas Web <?php echo date("Y"); ?></p </center>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 				</script>
 				<script src="../js/bootstrap.min.js"></script>
 </body>

@@ -2,10 +2,10 @@
 
 session_start();
 
-if (!isset($_SESSION['rol'])) {
+if (!isset($_SESSION['id_rol_usu'])) {
 	header('location: ../login.php');
 } else {
-	if ($_SESSION['rol'] != 1) {
+	if ($_SESSION['id_rol_usu'] != 1) {
 		header('location: ../login.php');
 	}
 }
@@ -16,7 +16,7 @@ if (!isset($_SESSION['rol'])) {
 
 
 <?php
-include("conexion.php");
+include("../include/conexion.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -55,7 +55,7 @@ include("conexion.php");
 			<?php
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			$nik = mysqli_real_escape_string($con, (strip_tags($_GET["nik"], ENT_QUOTES)));
-			$sql = mysqli_query($con, "SELECT * FROM facultades WHERE id_f='$nik'");
+			$sql = mysqli_query($con, "SELECT * FROM facultad WHERE id_facultad='$nik'");
 
 
 			if (mysqli_num_rows($sql) == 0) {
@@ -64,9 +64,9 @@ include("conexion.php");
 				$row = mysqli_fetch_assoc($sql);
 			}
 			if (isset($_POST['add'])) {
-				$Nombre = mysqli_real_escape_string($con, (strip_tags($_POST['nombre_facu'], ENT_QUOTES))); //Escanpando caracteres 		                                    
+				$Nombre = mysqli_real_escape_string($con, (strip_tags($_POST['nombre_facultad'], ENT_QUOTES))); //Escanpando caracteres 	
 
-				$update = mysqli_query($con, "UPDATE facultades  SET nombre_facu='$Nombre' WHERE id_f='$nik'") or die(mysqli_error($con));
+				$update = mysqli_query($con, "UPDATE facultad  SET nombre_facultad='$Nombre' WHERE id_facultad='$nik'") or die(mysqli_error($con));
 				if ($update) {
 					header("Location: ./facultad.php?nik=" . $nik . "&pesan=sukses");
 				} else {
@@ -85,7 +85,7 @@ include("conexion.php");
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre Facultad</label>
 					<div class="col-sm-4">
-						<input type="text" name="nombre_facu" value="<?php echo $row['nombre_facu']; ?>" class="form-control" placeholder="nombre_facu" required>
+						<input type="text" name="nombre_facultad" value="<?php echo $row['nombre_facultad']; ?>" class="form-control" placeholder="Facultad" required>
 					</div>
 				</div>
 
@@ -95,7 +95,8 @@ include("conexion.php");
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
 						<input type="submit" name="add" class="btn  btn-primary " value="Guardar datos">
-						<a href="./facultad.php" class="btn btn-danger">Cancelar</a>
+						<input type="submit" class="btn  btn-danger" onclick="window.location='./facultad.php';" value="Cancelar" />
+
 					</div>
 				</div>
 			</form>

@@ -1,5 +1,5 @@
 <?php
-include_once 'database.php';
+include_once 'include/database.php';
 //Inicializar la sesión
 session_start();
 
@@ -13,8 +13,8 @@ if (isset($_GET['cerrar_sesion'])) {
 	session_destroy();
 }
 
-if (isset($_SESSION['rol'])) {
-	switch ($_SESSION['rol']) {
+if (isset($_SESSION['id_rol_usu'])) {
+	switch ($_SESSION['id_rol_usu']) {
 			//administrador
 		case 1:
 			header('location: crud/usuarios.php');
@@ -41,7 +41,7 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 	$contrasena = htmlentities(addslashes($_POST['contrasena']));
 	$db = new Database();
 
-	$query = $db->connect()->prepare('SELECT *FROM usuarios WHERE correo = :correo AND contrasena = :contrasena');
+	$query = $db->connect()->prepare('SELECT *FROM usuarios WHERE correo_usu = :correo AND contrasena_usu = :contrasena');
 	$query->execute(['correo' => $correo, 'contrasena' => $contrasena]);
 
 	$row = $query->fetch(PDO::FETCH_NUM);
@@ -50,11 +50,11 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 		$id_s = $row[0];
 		$_SESSION['id_usuario'] = $id_s;
 		$nombre = $row[2];
-		$_SESSION['nombre'] = $nombre;
+		$_SESSION['nombre_usu'] = $nombre;
 		$facultad = $row[7];
-		$_SESSION['facultad_idd'] = $facultad;
+		$_SESSION['id_programa_usu'] = $facultad;
 		$rol = $row[6];
-		$_SESSION['rol'] = $rol;
+		$_SESSION['id_rol_usu'] = $rol;
 
 		switch ($rol) {
 
@@ -115,7 +115,7 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 			<form action="" method="POST">
 				<?php
 				if (isset($_GET["fallo"]) && $_GET["fallo"] == 'true') {
-					echo "<div style='color:red'>Usuario o contraseña invalido </div>";
+					echo "<div style='color:red'>Usuario o contraseña incorrecta </div>";
 				}
 				?>
 				<img src="images/login/avatar.svg">

@@ -2,10 +2,10 @@
 
 session_start();
 
-if (!isset($_SESSION['rol'])) {
+if (!isset($_SESSION['id_rol_usu'])) {
 	header('location: ../login.php');
 } else {
-	if ($_SESSION['rol'] != 2) {
+	if ($_SESSION['id_rol_usu'] != 2) {
 		header('location: ../login.php');
 	}
 }
@@ -157,7 +157,8 @@ include("../include/conexion.php");
 		</div>
 	</div>
 	<center>
-		<p>&copy; Sistemas Web <?php echo date("Y"); ?></p </center> <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+		<p>&copy; Sistemas Web <?php echo date("Y"); ?></p </center>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 		</script>
 		<script src="../js/bootstrap.min.js"></script>
 </body>
