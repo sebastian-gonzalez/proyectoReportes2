@@ -13,152 +13,160 @@ if (!isset($_SESSION['id_rol_usu'])) {
 
 ?>
 
-<!doctype html>
-<html lang="en">
+
+
+<?php
+include("../include/conexion.php");
+?>
+
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
-	<!-- Required meta tags -->
+
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="shortcut icon" href="#" />
-	<title>Usuarios</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Datos de Usuarios</title>
 
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-	<!-- CSS personalizado -->
-	<link rel="stylesheet" href="../assets/main.css">
+	<!-- Bootstrap -->
+	<link href="../css/bootstrap1.min.css" rel="stylesheet">
+	<link href="../css/style.css" rel="stylesheet">
 
+	<style>
+		.content {
+			margin-top: 80px;
+		}
+	</style>
 
-	<!--datables CSS básico-->
-	<link rel="stylesheet" type="text/css" href="../assets/datatables/datatables.min.css" />
-	<!--datables estilo bootstrap 4 CSS-->
-	<link rel="stylesheet" type="text/css" href="../assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
-
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
 
-	<header>
-		<h3 class='text-center'></h3>
-	</header>
+	<?php include('nav.php'); ?>
 
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<button id="btnNuevo" type="button" class="btn btn-info" data-toggle="modal"><i class="material-icons">library_add</i></button>
-			</div>
-		</div>
-	</div>
-	<br>
+		<div class="content">
 
-	<div class="container caja">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="table-responsive">
-					<table id="tablaUsuarios" class="table table-striped table-bordered table-condensed" style="width:100%">
-						<thead class="text-center">
-							<tr>
-								<th>user_id</th>
-								<th>Cedula</th>
-								<th>Nombre</th>
-								<th>Apellido</th>
-								<th>Correo</th>
-								<th>Contraseña</th>
-								<th>Tipo Rol</th>
-								<th>Programa</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
+			<h2>Lista de usuarios <a class="item" href="add_usuario.php">( + )</a> </h2>
+
+			<hr />
+
+			<?php
+			if (isset($_GET['aksi']) == 'delete') {
+				// escaping, additionally removing everything that could be (html/javascript-) code
+
+				$nik = mysqli_real_escape_string($con, (strip_tags($_GET["nik"], ENT_QUOTES)));
+				$cek = mysqli_query($con, "SELECT * FROM usuarios  WHERE id_usuario='$nik'");
+				if (mysqli_num_rows($cek) == 0) {
+					echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
+				} else {
+
+					$delete = mysqli_query($con, "DELETE FROM usuarios  WHERE id_usuario='$nik'");
+					if ($delete) {
+						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Datos eliminado correctamente.</div>';
+					} else {
+						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar los datos.</div>';
+					}
+				}
+			}
+			?>
+
+			<form class="form-inline" method="get">
+
+				<div class="form-group">
+					<select name="filter" class="form-control" onchange="form.submit()">
+						<option value="0">Filtrar por rol</option>
+						<?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
+						<option value="1" <?php if ($filter == '1') {
+												echo 'selected';
+											} ?>>Administrador</option>
+						<option value="2" <?php if ($filter == '2') {
+												echo 'selected';
+											} ?>>Docente</option>
+						<option value="3" <?php if ($filter == '3') {
+												echo 'selected';
+											} ?>>Coordinador</option>
+						<option value="4" <?php if ($filter == '4') {
+												echo 'selected';
+											} ?>>Estudiante</option>
+
+					</select>
+
 				</div>
+
+			</form>
+
+			<br />
+			<div class="table-responsive">
+				<table class="table table-striped table-hover">
+					<tr>
+
+
+						<th>Cedula</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Correo</th>
+						<th>Contraseña</th>
+						<th>Tipo Rol</th>
+						<th>Programa</th>
+
+					</tr>
+					<?php
+					if ($filter) {
+						$sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN programa WHERE id_programa_usu=id_programa  and id_rol_usu='$filter' ORDER BY id_usuario ASC");
+					} else {
+
+						$sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN programa WHERE id_programa_usu=id_programa  ORDER BY id_usuario ASC");
+					}
+					if (mysqli_num_rows($sql) == 0) {
+						echo '<tr><td colspan="8">No hay datos.</td></tr>';
+					} else {
+						$no = 1;
+						while ($row = mysqli_fetch_assoc($sql)) {
+							echo '
+						<tr>
+						
+						
+							<td>' . $row['cedula_usu'] . '</td>
+							<td>' . $row['nombre_usu'] . '</td>
+                            <td>' . $row['apellido_usu'] . '</td>
+							<td>' . $row['correo_usu'] . '</td>
+							<td>' . $row['contrasena_usu'] . '</td>
+	
+							<td>';
+							if ($row['id_rol_usu'] == '1') {
+								echo '<span class="label label-success">Administrador </span>';
+							} else if ($row['id_rol_usu'] == '2') {
+								echo '<span class="label label-info">Docente</span>';
+							} else if ($row['id_rol_usu'] == '3') {
+								echo '<span class="label label-info">Coordinador</span>';
+							} else if ($row['id_rol_usu'] == '4') {
+								echo '<span class="label label-info">Estudiante</span>';
+							}
+							echo '
+							</td>
+							<td>' . $row['nombre_pro'] . '</td>
+							<td>
+
+								<a href="editar_usuario.php?nik=' . $row['id_usuario'] . '" title="Editar datos" class="	"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+								<a href="usuarios.php?aksi=delete&nik=' . $row['id_usuario'] . '" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos del usuario ' . $row['nombre_usu'] . '?\')" class=" "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+							</td>
+						</tr>
+						';
+							$no++;
+						}
+					}
+					?>
+				</table>
 			</div>
 		</div>
 	</div>
-
-	<!--Modal para CRUD-->
-	<div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"></h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form id="formUsuarios">
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label for="" class="col-form-label">Cedula:</label>
-									<input type="number" class="form-control" id="cedula_usu">
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label for="" class="col-form-label">Nombre</label>
-									<input type="text" class="form-control" id="nombre_usu">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label for="" class="col-form-label">Apellido</label>
-									<input type="text" class="form-control" id="apellido_usu">
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label for="" class="col-form-label">Correo</label>
-									<input type="text" class="form-control" id="correo_usu">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-9">
-								<div class="form-group">
-									<label for="" class="col-form-label">Contraseña</label>
-									<input type="text" class="form-control" id="contrasena_usu">
-								</div>
-							</div>
-							<div class="col-lg-3">
-								<div class="form-group">
-									<label for="" class="col-form-label">Tipo rol</label>
-									<input type="text" class="form-control" id="id_rol_usu">
-								</div>
-							</div>
-							<div class="col-lg-3">
-								<div class="form-group">
-									<label for="" class="col-form-label">Programa</label>
-									<input type="text" class="form-control" id="id_programa_usu">
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-						<button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<!-- jQuery, Popper.js, Bootstrap JS -->
-	<script src="../assets/jquery/jquery-3.3.1.min.js"></script>
-	<script src="../assets/popper/popper.min.js"></script>
-	<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-
-	<!-- datatables JS -->
-	<script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
-
-	<script type="text/javascript" src="../include/admin/js/usuarios.js"></script>
-
-
+	<center>
+		<p>&copy; Sistemas Web <?php echo date("Y"); ?></p </center>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+		</script>
+		<script src="../js/bootstrap.min.js"></script>
 </body>
 
 </html>
