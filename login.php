@@ -17,19 +17,19 @@ if (isset($_SESSION['id_rol_usu'])) {
 	switch ($_SESSION['id_rol_usu']) {
 			//administrador
 		case 1:
-			header('location: crud/usuarios.php');
+			header('location: rol_admin/inicio_admin.php');
 			break;
 			//docente
 		case 2:
-			header('location: docente/inicio_docente.php');
+			header('location: rol_docente/inicio_docente.php');
 			break;
 			//coordinador
 		case 3:
-			header('location: coordinador/inicio_coordinador.php');
+			header('location: rol_coordinador/inicio_coordinador.php');
 			break;
 			//estudiante
 		case 4:
-			header('location: estudiante/inicio_estudiante.php');
+			header('location: rol_estudiante/inicio_estudiante.php');
 			break;
 
 		default:
@@ -60,20 +60,20 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 
 				//administrador
 			case 1:
-				header('location: crud/usuarios.php');
+				header('location: rol_admin/inicio_admin.php');
 
 				break;
 				//docente
 			case 2:
-				header('location: docente/inicio_docente.php');
+				header('location: rol_docente/inicio_docente.php');
 				break;
 				//coordinador
 			case 3:
-				header('location: coordinador/inicio_coordinador.php');
+				header('location: rol_coordinador/inicio_coordinador.php');
 				break;
 				//estudiante
 			case 4:
-				header('location: estudiante/inicio_estudiante.php');
+				header('location: rol_estudiante/inicio_estudiante.php');
 				break;
 
 			default:
@@ -145,7 +145,7 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript" src="js/login.js"></script>
+	<script type="text/javascript" src="assets/js/login.js"></script>
 </body>
 
 </html>
