@@ -67,6 +67,8 @@ $(document).ready(function () {
   });
 
   $("#btnNuevo1").click(function () {
+    opcion = 1; //alta
+    id_ficha = null;
     $("#formFichas").trigger("reset");
     $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");

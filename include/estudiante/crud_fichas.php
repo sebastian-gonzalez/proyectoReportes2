@@ -20,7 +20,7 @@ $conexion = $objeto->connect();
 
 $id_ficha = (isset($_POST['id_ficha'])) ? $_POST['id_ficha'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
-
+$archivo = (isset($_POST['archivo'])) ? $_POST['archivo'] : '';
 $Titulo = (isset($_POST['titulo_ficha'])) ? $_POST['titulo_ficha'] : '';
 $Descripcion = 'Proyecto de Grado';
 
@@ -38,10 +38,9 @@ $id_rol_ficha = 1;
 
 
 
-
-
 switch ($opcion) {
     case 1:
+
         $consulta = "INSERT INTO ficha (titulo_ficha,descripcion_ficha,id_programa_ficha,id_estado_ficha)
         VALUES('$Titulo','$Descripcion', '$Programa','$Estado') ";
 
@@ -58,6 +57,41 @@ switch ($opcion) {
             $id_insert = 0;
             echo "no se ejecuto la primera consulta ";
         }
+
+
+        if ($_FILES["archivo"]["error"] > 0) {
+            echo "Error al cargar archvio";
+        } else {
+            $permitidos = array('application/pdf');
+            $limite_kb = 200000000;
+            if (in_array($_FILES["archivo"]["type"], $permitidos) && $_FILES["archivo"]["size"] <= $limite_kb * 1024) {
+                $ruta = "../estudiante/pdf/$id_insert/";
+
+
+
+                $archivo = $ruta . $_FILES["archivo"]["name"];
+
+                if (!file_exists($ruta)) {
+                    mkdir($ruta);
+                }
+                if (!file_exists($archivo)) {
+                    $resultado = @move_uploaded_file(
+                        $_FILES["archivo"]["tmp_name"],
+                        $archivo
+                    );
+                }
+
+                if ($resultado) {
+                    echo "archivo guardado";
+                } else {
+                    echo " archivo no guardado";
+                }
+            } else {
+
+                echo "el archivo no esta permitido o excede el tamaño maximo";
+            }
+        }
+
 
         //segunda consulta 
         $consulta1 = "INSERT INTO lista_ficha (id_lista_usuario,id_lista_ficha,id_rol_ficha)

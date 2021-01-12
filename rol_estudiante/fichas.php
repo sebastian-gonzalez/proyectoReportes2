@@ -1,18 +1,3 @@
-<?php
-
-session_start();
-
-if (!isset($_SESSION['id_rol_usu'])) {
-    header('location: ../login.php');
-} else {
-    if ($_SESSION['id_rol_usu'] != 4) {
-        header('location: ../login.php');
-    }
-}
-
-
-?>
-
 <?php include("../include/conexion.php"); ?>
 
 <!doctype html>
@@ -42,7 +27,10 @@ if (!isset($_SESSION['id_rol_usu'])) {
 </head>
 
 <body>
-    <?php include('nav.html'); ?>
+    <?php include('nav.html');
+    include('../include/estudiante/add_ficha.php')
+
+    ?>
 
     <header>
 
@@ -55,7 +43,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
         <div class="row">
             <div class="col-lg-12">
 
-                <button id="btnNuevo" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">library_add</i></button>
+                <button id="btnNuevo1" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">library_add</i></button>
             </div>
         </div>
     </div>
@@ -78,6 +66,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
                                 <th>Evaluacion</th>
                                 <th>Opciones</th>
 
+
                             </tr>
                         </thead>
                         <tbody>
@@ -94,10 +83,10 @@ if (!isset($_SESSION['id_rol_usu'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="formFichas">
+                <form id="formFichas" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-6">
@@ -110,6 +99,13 @@ if (!isset($_SESSION['id_rol_usu'])) {
                         </div>
 
 
+                        <div class="form-group" enctype="multipart/form-data">
+                            <label for="" class="col-form-label">Documento</label>
+                            <div class="col-lg-6">
+                                <input type="file" id="archivo" required>
+
+                            </div>
+                        </div>
 
 
 
@@ -124,7 +120,49 @@ if (!isset($_SESSION['id_rol_usu'])) {
             </form>
         </div>
     </div>
+    <div class="modal fade" id="modalCRUD1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Titulo</label>
+                                    <input type="text" class="form-control" name="titulo_ficha" required>
+                                </div>
+                            </div>
 
+                        </div>
+
+
+                        <div class="form-group" enctype="multipart/form-data">
+                            <label for="" class="col-form-label">Documento</label>
+                            <div class="col-lg-6">
+                                <input type="file" name="archivo" required>
+
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+
+                        <button input type="submit" name="add" id="btnGuardar" class="btn btn-dark">Guardar</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="../assets/jquery/jquery-3.3.1.min.js"></script>
@@ -134,7 +172,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
     <!-- datatables JS -->
     <script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
 
-    <script type="text/javascript" src="../include/estudiante/js/fichas.js"></script>
+    <script type="text/javascript" src="../include/estudiante/js/fichitas.js"></script>
 
 
 </body>
