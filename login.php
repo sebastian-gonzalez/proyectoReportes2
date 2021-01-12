@@ -49,12 +49,16 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 	if ($row == true) {
 		$id_s = $row[0];
 		$_SESSION['id_usuario'] = $id_s;
+
 		$nombre = $row[2];
 		$_SESSION['nombre_usu'] = $nombre;
-		$facultad = $row[7];
-		$_SESSION['id_programa_usu'] = $facultad;
+
 		$rol = $row[6];
 		$_SESSION['id_rol_usu'] = $rol;
+
+		$programa = $row[7];
+		$_SESSION['id_programa_usu'] = $programa;
+
 
 		switch ($rol) {
 

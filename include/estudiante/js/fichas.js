@@ -1,23 +1,21 @@
 $(document).ready(function () {
-  var id_usuario, opcion;
+  var id_ficha, opcion;
   opcion = 4;
 
-  tablaUsuarios = $("#tablaUsuarios").DataTable({
+  tablaFichas = $("#tablaFichas").DataTable({
     ajax: {
-      url: "../include/admin/crud_usuarios.php",
+      url: "../include/estudiante/crud_fichas.php",
       method: "POST", //usamos el metodo POST
       data: { opcion: opcion }, //enviamos opcion 4 para que haga un SELECT
       dataSrc: "",
     },
     columns: [
-      { data: "id_usuario" },
-      { data: "cedula_usu" },
-      { data: "nombre_usu" },
-      { data: "apellido_usu" },
-      { data: "correo_usu" },
-      { data: "contrasena_usu" },
-      { data: "nombre_rol" },
+      { data: "id_ficha" },
+      { data: "titulo_ficha" },
+      { data: "descripcion_ficha" },
       { data: "nombre_pro" },
+      { data: "nombre_estado" },
+      { data: "evaluacion_ficha" },
       {
         defaultContent:
           "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>",
@@ -27,33 +25,31 @@ $(document).ready(function () {
 
   var fila; //captura la fila, para editar o eliminar
   //submit para el Alta y Actualización
-  $("#formUsuarios").submit(function (e) {
+  $("#formFichas").submit(function (e) {
     e.preventDefault(); //evita el comportambiento normal del submit, es decir, recarga total de la página
 
-    cedula_usu = $.trim($("#cedula_usu").val());
-    nombre_usu = $.trim($("#nombre_usu").val());
-    apellido_usu = $.trim($("#apellido_usu").val());
-    correo_usu = $.trim($("#correo_usu").val());
-    contrasena_usu = $.trim($("#contrasena_usu").val());
-    id_rol_usu = $.trim($("#id_rol_usu").val());
-    id_programa_usu = $.trim($("#id_programa_usu").val());
+    titulo_ficha = $.trim($("#titulo_ficha").val());
+    descripcion_ficha = $.trim($("#descripcion_ficha").val());
+    id_programa_ficha = $.trim($("#id_programa_ficha").val());
+    id_estado_ficha = $.trim($("#id_estado_ficha").val());
+    evaluacion_ficha = $.trim($("#evaluacion_ficha").val());
+
     $.ajax({
-      url: "../include/admin/crud_usuarios.php",
+      url: "../include/estudiante/crud_fichas.php",
       type: "POST",
       datatype: "json",
       data: {
-        id_usuario: id_usuario,
-        cedula_usu: cedula_usu,
-        nombre_usu: nombre_usu,
-        apellido_usu: apellido_usu,
-        correo_usu: correo_usu,
-        contrasena_usu: contrasena_usu,
-        id_rol_usu: id_rol_usu,
-        id_programa_usu: id_programa_usu,
+        id_ficha: id_ficha,
+        titulo_ficha: titulo_ficha,
+        descripcion_ficha: descripcion_ficha,
+        id_programa_ficha: id_programa_ficha,
+        id_estado_ficha: id_estado_ficha,
+        evaluacion_ficha: evaluacion_ficha,
+
         opcion: opcion,
       },
       success: function (data) {
-        tablaUsuarios.ajax.reload(null, false);
+        tablaFichas.ajax.reload(null, false);
       },
     });
     $("#modalCRUD").modal("hide");
@@ -62,11 +58,11 @@ $(document).ready(function () {
   //para limpiar los campos antes de dar de Alta una Persona
   $("#btnNuevo").click(function () {
     opcion = 1; //alta
-    id_usuario = null;
-    $("#formUsuarios").trigger("reset");
-    $(".modal-header").css("background-color", "#17a2b8");
+    id_ficha = null;
+    $("#formFichas").trigger("reset");
+    $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
-    $(".modal-title").text("Alta de Usuario");
+    $(".modal-title").text("Agregar Ficha");
     $("#modalCRUD").modal("show");
   });
 
@@ -74,43 +70,41 @@ $(document).ready(function () {
   $(document).on("click", ".btnEditar", function () {
     opcion = 2; //editar
     fila = $(this).closest("tr");
-    id_usuario = parseInt(fila.find("td:eq(0)").text()); //capturo el ID
-    cedula_usu = fila.find("td:eq(1)").text();
-    nombre_usu = fila.find("td:eq(2)").text();
-    apellido_usu = fila.find("td:eq(3)").text();
-    correo_usu = fila.find("td:eq(4)").text();
-    contrasena_usu = fila.find("td:eq(5)").text();
-    id_rol_usu = fila.find("td:eq(6)").text();
-    id_programa_usu = fila.find("td:eq(7)").text();
-    $("#cedula_usu").val(cedula_usu);
-    $("#nombre_usu").val(nombre_usu);
-    $("#apellido_usu").val(apellido_usu);
-    $("#correo_usu").val(correo_usu);
-    $("#contrasena_usu").val(contrasena_usu);
-    $("#id_rol_usu").val(id_rol_usu);
-    $("#id_programa_usu").val(id_programa_usu);
-    $(".modal-header").css("background-color", "#007bff");
+    id_ficha = parseInt(fila.find("td:eq(0)").text()); //capturo el ID
+    titulo_ficha = fila.find("td:eq(1)").text();
+    descripcion_ficha = fila.find("td:eq(2)").text();
+    id_programa_ficha = fila.find("td:eq(3)").text();
+    id_estado_ficha = fila.find("td:eq(4)").text();
+    evaluacion_ficha = fila.find("td:eq(5)").text();
+
+    $("#titulo_ficha").val(titulo_ficha);
+    $("#descripcion_ficha").val(descripcion_ficha);
+    $("#id_programa_ficha").val(id_programa_ficha);
+    $("#id_estado_ficha").val(id_estado_ficha);
+    $("#evaluacion_ficha").val(evaluacion_ficha);
+
+    $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
-    $(".modal-title").text("Editar Usuario");
+    $(".modal-title").text("Editar Ficha");
     $("#modalCRUD").modal("show");
   });
 
   //Borrar
   $(document).on("click", ".btnBorrar", function () {
     fila = $(this);
-    id_usuario = parseInt($(this).closest("tr").find("td:eq(0)").text());
+    id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
     opcion = 3; //eliminar
     var respuesta = confirm(
-      "¿Está seguro de borrar el registro " + id_usuario + "?"
+      "¿Está seguro de borrar el registro " + id_ficha + "?"
     );
     if (respuesta) {
       $.ajax({
-        url: "../include/admin/crud_usuarios.php",
+        url: "../include/estudiante/crud_fichas.php",
         type: "POST",
         datatype: "json",
-        data: { opcion: opcion, id_usuario: id_usuario },
+        data: { opcion: opcion, id_ficha: id_ficha },
         success: function () {
-          tablaUsuarios.row(fila.parents("tr")).remove().draw();
+          tablaFichas.row(fila.parents("tr")).remove().draw();
         },
       });
     }

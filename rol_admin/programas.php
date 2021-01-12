@@ -37,6 +37,8 @@ if (!isset($_SESSION['id_rol_usu'])) {
     <link rel="stylesheet" type="text/css" href="../assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico" type="image/gif" />
+
 </head>
 
 <body>

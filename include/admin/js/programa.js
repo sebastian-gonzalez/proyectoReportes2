@@ -54,9 +54,9 @@ $(document).ready(function () {
     opcion = 1; //alta
     id_programa = null;
     $("#formProgramas").trigger("reset");
-    $(".modal-header").css("background-color", "#17a2b8");
+    $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
-    $(".modal-title").text("Alta de Usuario");
+    $(".modal-title").text("Agregar Programa");
     $("#modalCRUD").modal("show");
   });
 
@@ -72,9 +72,9 @@ $(document).ready(function () {
     $("#nombre_pro").val(nombre_pro);
     $("#titulo_pro").val(titulo_pro);
     $("#id_facultad_pro").val(id_facultad_pro);
-    $(".modal-header").css("background-color", "#007bff");
+    $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
-    $(".modal-title").text("Editar Usuario");
+    $(".modal-title").text("Editar Programa");
     $("#modalCRUD").modal("show");
   });
 

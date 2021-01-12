@@ -49,7 +49,7 @@ $(document).ready(function () {
     $("#formFacultades").trigger("reset");
     $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
-    $(".modal-title").text("Alta de Usuario");
+    $(".modal-title").text("Agregar Facultad");
     $("#modalCRUD").modal("show");
   });
 
@@ -63,7 +63,7 @@ $(document).ready(function () {
     $("#nombre_facultad").val(nombre_facultad);
     $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
-    $(".modal-title").text("Editar Usuario");
+    $(".modal-title").text("Editar Facultad");
     $("#modalCRUD").modal("show");
   });
 

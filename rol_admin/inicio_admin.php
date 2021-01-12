@@ -25,11 +25,12 @@ include("../include/conexion.php");
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Administrador</title>
+	<title>Información Administrador</title>
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../assets/mainTable.css">
+	<link rel="icon" href="images/favicon.ico" type="image/gif" />
 
 
 
@@ -45,7 +46,7 @@ include("../include/conexion.php");
 			<h2>Info Admin</h2>
 
 			<section>
-				<h1>Bienvenido <?php echo $_SESSION['nombre_usu']; ?></h1>
+				<h1>Bienvenido(a) <?php echo $_SESSION['nombre_usu']; ?></h1>
 			</section>
 			<hr />
 

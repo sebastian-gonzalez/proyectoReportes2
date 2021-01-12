@@ -28,35 +28,32 @@ include("../include/conexion.php");
 	<title>Estudiante</title>
 
 	<!-- Bootstrap -->
-	<link href="../css/bootstrap1.min.css" rel="stylesheet">
-	<link href="../css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/mainTable.css">
+	<link rel="icon" href="images/favicon.ico" type="image/gif" />
 
-	<style>
-		.content {
-			margin-top: 80px;
-		}
-	</style>
+
 
 </head>
 
 <body>
-
-	<?php include('nav.php'); ?>
+	<?php include('nav.html'); ?>
 
 	<div class="container">
 		<div class="content">
-
-			<h2>Info estudiante</h2>
+			<br></br>
+			<br></br>
+			<h2>Información Estudiante</h2>
 
 			<section>
-				<h1>Bienvenido <?php echo $_SESSION['nombre_usu']; ?></h1>
+				<h1>Bienvenido(a) <?php echo $_SESSION['nombre_usu']; ?></h1>
 			</section>
 			<hr />
+
 			<center>
-				<p>&copy; Sistemas Web <?php echo date("Y"); ?></p </center>
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-				</script>
-				<script src="../js/bootstrap.min.js"></script>
+				<img src="../images/uniajc.png" width="50%">
+			</center>
+
 </body>
 
 </html>

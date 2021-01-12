@@ -41,6 +41,7 @@ switch ($opcion) {
         $consulta = "DELETE FROM usuarios WHERE id_usuario='$id_usuario' ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 4:
         $consulta = "SELECT * FROM usuarios INNER JOIN rol_usu INNER JOIN programa WHERE id_rol_usu=id_rol AND  id_programa_usu=id_programa";

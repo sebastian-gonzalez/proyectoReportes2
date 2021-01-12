@@ -117,12 +117,6 @@ Email	 	 : info@obedalvarado.pw
 					}
 				}
 
-
-
-
-
-
-
 				if ($insert) {
 
 					echo '<script type="text/javascript">
@@ -144,7 +138,6 @@ Email	 	 : info@obedalvarado.pw
 						<input type="text" name="titulo" class="form-control" placeholder="Titulo" required>
 					</div>
 				</div>
-
 
 
 				<div class="form-group">
@@ -183,9 +176,6 @@ Email	 	 : info@obedalvarado.pw
 						</select>
 					</div>
 				</div>
-
-
-
 
 
 				<div class="form-group">

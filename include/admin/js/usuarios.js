@@ -66,7 +66,7 @@ $(document).ready(function () {
     $("#formUsuarios").trigger("reset");
     $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
-    $(".modal-title").text("Alta de Usuario");
+    $(".modal-title").text("Agregar Usuario");
     $("#modalCRUD").modal("show");
   });
 

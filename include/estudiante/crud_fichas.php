@@ -1,49 +1,114 @@
 <?php
+
+session_start();
+
+if (!isset($_SESSION['id_rol_usu'])) {
+    header('location: ../login.php');
+} else {
+    if ($_SESSION['id_rol_usu'] != 4) {
+        header('location: ../login.php');
+    }
+}
+
+?>
+<?php
 include_once '../../include/database.php';
 $objeto = new Database();
 $conexion = $objeto->connect();
 
-$Cedula = (isset($_POST['cedula_usu'])) ? $_POST['cedula_usu'] : '';
-$Nombre = (isset($_POST['nombre_usu'])) ? $_POST['nombre_usu'] : '';
-$Apellido = (isset($_POST['apellido_usu'])) ? $_POST['apellido_usu'] : '';
-$Correo    = (isset($_POST['correo_usu'])) ? $_POST['correo_usu'] : '';
-$Contrasena    = (isset($_POST['contrasena_usu'])) ? $_POST['contrasena_usu'] : '';
-$Rol_id    = (isset($_POST['id_rol_usu'])) ? $_POST['id_rol_usu'] : '';
-$Programa_id    = (isset($_POST['id_programa_usu'])) ? $_POST['id_programa_usu'] : '';
+//TABLA FICHA//
 
-$id_usuario = (isset($_POST['id_usuario'])) ? $_POST['id_usuario'] : '';
+$id_ficha = (isset($_POST['id_ficha'])) ? $_POST['id_ficha'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
+
+$Titulo = (isset($_POST['titulo_ficha'])) ? $_POST['titulo_ficha'] : '';
+$Descripcion = 'Proyecto de Grado';
+
+$Programa = $_SESSION['id_programa_usu'];
+
+$Estado = 1;
+
+//TABLA LISTA_FICHA//
+
+$id_lista_usuario = $_SESSION['id_usuario'];
+
+$id_lista_ficha = $id_ficha;
+$id_rol_ficha = 1;
+
+
+
+
+
 
 switch ($opcion) {
     case 1:
-        $consulta = "INSERT INTO usuarios (cedula_usu,nombre_usu,apellido_usu,correo_usu,contrasena_usu,id_rol_usu,id_programa_usu)
-        VALUES('$Cedula','$Nombre', '$Apellido','$Correo','$Contrasena', '$Rol_id', '$Programa_id')";
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
+        $consulta = "INSERT INTO ficha (titulo_ficha,descripcion_ficha,id_programa_ficha,id_estado_ficha)
+        VALUES('$Titulo','$Descripcion', '$Programa','$Estado') ";
 
-        $consulta = "SELECT * FROM usuarios ORDER BY id_usuario DESC LIMIT 1";
+        $id_lista_ficha = $id_ficha;
+
+        $resultado = $conexion->prepare($consulta);
+        $validacion_id = $resultado->execute();
+
+        //if evta problemas con la el PK autoincrement y obliga  que la primera consulta sea verdadera para proceder
+        if ($validacion_id = true) {
+            $id_insert  = $conexion->lastInsertId();
+        } else {
+            //Pueden haber errores, como clave duplicada
+            $id_insert = 0;
+            echo "no se ejecuto la primera consulta ";
+        }
+
+        //segunda consulta 
+        $consulta1 = "INSERT INTO lista_ficha (id_lista_usuario,id_lista_ficha,id_rol_ficha)
+         VALUES('$id_lista_usuario','$id_insert ', '$id_rol_ficha') ";
+
+        $resultado1 = $conexion->prepare($consulta1);
+        $resultado1->execute();
+
+        $consulta = "SELECT * FROM ficha ORDER BY id_ficha DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2:
-        $consulta = "UPDATE usuarios  SET cedula_usu='$Cedula',nombre_usu='$Nombre', apellido_usu='$Apellido', correo_usu='$Correo', contrasena_usu='$Contrasena', id_rol_usu='$Rol_id', id_programa_usu='$Programa_id' WHERE id_usuario='$id_usuario'";
+        $consulta = "UPDATE ficha  SET titulo_ficha='$Titulo',descripcion_ficha='$Descripcion', id_programa_ficha='$Programa', id_estado_ficha='$Estado' WHERE id_ficha='$id_ficha'";
 
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
+        $validacion_id = $resultado->execute();
 
-        $consulta = "SELECT * FROM usuarios WHERE id_usuario='$id_usuario' ";
+        //if evta problemas con la el PK autoincrement y obliga  que la primera consulta sea verdadera para proceder
+        if ($validacion_id = true) {
+            $id_insert  = $conexion->lastInsertId();
+        } else {
+            //Pueden haber errores, como clave duplicada
+            $id_insert = 0;
+            echo "no se ejecuto la primera consulta ";
+        }
+
+
+        $consulta1 = "UPDATE lista_ficha  SET id_lista_usuario='$id_lista_usuario',id_lista_ficha='$id_lista_ficha', id_rol_ficha='$id_rol_ficha'";
+        $resultado1 = $conexion->prepare($consulta1);
+        $resultado1->execute();
+
+
+
+        $consulta = "SELECT * FROM ficha WHERE id_ficha='$id_ficha' ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 3:
-        $consulta = "DELETE FROM usuarios WHERE id_usuario='$id_usuario' ";
+        $consulta = "DELETE FROM lista_ficha WHERE id_lista_ficha='$id_ficha' ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
+        $consulta1 = "DELETE FROM ficha WHERE id_ficha='$id_ficha' ";
+        $resultado1 = $conexion->prepare($consulta1);
+        $resultado1->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 4:
-        $consulta = "SELECT * FROM usuarios INNER JOIN rol_usu INNER JOIN programa WHERE id_rol_usu=id_rol AND  id_programa_usu=id_programa";
+        $consulta = "SELECT * FROM ficha INNER JOIN programa INNER JOIN estado WHERE id_programa_ficha=id_programa AND id_estado_ficha=id_estado";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
