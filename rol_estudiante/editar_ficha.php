@@ -204,7 +204,7 @@ include("../include/conexion.php");
 					<div class="col-sm-4">
 						<input type="file" name="archivo" required>
 						<?php
-						$id = $nik;
+
 						$path = "../pdf/" . $id;
 						if (file_exists($path)) {
 							$directorio = opendir($path);

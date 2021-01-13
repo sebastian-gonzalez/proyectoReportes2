@@ -172,7 +172,7 @@
     <!-- datatables JS -->
     <script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
 
-    <script type="text/javascript" src="../include/estudiante/js/fichitas.js"></script>
+    <script type="text/javascript" src="../include/estudiante/js/ficha_respaldo.js"></script>
 
 
 </body>

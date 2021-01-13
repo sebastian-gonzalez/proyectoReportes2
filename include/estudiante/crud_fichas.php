@@ -37,7 +37,6 @@ $id_rol_ficha = 1;
 
 
 
-
 switch ($opcion) {
     case 1:
 
@@ -133,6 +132,23 @@ switch ($opcion) {
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 3:
+
+        eliminarAR("pdf/$id_ficha");
+
+        function eliminarAR($carpeta)
+        {
+            foreach (glob($carpeta . "/*") as $archivo_carpeta) {
+                if (is_dir($archivo_carpeta)) {
+                    eliminarAR($archivo_carpeta);
+                } else {
+                    unlink($archivo_carpeta);
+                }
+            }
+            rmdir($carpeta);
+        }
+
+
+
         $consulta = "DELETE FROM lista_ficha WHERE id_lista_ficha='$id_ficha' ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
@@ -140,7 +156,11 @@ switch ($opcion) {
         $resultado1 = $conexion->prepare($consulta1);
         $resultado1->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
         break;
+
+
+
     case 4:
         $consulta = "SELECT * FROM ficha INNER JOIN programa INNER JOIN estado WHERE id_programa_ficha=id_programa AND id_estado_ficha=id_estado";
         $resultado = $conexion->prepare($consulta);
