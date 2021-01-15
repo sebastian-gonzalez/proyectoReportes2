@@ -60,25 +60,24 @@ include('../include/estudiante/add_ficha.php')
                 <button id="btnNuevo1" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">library_add</i></button>
 
 
-                <?php 
 
-$consulta_validacion = "SELECT COUNT(*) FROM ficha";
-$resultado_vali = $conexion->prepare($consulta_validacion);
-$data_vali = $resultado_vali->execute();
+                <?php
 
+                $consulta_validacion = "SELECT COUNT(*) FROM ficha";
+                $resultado_vali = $conexion->prepare($consulta_validacion);
+                $data_vali = $resultado_vali->execute();
 
-if ($resultado_vali->fetchColumn() > 0) {
+                if ($resultado_vali->fetchColumn() > 0) {
 
-    echo ' <button id="btnParticipantes" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons" >person_add</i></button>';
-    
+                    echo ' <button id="btnParticipantes" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons" >group_add</i></button>';
 
-}else{
-    echo ' ';
+                    echo ' <button id="btnDirector" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons" >person_pin</i></button>';
+                } else {
+                    echo ' ';
+                }
 
-}
+                ?>
 
-?>
-          
 
 
             </div>
@@ -99,6 +98,7 @@ if ($resultado_vali->fetchColumn() > 0) {
                                 <th>Titulo</th>
                                 <th>Descripcion</th>
                                 <th>Programa</th>
+                                <th>Compañeros</th>
                                 <th>Estado</th>
                                 <th>Evaluacion</th>
                                 <th>Creacion</th>
@@ -160,6 +160,7 @@ if ($resultado_vali->fetchColumn() > 0) {
             </form>
         </div>
     </div>
+
     <div class="modal fade" id="modalCRUD1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -205,14 +206,11 @@ if ($resultado_vali->fetchColumn() > 0) {
     </div>
 
 
-
+    <?php
+    include("../include/conexion.php");
+    include("../include/estudiante/add_compañero.php");
+    ?>
     <div class="modal fade" id="modalParticipantes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <?php
-        include("../include/conexion.php");
-
-        include("../include/estudiante/add_compañero.php");
-
-        ?>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -245,8 +243,31 @@ if ($resultado_vali->fetchColumn() > 0) {
 
                                 </div>
                             </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+
+                        <button input type="submit" name="add_participante" class="btn btn-dark">Guardar</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
 
 
+    <div class="modal fade" id="modalDirector" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
                             <div class="col-lg-7">
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Director</label>
@@ -269,12 +290,49 @@ if ($resultado_vali->fetchColumn() > 0) {
 
                         </div>
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+
+                        <button input type="submit" name="add_participante" class="btn btn-dark">Guardar</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
 
 
 
 
 
 
+
+
+
+
+    <div class="modal fade" id="modal_Mostrar_P" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <?php
+
+                            $id_lis_fi = $_SESSION['id_lista_ficha'];
+                            $sql = mysqli_query($con, "SELECT * FROM lista_ficha  INNER JOIN usuarios WHERE id_lista_ficha = $id_lis_fi");
+
+                            while ($valores = mysqli_fetch_array($sql)) {
+                                echo $valores['nombre_usu'];
+                            }
+                            ?>
+
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>

@@ -14,6 +14,10 @@ $(document).ready(function () {
         { data: "titulo_ficha" },
         { data: "descripcion_ficha" },
         { data: "nombre_pro" },
+        {
+          defaultContent:
+            "<div class='text-center'><div class='btn-group'><button  id ='btnMostrar_P 'class='btn btn-primary btn-sm btnMostrar_P'><i class='material-icons'>groups</i></button></div></div>",
+        },
         { data: "nombre_estado" },
         { data: "evaluacion_ficha" },
         { data: "fecha_ficha" },
@@ -88,6 +92,24 @@ $(document).ready(function () {
       $(".modal-title").text("Agregar Participantes");
       $("#modalParticipantes").modal("show");
     });
+
+    $("#btnDirector").click(function () {
+      opcion = 1; //alta
+      id_ficha = null;
+      $("#formFichas").trigger("reset");
+      $(".modal-header").css("background-color", "#0050a0");
+      $(".modal-header").css("color", "white");
+      $(".modal-title").text("Agregar Director");
+      $("#modalDirector").modal("show");
+    });
+    
+    $("#btnMostrar_P").click(function () {
+      $(".modal-header").css("background-color", "#0050a0");
+      $(".modal-header").css("color", "white");
+      $(".modal-title").text("Participantes");
+      $("#modal_Mostrar_P").modal("show");
+    });
+    
   
     //Editar
     $(document).on("click", ".btnEditar", function () {
