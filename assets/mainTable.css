@@ -11,3 +11,9 @@ table.dataTable thead {
   padding: 5px;
   border-radius: 10px;
 }
+
+.table_modal{
+display: flex;
+  justify-content: center;
+  align-items: center;
+}

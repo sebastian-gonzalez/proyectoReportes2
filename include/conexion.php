@@ -1,12 +1,11 @@
 <?php
-/*Datos de conexion a la base de datos*/
-$db_host = "localhost";
-$db_user = "root";
-$db_pass = "";
-$db_name = "db_proyecto";
-
-$con = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-
+/* Database connection start */
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "db_proyecto";
+$con = mysqli_connect($servername, $username, $password, $dbname) or die("Connection failed: " . mysqli_connect_error());
 if (mysqli_connect_errno()) {
-	echo 'No se pudo conectar a la base de datos : ' . mysqli_connect_error();
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
 }

@@ -54,31 +54,24 @@ include('../include/estudiante/add_ficha.php')
         <div class="row">
             <div class="col-lg-12">
 
-
-
-
                 <button id="btnNuevo1" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">library_add</i></button>
 
 
 
                 <?php
-
                 $consulta_validacion = "SELECT COUNT(*) FROM ficha";
                 $resultado_vali = $conexion->prepare($consulta_validacion);
                 $data_vali = $resultado_vali->execute();
-
                 if ($resultado_vali->fetchColumn() > 0) {
-
                     echo ' <button id="btnParticipantes" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons" >group_add</i></button>';
-
-                    echo ' <button id="btnDirector" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons" >person_pin</i></button>';
                 } else {
                     echo ' ';
                 }
-
                 ?>
 
 
+
+                <button id="btnMostrar_P" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">groups</i></button>
 
             </div>
         </div>
@@ -92,19 +85,14 @@ include('../include/estudiante/add_ficha.php')
                     <table id="tablaFichas" class=" table table-striped table-bordered table-condensed" style="width:100%">
                         <thead class="text-center">
                             <tr>
-
-
                                 <th>id_ficha</th>
                                 <th>Titulo</th>
                                 <th>Descripcion</th>
                                 <th>Programa</th>
-                                <th>Compañeros</th>
                                 <th>Estado</th>
                                 <th>Evaluacion</th>
                                 <th>Creacion</th>
                                 <th>Opciones</th>
-
-
                             </tr>
                         </thead>
                         <tbody>
@@ -243,31 +231,8 @@ include('../include/estudiante/add_ficha.php')
 
                                 </div>
                             </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-
-                        <button input type="submit" name="add_participante" class="btn btn-dark">Guardar</button>
-                    </div>
-            </div>
-            </form>
-        </div>
-    </div>
 
 
-    <div class="modal fade" id="modalDirector" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="row">
                             <div class="col-lg-7">
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Director</label>
@@ -289,7 +254,6 @@ include('../include/estudiante/add_ficha.php')
                             </div>
 
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
@@ -300,14 +264,6 @@ include('../include/estudiante/add_ficha.php')
             </form>
         </div>
     </div>
-
-
-
-
-
-
-
-
 
 
     <div class="modal fade" id="modal_Mostrar_P" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -321,23 +277,47 @@ include('../include/estudiante/add_ficha.php')
                 <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
+                            <div class= 'table_modal'>
+                                <table class="table">
+                                    <thead>
 
-                            <?php
+                                        <tr>
+                                            <th scope="col">Nombre </th>
+                                            <th scope="col"> Apellido </th>
+                                            <th scope="col"> Rol </th>
+                                        </tr>
+                                    </thead>
 
-                            $id_lis_fi = $_SESSION['id_lista_ficha'];
-                            $sql = mysqli_query($con, "SELECT * FROM lista_ficha  INNER JOIN usuarios WHERE id_lista_ficha = $id_lis_fi");
 
-                            while ($valores = mysqli_fetch_array($sql)) {
-                                echo $valores['nombre_usu'];
-                            }
-                            ?>
+                                    <br></br>
+
+                                    <?php
+
+                                    $sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha ORDER BY id_rol_ficha");
+                                    if (mysqli_num_rows($sql) == 0) {
+                                        echo 'no hay datos';
+                                    } else {
+
+                                        while ($valores = mysqli_fetch_assoc($sql)) {
+                                            echo '
+                                            <tbody>
+                                    <tr>    
+                                    <td>' . $valores['nombre_usu'] . '</td>
+                                    <td>' . $valores['apellido_usu'] . '</td>
+                                    <td>' . $valores['nombre_rol_ficha'] . '</td>
+                                    </tr>';
+                                        }
+                                    }
+
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-
-                        <button input type="submit" name="add_participante" class="btn btn-dark">Guardar</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Regresar</button>
                     </div>
             </div>
             </form>
