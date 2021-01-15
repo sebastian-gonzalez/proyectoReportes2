@@ -1,4 +1,14 @@
-<?php include("../include/conexion.php"); ?>
+<?php
+include('../include/estudiante/add_ficha.php')
+
+
+
+
+?>
+
+
+
+
 
 <!doctype html>
 <html lang="en">
@@ -28,9 +38,10 @@
 
 <body>
     <?php include('nav.html');
-    include('../include/estudiante/add_ficha.php')
+
 
     ?>
+
 
     <header>
 
@@ -43,7 +54,11 @@
         <div class="row">
             <div class="col-lg-12">
 
+
+          
+
                 <button id="btnNuevo1" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">library_add</i></button>
+                <button id="btnParticipantes" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">person_add</i></button>
             </div>
         </div>
     </div>
@@ -64,6 +79,7 @@
                                 <th>Programa</th>
                                 <th>Estado</th>
                                 <th>Evaluacion</th>
+                                <th>Creacion</th>
                                 <th>Opciones</th>
 
 
@@ -113,6 +129,8 @@
 
                     </div>
                     <div class="modal-footer">
+
+                    
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                         <button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
                     </div>
@@ -164,6 +182,87 @@
         </div>
     </div>
 
+
+
+    <div class="modal fade" id="modalParticipantes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <?php
+        include("../include/conexion.php");
+
+        include("../include/estudiante/add_compañero.php");
+
+        ?>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Compañero </label>
+
+                                    <select name="id_lista_usuario" id ="id_lista_usuario" class="form-control" required>
+                                        <?php
+
+                                        $programa = $_SESSION['id_programa_usu'];
+                                        $user = $_SESSION['id_usuario'];
+                                        $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =4 AND id_usuario != $user");
+                                        echo '	<option disabled selected value="">Seleccione su Compañero</option>';
+
+                                        while ($valores = mysqli_fetch_array($sql)) {
+
+                                            echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre_usu"] . " " . $valores["apellido_usu"] . '</option>';
+                                            '</option>';
+                                        }
+                                        ?>
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Director</label>
+
+                                    <select name="id_lista_usuario_director" id="id_lista_usuario_director" class="form-control" required>
+                                        <?php
+                                        $programa = $_SESSION['id_programa_usu'];
+                                        
+                                        $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 ");
+                                        echo '	<option disabled selected value="">Seleccione su director</option>';
+
+                                        while ($valores = mysqli_fetch_array($sql)) {
+
+                                            echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre_usu"] . " " . $valores["apellido_usu"] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+
+                        <button input type="submit" name="add_participante" class="btn btn-dark">Guardar</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="../assets/jquery/jquery-3.3.1.min.js"></script>
     <script src="../assets/popper/popper.min.js"></script>
@@ -172,7 +271,7 @@
     <!-- datatables JS -->
     <script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
 
-    <script type="text/javascript" src="../include/estudiante/js/ficha_respaldo.js"></script>
+    <script type="text/javascript" src="../include/estudiante/js/ficha.js"></script>
 
 
 </body>

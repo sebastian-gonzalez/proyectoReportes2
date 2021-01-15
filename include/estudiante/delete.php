@@ -54,8 +54,6 @@ $resultado->execute();
 $consulta1 = "DELETE FROM ficha WHERE id_ficha='$id_ficha' ";
 $resultado1 = $conexion->prepare($consulta1);
 $resultado1->execute();
-$data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //envio el array final el formato json a AJAX
 $conexion = null;

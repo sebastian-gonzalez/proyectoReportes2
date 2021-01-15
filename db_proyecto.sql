@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-01-2021 a las 05:46:00
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.11
+-- Tiempo de generación: 14-01-2021 a las 19:19:17
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,8 +29,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `estado` (
   `id_estado` int(11) NOT NULL,
-  `nombre_estado` varchar(30) DEFAULT NULL
+  `nombre_estado` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`id_estado`, `nombre_estado`) VALUES
+(1, 'En revision'),
+(2, 'En corrección '),
+(3, 'En evaluación '),
+(4, 'Aprobado');
 
 -- --------------------------------------------------------
 
@@ -67,6 +77,14 @@ CREATE TABLE `ficha` (
   `evaluacion_ficha` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `ficha`
+--
+
+INSERT INTO `ficha` (`id_ficha`, `titulo_ficha`, `descripcion_ficha`, `id_programa_ficha`, `id_estado_ficha`, `evaluacion_ficha`) VALUES
+(12, 'KKKKKKK1', 'Proyecto de Grado', 1, 1, NULL),
+(13, 'Hola', 'Proyecto de Grado', 1, 1, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -79,6 +97,14 @@ CREATE TABLE `lista_ficha` (
   `id_lista_ficha` int(11) DEFAULT NULL,
   `id_rol_ficha` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `lista_ficha`
+--
+
+INSERT INTO `lista_ficha` (`id_lista`, `id_lista_usuario`, `id_lista_ficha`, `id_rol_ficha`) VALUES
+(10, 10, 12, 1),
+(11, 10, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -110,8 +136,18 @@ INSERT INTO `programa` (`id_programa`, `nombre_pro`, `titulo_pro`, `id_facultad_
 
 CREATE TABLE `rol_lista` (
   `id_rol_ficha` int(11) NOT NULL,
-  `nombre_rol_ficha` varchar(30) DEFAULT NULL
+  `nombre_rol_ficha` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `rol_lista`
+--
+
+INSERT INTO `rol_lista` (`id_rol_ficha`, `nombre_rol_ficha`) VALUES
+(1, 'Estudiante'),
+(2, 'Docente'),
+(3, 'Evaluador'),
+(4, 'Jurado');
 
 -- --------------------------------------------------------
 
@@ -157,7 +193,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `cedula_usu`, `nombre_usu`, `apellido_usu`, `correo_usu`, `contrasena_usu`, `id_rol_usu`, `id_programa_usu`) VALUES
 (1, 123456789, 'Jorge Mario', 'Garcias', 'j-mario9715@hotmail.com', '1234', 1, 1),
-(10, 12345679, 'Stiven', 'Gil', 'stiven@hotmail.com', '1234', 2, 1);
+(10, 12345679, 'Stiven', 'Gil', 'stiven@hotmail.com', '1234', 4, 1);
 
 --
 -- Índices para tablas volcadas
@@ -227,7 +263,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `facultad`
@@ -239,13 +275,13 @@ ALTER TABLE `facultad`
 -- AUTO_INCREMENT de la tabla `ficha`
 --
 ALTER TABLE `ficha`
-  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `lista_ficha`
 --
 ALTER TABLE `lista_ficha`
-  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `programa`
@@ -257,7 +293,7 @@ ALTER TABLE `programa`
 -- AUTO_INCREMENT de la tabla `rol_lista`
 --
 ALTER TABLE `rol_lista`
-  MODIFY `id_rol_ficha` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rol_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `rol_usu`
