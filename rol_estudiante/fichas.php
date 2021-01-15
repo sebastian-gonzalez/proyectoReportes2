@@ -55,10 +55,32 @@ include('../include/estudiante/add_ficha.php')
             <div class="col-lg-12">
 
 
-          
+
 
                 <button id="btnNuevo1" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">library_add</i></button>
-                <button id="btnParticipantes" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">person_add</i></button>
+
+
+                <?php 
+
+$consulta_validacion = "SELECT COUNT(*) FROM ficha";
+$resultado_vali = $conexion->prepare($consulta_validacion);
+$data_vali = $resultado_vali->execute();
+
+
+if ($resultado_vali->fetchColumn() > 0) {
+
+    echo ' <button id="btnParticipantes" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons" >person_add</i></button>';
+    
+
+}else{
+    echo ' ';
+
+}
+
+?>
+          
+
+
             </div>
         </div>
     </div>
@@ -130,7 +152,7 @@ include('../include/estudiante/add_ficha.php')
                     </div>
                     <div class="modal-footer">
 
-                    
+
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                         <button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
                     </div>
@@ -205,7 +227,7 @@ include('../include/estudiante/add_ficha.php')
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Compañero </label>
 
-                                    <select name="id_lista_usuario" id ="id_lista_usuario" class="form-control" required>
+                                    <select name="id_lista_usuario" id="id_lista_usuario" class="form-control" required>
                                         <?php
 
                                         $programa = $_SESSION['id_programa_usu'];
@@ -232,7 +254,7 @@ include('../include/estudiante/add_ficha.php')
                                     <select name="id_lista_usuario_director" id="id_lista_usuario_director" class="form-control" required>
                                         <?php
                                         $programa = $_SESSION['id_programa_usu'];
-                                        
+
                                         $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 ");
                                         echo '	<option disabled selected value="">Seleccione su director</option>';
 

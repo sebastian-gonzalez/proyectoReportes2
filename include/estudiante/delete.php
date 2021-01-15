@@ -57,3 +57,4 @@ $resultado1->execute();
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //envio el array final el formato json a AJAX
 $conexion = null;
+

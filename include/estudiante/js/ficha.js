@@ -129,6 +129,7 @@ $(document).ready(function () {
           data: { opcion: opcion, id_ficha: id_ficha },
           success: function () {
             tablaFichas.row(fila.parents("tr")).remove().draw();
+            location.href="fichas.php";
           },
         });
       }
