@@ -77,6 +77,7 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 				break;
 				//estudiante
 			case 4:
+				
 				header('location: rol_estudiante/inicio_estudiante.php');
 				break;
 

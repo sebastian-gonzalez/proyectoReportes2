@@ -19,7 +19,7 @@ $(document).ready(function () {
         { data: "fecha_ficha" },
         {
           defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>",
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Editar'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar' tooltip-dir='top' title='Borrar'><i class='material-icons'>delete</i></button></div></div>",
         },
       ],
     });
@@ -89,6 +89,16 @@ $(document).ready(function () {
       $("#modalParticipantes").modal("show");
     });
 
+    $("#btnDirector").click(function () {
+      opcion = 1; //alta
+      id_ficha = null;
+      $("#formFichas").trigger("reset");
+      $(".modal-header").css("background-color", "#0050a0");
+      $(".modal-header").css("color", "white");
+      $(".modal-title").text("Agregar Director");
+      $("#modalDirector").modal("show");
+    });
+
     $("#btnMostrar_P").click(function () {
       opcion = 1; //alta
       id_ficha = null;
@@ -99,6 +109,15 @@ $(document).ready(function () {
     });
     
   
+
+    
+//TEXTO FLOTANTE BOTON
+document.addEventListener('DOMContentLoaded', function() {
+  let button = document.getElementById('btnParticipantes');
+  button.setAttribute('tooltip-dir', top);
+});
+
+
     //Editar
     $(document).on("click", ".btnEditar", function () {
       opcion = 2; //editar

@@ -28,32 +28,34 @@ if ($row_ficha == true) {
 
 
 <?php
-if (isset($_POST['add_participante'])) {
+if (isset($_POST['add_director'])) {
 
-     $id_lista_usuario = (isset($_POST['id_lista_usuario'])) ? $_POST['id_lista_usuario'] : '';
+     
+          $id_lista_usuario_director = (isset($_POST['id_lista_usuario_director'])) ? $_POST['id_lista_usuario_director'] : '';
 
-     $consulta_validacion = "SELECT COUNT(*) FROM lista_ficha WHERE id_lista_usuario=$id_lista_usuario";
-     $resultado_vali = $conexion->prepare($consulta_validacion);
-     $data_vali = $resultado_vali->execute();
+          $consulta_validacion = "SELECT COUNT(*) FROM lista_ficha WHERE id_lista_usuario=$id_lista_usuario_director";
+          $resultado_vali = $conexion->prepare($consulta_validacion);
+          $data_vali = $resultado_vali->execute();
 
-     if ($resultado_vali->fetchColumn() > 0) {
-          echo '<script language="javascript">alert("El estudiante ya posee ese compañero");
-     location.href="fichas.php";</script>';
-     } else {
+          if ($resultado_vali->fetchColumn() > 0) {
+               echo '<script language="javascript">alert("El estudiante ya posee ese director");
+          location.href="fichas.php";</script>';
+          } else {
 
-               //asignar companero
-               $id_lista_usuario = (isset($_POST['id_lista_usuario'])) ? $_POST['id_lista_usuario'] : '';
+               //asignar director
+
+               $id_lista_usuario2 = (isset($_POST['id_lista_usuario_director'])) ? $_POST['id_lista_usuario_director'] : '';
                $id_lista_ficha = $_SESSION['id_lista_ficha'];
-               $id_rol_ficha = 1;
+               $id_rol_ficha = 2;
+
 
                $consulta_participante = "INSERT INTO lista_ficha (id_lista_usuario,id_lista_ficha,id_rol_ficha)
-         VALUES('$id_lista_usuario','$id_lista_ficha', '$id_rol_ficha') ";
+         VALUES('$id_lista_usuario2','$id_lista_ficha', '$id_rol_ficha') ";
 
                $resultado_participante = $conexion->prepare($consulta_participante);
                $resultado_participante->execute();
                echo '<script language="javascript">alert("exito");
                location.href="fichas.php";</script>';
-               
           }
      }
 

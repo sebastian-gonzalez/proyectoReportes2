@@ -103,7 +103,12 @@ switch ($opcion) {
 
 
     case 4:
-        $consulta = "SELECT * FROM ficha INNER JOIN programa INNER JOIN estado WHERE id_programa_ficha=id_programa AND id_estado_ficha=id_estado";
+
+
+        $id_ficha_vali = $_SESSION['id_lista_ficha'];
+
+        $consulta = "SELECT * FROM ficha INNER JOIN programa INNER JOIN estado INNER JOIN lista_ficha ON ficha.id_programa_ficha = programa.id_programa AND ficha.id_estado_ficha = estado.id_estado AND ficha.id_ficha=$id_ficha_vali LIMIT 1";
+
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

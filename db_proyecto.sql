@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-01-2021 a las 19:19:17
+-- Tiempo de generación: 16-01-2021 a las 00:16:36
 -- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.0
+-- Versión de PHP: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,20 +70,21 @@ INSERT INTO `facultad` (`id_facultad`, `nombre_facultad`) VALUES
 
 CREATE TABLE `ficha` (
   `id_ficha` int(11) NOT NULL,
-  `titulo_ficha` varchar(50) DEFAULT NULL,
-  `descripcion_ficha` varchar(50) DEFAULT NULL,
-  `id_programa_ficha` int(11) DEFAULT NULL,
-  `id_estado_ficha` int(11) DEFAULT NULL,
-  `evaluacion_ficha` varchar(30) DEFAULT NULL
+  `titulo_ficha` varchar(50) NOT NULL,
+  `descripcion_ficha` varchar(50) NOT NULL,
+  `id_programa_ficha` int(11) NOT NULL,
+  `id_estado_ficha` int(11) NOT NULL,
+  `evaluacion_ficha` varchar(30) DEFAULT NULL,
+  `fecha_ficha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `ficha`
 --
 
-INSERT INTO `ficha` (`id_ficha`, `titulo_ficha`, `descripcion_ficha`, `id_programa_ficha`, `id_estado_ficha`, `evaluacion_ficha`) VALUES
-(12, 'KKKKKKK1', 'Proyecto de Grado', 1, 1, NULL),
-(13, 'Hola', 'Proyecto de Grado', 1, 1, NULL);
+INSERT INTO `ficha` (`id_ficha`, `titulo_ficha`, `descripcion_ficha`, `id_programa_ficha`, `id_estado_ficha`, `evaluacion_ficha`, `fecha_ficha`) VALUES
+(2, 'Hola', 'Proyecto de Grado', 1, 1, NULL, '2021-01-15 21:50:14'),
+(3, 'marka', 'Proyecto de Grado', 3, 1, NULL, '2021-01-15 21:51:02');
 
 -- --------------------------------------------------------
 
@@ -93,9 +94,9 @@ INSERT INTO `ficha` (`id_ficha`, `titulo_ficha`, `descripcion_ficha`, `id_progra
 
 CREATE TABLE `lista_ficha` (
   `id_lista` int(11) NOT NULL,
-  `id_lista_usuario` int(11) DEFAULT NULL,
-  `id_lista_ficha` int(11) DEFAULT NULL,
-  `id_rol_ficha` int(11) DEFAULT NULL
+  `id_lista_usuario` int(11) NOT NULL,
+  `id_lista_ficha` int(11) NOT NULL,
+  `id_rol_ficha` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -103,8 +104,9 @@ CREATE TABLE `lista_ficha` (
 --
 
 INSERT INTO `lista_ficha` (`id_lista`, `id_lista_usuario`, `id_lista_ficha`, `id_rol_ficha`) VALUES
-(10, 10, 12, 1),
-(11, 10, 13, 1);
+(2, 10, 2, 1),
+(3, 15, 3, 1),
+(4, 12, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -135,7 +137,7 @@ INSERT INTO `programa` (`id_programa`, `nombre_pro`, `titulo_pro`, `id_facultad_
 --
 
 CREATE TABLE `rol_lista` (
-  `id_rol_ficha` int(11) NOT NULL,
+  `id_rol_lista` int(11) NOT NULL,
   `nombre_rol_ficha` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -143,7 +145,7 @@ CREATE TABLE `rol_lista` (
 -- Volcado de datos para la tabla `rol_lista`
 --
 
-INSERT INTO `rol_lista` (`id_rol_ficha`, `nombre_rol_ficha`) VALUES
+INSERT INTO `rol_lista` (`id_rol_lista`, `nombre_rol_ficha`) VALUES
 (1, 'Estudiante'),
 (2, 'Docente'),
 (3, 'Evaluador'),
@@ -157,7 +159,7 @@ INSERT INTO `rol_lista` (`id_rol_ficha`, `nombre_rol_ficha`) VALUES
 
 CREATE TABLE `rol_usu` (
   `id_rol` int(11) NOT NULL,
-  `nombre_rol` varchar(30) DEFAULT NULL
+  `nombre_rol` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -193,7 +195,12 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `cedula_usu`, `nombre_usu`, `apellido_usu`, `correo_usu`, `contrasena_usu`, `id_rol_usu`, `id_programa_usu`) VALUES
 (1, 123456789, 'Jorge Mario', 'Garcias', 'j-mario9715@hotmail.com', '1234', 1, 1),
-(10, 12345679, 'Stiven', 'Gil', 'stiven@hotmail.com', '1234', 4, 1);
+(10, 12345679, 'Stiven', 'Gil', 'stiven@hotmail.com', '1234', 4, 1),
+(11, 78945632, 'Yakita', 'Kcinco', 'yakita@hotmail.com', '1234', 2, 1),
+(12, 7946125, 'Erik', 'Alegria', 'erik@hotmail.com', '1234', 4, 1),
+(13, 789451966, 'arteria', 'morales', 'arteria@hotmail.com', '1234', 4, 1),
+(14, 951753648, 'Daniela', 'Balanta', 'daniela@hotmail.com', '1234', 2, 3),
+(15, 6482157, 'Angie', 'Uruena', 'angie@hotmail.com', '1234', 4, 3);
 
 --
 -- Índices para tablas volcadas
@@ -239,7 +246,7 @@ ALTER TABLE `programa`
 -- Indices de la tabla `rol_lista`
 --
 ALTER TABLE `rol_lista`
-  ADD PRIMARY KEY (`id_rol_ficha`);
+  ADD PRIMARY KEY (`id_rol_lista`);
 
 --
 -- Indices de la tabla `rol_usu`
@@ -275,13 +282,13 @@ ALTER TABLE `facultad`
 -- AUTO_INCREMENT de la tabla `ficha`
 --
 ALTER TABLE `ficha`
-  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `lista_ficha`
 --
 ALTER TABLE `lista_ficha`
-  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `programa`
@@ -293,7 +300,7 @@ ALTER TABLE `programa`
 -- AUTO_INCREMENT de la tabla `rol_lista`
 --
 ALTER TABLE `rol_lista`
-  MODIFY `id_rol_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_rol_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `rol_usu`
@@ -305,7 +312,7 @@ ALTER TABLE `rol_usu`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
@@ -323,7 +330,7 @@ ALTER TABLE `ficha`
 --
 ALTER TABLE `lista_ficha`
   ADD CONSTRAINT `fk_lista_ficha_ficha` FOREIGN KEY (`id_lista_ficha`) REFERENCES `ficha` (`id_ficha`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_lista_ficha_rol_lista` FOREIGN KEY (`id_rol_ficha`) REFERENCES `rol_lista` (`id_rol_ficha`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_lista_ficha_rol_lista` FOREIGN KEY (`id_rol_ficha`) REFERENCES `rol_lista` (`id_rol_lista`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_lista_ficha_usuarios` FOREIGN KEY (`id_lista_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

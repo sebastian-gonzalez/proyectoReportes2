@@ -18,7 +18,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 include("../include/conexion.php");
 ?>
 
-<?php include("nav.html"); ?>
+<?php include('nav.php'); ?>
 
 
 <head>
