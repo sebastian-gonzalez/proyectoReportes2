@@ -57,7 +57,7 @@ if ($row_ficha == true) {
 						<span class="tooltip tooltip_letra">Inicio</span>
 					</li>
 				</a>
-				<a ">
+				<a href="primer_ingreso.php">
 					<li>
 						<i class="fa fa-plus-square-o"></i>
 						<span class="tooltip tooltip_letra">Crear Ficha</span>

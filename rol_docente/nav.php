@@ -1,55 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device=width, initial-scale=1.0">
-	<title> My Website</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+	<link rel="stylesheet" href="../assets/navegador/style_nav.css">
 
-	<link href="../css/bootstrap1.min.css" rel="stylesheet">
-	<link href="../css/nav.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="../css/style.css" />
-
-	<!-- Latest compiled and minified CSS -->
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<link rel="icon" href="../images/favicon.ico" type="image/gif" />
 </head>
 
 <body>
-	<header>
+	<nav class="sidebar-navigation">
+		<ul>
 
-		<nav class="navbar navbar-default" style="background-color:#0050a0">
+			<a href="inicio_docente.php">
+				<li>
+					<i class="fa fa-home"></i>
+					<span class="tooltip tooltip_letra">Inicio</span>
+				</li>
+			</a>
 
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
+			<a href="fichas_asignadas_director.php">
+				<li>
+					<i class="fa fa-file-text"></i>
+					<span class="tooltip tooltip_letra">Fichas Asignadas Director</span>
+				</li>
+			</a>
 
-				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						<li><a href="">Gestion de Ficha</a></li>
-						<li><a href="../logout.php">Cerrar Sesion</a></li>
-						<li><a href="../index.php">Salir</a></li>
+			<a href="fichas_asignadas_evaluador.php">
+				<li>
+					<i class="fa fa-files-o"></i>
+					<span class="tooltip tooltip_letra">Fichas Asignadas Evaluador</span>
+				</li>
+			</a>
 
+			<a href="fichas_asignadas_jurado.php">
+				<li>
+					<i class="fa fa-book"></i>
+					<span class="tooltip tooltip_letra">Fichas Asignadas Jurado</span>
+				</li>
+			</a>
 
+			<a href="programas.php">
+				<li>
+					<i class="fa fa-check-square-o"></i>
 
-					</ul>
+					<span class="tooltip tooltip_letra">Fichas Aprobadas</span>
+				</li>
+			</a>
 
-				</div>
-				<!--/.nav-collapse -->
-			</div>
-			<!--/.container-fluid -->
-		</nav>
+			<a href="../logout.php">
+				<li>
+					<i class="fa fa-power-off" aria-hidden="true"></i>
+					<span class="tooltip tooltip_letra">Cerrar Sesion</span>
+				</li>
+			</a>
 
-	</header>
-	<!---End Header-->
+		</ul>
+	</nav>
+	<!-- partial -->
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src="../assets/navegador/script_nav.js"></script>
 
-	<!---End Banner-->
 </body>
+
+</html>

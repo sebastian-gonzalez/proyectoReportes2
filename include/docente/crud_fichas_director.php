@@ -5,12 +5,41 @@ session_start();
 if (!isset($_SESSION['id_rol_usu'])) {
     header('location: ../login.php');
 } else {
-    if ($_SESSION['id_rol_usu'] != 4) {
+    if ($_SESSION['id_rol_usu'] != 2) {
         header('location: ../login.php');
     }
 }
+?>
+
+<?php
+include_once '../../include/database.php';
+$db = new Database();
+$id_s = $_SESSION['id_usuario'];
+
+$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha WHERE id_lista_usuario =$id_s");
+$query_ficha->execute();
+$row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
+
+
+if ($row_ficha == true) {
+    $id_lis = $row_ficha[0];
+    $_SESSION['id_lista'] = $id_lis;
+
+    $id_lis_u = $row_ficha[1];
+    $_SESSION['id_lista_usuario'] = $id_lis_u;
+
+    $id_lis_fi = $row_ficha[2];
+    $_SESSION['id_lista_ficha'] = $id_lis_fi;
+
+    $id_rol_fi = $row_ficha[3];
+    $_SESSION['id_rol_ficha'] = $id_rol_fi;
+}
+
 
 ?>
+
+
+
 <?php
 include_once '../../include/database.php';
 $objeto = new Database();
@@ -43,8 +72,10 @@ $id_rol_ficha = 1;
 switch ($opcion) {
     case 1:
 
-        //AGREGAR = add_ficha.php
-    break;
+           //Director no agrega
+
+
+        break;
     case 2:
         $consulta = "UPDATE ficha  SET titulo_ficha='$Titulo',descripcion_ficha='$Descripcion', id_programa_ficha='$Programa', id_estado_ficha='$Estado' WHERE id_ficha='$id_ficha'";
 
@@ -60,58 +91,29 @@ switch ($opcion) {
             echo "no se ejecuto la primera consulta ";
         }
 
-
         $consulta1 = "UPDATE lista_ficha  SET id_lista_usuario='$id_lista_usuario',id_lista_ficha='$id_lista_ficha', id_rol_ficha='$id_rol_ficha'";
         $resultado1 = $conexion->prepare($consulta1);
         $resultado1->execute();
-
-
-
-
 
         $consulta = "SELECT * FROM ficha WHERE id_ficha='$id_ficha' ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
-
-        
     case 3:
 
-        eliminarAR("pdf/$id_ficha");
-
-        function eliminarAR($carpeta)
-        {
-            foreach (glob($carpeta . "/*") as $archivo_carpeta) {
-                if (is_dir($archivo_carpeta)) {
-                    eliminarAR($archivo_carpeta);
-                } else {
-                    unlink($archivo_carpeta);
-                }
-            }
-            rmdir($carpeta);
-        }
-
-
-
-        $consulta = "DELETE FROM lista_ficha WHERE id_lista_ficha='$id_ficha' ";
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $consulta1 = "DELETE FROM ficha WHERE id_ficha='$id_ficha' ";
-        $resultado1 = $conexion->prepare($consulta1);
-        $resultado1->execute();
-        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-
-        break;
-
-
+    //Director no elimina
 
     case 4:
 
+        $user = $_SESSION['id_usuario'];
 
-        $id_ficha_vali = $_SESSION['id_lista_ficha'];
-
-        $consulta = "SELECT * FROM ficha INNER JOIN programa INNER JOIN estado INNER JOIN lista_ficha ON ficha.id_programa_ficha = programa.id_programa AND ficha.id_estado_ficha = estado.id_estado AND ficha.id_ficha=$id_ficha_vali LIMIT 1";
+        $consulta = "SELECT * 
+        FROM ficha 
+        INNER JOIN lista_ficha ON ficha.id_ficha = lista_ficha.id_lista_ficha
+        INNER JOIN programa ON ficha.id_programa_ficha = programa.id_programa
+        INNER JOIN estado  ON ficha.id_estado_ficha = estado.id_estado
+        WHERE id_lista_usuario=$user  AND id_rol_ficha= 2";
 
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();

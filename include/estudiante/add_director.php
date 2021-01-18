@@ -38,7 +38,7 @@ if (isset($_POST['add_director'])) {
           $data_vali = $resultado_vali->execute();
 
           if ($resultado_vali->fetchColumn() > 0) {
-               echo '<script language="javascript">alert("El estudiante ya posee ese director");
+               echo '<script language="javascript">alert("El director ya ha sido asignado");
           location.href="fichas.php";</script>';
           } else {
 

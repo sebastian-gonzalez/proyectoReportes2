@@ -72,8 +72,6 @@ if (isset($_POST['add'])) {
             $id_insert = 0;
             echo "no se ejecuto la primera consulta ";
         }
-
-
         if ($_FILES["archivo"]["error"] > 0) {
             echo "Error al cargar archvio";
         } else {
@@ -81,11 +79,7 @@ if (isset($_POST['add'])) {
             $limite_kb = 200000000;
             if (in_array($_FILES["archivo"]["type"], $permitidos) && $_FILES["archivo"]["size"] <= $limite_kb * 1024) {
                 $ruta = "../include/estudiante/pdf/$id_insert/";
-
-
-
                 $archivo = $ruta . $_FILES["archivo"]["name"];
-
                 if (!file_exists($ruta)) {
                     mkdir($ruta);
                 }
@@ -95,14 +89,12 @@ if (isset($_POST['add'])) {
                         $archivo
                     );
                 }
-
                 if ($resultado) {
                     echo "archivo guardado";
                 } else {
                     echo " archivo no guardado";
                 }
             } else {
-
                 echo "el archivo no esta permitido o excede el tamaño maximo";
             }
         }

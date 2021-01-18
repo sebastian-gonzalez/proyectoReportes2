@@ -58,7 +58,9 @@ include('../include/estudiante/add_ficha.php')
 
 
                     <?php
-                    $consulta_validacion = "SELECT COUNT(*) FROM ficha";
+                    $usuario =$_SESSION['id_usuario'];
+                    $consulta_validacion = "SELECT COUNT(*) FROM ficha INNER JOIN lista_ficha ON ficha.id_ficha = lista_ficha.id_lista_ficha AND id_lista_usuario = $usuario ";
+                    
                     $resultado_vali = $conexion->prepare($consulta_validacion);
                     $data_vali = $resultado_vali->execute();
                     if ($resultado_vali->fetchColumn() > 0) {
@@ -121,25 +123,15 @@ include('../include/estudiante/add_ficha.php')
                                     <input type="text" class="form-control" id="titulo_ficha" required>
                                 </div>
                             </div>
-
                         </div>
-
-
                         <div class="form-group" enctype="multipart/form-data">
                             <label for="" class="col-form-label">Documento</label>
                             <div class="col-lg-6">
                                 <input type="file" id="archivo" required>
-
                             </div>
                         </div>
-
-
-
-
-
                     </div>
                     <div class="modal-footer">
-
 
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                         <button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
@@ -353,12 +345,10 @@ include('../include/estudiante/add_ficha.php')
     <script src="../assets/jquery/jquery-3.3.1.min.js"></script>
     <script src="../assets/popper/popper.min.js"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-
     <!-- datatables JS -->
     <script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
 
     <script type="text/javascript" src="../include/estudiante/js/ficha.js"></script>
-
 
 </body>
 
