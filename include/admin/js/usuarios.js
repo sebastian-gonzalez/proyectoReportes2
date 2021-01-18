@@ -10,7 +10,7 @@ $(document).ready(function () {
       dataSrc: "",
     },
     columns: [
-      { data: "id_usuario" },
+      { data: "id_usuario"  ,className:"hide_column"},
       { data: "cedula_usu" },
       { data: "nombre_usu" },
       { data: "apellido_usu" },

@@ -33,6 +33,11 @@ table.dataTable thead {
   
   
 }
+.hide_column{
+
+
+  display: none;
+}
 button:after {
   background-color: rgba(0, 0, 0, .5);
   border-radius: 5px;

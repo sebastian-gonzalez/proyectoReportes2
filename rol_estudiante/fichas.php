@@ -30,6 +30,12 @@ include('../include/estudiante/add_ficha.php')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/gif" />
 
+     <!--Live Search-->
+   <!--Select2-->
+   <link rel="stylesheet" type="text/css" href="../assets/select2/select2.min.css" />
+    
+    
+
 </head>
 
 <body>
@@ -51,16 +57,16 @@ include('../include/estudiante/add_ficha.php')
             <div class="col-lg-12 ">
                 <div class='btn-group'>
 
-                
+
 
                     <button id="btnNuevo1" type="button" class="btn btn-primary" data-toggle="modal" tooltip-dir="top" title="Agregar Ficha"><i class="material-icons">library_add</i></button>
 
 
 
                     <?php
-                    $usuario =$_SESSION['id_usuario'];
+                    $usuario = $_SESSION['id_usuario'];
                     $consulta_validacion = "SELECT COUNT(*) FROM ficha INNER JOIN lista_ficha ON ficha.id_ficha = lista_ficha.id_lista_ficha AND id_lista_usuario = $usuario ";
-                    
+
                     $resultado_vali = $conexion->prepare($consulta_validacion);
                     $data_vali = $resultado_vali->execute();
                     if ($resultado_vali->fetchColumn() > 0) {
@@ -205,7 +211,7 @@ include('../include/estudiante/add_ficha.php')
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Compañero </label>
 
-                                    <select name="id_lista_usuario" id="id_lista_usuario" class="form-control" required>
+                                    <select id="id_lista_usuario" name="id_lista_usuario" class="form-control" required>
                                         <?php
 
                                         $programa = $_SESSION['id_programa_usu'];
@@ -309,7 +315,7 @@ include('../include/estudiante/add_ficha.php')
 
                                     <?php
 
-                                     $id_lis_fi = $_SESSION['id_lista_ficha'];
+                                    $id_lis_fi = $_SESSION['id_lista_ficha'];
 
                                     $sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha AND lista_ficha.id_lista_ficha = $id_lis_fi  ORDER BY id_rol_ficha");
                                     if (mysqli_num_rows($sql) == 0) {
@@ -342,14 +348,19 @@ include('../include/estudiante/add_ficha.php')
         </div>
     </div>
     <!-- jQuery, Popper.js, Bootstrap JS -->
-    <script src="../assets/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../assets/jquery/jquery-3.5.1.js"></script>
     <script src="../assets/popper/popper.min.js"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- datatables JS -->
     <script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
-
     <script type="text/javascript" src="../include/estudiante/js/ficha.js"></script>
+        
+        
+        <!-- Select2 -->
 
+    <script src="../assets/select2/select2.min.js"></script>
+    
 </body>
 
 </html>
+

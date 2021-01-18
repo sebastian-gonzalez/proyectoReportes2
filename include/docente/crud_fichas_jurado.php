@@ -80,7 +80,7 @@ switch ($opcion) {
         INNER JOIN lista_ficha ON ficha.id_ficha = lista_ficha.id_lista_ficha
         INNER JOIN programa ON ficha.id_programa_ficha = programa.id_programa
         INNER JOIN estado  ON ficha.id_estado_ficha = estado.id_estado
-        WHERE id_lista_usuario=$user  AND id_rol_ficha= 4";
+        WHERE id_lista_usuario=11  AND id_rol_ficha= 4";
 
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();

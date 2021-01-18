@@ -19,7 +19,7 @@ $(document).ready(function () {
         { data: "fecha_ficha" },
         {
           defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Editar'><i class='material-icons'>edit</i></button></div></div>",
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Editar'><i class='material-icons'>edit</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
         },
       ],
     });
@@ -114,25 +114,15 @@ document.addEventListener('DOMContentLoaded', function() {
   
     //Borrar
   
-    $(document).on("click", ".btnBorrar", function () {
-      fila = $(this);
-      id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
-      opcion = 3; //eliminar
-      var respuesta = confirm(
-        "¿Está seguro de borrar el registro " + id_ficha + "?"
-      );
-      if (respuesta) {
-        $.ajax({
-          url: "../include/estudiante/delete.php",
-          type: "POST",
-          datatype: "json",
-          data: { opcion: opcion, id_ficha: id_ficha },
-          success: function () {
-            tablaFichas.row(fila.parents("tr")).remove().draw();
-            location.href="fichas.php";
-          },
-        });
-      }
-    });
+   //Revisar Ficha
+  
+   $(document).on("click", ".btnRevision", function () {
+    fila = $(this);
+    id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+    opcion = 3; //eliminar
+    location.href="revision_documento.php?ficha=" + id_ficha + " ";
   });
+});
+  
+
   

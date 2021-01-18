@@ -87,6 +87,9 @@ $(document).ready(function () {
       $(".modal-header").css("color", "white");
       $(".modal-title").text("Agregar Participantes");
       $("#modalParticipantes").modal("show");
+      $(document).ready(function() {
+        $('#id_lista_usuario').select2();
+    })
     });
 
     $("#btnDirector").click(function () {
@@ -97,6 +100,9 @@ $(document).ready(function () {
       $(".modal-header").css("color", "white");
       $(".modal-title").text("Agregar Director");
       $("#modalDirector").modal("show");
+      $(document).ready(function() {
+        $('#id_lista_usuario_director').select2();
+    })
     });
 
     $("#btnMostrar_P").click(function () {

@@ -10,7 +10,7 @@ $(document).ready(function () {
       dataSrc: "",
     },
     columns: [
-      { data: "id_programa" },
+      { data: "id_programa" ,className:"hide_column"},
       { data: "nombre_pro" },
       { data: "titulo_pro" },
       { data: "nombre_facultad" },

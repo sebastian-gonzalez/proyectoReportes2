@@ -4,7 +4,7 @@ $(document).ready(function () {
   
     tablaFichas = $("#tablaFichas").DataTable({
       ajax: {
-        url: "../include/docente/crud_fichas_director.php",
+        url: "../include/docente/crud_fichas_aprobadas.php",
         method: "POST", //usamos el metodo POST
         data: { opcion: opcion }, //enviamos opcion 4 para que haga un SELECT
         dataSrc: "",
@@ -37,7 +37,7 @@ $(document).ready(function () {
       evaluacion_ficha = $.trim($("#evaluacion_ficha").val());
       archivo = "#archivo";
       $.ajax({
-        url: "../include/docente/crud_fichas_director.php",
+        url: "../include/docente/crud_fichas_aprobadas.php",
         type: "POST",
         datatype: "json",
         data: {

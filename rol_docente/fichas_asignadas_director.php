@@ -29,7 +29,10 @@ if (!isset($_SESSION['id_rol_usu'])) {
     <!-- CSS personalizado -->
     <link rel="stylesheet" href="../assets/mainTable.css">
 
-    <?php include('nav.php'); ?>
+    <?php 
+    include('nav.php'); 
+    include('../include/conexion.php'); 
+    ?>
 
     <!--datables CSS básico-->
     <link rel="stylesheet" type="text/css" href="../assets/datatables/datatables.min.css" />
@@ -50,8 +53,24 @@ if (!isset($_SESSION['id_rol_usu'])) {
     <br></br>
 
 
+    <div class="container ">
+        <div class="row ">
+            <div class="col-lg-12 ">
+                <div class='btn-group'>
 
+
+
+                <button id="btnMostrar_P" type="button" class="btn btn-primary" data-toggle="modal"tooltip-dir="top" title="Mostrar Participantes"><i class="material-icons">groups</i></button>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
     <br>
+    
     <div class="container caja">
         <div class="row">
             <div class="col-lg-12">
@@ -66,6 +85,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
                                 <th>Estado</th>
                                 <th>Evaluacion</th>
                                 <th>Creacion</th>
+                                <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -73,6 +93,68 @@ if (!isset($_SESSION['id_rol_usu'])) {
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+<!-- Modal Mostrar Participantes-->
+    <div class="modal fade" id="modal_Mostrar_P" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row table_modal">
+                            <div>
+                                <table class="table">
+                                    <thead>
+
+                                        <tr>
+                                            <th scope="col">Nombre </th>
+                                            <th scope="col"> Apellido </th>
+                                            <th scope="col"> Rol </th>
+                                        </tr>
+                                    </thead>
+
+
+                                    <br></br>
+
+                                    <?php
+
+                                    $id_lis_fi = $_SESSION['id_lista_ficha'];
+
+                                    $sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha AND lista_ficha.id_lista_ficha = $id_lis_fi  ORDER BY id_rol_ficha");
+                                    if (mysqli_num_rows($sql) == 0) {
+                                        echo 'no hay datos';
+                                    } else {
+
+                                        while ($valores = mysqli_fetch_assoc($sql)) {
+                                            echo '
+                                            <tbody>
+                                    <tr>    
+                                    <td>' . $valores['nombre_usu'] . '</td>
+                                    <td>' . $valores['apellido_usu'] . '</td>
+                                    <td>' . $valores['nombre_rol_ficha'] . '</td>
+                                    </tr>';
+                                        }
+                                    }
+
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Regresar</button>
+                    </div>
+            </div>
+            </form>
         </div>
     </div>
 

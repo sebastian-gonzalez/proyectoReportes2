@@ -71,39 +71,11 @@ $id_rol_ficha = 1;
 
 switch ($opcion) {
     case 1:
-
-           //Director no agrega
-
-
-        break;
+        //Director no agrega
     case 2:
-        $consulta = "UPDATE ficha  SET titulo_ficha='$Titulo',descripcion_ficha='$Descripcion', id_programa_ficha='$Programa', id_estado_ficha='$Estado' WHERE id_ficha='$id_ficha'";
-
-        $resultado = $conexion->prepare($consulta);
-        $validacion_id = $resultado->execute();
-
-        //if evta problemas con la el PK autoincrement y obliga  que la primera consulta sea verdadera para proceder
-        if ($validacion_id = true) {
-            $id_insert  = $conexion->lastInsertId();
-        } else {
-            //Pueden haber errores, como clave duplicada
-            $id_insert = 0;
-            echo "no se ejecuto la primera consulta ";
-        }
-
-        $consulta1 = "UPDATE lista_ficha  SET id_lista_usuario='$id_lista_usuario',id_lista_ficha='$id_lista_ficha', id_rol_ficha='$id_rol_ficha'";
-        $resultado1 = $conexion->prepare($consulta1);
-        $resultado1->execute();
-
-        $consulta = "SELECT * FROM ficha WHERE id_ficha='$id_ficha' ";
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-        break;
+        // Director no updatea
     case 3:
-
-    //Director no elimina
-
+        //Director no elimina
     case 4:
 
         $user = $_SESSION['id_usuario'];

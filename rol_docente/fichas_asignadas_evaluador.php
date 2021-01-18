@@ -67,6 +67,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
                                 <th>Evaluacion</th>
                                 <th>Creacion</th>
                                 <th>Opciones</th>
+                                <th>Documento</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,8 +105,8 @@ if (!isset($_SESSION['id_rol_usu'])) {
 
 									<select name="id_estado_ficha" id="id_estado_ficha" class="form-control" required>
 										<option disabled selected value="">Seleccione el estado de ficha</option>
-										<option value="1">En revision</option>
-										<option value="3">En evaluación </option>
+                                        <option value="2">En correcion</option>
+										<option value="3">Aprobado</option>
 									</select>
 								</div>
 

@@ -40,7 +40,7 @@
 				</li>
 			</a>
 
-			<a href="programas.php">
+			<a href="fichas_aprobadas.php">
 				<li>
 					<i class="fa fa-check-square-o"></i>
 

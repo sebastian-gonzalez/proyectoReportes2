@@ -10,7 +10,7 @@ $(document).ready(function () {
       dataSrc: "",
     },
     columns: [
-      { data: "id_facultad" },
+      { data: "id_facultad" ,className:"hide_column"},
       { data: "nombre_facultad" },
       {
         defaultContent:
