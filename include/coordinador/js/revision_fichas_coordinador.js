@@ -41,7 +41,7 @@ $(document).ready(function () {
         type: "POST",
         datatype: "json",
         data: {
-           
+          
           id_ficha: id_ficha,
           titulo_ficha: titulo_ficha,
           descripcion_ficha: descripcion_ficha,
@@ -89,35 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-    //Editar
-    $(document).on("click", ".btnEditar", function () {
-      opcion = 2; //editar
-      fila = $(this).closest("tr");
-      id_ficha = parseInt(fila.find("td:eq(0)").text()); //capturo el ID
-      titulo_ficha = fila.find("td:eq(1)").text();
-      descripcion_ficha = fila.find("td:eq(2)").text();
-      id_programa_ficha = fila.find("td:eq(3)").text();
-      id_estado_ficha = fila.find("td:eq(4)").text();
-      evaluacion_ficha = fila.find("td:eq(5)").text();
-      
-      $("#titulo_ficha").val(titulo_ficha);
-      $("#descripcion_ficha").val(descripcion_ficha);
-      $("#id_programa_ficha").val(id_programa_ficha);
-      $("#id_estado_ficha").val(id_estado_ficha);
-      $("#evaluacion_ficha").val(evaluacion_ficha);
-  
-      $(".modal-header").css("background-color", "#0050a0");
-      $(".modal-header").css("color", "white");
-      $(".modal-title").text("Editar Ficha");
-      $("#modalCRUD").modal("show");
-      $(document).ready(function() {
 
-        $('#id_lista_usuario_ev').select2();
-        $('#id_lista_usuario_ju').select2();
-    })
-
-
-    });
   
     //Revisar Ficha
   
@@ -127,5 +99,44 @@ document.addEventListener('DOMContentLoaded', function() {
       opcion = 3; //eliminar
       location.href="revision_documento_coor.php?ficha=" + id_ficha + " ";
     });
+    
+
+  
+    $(document).on("click", ".btnEditar", function () {
+      fila = $(this);
+      id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+
+
+
+      $.ajax({
+        url: "../include/coordinador/captador_Datos.php",
+        type: "POST",
+   
+        data: {
+          
+          "id_fichas": id_ficha,
+   
+        },
+       success: function (data) {
+ 
+          $(".modal-header").css("background-color", "#0050a0");
+          $(".modal-header").css("color", "white");
+          $(".modal-title").text("Editar Ficha");
+          $("#modalCRUD").modal("show");
+          $(document).ready(function() {
+    
+            $('#id_lista_usuario_ev').select2();
+            $('#id_lista_usuario_ju').select2();
+        })
+        },
+      });
+      $("#modalCRUD").modal("hide");
+    });
+
+
+
+
+
+
   });
   

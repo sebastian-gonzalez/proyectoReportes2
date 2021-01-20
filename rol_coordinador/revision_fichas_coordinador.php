@@ -38,6 +38,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
     include('../include/database.php');
     include("../include/coordinador/add_jurado.php");
     include("../include/coordinador/add_evaluador.php");
+
     ?>
 
     <!--datables CSS básico-->
@@ -163,44 +164,50 @@ if (!isset($_SESSION['id_rol_usu'])) {
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                         <button input type="submit" name="add_evaluador" name="add_jurado" class="btn btn-dark">Guardar</button>
                     </div>
+                    bueno lo intente ;v ya vengo si escribe el negrito sigue los pasos //
+                    <div id="recarga">
+                        <div class="row table_modal">
+                            <div>
+                                <table class="table">
+                                    <thead>
 
-                    <div class="row table_modal">
-                        <div>
-                            <table class="table">
-                                <thead>
+                                        <tr>
+                                            <th scope="col">Nombre </th>
+                                            <th scope="col"> Apellido </th>
+                                            <th scope="col"> Rol </th>
+                                        </tr>
+                                    </thead>
+                                    <br></br>
 
-                                    <tr>
-                                        <th scope="col">Nombre </th>
-                                        <th scope="col"> Apellido </th>
-                                        <th scope="col"> Rol </th>
-                                    </tr>
-                                </thead>
-                                <br></br>
-                                <?php
-                                $ficha =
-                                    $sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha AND lista_ficha.id_lista_ficha = $ficha ORDER BY id_rol_ficha");
-                                if (mysqli_num_rows($sql) == 0) {
-                                    echo 'no hay datos';
-                                } else {
+                                    <?php
 
-                                    while ($valores = mysqli_fetch_assoc($sql)) {
-                                        echo '
+                                    include("../include/coordinador/captador_Datos.php");
+                                    echo $id_ficha_compa;
+
+
+                                    $sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha AND lista_ficha.id_lista_ficha = $id_ficha_compa ORDER BY id_rol_ficha");
+                                    if (mysqli_num_rows($sql) == 0) {
+                                        echo 'no hay datos';
+                                    } else {
+
+                                        while ($valores = mysqli_fetch_assoc($sql)) {
+                                            echo '
                                             <tbody>
                                     <tr>    
                                     <td>' . $valores['nombre_usu'] . '</td>
                                     <td>' . $valores['apellido_usu'] . '</td>
                                     <td>' . $valores['nombre_rol_ficha'] . '</td>
                                     </tr>';
+                                        }
                                     }
-                                }
 
-                                ?>
-                                </tbody>
-                            </table>
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
-
                     </div>
-
 
             </div>
         </div>
@@ -209,10 +216,8 @@ if (!isset($_SESSION['id_rol_usu'])) {
     </div>
 
 
-
-
-
     <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="../assets/jquery/jquery-3.5.1.js"></script>
     <script src="../assets/jquery/jquery-3.5.1.js"></script>
     <script src="../assets/popper/popper.min.js"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
