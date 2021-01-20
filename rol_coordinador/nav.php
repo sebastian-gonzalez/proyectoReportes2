@@ -19,6 +19,34 @@
 				</li>
 			</a>
 
+			<a href="revision_fichas_coordinador.php">
+				<li>
+					<i class="fa fa-address-book-o"></i>
+					<span class="tooltip tooltip_letra">Fichas Estudiantes</span>
+				</li>
+			</a>
+
+			<a href="revision_fichas_evaluador.php">
+				<li>
+					<i class="fa fa-pencil-square-o"></i>
+					<span class="tooltip tooltip_letra">Fichas Evaluadores</span>
+				</li>
+			</a>
+
+			<a href="revision_fichas_jurado.php">
+				<li>
+					<i class="fa fa-black-tie"></i>
+					<span class="tooltip tooltip_letra">Fichas Jurados</span>
+				</li>
+			</a>
+
+			<a href="#">
+				<li>
+					<i class="fa fa-check-square-o"></i>
+					<span class="tooltip tooltip_letra">Fichas Terminadas</span>
+				</li>
+			</a>
+
 		
 
 			

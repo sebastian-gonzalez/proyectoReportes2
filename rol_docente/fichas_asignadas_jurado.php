@@ -124,7 +124,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
     <!-- datatables JS -->
     <script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
 
-    <script type="text/javascript" src="../include/docente/js/ficha_asignada_jurado.js"></script>
+    <script type="text/javascript" src="../include/docente/js/doc_ficha_asignada_jurado.js"></script>
 
 
 </body>

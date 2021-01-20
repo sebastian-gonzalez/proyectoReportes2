@@ -30,7 +30,7 @@ include('../include/estudiante/add_ficha.php')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/gif" />
 
-     <!--Live Search-->
+     
    <!--Select2-->
    <link rel="stylesheet" type="text/css" href="../assets/select2/select2.min.css" />
     
@@ -56,7 +56,6 @@ include('../include/estudiante/add_ficha.php')
         <div class="row ">
             <div class="col-lg-12 ">
                 <div class='btn-group'>
-
 
 
                     <button id="btnNuevo1" type="button" class="btn btn-primary" data-toggle="modal" tooltip-dir="top" title="Agregar Ficha"><i class="material-icons">library_add</i></button>

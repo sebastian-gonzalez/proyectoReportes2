@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-01-2021 a las 00:16:36
+-- Tiempo de generación: 18-01-2021 a las 23:36:33
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.13
 
@@ -39,8 +39,8 @@ CREATE TABLE `estado` (
 INSERT INTO `estado` (`id_estado`, `nombre_estado`) VALUES
 (1, 'En revision'),
 (2, 'En corrección '),
-(3, 'En evaluación '),
-(4, 'Aprobado');
+(3, 'Aprobado'),
+(4, 'Finalizado');
 
 -- --------------------------------------------------------
 
@@ -74,7 +74,7 @@ CREATE TABLE `ficha` (
   `descripcion_ficha` varchar(50) NOT NULL,
   `id_programa_ficha` int(11) NOT NULL,
   `id_estado_ficha` int(11) NOT NULL,
-  `evaluacion_ficha` varchar(30) DEFAULT NULL,
+  `evaluacion_ficha` text DEFAULT NULL,
   `fecha_ficha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -83,8 +83,8 @@ CREATE TABLE `ficha` (
 --
 
 INSERT INTO `ficha` (`id_ficha`, `titulo_ficha`, `descripcion_ficha`, `id_programa_ficha`, `id_estado_ficha`, `evaluacion_ficha`, `fecha_ficha`) VALUES
-(2, 'Hola', 'Proyecto de Grado', 1, 1, NULL, '2021-01-15 21:50:14'),
-(3, 'marka', 'Proyecto de Grado', 3, 1, NULL, '2021-01-15 21:51:02');
+(1, 'Proyecto Stiven y amigos', 'Proyecto de Grado', 1, 1, NULL, '2021-01-18 21:06:04'),
+(3, 'Proyecto Mario', 'Proyecto de Grado', 1, 3, '', '2021-01-18 22:32:56');
 
 -- --------------------------------------------------------
 
@@ -104,9 +104,14 @@ CREATE TABLE `lista_ficha` (
 --
 
 INSERT INTO `lista_ficha` (`id_lista`, `id_lista_usuario`, `id_lista_ficha`, `id_rol_ficha`) VALUES
-(2, 10, 2, 1),
-(3, 15, 3, 1),
-(4, 12, 2, 1);
+(1, 10, 1, 1),
+(4, 12, 1, 1),
+(5, 18, 1, 1),
+(6, 11, 1, 2),
+(8, 11, 1, 3),
+(9, 11, 1, 4),
+(12, 16, 3, 1),
+(13, 11, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -198,9 +203,13 @@ INSERT INTO `usuarios` (`id_usuario`, `cedula_usu`, `nombre_usu`, `apellido_usu`
 (10, 12345679, 'Stiven', 'Gil', 'stiven@hotmail.com', '1234', 4, 1),
 (11, 78945632, 'Yakita', 'Kcinco', 'yakita@hotmail.com', '1234', 2, 1),
 (12, 7946125, 'Erik', 'Alegria', 'erik@hotmail.com', '1234', 4, 1),
-(13, 789451966, 'arteria', 'morales', 'arteria@hotmail.com', '1234', 4, 1),
 (14, 951753648, 'Daniela', 'Balanta', 'daniela@hotmail.com', '1234', 2, 3),
-(15, 6482157, 'Angie', 'Uruena', 'angie@hotmail.com', '1234', 4, 3);
+(15, 6482157, 'Angie', 'Uruena', 'angie@hotmail.com', '1234', 4, 3),
+(16, 6495317, 'mario', 'garcia', 'mario@hotmail.com', '1234', 4, 1),
+(17, 64821379, 'David', 'Otalora', 'otalora@hotmail.com', '1234', 4, 1),
+(18, 45632187, 'Morales', 'Barriento', 'barriento@hotmail.com', '1234', 4, 1),
+(19, 1596248, 'Esmilda', 'Uruena', 'mary@hotmail.com', '1234', 4, 3),
+(20, 798456123, 'Paque', 'Porque', 'paque@hotmail.com', '1234', 3, 1);
 
 --
 -- Índices para tablas volcadas
@@ -288,7 +297,7 @@ ALTER TABLE `ficha`
 -- AUTO_INCREMENT de la tabla `lista_ficha`
 --
 ALTER TABLE `lista_ficha`
-  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `programa`
@@ -312,7 +321,7 @@ ALTER TABLE `rol_usu`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Restricciones para tablas volcadas
