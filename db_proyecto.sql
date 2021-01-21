@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-01-2021 a las 23:36:33
+-- Tiempo de generación: 21-01-2021 a las 19:49:27
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.13
 
@@ -83,8 +83,7 @@ CREATE TABLE `ficha` (
 --
 
 INSERT INTO `ficha` (`id_ficha`, `titulo_ficha`, `descripcion_ficha`, `id_programa_ficha`, `id_estado_ficha`, `evaluacion_ficha`, `fecha_ficha`) VALUES
-(1, 'Proyecto Stiven y amigos', 'Proyecto de Grado', 1, 1, NULL, '2021-01-18 21:06:04'),
-(3, 'Proyecto Mario', 'Proyecto de Grado', 1, 3, '', '2021-01-18 22:32:56');
+(1, 'Proyecto Stivens', 'Proyecto de Grado', 1, 3, '', '2021-01-21 18:40:11');
 
 -- --------------------------------------------------------
 
@@ -105,13 +104,10 @@ CREATE TABLE `lista_ficha` (
 
 INSERT INTO `lista_ficha` (`id_lista`, `id_lista_usuario`, `id_lista_ficha`, `id_rol_ficha`) VALUES
 (1, 10, 1, 1),
-(4, 12, 1, 1),
-(5, 18, 1, 1),
-(6, 11, 1, 2),
-(8, 11, 1, 3),
-(9, 11, 1, 4),
-(12, 16, 3, 1),
-(13, 11, 3, 3);
+(2, 12, 1, 1),
+(3, 11, 1, 2),
+(4, 21, 1, 3),
+(5, 22, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -209,7 +205,9 @@ INSERT INTO `usuarios` (`id_usuario`, `cedula_usu`, `nombre_usu`, `apellido_usu`
 (17, 64821379, 'David', 'Otalora', 'otalora@hotmail.com', '1234', 4, 1),
 (18, 45632187, 'Morales', 'Barriento', 'barriento@hotmail.com', '1234', 4, 1),
 (19, 1596248, 'Esmilda', 'Uruena', 'mary@hotmail.com', '1234', 4, 3),
-(20, 798456123, 'Paque', 'Porque', 'paque@hotmail.com', '1234', 3, 1);
+(20, 798456123, 'Paque', 'Porque', 'paque@hotmail.com', '1234', 3, 1),
+(21, 7894561, 'penagos', 'Kcinco', 'penagos@hotmail.com', '1234', 2, 1),
+(22, 89756412, 'vago', 'alegria', 'vago@hotmail.com', '1234', 2, 1);
 
 --
 -- Índices para tablas volcadas
@@ -291,13 +289,13 @@ ALTER TABLE `facultad`
 -- AUTO_INCREMENT de la tabla `ficha`
 --
 ALTER TABLE `ficha`
-  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `lista_ficha`
 --
 ALTER TABLE `lista_ficha`
-  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `programa`
@@ -321,7 +319,7 @@ ALTER TABLE `rol_usu`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Restricciones para tablas volcadas
