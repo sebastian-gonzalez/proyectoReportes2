@@ -19,7 +19,7 @@ $(document).ready(function () {
         { data: "fecha_ficha" },
         {
           defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Inspeccionar'><i class='material-icons'>search</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEvaluador'  tooltip-dir='top' title='Agregar Evaluador'><i class='material-icons'>add</i></button><button class='btn btn-primary btn-sm btnJurado'  tooltip-dir='top' title='Agregar Jurado'><i class='material-icons'>add</i></button><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Inspeccionar'><i class='material-icons'>search</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
         },
       ],
     });
@@ -59,15 +59,7 @@ $(document).ready(function () {
     });
   
     //para limpiar los campos antes de dar de Alta una Persona
-    $("#btnNuevo").click(function () {
-      opcion = 1; //alta
-      id_ficha = null;
-      $("#formFichas").trigger("reset");
-      $(".modal-header").css("background-color", "#0050a0");
-      $(".modal-header").css("color", "white");
-      $(".modal-title").text("Agregar Ficha");
-      $("#modalCRUD").modal("show");
-    });
+
   
 
     $("#btnMostrar_P").click(function () {
@@ -78,6 +70,11 @@ $(document).ready(function () {
       $(".modal-title").text("Participantes");
       $("#modal_Mostrar_P").modal("show");
     });
+
+   
+
+
+   
     
   
 
@@ -90,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-  
+ 
     //Revisar Ficha
   
     $(document).on("click", ".btnRevision", function () {
@@ -100,34 +97,51 @@ document.addEventListener('DOMContentLoaded', function() {
       location.href="revision_documento_coor.php?ficha=" + id_ficha + " ";
     });
     
+    $(document).on("click", ".btnJurado", function (){
+      fila = $(this);
+      id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+      $("#formJurado").trigger("reset");
+      $(".modal-header").css("background-color", "#0050a0");
+      $(".modal-header").css("color", "white");
+      $(".modal-title").text("Jurado");
+      $("#modalJurado").modal("show");
+      $(document).ready(function() {
+        $('#id_lista_usuario_ju').select2();
+    })
+  
+    
+  });
 
+  $(document).on("click", ".btnEvaluador", function (){
+    fila = $(this);
+      id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+    $("#formEvaluador").trigger("reset");
+    $(".modal-header").css("background-color", "#0050a0");
+    $(".modal-header").css("color", "white");
+    $(".modal-title").text("Evaluador");
+    $("#modalEvaluador").modal("show");
+    $(document).ready(function() {
+      $('#id_lista_usuario_ev').select2();
+  })
+  });
+  
   
     $(document).on("click", ".btnEditar", function () {
       fila = $(this);
       id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
-
-
-
       $.ajax({
         url: "../include/coordinador/captador_Datos.php",
         type: "POST",
-   
-        data: {
-          
+        data: { 
           "id_fichas": id_ficha,
-   
         },
        success: function (data) {
- 
+     
+        $("#id").html(data)
           $(".modal-header").css("background-color", "#0050a0");
           $(".modal-header").css("color", "white");
           $(".modal-title").text("Editar Ficha");
           $("#modalCRUD").modal("show");
-          $(document).ready(function() {
-    
-            $('#id_lista_usuario_ev').select2();
-            $('#id_lista_usuario_ju').select2();
-        })
         },
       });
       $("#modalCRUD").modal("hide");

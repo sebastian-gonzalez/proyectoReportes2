@@ -10,7 +10,6 @@ if (!isset($_SESSION['id_rol_usu'])) {
     }
 }
 ?>
-
 <?php
 include_once '../../include/database.php';
 $db = new Database();

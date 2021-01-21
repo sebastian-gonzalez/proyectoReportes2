@@ -98,7 +98,8 @@ if (!isset($_SESSION['id_rol_usu'])) {
         </div>
     </div>
 
-    <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Evaluador  -->
+    <div class="modal fade" id="modalEvaluador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -106,7 +107,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
                     <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="formFichas" enctype="multipart/form-data">
+                <form id="formEvaluador" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-6">
@@ -132,8 +133,31 @@ if (!isset($_SESSION['id_rol_usu'])) {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+
+                        <button input type="submit" id="btnEvaluador" class="btn btn-dark">Guardar</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
 
 
+
+    <!-- Modal Jurado  -->
+
+    <div class="modal fade" id="modalJurado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formJurado" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -158,62 +182,46 @@ if (!isset($_SESSION['id_rol_usu'])) {
                                 </div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
 
-
-
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                        <button input type="submit" name="add_evaluador" name="add_jurado" class="btn btn-dark">Guardar</button>
-                    </div>
-                    bueno lo intente ;v ya vengo si escribe el negrito sigue los pasos //
-                    <div id="recarga">
-                        <div class="row table_modal">
-                            <div>
-                                <table class="table">
-                                    <thead>
-
-                                        <tr>
-                                            <th scope="col">Nombre </th>
-                                            <th scope="col"> Apellido </th>
-                                            <th scope="col"> Rol </th>
-                                        </tr>
-                                    </thead>
-                                    <br></br>
-
-                                    <?php
-
-                                    include("../include/coordinador/captador_Datos.php");
-                                    echo $id_ficha_compa;
-
-
-                                    $sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha AND lista_ficha.id_lista_ficha = $id_ficha_compa ORDER BY id_rol_ficha");
-                                    if (mysqli_num_rows($sql) == 0) {
-                                        echo 'no hay datos';
-                                    } else {
-
-                                        while ($valores = mysqli_fetch_assoc($sql)) {
-                                            echo '
-                                            <tbody>
-                                    <tr>    
-                                    <td>' . $valores['nombre_usu'] . '</td>
-                                    <td>' . $valores['apellido_usu'] . '</td>
-                                    <td>' . $valores['nombre_rol_ficha'] . '</td>
-                                    </tr>';
-                                        }
-                                    }
-
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
-
+                            <button input type="submit" id="btnJurado9" class="btn btn-dark">Guardar</button>
                         </div>
                     </div>
-
+                </form>
             </div>
         </div>
-        </form>
     </div>
+
+
+
+    <!-- Modal ""Participantes"""  -->
+    <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formFichas" enctype="multipart/form-data">
+                    <div class="modal-body" id="id">
+
+                        <?php
+                        include('../include/coordinador/captador_Datos.php');
+                        ?>
+
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    </div>
+
+
+            </div>
+
+        </div>
     </div>
+    </form>
+    </div>
+
 
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
