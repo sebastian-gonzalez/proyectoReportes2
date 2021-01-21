@@ -38,7 +38,6 @@ if (!isset($_SESSION['id_rol_usu'])) {
     include('../include/database.php');
     include("../include/coordinador/add_jurado.php");
     include("../include/coordinador/add_evaluador.php");
-
     ?>
 
     <!--datables CSS básico-->
@@ -98,6 +97,9 @@ if (!isset($_SESSION['id_rol_usu'])) {
         </div>
     </div>
 
+
+
+
     <!-- Modal Evaluador  -->
     <div class="modal fade" id="modalEvaluador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -137,7 +139,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
 
-                        <button input type="submit" id="btnEvaluador" class="btn btn-dark">Guardar</button>
+                        <button input type="submit" name="add_evaluador" class="btn btn-dark">Guardar</button>
                     </div>
             </div>
             </form>
@@ -185,7 +187,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
 
-                            <button input type="submit" id="btnJurado9" class="btn btn-dark">Guardar</button>
+                            <button input type="submit" name="add_jurado" class="btn btn-dark">Guardar</button>
                         </div>
                     </div>
                 </form>

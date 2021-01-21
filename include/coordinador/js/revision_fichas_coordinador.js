@@ -19,7 +19,7 @@ $(document).ready(function () {
         { data: "fecha_ficha" },
         {
           defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEvaluador'  tooltip-dir='top' title='Agregar Evaluador'><i class='material-icons'>add</i></button><button class='btn btn-primary btn-sm btnJurado'  tooltip-dir='top' title='Agregar Jurado'><i class='material-icons'>add</i></button><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Inspeccionar'><i class='material-icons'>search</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEvaluador'  tooltip-dir='top' title='Agregar Evaluador'><i class='material-icons'>person_add</i></button><button class='btn btn-primary btn-sm btnJurado'  tooltip-dir='top' title='Agregar Jurado'><i class='material-icons'>person_add</i></button><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
         },
       ],
     });
@@ -115,6 +115,14 @@ document.addEventListener('DOMContentLoaded', function() {
   $(document).on("click", ".btnEvaluador", function (){
     fila = $(this);
       id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+      $.ajax({
+        url: "../include/coordinador/add_evaluador.php",
+        type: "POST",
+        data: { 
+          "id_fichas": id_ficha,
+        },
+        success: function (data) {
+         
     $("#formEvaluador").trigger("reset");
     $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
@@ -122,8 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#modalEvaluador").modal("show");
     $(document).ready(function() {
       $('#id_lista_usuario_ev').select2();
-  })
   });
+  },
+});
+});
   
   
     $(document).on("click", ".btnEditar", function () {
@@ -131,6 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
       id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
       $.ajax({
         url: "../include/coordinador/captador_Datos.php",
+        
         type: "POST",
         data: { 
           "id_fichas": id_ficha,
