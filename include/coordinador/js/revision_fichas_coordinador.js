@@ -100,6 +100,14 @@ document.addEventListener('DOMContentLoaded', function() {
     $(document).on("click", ".btnJurado", function (){
       fila = $(this);
       id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+      $.ajax({
+        url: "revision_fichas_coordinador.php",
+        
+        type: "POST",
+        data: { 
+          "id_fichas_jurado": id_ficha,
+        },
+        success: function (data) {
       $("#formJurado").trigger("reset");
       $(".modal-header").css("background-color", "#0050a0");
       $(".modal-header").css("color", "white");
@@ -107,19 +115,20 @@ document.addEventListener('DOMContentLoaded', function() {
       $("#modalJurado").modal("show");
       $(document).ready(function() {
         $('#id_lista_usuario_ju').select2();
-    })
-  
-    
+      });
+    },
+  });
   });
 
   $(document).on("click", ".btnEvaluador", function (){
     fila = $(this);
       id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
       $.ajax({
-        url: "../include/coordinador/add_evaluador.php",
+        url: "revision_fichas_coordinador.php",
+        
         type: "POST",
         data: { 
-          "id_fichas": id_ficha,
+          "id_fichas_evaluador": id_ficha,
         },
         success: function (data) {
          

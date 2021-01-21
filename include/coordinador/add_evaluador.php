@@ -1,4 +1,6 @@
 <?php
+
+
 $db = new Database();
 $conexion = $db->connect();
 $id_s = $_SESSION['id_usuario'];
@@ -16,29 +18,30 @@ if ($row_ficha == true) {
      $_SESSION['id_rol_ficha'] = $id_rol_fi;
 }
 ?>
+
 <?php
 if (isset($_POST['add_evaluador'])) {
-     $id_lista_ficha = (isset($_POST['id_fichas'])) ? $_POST['id_fichas'] : '';
 
-     $_SESSION['id_fichas'] = $id_lista_ficha;
+
+     
+     $id_lista_ficha =  $_SESSION['id_fichas_evaluador']; 
 
      $id_lista_usuario = (isset($_POST['id_lista_usuario_ev'])) ? $_POST['id_lista_usuario_ev'] : '';
-     echo $id_lista_usuario;
-     echo $id_lista_ficha;
+   
 
 
 
-     $consulta_validacion = "SELECT * FROM lista_ficha WHERE id_lista_usuario=$id_lista_usuario AND id_lista_ficha =$id_lista_ficha";
+     $consulta_validacion = "SELECT * FROM lista_ficha WHERE id_lista_ficha =$id_lista_ficha AND (id_lista_usuario=$id_lista_usuario AND id_rol_ficha = 2)";
      $resultado_vali = $conexion->prepare($consulta_validacion);
      $data_vali = $resultado_vali->execute();
 
      if ($resultado_vali->fetchColumn() > 0) {
-          echo '<script language="javascript">alert("La ficha ya posee ese evaluador");
+          echo '<script language="javascript">alert("La ficha no puede asignar ese evaluador");
      location.href="revision_fichas_coordinador.php";</script>';
      } else {
           //asignar evaluador
           $id_lista_usuario = (isset($_POST['id_lista_usuario_ev'])) ? $_POST['id_lista_usuario_ev'] : '';
-          $id_lista_ficha = (isset($_POST['id_fichas'])) ? $_POST['id_fichas'] : '';
+          $id_lista_ficha= $_SESSION['id_fichas_evaluador'];
           $id_rol_ficha = 3;
           $consulta_participante = "INSERT INTO lista_ficha (id_lista_usuario,id_lista_ficha,id_rol_ficha)
          VALUES('$id_lista_usuario','$id_lista_ficha', '$id_rol_ficha') ";

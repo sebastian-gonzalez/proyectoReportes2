@@ -98,7 +98,16 @@ if (!isset($_SESSION['id_rol_usu'])) {
     </div>
 
 
+    <?php
+   //id ficha para evaluador
+    $id_ficha_compa = (isset($_POST['id_fichas_evaluador'])) ? $_POST['id_fichas_evaluador'] : '';
+    $_SESSION['id_fichas_evaluador'] = $id_ficha_compa;
 
+    //id ficha para jurado
+    $id_ficha_jurado = (isset($_POST['id_fichas_jurado'])) ? $_POST['id_fichas_jurado'] : '';
+    $_SESSION['id_fichas_jurado'] = $id_ficha_jurado;
+
+    ?>
 
     <!-- Modal Evaluador  -->
     <div class="modal fade" id="modalEvaluador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -179,7 +188,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
                                             '</option>';
                                         }
                                         ?>
-                                    </select>
+                                    </select> 
 
                                 </div>
                             </div>
