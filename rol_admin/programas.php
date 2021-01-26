@@ -1,16 +1,22 @@
 <?php
-
 session_start();
+//Finalizacion de la session transcurridos 10 minutos
+$minutosparafinalizar = 1;
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > ($minutosparafinalizar * 60))) {
+	session_unset();     
+	session_destroy();  
+	echo '<script language="javascript">alert("Tiempo de la session expirado");</script>';
+	header('location: ../login.php');
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity
 
 if (!isset($_SESSION['id_rol_usu'])) {
-    header('location: ../login.php');
+	header('location: ../login.php');
 } else {
-    if ($_SESSION['id_rol_usu'] != 1) {
-        header('location: ../login.php');
-    }
+	if ($_SESSION['id_rol_usu'] != 1) {
+		header('location: ../login.php');
+	}
 }
-
-
 ?>
 
 <?php include("../include/conexion.php"); ?>

@@ -98,7 +98,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
     </div>
 
 
-    <?php
+    <?php 
    //id ficha para evaluador
     $id_ficha_compa = (isset($_POST['id_fichas_evaluador'])) ? $_POST['id_fichas_evaluador'] : '';
     $_SESSION['id_fichas_evaluador'] = $id_ficha_compa;
@@ -125,14 +125,13 @@ if (!isset($_SESSION['id_rol_usu'])) {
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Evaluador</label>
 
-                                    <select id="id_lista_usuario_ev" name="id_lista_usuario_ev" class="form-control" required>
+                                    <select id="id_lista_usuario_ev" name="id_lista_usuario_ev[]" class="form-control" multiple="multiple"   style="width: 15em;"  required>
                                         <?php
 
                                         $programa = $_SESSION['id_programa_usu'];
                                         $user = $_SESSION['id_usuario'];
                                         $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 AND id_usuario != $user");
-                                        echo '	<option disabled selected value="">Seleccione su Evaluador</option>';
-
+                                      
                                         while ($valores = mysqli_fetch_array($sql)) {
 
                                             echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre_usu"] . " " . $valores["apellido_usu"] . '</option>';
@@ -174,13 +173,12 @@ if (!isset($_SESSION['id_rol_usu'])) {
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Jurado</label>
 
-                                    <select id="id_lista_usuario_ju" name="id_lista_usuario_ju" class="form-control" required>
+                                    <select id="id_lista_usuario_ju" name="id_lista_usuario_ju" class="form-control" multiple="multiple"   style="width: 15em;"  required>
                                         <?php
 
                                         $programa = $_SESSION['id_programa_usu'];
                                         $user = $_SESSION['id_usuario'];
                                         $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 AND id_usuario != $user");
-                                        echo '	<option disabled selected value="">Seleccione su Jurado</option>';
 
                                         while ($valores = mysqli_fetch_array($sql)) {
 
