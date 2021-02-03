@@ -1,7 +1,7 @@
 <?php
 session_start();
 //Finalizacion de la session transcurridos 10 minutos
-$minutosparafinalizar = 1;
+$minutosparafinalizar = 10;
 
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > ($minutosparafinalizar * 60))) {
 	session_unset();     // unset $_SESSION   
@@ -50,7 +50,11 @@ if (!isset($_SESSION['id_rol_usu'])) {
 </head>
 
 <body>
-	<?php include('nav.html'); ?>
+	<?php 
+	include('nav.html'); 
+	
+
+	?>
 
 	<header>
 
@@ -93,7 +97,105 @@ if (!isset($_SESSION['id_rol_usu'])) {
 		</div>
 	</div>
 
-	<!--Modal para CRUD-->
+<!--Modal para agregar usuario-->
+<div class="modal fade" id="modalAgregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" action="../include/admin/add_usuario.php">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="" class="col-form-label">Cedula:</label>
+									<input type="number" class="form-control" name="cedula_usu" required>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="" class="col-form-label">Nombre</label>
+									<input type="text" class="form-control" name="nombre_usu" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="" class="col-form-label">Apellido</label>
+									<input type="text" class="form-control" name="apellido_usu" required>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="" class="col-form-label">Correo</label>
+									<input type="email" class="form-control" name="correo_usu" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-9">
+								<div class="form-group">
+									<label for="" class="col-form-label">Contraseña</label>
+									<input type="text" class="form-control" name="contrasena_usu" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-5">
+								<div class="form-group">
+									<label for="" class="col-form-label">Tipo rol</label>
+
+									<select name="id_rol_usu" class="form-control" required>
+										<option disabled selected value="">Seleccione el rol</option>
+										<option value="1">Administrador</option>
+										<option value="2">Docente</option>
+										<option value="3">Coordinador</option>
+										<option value="4">Estudiante</option>
+									</select>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-7">
+								<div class="form-group">
+									<label for="" class="col-form-label">Programa</label>
+
+									<select name="id_programa_usu" class="form-control" required>
+
+										<?php
+										$sql = mysqli_query($con, "SELECT * FROM programa  ");
+										echo '	<option disabled selected value="">Seleccione el programa</option>';
+
+										while ($valores = mysqli_fetch_array($sql)) {
+
+											echo '<option value="' . $valores["id_programa"] . '">' . $valores["nombre_pro"] . '</option>';
+										}
+										?>
+									</select>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+						<button type="submit" name="add_usuario" class="btn btn-dark">Guardar</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!--Modal para editar usuario-->
 	<div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -120,7 +222,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 						</div>
 						<div class="row">
 							<div class="col-lg-6">
-								<div class="form-group">
+								<div class="form-group" >
 									<label for="" class="col-form-label">Apellido</label>
 									<input type="text" class="form-control" id="apellido_usu" required>
 								</div>

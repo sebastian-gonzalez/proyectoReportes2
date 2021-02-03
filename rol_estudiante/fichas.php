@@ -30,10 +30,10 @@ include('../include/estudiante/add_ficha.php')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/gif" />
 
-     
-   <!--Select2-->
-   <link rel="stylesheet" type="text/css" href="../assets/select2/select2.min.css" />
-    
+
+    <!--Select2-->
+    <link rel="stylesheet" type="text/css" href="../assets/select2/select2.min.css" />
+
     
 
 </head>
@@ -133,6 +133,7 @@ include('../include/estudiante/add_ficha.php')
                             <label for="" class="col-form-label">Documento</label>
                             <div class="col-lg-6">
                                 <input type="file" id="archivo" required>
+                               
                             </div>
                         </div>
                     </div>
@@ -353,13 +354,12 @@ include('../include/estudiante/add_ficha.php')
     <!-- datatables JS -->
     <script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="../include/estudiante/js/ficha.js"></script>
-        
-        
-        <!-- Select2 -->
+
+
+    <!-- Select2 -->
 
     <script src="../assets/select2/select2.min.js"></script>
-    
+
 </body>
 
 </html>
-

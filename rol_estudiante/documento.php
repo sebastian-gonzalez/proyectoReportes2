@@ -42,6 +42,8 @@ include("../include/conexion.php");
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/gif" />
 
+
+
 </head>
 
 <div class="container">
@@ -49,13 +51,12 @@ include("../include/conexion.php");
         <br></br>
         <h2>PDF</h2>
         <hr />
-
+    
         <?php
         $nik = $_SESSION['id_usuario'];
         $sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
         while ($record = mysqli_fetch_assoc($sql)) {
             $id = $record['id_lista_ficha']
-
 
         ?>
 
@@ -68,6 +69,9 @@ include("../include/conexion.php");
                     <h3>
                         <?php
 
+
+
+
                         $path = "../include/estudiante/pdf/" . $id;
                         if (file_exists($path)) {
                             $directorio = opendir($path);
@@ -76,6 +80,8 @@ include("../include/conexion.php");
                                     echo "<iframe src='../include/estudiante/pdf/$id/$archivo' height='820' width='100%' />";
                                 }
                             }
+                        } else {
+                            echo '<script language="javascript">alert("No Tiene un documento agregado");</script>';
                         }
                         ?>
 

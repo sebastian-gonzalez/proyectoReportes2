@@ -19,7 +19,7 @@ $(document).ready(function () {
         { data: "fecha_ficha" },
         {
           defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Editar'><i class='material-icons'>edit</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnParticipantes'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
         },
       ],
     });
@@ -70,13 +70,26 @@ $(document).ready(function () {
     });
   
 
-    $("#btnMostrar_P").click(function () {
-      opcion = 1; //alta
-      id_ficha = null;
-      $(".modal-header").css("background-color", "#0050a0");
-      $(".modal-header").css("color", "white");
-      $(".modal-title").text("Participantes");
-      $("#modal_Mostrar_P").modal("show");
+    $(document).on("click", ".btnParticipantes", function () {
+      fila = $(this);
+      id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+      $.ajax({
+        url: "../include/coordinador/captador_Datos.php",
+        
+        type: "POST",
+        data: { 
+          "id_fichas": id_ficha,
+        },
+       success: function (data) {
+     
+        $("#id").html(data)
+          $(".modal-header").css("background-color", "#0050a0");
+          $(".modal-header").css("color", "white");
+          $(".modal-title").text("Participantes de esta ficha");
+          $("#modalParticipantes").modal("show");
+        },
+      });
+      $("#modalParticipantes").modal("hide");
     });
     
   
@@ -112,16 +125,15 @@ document.addEventListener('DOMContentLoaded', function() {
       $("#modalCRUD").modal("show");
     });
   
-    //Borrar
-  
    //Revisar Ficha
   
    $(document).on("click", ".btnRevision", function () {
     fila = $(this);
     id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
     opcion = 3; //eliminar
-    location.href="revision_documento.php?ficha=" + id_ficha + " ";
+    location.href="revision_documento_coor.php?ficha=" + id_ficha + " ";
   });
+
 });
   
 

@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
         $("#id").html(data)
           $(".modal-header").css("background-color", "#0050a0");
           $(".modal-header").css("color", "white");
-          $(".modal-title").text("Editar Ficha");
+          $(".modal-title").text("Participantes de esta ficha");
           $("#modalCRUD").modal("show");
         },
       });

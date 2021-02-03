@@ -150,7 +150,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
     <!-- datatables JS -->
     <script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
 
-    <script type="text/javascript" src="../include/coordinador/js/ficha_asignada_jurado.js"></script>
+    <script type="text/javascript" src="../include/coordinador/js/fichas_aprobadas.js"></script>
 
     <!-- Select2 -->
 

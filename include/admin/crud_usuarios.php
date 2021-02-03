@@ -14,29 +14,15 @@ $Programa_id    = (isset($_POST['id_programa_usu'])) ? $_POST['id_programa_usu']
 $id_usuario = (isset($_POST['id_usuario'])) ? $_POST['id_usuario'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
+
+
+
+
 switch ($opcion) {
     case 1:
-        $consulta = "INSERT INTO usuarios (cedula_usu,nombre_usu,apellido_usu,correo_usu,contrasena_usu,id_rol_usu,id_programa_usu)
-        VALUES('$Cedula','$Nombre', '$Apellido','$Correo','$Contrasena', '$Rol_id', '$Programa_id')";
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-
-        $consulta = "SELECT * FROM usuarios ORDER BY id_usuario DESC LIMIT 1";
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-        break;
+        //agregar
     case 2:
-        $consulta = "UPDATE usuarios  SET cedula_usu='$Cedula',nombre_usu='$Nombre', apellido_usu='$Apellido', correo_usu='$Correo', contrasena_usu='$Contrasena', id_rol_usu='$Rol_id', id_programa_usu='$Programa_id' WHERE id_usuario='$id_usuario'";
-
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-
-        $consulta = "SELECT * FROM usuarios WHERE id_usuario='$id_usuario' ";
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-        break;
+     //editar
     case 3:
         $consulta = "DELETE FROM usuarios WHERE id_usuario='$id_usuario' ";
         $resultado = $conexion->prepare($consulta);

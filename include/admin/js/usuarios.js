@@ -37,11 +37,12 @@ $(document).ready(function () {
     contrasena_usu = $.trim($("#contrasena_usu").val());
     id_rol_usu = $.trim($("#id_rol_usu").val());
     id_programa_usu = $.trim($("#id_programa_usu").val());
+   
     $.ajax({
-      url: "../include/admin/crud_usuarios.php",
+      url: "../include/admin/edit_usuario.php",
       type: "POST",
       datatype: "json",
-      data: {
+       data: {
         id_usuario: id_usuario,
         cedula_usu: cedula_usu,
         nombre_usu: nombre_usu,
@@ -67,12 +68,12 @@ $(document).ready(function () {
     $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
     $(".modal-title").text("Agregar Usuario");
-    $("#modalCRUD").modal("show");
+    $("#modalAgregar").modal("show");
   });
 
   //Editar
   $(document).on("click", ".btnEditar", function () {
-    opcion = 2; //editar
+
     fila = $(this).closest("tr");
     id_usuario = parseInt(fila.find("td:eq(0)").text()); //capturo el ID
     cedula_usu = fila.find("td:eq(1)").text();

@@ -37,7 +37,6 @@ if (!isset($_SESSION['id_rol_usu'])) {
     include('../include/conexion.php');
     include('../include/database.php');
     include("../include/coordinador/add_jurado.php");
-    include("../include/coordinador/add_evaluador.php");
     ?>
 
     <!--datables CSS básico-->
@@ -97,7 +96,72 @@ if (!isset($_SESSION['id_rol_usu'])) {
         </div>
     </div>
 
-    <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <?php 
+   //id ficha para evaluador
+    $id_ficha_compa = (isset($_POST['id_fichas_evaluador'])) ? $_POST['id_fichas_evaluador'] : '';
+    $_SESSION['id_fichas_evaluador'] = $id_ficha_compa;
+
+    //id ficha para jurado
+    $id_ficha_jurado = (isset($_POST['id_fichas_jurado'])) ? $_POST['id_fichas_jurado'] : '';
+    $_SESSION['id_fichas_jurado'] = $id_ficha_jurado;
+
+    ?>
+
+    
+
+    
+
+    <!-- Modal Jurado  -->
+
+    <div class="modal fade" id="modalJurado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formJurado" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="" class="col-form-label">Jurado</label>
+
+                                    <select id="id_lista_usuario_ju" name="id_lista_usuario_ju" class="form-control" multiple="multiple"   style="width: 15em;"  required>
+                                        <?php
+
+                                        $programa = $_SESSION['id_programa_usu'];
+                                        $user = $_SESSION['id_usuario'];
+                                        $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 AND id_usuario != $user");
+
+                                        while ($valores = mysqli_fetch_array($sql)) {
+
+                                            echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre_usu"] . " " . $valores["apellido_usu"] . '</option>';
+                                            '</option>';
+                                        }
+                                        ?>
+                                    </select> 
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+
+                            <button input type="submit" name="add_jurado" class="btn btn-dark">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal ""Participantes"""  -->
+    <div class="modal fade" id="modalParticipantes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -106,113 +170,29 @@ if (!isset($_SESSION['id_rol_usu'])) {
                     </button>
                 </div>
                 <form id="formFichas" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="" class="col-form-label">Evaluador</label>
+                    <div class="modal-body" id="id">
 
-                                    <select id="id_lista_usuario_ev" name="id_lista_usuario_ev" class="form-control" required>
-                                        <?php
-
-                                        $programa = $_SESSION['id_programa_usu'];
-                                        $user = $_SESSION['id_usuario'];
-                                        $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 AND id_usuario != $user");
-                                        echo '	<option disabled selected value="">Seleccione su Evaluador</option>';
-
-                                        while ($valores = mysqli_fetch_array($sql)) {
-
-                                            echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre_usu"] . " " . $valores["apellido_usu"] . '</option>';
-                                            '</option>';
-                                        }
-                                        ?>
-                                    </select>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="" class="col-form-label">Jurado</label>
-
-                                    <select id="id_lista_usuario_ju" name="id_lista_usuario_ju" class="form-control" required>
-                                        <?php
-
-                                        $programa = $_SESSION['id_programa_usu'];
-                                        $user = $_SESSION['id_usuario'];
-                                        $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 AND id_usuario != $user");
-                                        echo '	<option disabled selected value="">Seleccione su Jurado</option>';
-
-                                        while ($valores = mysqli_fetch_array($sql)) {
-
-                                            echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre_usu"] . " " . $valores["apellido_usu"] . '</option>';
-                                            '</option>';
-                                        }
-                                        ?>
-                                    </select>
-
-                                </div>
-                            </div>
-                        </div>
-
-
+                        <?php
+                        include('../include/coordinador/captador_Datos.php');
+                        ?>
 
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                        <button input type="submit" name="add_evaluador" name="add_jurado" class="btn btn-dark">Guardar</button>
-                    </div>
-
-                    <div class="row table_modal">
-                        <div>
-                            <table class="table">
-                                <thead>
-
-                                    <tr>
-                                        <th scope="col">Nombre </th>
-                                        <th scope="col"> Apellido </th>
-                                        <th scope="col"> Rol </th>
-                                    </tr>
-                                </thead>
-                                <br></br>
-                                <?php
-                                $ficha =
-                                    $sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha AND lista_ficha.id_lista_ficha = $ficha ORDER BY id_rol_ficha");
-                                if (mysqli_num_rows($sql) == 0) {
-                                    echo 'no hay datos';
-                                } else {
-
-                                    while ($valores = mysqli_fetch_assoc($sql)) {
-                                        echo '
-                                            <tbody>
-                                    <tr>    
-                                    <td>' . $valores['nombre_usu'] . '</td>
-                                    <td>' . $valores['apellido_usu'] . '</td>
-                                    <td>' . $valores['nombre_rol_ficha'] . '</td>
-                                    </tr>';
-                                    }
-                                }
-
-                                ?>
-                                </tbody>
-                            </table>
-                        </div>
-
                     </div>
 
 
             </div>
+
         </div>
-        </form>
-    </div>
     </div>
 
-
+    
+    </form>
+    </div>
 
 
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="../assets/jquery/jquery-3.5.1.js"></script>
     <script src="../assets/jquery/jquery-3.5.1.js"></script>
     <script src="../assets/popper/popper.min.js"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>

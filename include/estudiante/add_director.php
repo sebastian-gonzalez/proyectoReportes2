@@ -23,39 +23,43 @@ if ($row_ficha == true) {
      $_SESSION['id_rol_ficha'] = $id_rol_fi;
 }
 ?>
-
-
-
-
 <?php
 if (isset($_POST['add_director'])) {
 
-     
-          $id_lista_usuario_director = (isset($_POST['id_lista_usuario_director'])) ? $_POST['id_lista_usuario_director'] : '';
 
-          $consulta_validacion = "SELECT COUNT(*) FROM lista_ficha WHERE id_lista_usuario=$id_lista_usuario_director";
-          $resultado_vali = $conexion->prepare($consulta_validacion);
-          $data_vali = $resultado_vali->execute();
+     $id_lista_usuario_director = (isset($_POST['id_lista_usuario_director'])) ? $_POST['id_lista_usuario_director'] : '';
 
-          if ($resultado_vali->fetchColumn() > 0) {
-               echo '<script language="javascript">alert("El director ya ha sido asignado");
+     // Validacion para saber si el director por agregar ya existe en la ficha
+     $consulta_validacion = "SELECT COUNT(*) FROM lista_ficha WHERE id_lista_usuario=$id_lista_usuario_director and id_lista_ficha =$id_lis_fi";
+     $resultado_vali = $conexion->prepare($consulta_validacion);
+     $data_vali = $resultado_vali->execute();
+
+    // Validacion para saber si la ficha ya cuneta con un director
+     $consulta_validacion_2 = "SELECT COUNT(*) FROM lista_ficha WHERE id_lista_ficha = $id_lis_fi and id_rol_ficha =2 ";
+     $resultado_vali_2 = $conexion->prepare($consulta_validacion_2);
+     $data_vali_2 = $resultado_vali_2->execute();
+
+     if ($resultado_vali->fetchColumn() > 0) {
+          echo '<script language="javascript">alert("El director ya ha sido asignado a esta ficha");
           location.href="fichas.php";</script>';
-          } else {
+     } else if ($resultado_vali_2->fetchColumn() > 0) {
+          echo '<script language="javascript">alert("La ficha ya posee un director");
+          location.href="fichas.php";</script>';
+     }else {
 
-               //asignar director
+          //asignar director
 
-               $id_lista_usuario2 = (isset($_POST['id_lista_usuario_director'])) ? $_POST['id_lista_usuario_director'] : '';
-               $id_lista_ficha = $_SESSION['id_lista_ficha'];
-               $id_rol_ficha = 2;
+          $id_lista_usuario2 = (isset($_POST['id_lista_usuario_director'])) ? $_POST['id_lista_usuario_director'] : '';
+          $id_lista_ficha = $_SESSION['id_lista_ficha'];
+          $id_rol_ficha = 2;
 
 
-               $consulta_participante = "INSERT INTO lista_ficha (id_lista_usuario,id_lista_ficha,id_rol_ficha)
+          $consulta_participante = "INSERT INTO lista_ficha (id_lista_usuario,id_lista_ficha,id_rol_ficha)
          VALUES('$id_lista_usuario2','$id_lista_ficha', '$id_rol_ficha') ";
 
-               $resultado_participante = $conexion->prepare($consulta_participante);
-               $resultado_participante->execute();
-               echo '<script language="javascript">alert("exito");
+          $resultado_participante = $conexion->prepare($consulta_participante);
+          $resultado_participante->execute();
+          echo '<script language="javascript">alert("exito");
                location.href="fichas.php";</script>';
-          }
      }
-
+}
