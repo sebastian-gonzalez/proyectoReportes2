@@ -66,6 +66,9 @@ if (!isset($_SESSION['id_rol_usu'])) {
 			<div class="col-lg-12">
 
 				<button id="btnNuevo" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">library_add</i></button>
+
+				<button  type="button" class="btn btn-primary" data-toggle="modal" onclick="window.location.href='import_excel.php';"><i class="material-icons">upload_file</i></button>
+
 			</div>
 		</div>
 	</div>

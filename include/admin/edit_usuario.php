@@ -29,7 +29,7 @@ $data_vali_correo = $resultado_vali_correo->execute();
 
 if ($resultado_vali_cedula->fetchColumn() > 0) {
 
-echo 'xd';
+
 
     echo '<script language="javascript">alert("Intente con una cedula diferente");
         location.href="../../rol_admin/usuarios.php";</script>';

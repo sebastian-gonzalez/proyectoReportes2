@@ -51,7 +51,7 @@ include("../include/conexion.php");
         <br></br>
         <h2>PDF</h2>
         <hr />
-    
+       
         <?php
         $nik = $_SESSION['id_usuario'];
         $sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");

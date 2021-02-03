@@ -50,7 +50,6 @@ switch ($opcion) {
 
         $resultado = $conexion->prepare($consulta);
         $validacion_id = $resultado->execute();
-
         //if evta problemas con la el PK autoincrement y obliga  que la primera consulta sea verdadera para proceder
         if ($validacion_id = true) {
             $id_insert  = $conexion->lastInsertId();
@@ -59,14 +58,6 @@ switch ($opcion) {
             $id_insert = 0;
             echo "no se ejecuto la primera consulta ";
         }
-
-
-       
-
-
-
-
-
         $consulta = "SELECT * FROM ficha WHERE id_ficha='$id_ficha' ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();

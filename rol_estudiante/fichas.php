@@ -30,11 +30,13 @@ include('../include/estudiante/add_ficha.php')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/gif" />
 
-
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <!--Select2-->
     <link rel="stylesheet" type="text/css" href="../assets/select2/select2.min.css" />
 
-    
+    <script type="text/javascript">
+
+    </script>
 
 </head>
 
@@ -42,6 +44,12 @@ include('../include/estudiante/add_ficha.php')
     <?php include('nav.php');
 
     include("../include/estudiante/add_director.php");
+    include("../include/estudiante/update_ficha.php");
+    include("../include/conexion.php");
+
+     //id ficha
+     $id_de_ficha = (isset($_POST['id_de_ficha'])) ? $_POST['id_de_ficha'] : '';
+     $_SESSION['id_de_ficha'] = $id_de_ficha;
     ?>
 
 
@@ -119,28 +127,55 @@ include('../include/estudiante/add_ficha.php')
                     <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="formFichas" enctype="multipart/form-data">
+                <form method="post" action="" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="" class="col-form-label">Titulo</label>
-                                    <input type="text" class="form-control" id="titulo_ficha" required>
+                                    <input type="text" class="form-control" id="titulo_ficha" name="titulo_ficha" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group" enctype="multipart/form-data">
                             <label for="" class="col-form-label">Documento</label>
                             <div class="col-lg-6">
-                                <input type="file" id="archivo" required>
-                               
+                                <input type="file" name="archivo">
+                                <?php
+                                $nik = $_SESSION['id_usuario'];
+                                $sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
+                                while ($record = mysqli_fetch_assoc($sql)) {
+                                    $id = $record['id_lista_ficha'];
+                                }
+                                $path = "../include/estudiante/pdf/" . $id;
+                                if (file_exists($path)) {
+                                    $directorio = opendir($path);
+                                    while ($archivo = readdir($directorio)) {
+                                        if (!is_dir($archivo)) {
+                                            echo "<div data='" . $path . "/" . $archivo . "'>
+									<a href = '" . $path . "/" . $archivo . "'
+									title = 'Ver Archivo Adjunto'>
+                                    <span class='fa fa-trash' aria-hidden='true'></span></a>";
+
+                                            echo "$archivo <a href ='fichas.php' id = 'delete'
+                                    title = 'Eliminar Archivo Adjunto'>
+                                    
+                                    <span class='fa fa-trash' aria-hidden='true'></span></a></div>";
+
+                                            echo "<iframe src='../include/estudiante/pdf/$id/$archivo' width='300'> </iframe>";
+                                        }
+                                    }
+                                }
+
+                                ?>
+
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
 
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
+                        <button input type="submit" name="mod" class="btn btn-dark">Guardar</button>
                     </div>
             </div>
             </form>
@@ -172,6 +207,7 @@ include('../include/estudiante/add_ficha.php')
                             <label for="" class="col-form-label">Documento</label>
                             <div class="col-lg-6">
                                 <input type="file" name="archivo" required>
+
 
                             </div>
                         </div>

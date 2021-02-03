@@ -114,7 +114,25 @@ $(document).ready(function () {
       $("#modal_Mostrar_P").modal("show");
     });
     
-  
+ 
+    $('#delete').click(function() {			alert('xd');
+          
+      var parent = $(this).parent().attr('id');
+      var service = $(this).parent().attr('data');
+      var dataString = 'id=' + service;
+      $.ajax({
+        type: "POST",
+        url: "del_document.php",
+                  data: dataString,
+             
+        succes: function() {
+
+        }
+      });
+
+    });
+
+
 
     
 //TEXTO FLOTANTE BOTON
@@ -124,29 +142,32 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+  
     //Editar
     $(document).on("click", ".btnEditar", function () {
-      opcion = 2; //editar
+      
       fila = $(this).closest("tr");
       id_ficha = parseInt(fila.find("td:eq(0)").text()); //capturo el ID
       titulo_ficha = fila.find("td:eq(1)").text();
-      descripcion_ficha = fila.find("td:eq(2)").text();
-      id_programa_ficha = fila.find("td:eq(3)").text();
-      id_estado_ficha = fila.find("td:eq(4)").text();
-      evaluacion_ficha = fila.find("td:eq(5)").text();
-  
       $("#titulo_ficha").val(titulo_ficha);
-      $("#descripcion_ficha").val(descripcion_ficha);
-      $("#id_programa_ficha").val(id_programa_ficha);
-      $("#id_estado_ficha").val(id_estado_ficha);
-      $("#evaluacion_ficha").val(evaluacion_ficha);
-  
+      $.ajax({
+        url: "fichas.php",
+        
+        type: "POST",
+        data: { 
+          "id_de_ficha": id_ficha,
+        },
+        success: function (data) {
+         
       $(".modal-header").css("background-color", "#0050a0");
       $(".modal-header").css("color", "white");
       $(".modal-title").text("Editar Ficha");
       $("#modalCRUD").modal("show");
-    });
-  
+    },
+  });
+  });
+
+
     //Borrar
   
     $(document).on("click", ".btnBorrar", function () {

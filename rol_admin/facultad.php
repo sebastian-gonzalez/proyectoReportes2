@@ -1,7 +1,7 @@
 <?php
 session_start();
 //Finalizacion de la session transcurridos 10 minutos
-$minutosparafinalizar = 1;
+$minutosparafinalizar = 10;
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > ($minutosparafinalizar * 60))) {
 	session_unset();     // unset $_SESSION   
 	session_destroy();   // destroy session data  
