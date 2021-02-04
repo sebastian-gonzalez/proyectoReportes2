@@ -11,10 +11,12 @@ if (isset($_POST['add_usuario'])) {
     $Nombre = (isset($_POST['nombre_usu'])) ? $_POST['nombre_usu'] : '';
     $Apellido = (isset($_POST['apellido_usu'])) ? $_POST['apellido_usu'] : '';
     $Correo    = (isset($_POST['correo_usu'])) ? $_POST['correo_usu'] : '';
-    $Contrasena    = (isset($_POST['contrasena_usu'])) ? $_POST['contrasena_usu'] : '';
+    $Contrasena  = (isset($_POST['contrasena_usu'])) ? $_POST['contrasena_usu'] : '';
     $Rol_id    = (isset($_POST['id_rol_usu'])) ? $_POST['id_rol_usu'] : '';
     $Programa_id    = (isset($_POST['id_programa_usu'])) ? $_POST['id_programa_usu'] : '';
     $id_usuario = (isset($_POST['id_usuario'])) ? $_POST['id_usuario'] : '';
+
+   
 
     
     // Validacion para saber si un usuario ya posee la cedula ingresada

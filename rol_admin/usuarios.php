@@ -86,7 +86,6 @@ if (!isset($_SESSION['id_rol_usu'])) {
 								<th>Nombre</th>
 								<th>Apellido</th>
 								<th>Correo</th>
-								<th>Contraseña</th>
 								<th>Tipo Rol</th>
 								<th>Programa</th>
 								<th>Acciones</th>
@@ -143,7 +142,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 							<div class="col-lg-9">
 								<div class="form-group">
 									<label for="" class="col-form-label">Contraseña</label>
-									<input type="text" class="form-control" name="contrasena_usu" required>
+									<input type="password" class="form-control" name="contrasena_usu" required>
 								</div>
 							</div>
 						</div>

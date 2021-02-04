@@ -15,7 +15,6 @@ $(document).ready(function () {
       { data: "nombre_usu" },
       { data: "apellido_usu" },
       { data: "correo_usu" },
-      { data: "contrasena_usu" },
       { data: "nombre_rol" },
       { data: "nombre_pro" },
       {

@@ -155,7 +155,7 @@ include('../include/estudiante/add_ficha.php')
                                             echo "<div data='" . $path . "/" . $archivo . "'>
 									<a href = '" . $path . "/" . $archivo . "'
 									title = 'Ver Archivo Adjunto'>
-                                    <span class='fa fa-trash' aria-hidden='true'></span></a>";
+                                    <span class='fa fa-file-pdf-o' aria-hidden='true'></span></a>";
 
                                             echo "$archivo <a href ='fichas.php' id = 'delete'
                                     title = 'Eliminar Archivo Adjunto'>

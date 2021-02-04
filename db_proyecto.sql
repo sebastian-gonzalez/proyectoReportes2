@@ -3,13 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2021 a las 19:49:27
+-- Tiempo de generación: 04-02-2021 a las 01:41:01
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -82,7 +83,8 @@ CREATE TABLE `ficha` (
 --
 
 INSERT INTO `ficha` (`id_ficha`, `titulo_ficha`, `descripcion_ficha`, `id_programa_ficha`, `id_estado_ficha`, `evaluacion_ficha`, `fecha_ficha`) VALUES
-(1, 'Proyecto Stivens', 'Proyecto de Grado', 1, 3, '', '2021-01-21 18:40:11');
+(1, 'Proyecto Mario', 'Proyecto de Grado', 1, 1, NULL, '2021-02-02 17:24:45'),
+(5, 'Proyecto Stivens', 'Proyecto de Grado', 1, 1, NULL, '2021-02-03 21:05:59');
 
 -- --------------------------------------------------------
 
@@ -102,11 +104,9 @@ CREATE TABLE `lista_ficha` (
 --
 
 INSERT INTO `lista_ficha` (`id_lista`, `id_lista_usuario`, `id_lista_ficha`, `id_rol_ficha`) VALUES
-(1, 10, 1, 1),
-(2, 12, 1, 1),
-(3, 11, 1, 2),
-(4, 21, 1, 3),
-(5, 22, 1, 4);
+(1, 16, 1, 1),
+(18, 11, 1, 2),
+(20, 10, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -183,7 +183,7 @@ CREATE TABLE `usuarios` (
   `cedula_usu` int(11) NOT NULL,
   `nombre_usu` varchar(30) NOT NULL,
   `apellido_usu` varchar(30) NOT NULL,
-  `correo_usu` varchar(50) NOT NULL,
+  `correo_usu` varchar(50) CHARACTER SET latin1 NOT NULL,
   `contrasena_usu` varchar(50) NOT NULL,
   `id_rol_usu` int(11) NOT NULL,
   `id_programa_usu` int(11) NOT NULL
@@ -194,11 +194,11 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `cedula_usu`, `nombre_usu`, `apellido_usu`, `correo_usu`, `contrasena_usu`, `id_rol_usu`, `id_programa_usu`) VALUES
-(1, 123456789, 'Jorge Mario', 'Garcias', 'j-mario9715@hotmail.com', '1234', 1, 1),
+(1, 123456789, 'Jorge Marios', 'Garcias', 'j-mario9715@hotmail.com', '1234', 1, 1),
 (10, 12345679, 'Stiven', 'Gil', 'stiven@hotmail.com', '1234', 4, 1),
 (11, 78945632, 'Yakita', 'Kcinco', 'yakita@hotmail.com', '1234', 2, 1),
-(12, 7946125, 'Erik', 'Alegria', 'erik@hotmail.com', '1234', 4, 1),
-(14, 951753648, 'Daniela', 'Balanta', 'daniela@hotmail.com', '1234', 2, 3),
+(12, 7946125, 'Erik', 'Alegria', 'erik@hotmail.com', '1234', 3, 1),
+(14, 12346789, 'Daniela', 'Balanta', 'daniela@hotmail.com', '1234', 1, 1),
 (15, 6482157, 'Angie', 'Uruena', 'angie@hotmail.com', '1234', 4, 3),
 (16, 6495317, 'mario', 'garcia', 'mario@hotmail.com', '1234', 4, 1),
 (17, 64821379, 'David', 'Otalora', 'otalora@hotmail.com', '1234', 4, 1),
@@ -206,7 +206,16 @@ INSERT INTO `usuarios` (`id_usuario`, `cedula_usu`, `nombre_usu`, `apellido_usu`
 (19, 1596248, 'Esmilda', 'Uruena', 'mary@hotmail.com', '1234', 4, 3),
 (20, 798456123, 'Paque', 'Porque', 'paque@hotmail.com', '1234', 3, 1),
 (21, 7894561, 'penagos', 'Kcinco', 'penagos@hotmail.com', '1234', 2, 1),
-(22, 89756412, 'vago', 'alegria', 'vago@hotmail.com', '1234', 2, 1);
+(22, 89756412, 'vago', 'alegria', 'vago@hotmail.com', '1234', 2, 1),
+(32, 123123, 'mario', 'Kcincosssssss', 'nose@homtail.com', '1234', 1, 1),
+(33, 1234672, 'david', 'barrientos', 'davidbarre@hotmail.com', '1234', 4, 1),
+(84, 9999999, 'Llanos', 'Vargaz', 'llanos@hotmail.com', '1234', 4, 1),
+(86, 9999977, 'Llanos', 'xde', 'xde@hotmail.com', '1234', 4, 1),
+(89, 9999785, 'iaka', 'penagos', 'elmovil@gmail.com', '1234', 4, 1),
+(97, 99887766, 'Jorge Mario', 'Garcia', 'jorge@hotmail.com', '$2y$10$G9IEResD47z2dXfToCWokuJBQF2ewYYVQzJF7J0nFA3', 1, 1),
+(98, 11223344, 'mario', 'hash', 'hash@hotmail.com', '$2y$10$Z/a0QLPwDk57EW6EPaFfuexE0n3WdGbqrTINts6tSBG', 1, 1),
+(99, 112121213, 'Jorge Mario', 'Kcinco', 'yaca@hotmail.com', '$2y$10$4C2LBP3AWobWH2s..HydVuKj0NlH/6pWLeaQPYkLcSx', 2, 1),
+(100, 99119911, 'usuario', 'palhash', 'usu@hotmail.com', '$2y$10$Zq37MaB.sPHdkAgwmZYCgeri8Ro0QO.XFjER3Zq9frS', 4, 3);
 
 --
 -- Índices para tablas volcadas
@@ -265,6 +274,8 @@ ALTER TABLE `rol_usu`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`),
+  ADD UNIQUE KEY `cedula_usu` (`cedula_usu`),
+  ADD UNIQUE KEY `correo_usu` (`correo_usu`),
   ADD KEY `fk_usuarios_programa` (`id_programa_usu`),
   ADD KEY `unq_usuarios_id_rol_usu` (`id_rol_usu`) USING BTREE;
 
@@ -288,13 +299,13 @@ ALTER TABLE `facultad`
 -- AUTO_INCREMENT de la tabla `ficha`
 --
 ALTER TABLE `ficha`
-  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `lista_ficha`
 --
 ALTER TABLE `lista_ficha`
-  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `programa`
@@ -318,7 +329,7 @@ ALTER TABLE `rol_usu`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- Restricciones para tablas volcadas
