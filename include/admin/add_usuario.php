@@ -16,7 +16,7 @@ if (isset($_POST['add_usuario'])) {
     $Programa_id    = (isset($_POST['id_programa_usu'])) ? $_POST['id_programa_usu'] : '';
     $id_usuario = (isset($_POST['id_usuario'])) ? $_POST['id_usuario'] : '';
 
-   
+    $Contrasena = password_hash($Contrasena, PASSWORD_DEFAULT);
 
     
     // Validacion para saber si un usuario ya posee la cedula ingresada

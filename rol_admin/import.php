@@ -7,6 +7,7 @@
 include '../vendor/autoload.php';
 
 $connect = new PDO("mysql:host=localhost;dbname=db_proyecto", "root", "");
+
 $Programa_id    = (isset($_POST['id_programa_usu'])) ? $_POST['id_programa_usu'] : '';
 $Rol_id    = (isset($_POST['id_rol_usu'])) ? $_POST['id_rol_usu'] : '';
 
@@ -27,6 +28,8 @@ if ($_FILES["import_excel"]["name"] != '') {
 
         $data = $spreadsheet->getActiveSheet()->toArray();
 
+
+
         foreach ($data as $row) {
             $insert_data = array(
                 ':cedula'  => $row[0],
@@ -38,11 +41,10 @@ if ($_FILES["import_excel"]["name"] != '') {
             );
 
 
-
             $query = "
    INSERT INTO usuarios
    (cedula_usu, nombre_usu, apellido_usu, correo_usu,contrasena_usu,id_rol_usu,id_programa_usu) 
-   VALUES (:cedula, :nombre, :apellido, :correo, :contrasena, $Rol_id , $Programa_id)
+   VALUES (:cedula, :nombre, :apellido, :correo,:contrasena, $Rol_id , $Programa_id)
    ";
 
             $statement = $connect->prepare($query);

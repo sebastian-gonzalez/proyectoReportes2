@@ -38,27 +38,31 @@ if (isset($_SESSION['id_rol_usu'])) {
 
 if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 	$correo = $_POST['correo'];
-	$contrasena = htmlentities(addslashes($_POST['contrasena']));
+	$contrasenas = htmlentities(addslashes($_POST['contrasena']));
 	$db = new Database();
 
-	$query = $db->connect()->prepare('SELECT *FROM usuarios WHERE correo_usu = :correo AND contrasena_usu = :contrasena');
-	$query->execute(['correo' => $correo, 'contrasena' => $contrasena]);
+	$query = $db->connect()->prepare('SELECT *FROM usuarios WHERE correo_usu = :correo');
+	$query->execute(['correo' => $correo]);
+	$user = $query->fetch();
 
-	$row = $query->fetch(PDO::FETCH_NUM);
+	$validar_hash=password_verify($contrasenas , $user['contrasena_usu']);
 
-	if ($row == true) {
-		$id_s = $row[0];
+
+
+	if ($validar_hash) {
+
+		$id_s = $user['id_usuario'];
 		$_SESSION['id_usuario'] = $id_s;
 
-		$nombre = $row[2];
+		$nombre = $user['nombre_usu'];
 		$_SESSION['nombre_usu'] = $nombre;
 
-		$rol = $row[6];
+		$rol = $user['id_rol_usu'];
 		$_SESSION['id_rol_usu'] = $rol;
 
-		$programa = $row[7];
+		$programa = $user['id_programa_usu'];
 		$_SESSION['id_programa_usu'] = $programa;
-
+	
 
 		switch ($rol) {
 
@@ -83,11 +87,11 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 
 			default:
 		}
-	} else if ($row == false) {
+	} else{
 
 		// no existe el usuario
 
-		header("location: login.php?fallo=true");
+	header("location: login.php?fallo=true");
 	}
 }
 
