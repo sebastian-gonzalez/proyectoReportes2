@@ -2,15 +2,20 @@
 
 include ("../conexion.php");
 
+
+
 ?>
 <div class="row table_modal">
                         <div>
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th scope="col">Codigo </th>
                                         <th scope="col">Nombre </th>
                                         <th scope="col"> Apellido </th>
                                         <th scope="col"> Rol </th>
+                                        <th scope="col"> Opciones </th>
+
                                     </tr>
                                 </thead>
                                 <br></br>
@@ -23,10 +28,13 @@ include ("../conexion.php");
                                     while ($valores = mysqli_fetch_assoc($sql)) {
                                         echo '
                                             <tbody>
-                                    <tr>    
+                                    <tr> 
+                                    <td>' . $valores['id_lista'] . '</td>   
                                     <td>' . $valores['nombre_usu'] . '</td>
                                     <td>' . $valores['apellido_usu'] . '</td>
                                     <td>' . $valores['nombre_rol_ficha'] . '</td>
+                                    <td><a href="Eliminar_Participante.php?aksi=delete&nik=' . $valores['id_lista'] . '" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos ' . $valores['nombre_usu'] . '?\')" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>    </td>
+
                                     </tr>';
                                     }
                                 }

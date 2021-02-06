@@ -65,7 +65,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 		<div class="row">
 			<div class="col-lg-12">
 
-				<button id="btnNuevo" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">library_add</i></button>
+				<button id="btnNuevo" type="button" class="btn btn-primary" data-toggle="modal" title="xd"><i class="material-icons">library_add</i></button>
 
 				<button  type="button" class="btn btn-primary" data-toggle="modal" onclick="window.location.href='import_excel.php';"><i class="material-icons">upload_file</i></button>
 
@@ -86,6 +86,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 								<th>Nombre</th>
 								<th>Apellido</th>
 								<th>Correo</th>
+								<th>Contraseña</th>
 								<th>Tipo Rol</th>
 								<th>Programa</th>
 								<th>Acciones</th>
@@ -294,6 +295,42 @@ if (!isset($_SESSION['id_rol_usu'])) {
 			</div>
 		</div>
 	</div>
+
+
+
+	<div class="modal fade" id="modalCRUDS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="formUsuarios">
+					<div class="modal-body">
+						<div class="row">
+					
+						<div class="row">
+							<div class="col-lg-9">
+								<div class="form-group">
+									<label for="" class="col-form-label">Contraseña</label>
+									<input type="password" class="form-control" id="contrasena_usu" required>
+								</div>
+							</div>
+						</div>
+
+					
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+						<button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 
 	<!-- jQuery, Popper.js, Bootstrap JS -->
 	<script src="../assets/jquery/jquery-3.3.1.min.js"></script>

@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   
-    //Editar
+    //boton enviar datos 
     $(document).on("click", ".btnEditar", function () {
       
       fila = $(this).closest("tr");

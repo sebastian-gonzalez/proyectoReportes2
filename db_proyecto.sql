@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-02-2021 a las 01:41:01
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 7.4.13
+-- Tiempo de generación: 06-02-2021 a las 21:49:03
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `db_proyecto`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `campos_fichas`
+--
+
+CREATE TABLE `campos_fichas` (
+  `id_campo` int(11) NOT NULL,
+  `descripcion_campo` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `valor_campo` varchar(2000) CHARACTER SET latin1 NOT NULL,
+  `fecha_campo` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `fk_id_ficha` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -83,8 +97,7 @@ CREATE TABLE `ficha` (
 --
 
 INSERT INTO `ficha` (`id_ficha`, `titulo_ficha`, `descripcion_ficha`, `id_programa_ficha`, `id_estado_ficha`, `evaluacion_ficha`, `fecha_ficha`) VALUES
-(1, 'Proyecto Mario', 'Proyecto de Grado', 1, 1, NULL, '2021-02-02 17:24:45'),
-(5, 'Proyecto Stivens', 'Proyecto de Grado', 1, 1, NULL, '2021-02-03 21:05:59');
+(14, 'pruebaficha', 'Proyecto de Grado', 1, 1, NULL, '2021-02-06 20:28:27');
 
 -- --------------------------------------------------------
 
@@ -98,15 +111,6 @@ CREATE TABLE `lista_ficha` (
   `id_lista_ficha` int(11) NOT NULL,
   `id_rol_ficha` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `lista_ficha`
---
-
-INSERT INTO `lista_ficha` (`id_lista`, `id_lista_usuario`, `id_lista_ficha`, `id_rol_ficha`) VALUES
-(1, 16, 1, 1),
-(18, 11, 1, 2),
-(20, 10, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -147,7 +151,7 @@ CREATE TABLE `rol_lista` (
 
 INSERT INTO `rol_lista` (`id_rol_lista`, `nombre_rol_ficha`) VALUES
 (1, 'Estudiante'),
-(2, 'Docente'),
+(2, 'Director'),
 (3, 'Evaluador'),
 (4, 'Jurado');
 
@@ -168,7 +172,7 @@ CREATE TABLE `rol_usu` (
 
 INSERT INTO `rol_usu` (`id_rol`, `nombre_rol`) VALUES
 (1, 'Administrador'),
-(2, 'Docente'),
+(2, 'Director'),
 (3, 'Coordinador'),
 (4, 'Estudiante');
 
@@ -184,7 +188,7 @@ CREATE TABLE `usuarios` (
   `nombre_usu` varchar(30) NOT NULL,
   `apellido_usu` varchar(30) NOT NULL,
   `correo_usu` varchar(50) CHARACTER SET latin1 NOT NULL,
-  `contrasena_usu` varchar(50) NOT NULL,
+  `contrasena_usu` varchar(255) NOT NULL,
   `id_rol_usu` int(11) NOT NULL,
   `id_programa_usu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -194,32 +198,25 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `cedula_usu`, `nombre_usu`, `apellido_usu`, `correo_usu`, `contrasena_usu`, `id_rol_usu`, `id_programa_usu`) VALUES
-(1, 123456789, 'Jorge Marios', 'Garcias', 'j-mario9715@hotmail.com', '1234', 1, 1),
-(10, 12345679, 'Stiven', 'Gil', 'stiven@hotmail.com', '1234', 4, 1),
-(11, 78945632, 'Yakita', 'Kcinco', 'yakita@hotmail.com', '1234', 2, 1),
-(12, 7946125, 'Erik', 'Alegria', 'erik@hotmail.com', '1234', 3, 1),
-(14, 12346789, 'Daniela', 'Balanta', 'daniela@hotmail.com', '1234', 1, 1),
-(15, 6482157, 'Angie', 'Uruena', 'angie@hotmail.com', '1234', 4, 3),
-(16, 6495317, 'mario', 'garcia', 'mario@hotmail.com', '1234', 4, 1),
-(17, 64821379, 'David', 'Otalora', 'otalora@hotmail.com', '1234', 4, 1),
-(18, 45632187, 'Morales', 'Barriento', 'barriento@hotmail.com', '1234', 4, 1),
-(19, 1596248, 'Esmilda', 'Uruena', 'mary@hotmail.com', '1234', 4, 3),
-(20, 798456123, 'Paque', 'Porque', 'paque@hotmail.com', '1234', 3, 1),
-(21, 7894561, 'penagos', 'Kcinco', 'penagos@hotmail.com', '1234', 2, 1),
-(22, 89756412, 'vago', 'alegria', 'vago@hotmail.com', '1234', 2, 1),
-(32, 123123, 'mario', 'Kcincosssssss', 'nose@homtail.com', '1234', 1, 1),
-(33, 1234672, 'david', 'barrientos', 'davidbarre@hotmail.com', '1234', 4, 1),
-(84, 9999999, 'Llanos', 'Vargaz', 'llanos@hotmail.com', '1234', 4, 1),
-(86, 9999977, 'Llanos', 'xde', 'xde@hotmail.com', '1234', 4, 1),
-(89, 9999785, 'iaka', 'penagos', 'elmovil@gmail.com', '1234', 4, 1),
-(97, 99887766, 'Jorge Mario', 'Garcia', 'jorge@hotmail.com', '$2y$10$G9IEResD47z2dXfToCWokuJBQF2ewYYVQzJF7J0nFA3', 1, 1),
-(98, 11223344, 'mario', 'hash', 'hash@hotmail.com', '$2y$10$Z/a0QLPwDk57EW6EPaFfuexE0n3WdGbqrTINts6tSBG', 1, 1),
-(99, 112121213, 'Jorge Mario', 'Kcinco', 'yaca@hotmail.com', '$2y$10$4C2LBP3AWobWH2s..HydVuKj0NlH/6pWLeaQPYkLcSx', 2, 1),
-(100, 99119911, 'usuario', 'palhash', 'usu@hotmail.com', '$2y$10$Zq37MaB.sPHdkAgwmZYCgeri8Ro0QO.XFjER3Zq9frS', 4, 3);
+(104, 12345, 'cordinador', 'cordinador', 'cordinador@gmail.com', '$2y$10$ZEwLchOLo6HVEaQnFEFeu.Auy4TdfXiQXfXrfUSRqWfkUrgElb0ti', 3, 1),
+(105, 1234561, 'Docente', 'Docente', 'docente@gmail.com', '$2y$10$hqfSs3rK8jFmVO2SnAdo5e1aTXqjjVwKyQrb8WHSJqfwWAKr6ghQe', 2, 1),
+(106, 1234562, 'Docente1', 'Docente1', 'docente1@gmail.com', '$2y$10$MtD2AFpfDVB.uiUt0yzywu0gNJ4v9vBzS3QqDJ47E/ZWXNiRP4H2.', 2, 1),
+(107, 1234563, 'Docente2', 'Docente2', 'docente2@gmail.com', '$2y$10$jd/jk.qiMt3S87YZUajtiOqQHV3sc3dtXygvKg6tzDKLw1TUU1xda', 1, 1),
+(108, 1234564, 'Docente3', 'Docente3', 'docente3@gmail.com', '$2y$10$ZqOjSVXEvD9/PQwRx4ITEuegHIDTffD4AZ2IDMgu7OJYkPX45cLIu', 1, 1),
+(111, 1234567, 'Estudiante', 'Estudiante', 'estudiante@gmail.com', '123456', 4, 1),
+(112, 1234568, 'Estudiante1', 'Estudiante1', 'estudiante1@gmail.com', '$2y$10$Tb3cMlpxxo234Ua3zkfPm.PvpFJHo/rhMY2.CZlp3cS2sB01sNxBi', 4, 1),
+(113, 12341234, 'jakita', 'jaka', 'jaka@gmail.com', '$2y$10$.2tDoWLU1mV4L2dNhquRsOHFQ6jTZ9D9D2RQD3Oq.vNUpfm4YMDMC', 4, 1);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `campos_fichas`
+--
+ALTER TABLE `campos_fichas`
+  ADD PRIMARY KEY (`id_campo`),
+  ADD KEY `id_campo_fichas_fk` (`fk_id_ficha`);
 
 --
 -- Indices de la tabla `estado`
@@ -284,6 +281,12 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `campos_fichas`
+--
+ALTER TABLE `campos_fichas`
+  MODIFY `id_campo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
@@ -293,25 +296,25 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de la tabla `facultad`
 --
 ALTER TABLE `facultad`
-  MODIFY `id_facultad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_facultad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `ficha`
 --
 ALTER TABLE `ficha`
-  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_ficha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `lista_ficha`
 --
 ALTER TABLE `lista_ficha`
-  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_lista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `programa`
 --
 ALTER TABLE `programa`
-  MODIFY `id_programa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_programa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `rol_lista`
@@ -329,11 +332,17 @@ ALTER TABLE `rol_usu`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `campos_fichas`
+--
+ALTER TABLE `campos_fichas`
+  ADD CONSTRAINT `id_campo_fichas_fk` FOREIGN KEY (`fk_id_ficha`) REFERENCES `ficha` (`id_ficha`);
 
 --
 -- Filtros para la tabla `ficha`

@@ -4,10 +4,13 @@ $(document).ready(function () {
   
     tablaFichas = $("#tablaFichas").DataTable({
       ajax: {
-        url: "../include/coordinador/revision_fichas_coordinador.php",
+        url: "../include/coordinador/revision_fichas_director.php",
         method: "POST", //usamos el metodo POST
         data: { opcion: opcion }, //enviamos opcion 4 para que haga un SELECT
         dataSrc: "",
+        'responsive':true,
+        'scrollX':false,
+        'scrollCollapse': false,
       },
       columns: [
         { data: "id_ficha" },
@@ -19,10 +22,10 @@ $(document).ready(function () {
         { data: "fecha_ficha" },
         {
           defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEvaluador'  tooltip-dir='top' title='Agregar Evaluador'><i class='material-icons'>person_add</i></button><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnDirector'  tooltip-dir='top' title='Agregar Director'><i class='material-icons'>person_add</i></button><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
         },
       ],
-      responsive:true,
+    
     });
   
     var fila; //captura la fila, para editar o eliminar
@@ -121,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   });
 
-  $(document).on("click", ".btnEvaluador", function (){
+  $(document).on("click", ".btnDirector", function (){
     fila = $(this);
       id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
       $.ajax({

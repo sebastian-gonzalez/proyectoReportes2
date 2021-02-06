@@ -47,8 +47,6 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 
 	$validar_hash=password_verify($contrasenas , $user['contrasena_usu']);
 
-
-
 	if ($validar_hash) {
 
 		$id_s = $user['id_usuario'];

@@ -36,7 +36,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
     include('nav.php');
     include('../include/conexion.php');
     include('../include/database.php');
-    include("../include/coordinador/add_evaluador.php");
+    include("../include/coordinador/add_director.php");
     ?>
 
     <!--datables CSS básico-->
@@ -71,34 +71,34 @@ if (!isset($_SESSION['id_rol_usu'])) {
     </div>
     <br>
 
-    <div class="container caja">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="table-responsive">
-                    <table id="tablaFichas" class=" table table-striped table-bordered table-condensed" style="width:100%">
-                        <thead class="text-center">
-                            <tr>
-                                <th>id_ficha</th>
-                                <th>Titulo</th>
-                                <th>Descripcion</th>
-                                <th>Programa</th>
-                                <th>Estado</th>
-                                <th>Evaluacion</th>
-                                <th>Creacion</th>
-                                <th>Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+
+    <div class="row">
+        <div class="container">
+            <div class="table-responsive">
+                <table id="tablaFichas" class=" table table-striped table-bordered table-condensed" style="width:100%">
+                    <thead class="text-center">
+                        <tr>
+                            <th>id_ficha</th>
+                            <th>Titulo</th>
+                            <th>Descripcion</th>
+                            <th>Programa</th>
+                            <th>Estado</th>
+                            <th>Evaluacion</th>
+                            <th>Creacion</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
 
-    <?php 
-   //id ficha para evaluador
+
+    <?php
+    //id ficha para evaluador
     $id_ficha_compa = (isset($_POST['id_fichas_evaluador'])) ? $_POST['id_fichas_evaluador'] : '';
     $_SESSION['id_fichas_evaluador'] = $id_ficha_compa;
 
@@ -106,7 +106,10 @@ if (!isset($_SESSION['id_rol_usu'])) {
     $id_ficha_jurado = (isset($_POST['id_fichas_jurado'])) ? $_POST['id_fichas_jurado'] : '';
     $_SESSION['id_fichas_jurado'] = $id_ficha_jurado;
 
+
+      //eliminar participante de la ficha 
     ?>
+
 
     <!-- Modal Evaluador  -->
     <div class="modal fade" id="modalEvaluador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -122,15 +125,15 @@ if (!isset($_SESSION['id_rol_usu'])) {
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="" class="col-form-label">Evaluador</label>
+                                    <label for="" class="col-form-label">Director</label>
 
-                                    <select id="id_lista_usuario_ev" name="id_lista_usuario_ev[]" class="form-control" multiple="multiple"   style="width: 15em;"  required>
+                                    <select id="id_lista_usuario_ev" name="id_lista_usuario_ev[]" class="form-control" style="width: 15em;" required>
                                         <?php
 
                                         $programa = $_SESSION['id_programa_usu'];
                                         $user = $_SESSION['id_usuario'];
                                         $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 AND id_usuario != $user");
-                                      
+
                                         while ($valores = mysqli_fetch_array($sql)) {
 
                                             echo '<option value="' . $valores["id_usuario"] . '">' . $valores["nombre_usu"] . " " . $valores["apellido_usu"] . '</option>';
@@ -146,12 +149,15 @@ if (!isset($_SESSION['id_rol_usu'])) {
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
 
-                        <button input type="submit" name="add_evaluador" class="btn btn-dark">Guardar</button>
+                        <button input type="submit" name="add_director" class="btn btn-dark">Guardar</button>
                     </div>
             </div>
             </form>
         </div>
     </div>
+
+
+
 
 
     <!-- Modal ""Participantes"""  -->
@@ -192,7 +198,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
     <!-- datatables JS -->
     <script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
 
-    <script type="text/javascript" src="../include/coordinador/js/revision_fichas_coordinador.js"></script>
+    <script type="text/javascript" src="../include/coordinador/js/revision_fichas_director.js"></script>
 
     <!-- Select2 -->
 
