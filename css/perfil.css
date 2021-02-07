@@ -1,0 +1,21 @@
+.titulo
+{
+text-align: center;
+color: #0c5091;
+}
+
+
+.campo{float: left;}
+
+.campo h3
+{
+    color: #0c5091;
+   
+}
+.campo h4{ color:black;}
+
+.editarusuario
+{
+ text-align: center;  
+  
+}

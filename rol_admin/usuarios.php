@@ -24,7 +24,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 <?php include("../include/conexion.php"); ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
 	<!-- Required meta tags -->

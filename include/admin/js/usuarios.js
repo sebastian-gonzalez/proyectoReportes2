@@ -72,6 +72,19 @@ $(document).ready(function () {
     $("#modalAgregar").modal("show");
   });
 
+
+
+
+  $("#btneditarusuarios").click(function () {
+   
+    $("#formFichas").trigger("reset");
+    $(".modal-header").css("background-color", "#0050a0");
+    $(".modal-header").css("color", "white");
+    $(".modal-title").text("Agregar Ficha");
+    $("#modalCRUD1").modal("show");
+  });
+
+
   //Editar
   $(document).on("click", ".btnEditar", function () {
 

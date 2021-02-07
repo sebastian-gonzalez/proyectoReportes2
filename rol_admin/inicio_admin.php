@@ -51,7 +51,7 @@ include("../include/conexion.php");
 		<div class="content">
 			<br></br>
 			<br></br>
-			<h2>Info Admin</h2>
+			<h2>Administrador</h2>
 
 			<section>
 				<h1>Bienvenido(a) <?php echo $_SESSION['nombre_usu']; ?></h1>

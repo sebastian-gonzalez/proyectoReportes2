@@ -52,8 +52,17 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 		$id_s = $user['id_usuario'];
 		$_SESSION['id_usuario'] = $id_s;
 
+		$nombre = $user['cedula_usu'];
+		$_SESSION['cedula_usu'] = $nombre;
+
 		$nombre = $user['nombre_usu'];
 		$_SESSION['nombre_usu'] = $nombre;
+
+		$nombre = $user['apellido_usu'];
+		$_SESSION['apellido_usu'] = $nombre;
+
+		$nombre = $user['correo_usu'];
+		$_SESSION['correo_usu'] = $nombre;
 
 		$rol = $user['id_rol_usu'];
 		$_SESSION['id_rol_usu'] = $rol;
