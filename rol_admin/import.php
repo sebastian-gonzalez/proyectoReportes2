@@ -36,15 +36,13 @@ if ($_FILES["import_excel"]["name"] != '') {
                 ':nombre'  => $row[1],
                 ':apellido'  => $row[2],
                 ':correo'  => $row[3],
-                ':contrasena'  => $row[4],
-
             );
-
+$contrasena = '$2y$10$z2spOy4tT9h.Frqz8SA2DOcgwYzgKHGeJpzYFwdprG/DdnRbf2nme';
 
             $query = "
    INSERT INTO usuarios
    (cedula_usu, nombre_usu, apellido_usu, correo_usu,contrasena_usu,id_rol_usu,id_programa_usu) 
-   VALUES (:cedula, :nombre, :apellido, :correo,:contrasena, $Rol_id , $Programa_id)
+   VALUES (:cedula, :nombre, :apellido, :correo,'$contrasena', $Rol_id , $Programa_id)
    ";
 
             $statement = $connect->prepare($query);
