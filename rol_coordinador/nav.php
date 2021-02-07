@@ -50,8 +50,8 @@
 
 			<a href="revision_fichas_terminadas.php">
 				<li>
-					<i class="fa fa-check-square-o"></i>
-					<span class="tooltip tooltip_letra">Fichas Terminadas</span>
+					<i class="fa fa-bookmark"></i>
+					<span class="tooltip tooltip_letra">Todas Las Fichas</span>
 				</li>
 			</a>
 

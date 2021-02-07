@@ -78,12 +78,20 @@ switch ($opcion) {
         //Director no elimina
     case 4:
         $programa = $_SESSION['id_programa_usu'];
-        $consulta = "SELECT * 
-        FROM ficha 
+        $consulta = "SELECT distinct id_ficha,
+        titulo_ficha,
+        descripcion_ficha,
+        id_programa_ficha,
+        id_estado_ficha,
+        evaluacion_ficha,
+        fecha_ficha,
+        nombre_pro,
+        nombre_estado
+        FROM ficha
         INNER JOIN lista_ficha ON ficha.id_ficha = lista_ficha.id_lista_ficha
         INNER JOIN programa ON ficha.id_programa_ficha = programa.id_programa
         INNER JOIN estado  ON ficha.id_estado_ficha = estado.id_estado
-        WHERE (id_programa_ficha=$programa  AND id_estado_ficha = 4)";
+        WHERE (id_programa_ficha=$programa  )";
 
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();

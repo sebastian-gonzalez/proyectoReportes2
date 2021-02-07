@@ -96,7 +96,7 @@ AND rl.id_rol_lista = lf.id_rol_ficha
 AND fi.id_programa_ficha = $programa
 AND fi.id_ficha IN (
 SELECT id_lista_ficha FROM lista_ficha WHERE id_lista_ficha NOT IN(
-SELECT id_lista_ficha FROM lista_ficha  WHERE id_rol_ficha NOT IN (1,2) 
+SELECT id_lista_ficha FROM lista_ficha  WHERE id_rol_ficha NOT IN (1,2,4) 
 GROUP BY id_lista_ficha))";
 
         $resultado = $conexion->prepare($consulta);
