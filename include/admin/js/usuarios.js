@@ -20,7 +20,7 @@ $(document).ready(function () {
       { data: "nombre_pro" },
       {
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'><i class='material-icons'>edit</i></button><button class='btn btn-primary btn-sm btnEditar_contra' tittle='editar contraseña'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>",
       },
     ],
   });
@@ -58,6 +58,7 @@ $(document).ready(function () {
       },
     });
     $("#modalCRUD").modal("hide");
+    $("#formUsuarios").trigger("reset");
   });
 
   //para limpiar los campos antes de dar de Alta una Persona
@@ -87,48 +88,16 @@ $(document).ready(function () {
     $("#nombre_usu").val(nombre_usu);
     $("#apellido_usu").val(apellido_usu);
     $("#correo_usu").val(correo_usu);
-    $("#contrasena_usu").val(contrasena_usu);
+
     $("#id_rol_usu").val(id_rol_usu);
     $("#id_programa_usu").val(id_programa_usu);
+
     $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
     $(".modal-title").text("Editar Usuario");
     $("#modalCRUD").modal("show");
   });
-  $(document).on("click", ".btnEditar_contra", function () {
-
-    fila = $(this).closest("tr");
-    id_usuario = parseInt(fila.find("td:eq(0)").text()); //capturo el ID
-
-
-
-    $.ajax({
-      url: "../include/admin/edit_usuario.php",
-      type: "POST",
-      datatype: "json",
-      data: {
-        id_usuario: id_usuario,
-        contrasena_usu: contrasena_usu,
-
-      },
-      success: function (data) {
-        tablaUsuarios.ajax.reload(null, false);
-      },
-    });
-
-
-    $("#cedula_usu").val(cedula_usu);
-    $("#nombre_usu").val(nombre_usu);
-    $("#apellido_usu").val(apellido_usu);
-    $("#correo_usu").val(correo_usu);
-    $("#contrasena_usu").val(contrasena_usu);
-    $("#id_rol_usu").val(id_rol_usu);
-    $("#id_programa_usu").val(id_programa_usu);
-    $(".modal-header").css("background-color", "#0050a0");
-    $(".modal-header").css("color", "white");
-    $(".modal-title").text("Editar contraseña");
-    $("#modalCRUDS").modal("show");
-  });
+ 
 
   //Borrar
   $(document).on("click", ".btnBorrar", function () {

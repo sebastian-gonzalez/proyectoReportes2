@@ -241,7 +241,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 							<div class="col-lg-9">
 								<div class="form-group">
 									<label for="" class="col-form-label">Contraseña</label>
-									<input type="text" class="form-control" id="contrasena_usu" required>
+									<input type="password" class="form-control" id="contrasena_usu">
 								</div>
 							</div>
 						</div>
@@ -298,38 +298,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 
 
 
-	<div class="modal fade" id="modalCRUDS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel"></h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form id="formUsuarios">
-					<div class="modal-body">
-						<div class="row">
-					
-						<div class="row">
-							<div class="col-lg-9">
-								<div class="form-group">
-									<label for="" class="col-form-label">Contraseña</label>
-									<input type="password" class="form-control" id="contrasena_usu" required>
-								</div>
-							</div>
-						</div>
 
-					
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-						<button type="submit" id="btnGuardar" class="btn btn-dark">Guardar</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 
 
 	<!-- jQuery, Popper.js, Bootstrap JS -->
