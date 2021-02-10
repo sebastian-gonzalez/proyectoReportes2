@@ -12,15 +12,10 @@ if (!isset($_SESSION['id_rol_usu'])) {
 
 $nombre_usu = $_SESSION['nombre_usu'];
 
-?>
 
-
-<?php
 include("../include/conexion.php");
 
-?>
 
-<?php
 include_once '../include/database.php';
 
 $db = new Database();
@@ -83,7 +78,7 @@ if ($row_ficha == true) {
 				<!-- Messages Dropdown Menu -->
 
 				<li class="nav-item">
-					<a class="nav-link"  href="../logout.php" >
+					<a class="nav-link" href="../logout.php">
 						<i class="fa fa-power-off"></i>
 					</a>
 				</li>
@@ -96,11 +91,12 @@ if ($row_ficha == true) {
 
 		<?php
 
-if (!isset($_SESSION['id_lista_ficha'])) {  echo " 
+		if (!isset($_SESSION['id_lista_ficha'])) {
+			echo " 
 		<!-- Main Sidebar Container -->
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 			<!-- Brand Logo -->
-			<a href='inicio_docente.php' class='brand-link'>
+			<a href='inicio_estudiante.php' class='brand-link'>
 				<img src='../images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
 				<span class='brand-text font-weight-light'>Inicio</span>
 			</a>
@@ -142,10 +138,11 @@ if (!isset($_SESSION['id_lista_ficha'])) {  echo "
 			<!-- /.sidebar -->
 		</aside>
 		";
-	} else { echo " 
+		} else {
+			echo " 
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 			<!-- Brand Logo -->
-			<a href='inicio_docente.php' class='brand-link'>
+			<a href='inicio_estudiante.php' class='brand-link'>
 				<img src='../images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
 				<span class='brand-text font-weight-light'>Inicio</span>
 			</a>
@@ -194,8 +191,8 @@ if (!isset($_SESSION['id_lista_ficha'])) {  echo "
 		</aside>
 
 		";
-	}
-	?>
+		}
+		?>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
