@@ -13,14 +13,13 @@ $_SESSION['LAST_ACTIVITY'] = time(); // update last activity
 if (!isset($_SESSION['id_rol_usu'])) {
 	header('location: ../login.php');
 } else {
-	if ($_SESSION['id_rol_usu'] != 1) {
+	if ($_SESSION['id_rol_usu'] != 2) {
 		header('location: ../login.php');
 	}
 }
-
-$id_usuario = $_SESSION['id_usuario'];
 $nombre_usu = $_SESSION['nombre_usu'];
 
+$id_usuario = $_SESSION['id_usuario'];
 ?>
 
 
@@ -47,13 +46,14 @@ include("../include/conexion.php");
 
 
 
+
+
 </head>
 
-
-
-
 <body class="hold-transition sidebar-mini sidebar-collapse">
-	<!-- Site wrapper -->
+
+
+
 	<div class="wrapper">
 		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -68,7 +68,7 @@ include("../include/conexion.php");
 				<!-- Messages Dropdown Menu -->
 
 				<li class="nav-item">
-					<a class="nav-link"  href="../logout.php">
+					<a class="nav-link"  href="../logout.php" >
 						<i class="fa fa-power-off"></i>
 					</a>
 				</li>
@@ -81,7 +81,7 @@ include("../include/conexion.php");
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4 navcolor">
 			<!-- Brand Logo -->
-			<a href="inicio_admin.php" class="brand-link">
+			<a href="inicio_docente.php" class="brand-link">
 				<img src="../images/admin.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">Inicio</span>
 			</a>
@@ -106,23 +106,30 @@ include("../include/conexion.php");
 
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="usuarios.php" class="nav-link">
-										<i class="fa fa-users nav-icon"></i>
-										<p>Usuarios</p>
+									<a href="fichas_asignadas_director.php" class="nav-link">
+										<i class="fa fa-user nav-icon"></i>
+										<p>Fichas directores</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="programas.php" class="nav-link">
-										<i class="fa fa-graduation-cap nav-icon"></i>
-										<p>Programas</p>
+									<a href="fichas_asignadas_evaluador.php" class="nav-link">
+										<i class="fa fa-files-o nav-icon"></i>
+										<p>Fichas Evaluador</p>
 									</a>
 								</li>
 								<li class="nav-item">
-									<a href="facultad.php" class="nav-link">
-										<i class="fa fa-cubes nav-icon"></i>
-										<p>Facultad</p>
+									<a href="fichas_asignadas_jurado.php" class="nav-link">
+										<i class="fa fa-book nav-icon"></i>
+										<p>Fichas Jurado</p>
 									</a>
 								</li>
+								<li class="nav-item">
+									<a href="fichas_aprobadas.php" class="nav-link">
+										<i class="fa fa-check-square-o nav-icon"></i>
+										<p>Fichas Aprobadas</p>
+									</a>
+								</li>
+
 							</ul>
 						</li>
 
@@ -135,11 +142,10 @@ include("../include/conexion.php");
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
+			</br>
 			<!-- Content Header (Page header) -->
 			<div class="container">
 				<div class="content">
-					<br></br>
-
 					<div class="titulo">
 						<h1> <i class="fa fa-user-circle-o  order-md-2"></i>Perfil UNIAJC</h1>
 					</div>
@@ -204,7 +210,7 @@ include("../include/conexion.php");
 								<br />
 
 
-								<center> <button id="btneditarusuarios" type="button" class="btn btn-info navcolor" data-toggle="modal" tooltip-dir="top"><i class="">Editar usuario </i></button> </center>
+								<center> <button id="btneditarusuarios" type="button" class="btn btn-info editarusuario" data-toggle="modal" tooltip-dir="top"><i class="material-icons">Editar usuario </i></button> </center>
 
 
 							</div>
@@ -228,7 +234,7 @@ include("../include/conexion.php");
 												<div class="col-lg-6">
 													<div class="form-group">
 														<label for="" class="col-form-label">Cedula:</label>
-														<input type="number" class="form-control" value="<?php echo  $record['cedula_usu']; ?>" name="cedula_usu" required>
+														<input type="number" class="form-control" value="<?php echo  $_SESSION['cedula_usu']; ?>" name="cedula_usu" required>
 													</div>
 												</div>
 												<div class="col-lg-6">
@@ -279,26 +285,24 @@ include("../include/conexion.php");
 
 					} ?>
 
-
-
-
-
-
-
 				</div>
+			</div>
 
-				<!-- jQuery -->
-				<!-- jQuery, Popper.js, Bootstrap JS -->
-				<script src="../assets/jquery/jquery-3.3.1.min.js"></script>
-				<script src="../assets/popper/popper.min.js"></script>
-				<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 
-				<!-- datatables JS -->
-				<script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
 
-				<script type="text/javascript" src="../include/admin/js/usuarios.js"></script>
 
-				<script src="../assets/js/nav/adminlte.js"></script>
+
+			<!-- jQuery, Popper.js, Bootstrap JS -->
+			<script src="../assets/jquery/jquery-3.3.1.min.js"></script>
+			<script src="../assets/popper/popper.min.js"></script>
+			<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+
+			<!-- datatables JS -->
+			<script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
+
+			<script type="text/javascript" src="../include/docente/js/doc_ficha_asignada_jurado.js"></script>
+			<script src="../assets/js/nav/adminlte.js"></script>
+
 
 </body>
 

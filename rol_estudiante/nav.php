@@ -57,6 +57,13 @@ if ($row_ficha == true) {
 						<span class="tooltip tooltip_letra">Inicio</span>
 					</li>
 				</a>
+				<a href="perfil.php">
+				<li>
+					<i class="fa fa-user-circle-o"></i>
+					<span class="tooltip tooltip_letra">Perfil</span>
+				</li>
+		     	</a>
+
 				<a href="primer_ingreso.php">
 					<li>
 						<i class="fa fa-plus-square-o"></i>
@@ -85,6 +92,13 @@ if ($row_ficha == true) {
 							<span class="tooltip tooltip_letra">Inicio</span>
 						</li>
 					</a>
+					<a href="perfil.php">
+					<li>
+						<i class="fa fa-user-circle-o"></i>
+						<span class="tooltip tooltip_letra">Perfil</span>
+					</li>
+			     	</a>
+	
 					<a href="fichas.php">
 						<li>
 							<i class="fa fa-book"></i>

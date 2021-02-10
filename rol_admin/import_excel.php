@@ -39,7 +39,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 </head>
 
 <body>
-  <?php include('nav.html'); 
+  <?php include('nav.php'); 
   include('../include/conexion.php');
   ?>
   <div class="container">
