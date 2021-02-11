@@ -146,6 +146,7 @@ include("../include/conexion.php");
         <center>
           <img src="../images/uniajc.png" width="50%">
         </center>
+                          
       </div>
     </div>
   </div>

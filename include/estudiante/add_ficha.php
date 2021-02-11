@@ -61,7 +61,7 @@ if (isset($_POST['add'])) {
             echo "no se ejecuto la primera consulta ";
         }
         if ($_FILES["archivo"]["error"] > 0) {
-            echo "Error al cargar archvio";
+            echo "Error al cargar ficha";
         } else {
             $permitidos = array('application/pdf');
             $limite_kb = 200000000;
@@ -87,6 +87,34 @@ if (isset($_POST['add'])) {
             }
         }
 
+
+
+        if ($_FILES["anteproyecto"]["error"] > 0) {
+            echo "Error al cargar archvio de anteproyecto";
+        } else {
+            $permitidos = array('application/pdf');
+            $limite_kb = 200000000;
+            if (in_array($_FILES["archivo"]["type"], $permitidos) && $_FILES["archivo"]["size"] <= $limite_kb * 1024) {
+                $ruta = "../include/estudiante/anteproyecto/$id_insert/";
+                $archivo = $ruta . $_FILES["archivo"]["name"];
+                if (!file_exists($ruta)) {
+                    mkdir($ruta);
+                }
+                if (!file_exists($archivo)) {
+                    $resultado = @move_uploaded_file(
+                        $_FILES["archivo"]["tmp_name"],
+                        $archivo
+                    );
+                }
+                if ($resultado) {
+                    echo "archivo guardado";
+                } else {
+                    echo " archivo no guardado";
+                }
+            } else {
+                echo "el archivo no esta permitido o excede el tamaño maximo";
+            }
+        }
 
         //segunda consulta 
         $consulta1 = "INSERT INTO lista_ficha (id_lista_usuario,id_lista_ficha,id_rol_ficha)

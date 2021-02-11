@@ -32925,3 +32925,8 @@ a.text-muted:hover {
 .navcolor{
 background-color: #042f66;
 }
+
+.largopdf
+{
+  height: 750px;
+}

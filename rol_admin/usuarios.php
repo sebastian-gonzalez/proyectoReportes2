@@ -372,7 +372,12 @@ $nombre_usu = $_SESSION['nombre_usu'];
 				</div>
 			</div>
 
-
+			<h3>Ficha de anteproyecto</h3>
+                            <br>                            <h3>Ficha de anteproyecto</h3>
+                            <br>                            <h3>Ficha de anteproyecto</h3>
+                            <br>                            <h3>Ficha de anteproyecto</h3>
+                            <br>                            <h3>Ficha de anteproyecto</h3>
+                            <br>s
 		</div>
 	</div>
 

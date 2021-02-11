@@ -2,7 +2,6 @@
 
 session_start();
 
-
 if (!isset($_SESSION['id_rol_usu'])) {
     header('location: ../login.php');
 } else {
@@ -10,6 +9,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
         header('location: ../login.php');
     }
 }
+
 $nombre_usu = $_SESSION['nombre_usu'];
 
 
@@ -40,41 +40,30 @@ if ($row_ficha == true) {
     $id_rol_fi = $row_ficha[3];
     $_SESSION['id_rol_ficha'] = $id_rol_fi;
 }
-
 ?>
-
-
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="#" />
-    <title>Fichas</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Estudiante</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
-    <!-- CSS personalizado -->
     <link rel="stylesheet" href="../assets/mainTable.css">
-
-
-    <!--datables CSS básico-->
-    <link rel="stylesheet" type="text/css" href="../assets/datatables/datatables.min.css" />
-    <!--datables estilo bootstrap 4 CSS-->
-    <link rel="stylesheet" type="text/css" href="../assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../css/css/nav/adminlte.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
     <link rel="icon" href="../images/favicon.ico" type="image/gif" />
 
 
 
-
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
-
+    <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -208,58 +197,51 @@ if ($row_ficha == true) {
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
+            <div class="container largopdf">
+                <br />
+                <?php
+                $nik = $_SESSION['id_usuario'];
+                $sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
+                while ($record = mysqli_fetch_assoc($sql)) {
+                    $id = $record['id_lista_ficha']
 
-            <div class="container">
-        <div class="content">
-            <br></br>
-            <h2>PDF</h2>
-            <hr />
+                ?>
 
-            <?php
-            $nik = $_SESSION['id_usuario'];
-            $sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
-            while ($record = mysqli_fetch_assoc($sql)) {
-                $id = $record['id_lista_ficha']
+                    <div class="card hovercard ">
+                        <div class="cardheader ">
 
-            ?>
-
-                <div class="card hovercard">
-                    <div class="cardheader">
-                    </div>
-                    <div class="card-body info">
-                        <div class="title">
                         </div>
-                        <h3>
-                            <?php
+
+                        <?php
 
 
 
 
-                            $path = "../include/estudiante/pdf/" . $id;
-                            if (file_exists($path)) {
-                                $directorio = opendir($path);
-                                while ($archivo = readdir($directorio)) {
-                                    if (!is_dir($archivo)) {
-                                        echo "<iframe src='../include/estudiante/pdf/$id/$archivo' height='820' width='100%' />";
-                                    }
+                        $path = "../include/estudiante/pdf/" . $id;
+                        if (file_exists($path)) {
+                            $directorio = opendir($path);
+                            while ($archivo = readdir($directorio)) {
+                                if (!is_dir($archivo)) {
+                                    echo "<iframe src='../include/estudiante/pdf/$id/$archivo' height='680' width='100%' />";
                                 }
-                            } else {
-                                echo '<script language="javascript">alert("No Tiene un documento agregado");</script>';
                             }
-                            ?>
+                        } else {
+                            echo '<script language="javascript">alert("No Tiene un documento agregado");</script>';
+                        }
+                        ?>
 
 
 
                     </div>
                 <?php } ?>
-                </div>
+            </div>
         </div>
     </div>
-        </div>
-    </div>
-
-
 
     <script src="../assets/jquery/jquery-3.3.1.min.js"></script>
+
     <script src="../assets/js/nav/adminlte.js"></script>
+
 </body>
+
+</html>

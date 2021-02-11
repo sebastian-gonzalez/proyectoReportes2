@@ -210,6 +210,7 @@ if ($row_ficha == true) {
 					<img src="../images/uniajc.png" width="50%">
 				</center>
 			</div>
+			
 		</div>
 	</div>
 

@@ -4,7 +4,6 @@ include('../include/estudiante/add_ficha.php');
 
 $nombre_usu = $_SESSION['nombre_usu'];
 
-
 include("../include/conexion.php");
 
 
@@ -201,47 +200,55 @@ if ($row_ficha == true) {
 			<!-- Content Header (Page header) -->
 			<?php
 
-			include("../include/estudiante/add_director.php");
+			$consultaidficha = "SELECT lista.id_lista,lista.id_lista_usuario, lista.id_lista_ficha FROM lista_ficha lista, ficha fi WHERE lista.id_lista_usuario= 118 AND fi.id_ficha = lista.id_lista_ficha AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'";
+			$resultset = mysqli_query($con, $consultaidficha) or die("database error:" . mysqli_error($con));
+
+			while ($record = mysqli_fetch_assoc($resultset)) {
+				$id_ficha = $record['id_lista_ficha'];
+			}
+
 			?>
 
 
 
-			<div class="container ">
-
-
-
+			<div class="container">
 
 				<section>
-					<h2>Crea tu primer ficha para continuar con el proceso</h2>
+					<h2>Agrega los demas campos de la ficha</h2>
 				</section>
 				<hr />
 				<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-lg-6">
+							<div class="col-lg-12">
 								<div class="form-group">
-									<label for="" class="col-form-label">Titulo de la ficha</label>
-									<input type="text" class="form-control" name="titulo_ficha" required>
+									<label for="" class="col-form-label">Pregunta Problematizadora</label>
+									<textarea type="text"   class="form-control" name="titulo_ficha" required> </textarea>
 								</div>
 							</div>
 						</div>
-						<div class="form-group" enctype="multipart/form-data">
-							<label for="" class="col-form-label">ficha de anteproyecto</label>
-							<div class="col-lg-6">
-								<input type="file" name="archivo" required>
+
+
+
+						<div class="row" id="dynamic_field">
+							<div class="col-lg-12">
+								<div class="form-group" >
+									<a class="btn btn-primary" name="adds" id="adds">Agregar pregunta sisteamtizadora</a>
+
+								</div>
 							</div>
 						</div>
-						<div class="form-group" enctype="multipart/form-data">
-							<label for="" class="col-form-label">anteproyecto completo</label>
-							<div class="col-lg-6">
-								<input type="file" name="anteproyecto" required>
-							</div>
-						</div>
+               <br/>
+						<div class="">
+						<button input type="submit"  id="submit" class="btn btn-primary">Guardar</button>
+					</div>
+
+
 
 					</div>
-					<div class="">
-						<button input type="submit" name="add" id="btnGuardar" class="btn btn-primary">Guardar</button>
-					</div>
+
+
+
 				</form>
 
 			</div>
@@ -256,6 +263,11 @@ if ($row_ficha == true) {
 	<script src="../assets/jquery/jquery-3.3.1.min.js"></script>
 	<script src="../assets/popper/popper.min.js"></script>
 	<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript">
+
+	</script>
 	<!-- datatables JS -->
 	<script type="text/javascript" src="../assets/datatables/datatables.min.js"></script>
 	<script type="text/javascript" src="../include/estudiante/js/ficha.js"></script>
