@@ -91,7 +91,7 @@ if ($row_ficha == true) {
 
         <?php
 
-        if (!isset($id_lis_fi)) {
+if (!isset($id_lis_fi)) {
             echo " 
 		<!-- Main Sidebar Container -->
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
@@ -203,15 +203,21 @@ if ($row_ficha == true) {
                 ?>
 
                     <div class="card hovercard ">
+                        <div class="cardheader ">
+
+                        </div>
 
                         <?php
 
-                        $path = "../include/estudiante/pdf/" . $id;
+
+
+
+                        $path = "../include/estudiante/anteproyecto/" . $id;
                         if (file_exists($path)) {
                             $directorio = opendir($path);
                             while ($archivo = readdir($directorio)) {
                                 if (!is_dir($archivo)) {
-                                    echo "<iframe src='../include/estudiante/pdf/$id/$archivo' height='680' width='100%'></iframe>";
+                                    echo "<iframe src='../include/estudiante/anteproyecto/$id/$archivo' height='680' width='100%' ></iframe>";
                                 }
                             }
                         } else {

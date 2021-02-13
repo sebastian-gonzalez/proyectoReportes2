@@ -4,6 +4,9 @@ include_once '../database.php';
 $objeto = new Database();
 $conexion = $objeto->connect();
 
+
+
+
 if (isset($_POST['add_usuario'])) {
 
 

@@ -10,6 +10,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 	}
 }
 
+
 $nombre_usu = $_SESSION['nombre_usu'];
 
 
@@ -21,6 +22,17 @@ include_once '../include/database.php';
 $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
+$consultaacamposficha = "SELECT fi.id_ficha
+FROM lista_ficha lista, ficha fi 
+WHERE lista.id_lista_usuario=$id_s
+AND fi.id_estado_ficha=6
+";
+$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
+
+while ($record = mysqli_fetch_assoc($resultset)) {
+
+	$fichaaprobada = $record['id_ficha'];
+}
 
 $query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha WHERE id_lista_usuario =$id_s");
 $query_ficha->execute();
@@ -91,7 +103,7 @@ if ($row_ficha == true) {
 
 		<?php
 
-		if (!isset($_SESSION['id_lista_ficha'])) {
+		if (!isset($id_lis_fi)) {
 			echo " 
 		<!-- Main Sidebar Container -->
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
@@ -138,8 +150,8 @@ if ($row_ficha == true) {
 			<!-- /.sidebar -->
 		</aside>
 		";
-		} else {
-			echo " 
+		} else if (isset($id_lis_fi) && !isset($fichaaprobada)) {
+			echo  " 
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 			<!-- Brand Logo -->
 			<a href='inicio_estudiante.php' class='brand-link'>
@@ -172,12 +184,7 @@ if ($row_ficha == true) {
 										<p>Gestion Ficha</p>
 									</a>
 								</li>
-								<li class='nav-item'>
-									<a href='documento.php' class='nav-link'>
-										<i class='fa fa-file-pdf-o nav-icon'></i>
-										<p>Ver documento</p>
-									</a>
-								</li>
+
 
 
 							</ul>
@@ -191,6 +198,59 @@ if ($row_ficha == true) {
 		</aside>
 
 		";
+		} else if (isset($id_lis_fi) && isset($fichaaprobada)) {
+			echo  " 
+			<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
+				<!-- Brand Logo -->
+				<a href='inicio_estudiante.php' class='brand-link'>
+					<img src='../images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
+					<span class='brand-text font-weight-light'>Inicio</span>
+				</a>
+	
+				<!-- Sidebar -->
+				<div class='sidebar'>
+					<!-- Sidebar user (optional) -->
+					<div class='user-panel mt-3 pb-3 mb-3 d-flex'>
+						<div class='image'>
+							<img src='../images/user.jpg' class='img-circle elevation-2' alt='User Image'>
+						</div>
+						<div class='info'>
+							<a href='perfil.php' class='d-block'>  $nombre_usu </a>
+						</div>
+					</div>
+					<!-- Sidebar Menu -->
+					<nav class='mt-2'>
+						<ul class='nav nav-pills nav-sidebar flex-column' data-widget='treeview' role='menu' data-accordion='false'>
+							<!-- Add icons to the links using the .nav-icon class
+				   with font-awesome or any other icon font library -->
+							<li class='nav-item menu-open'>
+	
+								<ul class='nav nav-treeview'>
+									<li class='nav-item'>
+										<a href='fichas.php' class='nav-link'>
+											<i class='fa fa-book nav-icon'></i>
+											<p>Gestion Ficha</p>
+										</a>
+									</li>
+									<li class='nav-item'>
+									<a href='fichas.php' class='nav-link'>
+										<i class='fa fa-book nav-icon'></i>
+										<p>Gestion Ficha</p>
+									</a>
+								   </li>
+	
+	
+								</ul>
+							</li>
+	
+						</ul>
+					</nav>
+					<!-- /.sidebar-menu -->
+				</div>
+				<!-- /.sidebar -->
+			</aside>
+	
+			";
 		}
 		?>
 
@@ -210,7 +270,7 @@ if ($row_ficha == true) {
 					<img src="../images/uniajc.png" width="50%">
 				</center>
 			</div>
-			
+
 		</div>
 	</div>
 

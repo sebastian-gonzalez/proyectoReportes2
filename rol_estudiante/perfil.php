@@ -105,7 +105,8 @@ if ($row_ficha == true) {
 
 		<?php
 
-		if (!isset($_SESSION['id_lista_ficha'])) {
+
+if (!isset($id_lis_fi)) {
 			echo " 
 		<!-- Main Sidebar Container -->
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
@@ -186,12 +187,7 @@ if ($row_ficha == true) {
 										<p>Gestion Ficha</p>
 									</a>
 								</li>
-								<li class='nav-item'>
-									<a href='documento.php' class='nav-link'>
-										<i class='fa fa-file-pdf-o nav-icon'></i>
-										<p>Ver documento</p>
-									</a>
-								</li>
+
 
 
 							</ul>
@@ -206,6 +202,7 @@ if ($row_ficha == true) {
 
 		";
 		}
+
 		?>
 
 		<!-- Content Wrapper. Contains page content -->

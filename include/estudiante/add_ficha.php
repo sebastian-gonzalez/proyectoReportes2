@@ -22,7 +22,7 @@ if (isset($_POST['add'])) {
 
 
     $Titulo = (isset($_POST['titulo_ficha'])) ? $_POST['titulo_ficha'] : '';
-    $Descripcion = 'Proyecto de Grado';
+    $Descripcion = 'Anteproyecto de grado';
 
     $Programa = $_SESSION['id_programa_usu'];
 
@@ -38,7 +38,7 @@ if (isset($_POST['add'])) {
     $consulta_validacion = "SELECT COUNT(*) FROM lista_ficha WHERE id_lista_usuario=$id_lista_usuario";
     $resultado_vali = $conexion->prepare($consulta_validacion);
     $data_vali = $resultado_vali->execute();
-    
+
     if ($resultado_vali->fetchColumn() > 0) {
         echo '<script language="javascript">alert("El Usuario ya posee una ficha ");
     location.href="fichas.php";</script>';
@@ -60,6 +60,7 @@ if (isset($_POST['add'])) {
             $id_insert = 0;
             echo "no se ejecuto la primera consulta ";
         }
+
         if ($_FILES["archivo"]["error"] > 0) {
             echo "Error al cargar ficha";
         } else {
@@ -94,25 +95,25 @@ if (isset($_POST['add'])) {
         } else {
             $permitidos = array('application/pdf');
             $limite_kb = 200000000;
-            if (in_array($_FILES["archivo"]["type"], $permitidos) && $_FILES["archivo"]["size"] <= $limite_kb * 1024) {
+            if (in_array($_FILES["anteproyecto"]["type"], $permitidos) && $_FILES["anteproyecto"]["size"] <= $limite_kb * 1024) {
                 $ruta = "../include/estudiante/anteproyecto/$id_insert/";
-                $archivo = $ruta . $_FILES["archivo"]["name"];
+                $archivo = $ruta . $_FILES["anteproyecto"]["name"];
                 if (!file_exists($ruta)) {
                     mkdir($ruta);
                 }
                 if (!file_exists($archivo)) {
                     $resultado = @move_uploaded_file(
-                        $_FILES["archivo"]["tmp_name"],
+                        $_FILES["anteproyecto"]["tmp_name"],
                         $archivo
                     );
                 }
                 if ($resultado) {
-                    echo "archivo guardado";
+                    echo "anteproyecto guardado";
                 } else {
-                    echo " archivo no guardado";
+                    echo " anteproyecto no guardado";
                 }
             } else {
-                echo "el archivo no esta permitido o excede el tamaño maximo";
+                echo "el anteproyecto no esta permitido o excede el tamaño maximo";
             }
         }
 
@@ -129,6 +130,6 @@ if (isset($_POST['add'])) {
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
 
-        header('Location:fichas.php');
+        header('Location:segundo_ingreso.php');
     }
 }

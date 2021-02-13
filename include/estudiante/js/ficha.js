@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function () { 
   var id_ficha, opcion;
   opcion = 4;
 
@@ -19,7 +19,7 @@ $(document).ready(function () {
       { data: "fecha_ficha" },
       {
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Editar'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar' tooltip-dir='top' title='Borrar'><i class='material-icons'>delete</i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary vermas' title='Ver mas'    ><i class='material-icons'>control_point</i></button><button class='btn btn-danger btn-sm btnBorrar' tooltip-dir='top' title='Borrar'><i class='material-icons'>delete</i></button></div></div>",
       },
     ],
   });
@@ -144,6 +144,15 @@ $(document).ready(function () {
     $("#modalCRUD1").modal("show");
   });
 
+  $("#btneditarficha").click(function () {
+
+    $(".modal-header").css("background-color", "#0050a0");
+    $(".modal-header").css("color", "white");
+    $(".modal-title").text("Agregar Ficha");
+    $("#modalCRUD").modal("show");
+  });
+
+
 
   // agregar pregunta sistematizadora
   $(document).ready(function () {
@@ -194,14 +203,12 @@ $(document).ready(function () {
 
 
   //boton enviar datos 
-  $(document).on("click", ".btnEditar", function () {
+  $(document).on("click", ".btnEditar1", function () {
 
     fila = $(this).closest("tr");
     id_ficha = parseInt(fila.find("td:eq(0)").text()); //capturo el ID
-    titulo_ficha = fila.find("td:eq(1)").text();
-    $("#titulo_ficha").val(titulo_ficha);
     $.ajax({
-      url: "fichas.php",
+      url: "info_ficha.php",
 
       type: "POST",
       data: {
@@ -239,5 +246,12 @@ $(document).ready(function () {
         },
       });
     }
+  });
+
+
+
+  $(document).on("click", ".vermas", function () {
+    location.href = "info_ficha.php";
+
   });
 });

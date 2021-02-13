@@ -38,42 +38,27 @@ table.dataTable thead {
 
   display: none;
 }
+
+
 button:after {
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, .8);
   border-radius: 5px;
   color: #fff;
   content: attr(title);
   opacity: 0;
-  padding: 6px 12px;
+  padding: 10px 12px;
   position: absolute;
-  left: 110%;
-  top: 30px;
+  left: 100%;
+  top: 40px;
   transition: all .25s ease;
   visibility: hidden;
   white-space: nowrap;
 }
-button[tooltip-dir="left"]:after {
-  left: auto;
-  right: 110%;
-}
 
-button[tooltip-dir="bottom"]:after,
-button[tooltip-dir="top"]:after {
-  left: 50%;
-    right: auto;
 
-  transform: translateX(-50%);
-}
 
-button[tooltip-dir="bottom"]:after {
-  bottom: auto;
-  top: 110%;
-}
 
-button[tooltip-dir="top"]:after {
-  bottom: 110%;
-  top: auto;
-}
+
 
 button:hover:after {
   opacity: 1;

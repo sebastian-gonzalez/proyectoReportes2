@@ -7,7 +7,11 @@ if (!isset($_SESSION['id_rol_usu'])) {
         header('location: ../login.php');
     }
 }
+
+$id_usuario = $_SESSION['id_usuario'];
+
 ?>
+
 <?php
 include('../database.php');
 include('../conexion.php');
@@ -19,10 +23,30 @@ $descripcion_pregsis = "Pregunta sistematizadora";
 $descripcion_objgen = "Objetivo general";
 $descripcion_objespe = "Obejtivo especifico";
 
-$idficha = 6;
 ?>
 <?php
+
+$consultaidficha = "SELECT lista.id_lista,lista.id_lista_usuario, lista.id_lista_ficha FROM lista_ficha lista, ficha fi WHERE lista.id_lista_usuario=$id_usuario AND fi.id_ficha = lista.id_lista_ficha AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'";
+$resultset = mysqli_query($con, $consultaidficha) or die("database error:" . mysqli_error($con));
+
+while ($record = mysqli_fetch_assoc($resultset)) {
+    $idficha = $record['id_lista_ficha'];
+}
+echo  $id_usuario;
+echo  $id_usuario;
+echo   $idficha;
+
+
+
+
+
 if (isset($_POST['add'])) {
+
+
+
+
+
+    
 
 
     $pregunta_problematizadora = (isset($_POST['pregpro'])) ? $_POST['pregpro'] : '';
@@ -72,5 +96,5 @@ if (isset($_POST['add'])) {
 
     echo '<script language="javascript">alert("exito");
           
-                          location.href="revision_fichas_coordinador.php";</script>';
+                          location.href="../../rol_estudiante/fichas.php";</script>';
 }

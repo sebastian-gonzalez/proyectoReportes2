@@ -121,8 +121,9 @@ if ($row_ficha == true) {
         </nav>
 
         <?php
+            
 
-        if (!isset($_SESSION['id_lista_ficha'])) {
+        if (!isset($id_lis_fi)) {
             echo " 
 		<!-- Main Sidebar Container -->
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
@@ -169,6 +170,9 @@ if ($row_ficha == true) {
 			<!-- /.sidebar -->
 		</aside>
 		";
+
+            echo '<script language="javascript">alert("no existen fichas");
+          location.href="inicio_estudiante.php";</script>';
         } else {
             echo " 
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
@@ -203,12 +207,7 @@ if ($row_ficha == true) {
 										<p>Gestion Ficha</p>
 									</a>
 								</li>
-								<li class='nav-item'>
-									<a href='documento.php' class='nav-link'>
-										<i class='fa fa-file-pdf-o nav-icon'></i>
-										<p>Ver documento</p>
-									</a>
-								</li>
+
 
 
 							</ul>
@@ -223,20 +222,23 @@ if ($row_ficha == true) {
 
 		";
         }
+
+
+
+
+
         ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
 
-        <br/>
-            <!-- Content Header (Page header) -->
+            <br />
             <div class="container ">
                 <div class="row ">
                     <div class="col-lg-12 ">
                         <div class='btn-group'>
 
 
-                            <button id="btnNuevo1" type="button" class="btn btn-primary" data-toggle="modal" tooltip-dir="top" title="Agregar Ficha"><i class="material-icons">library_add</i></button>
 
 
 
@@ -260,8 +262,9 @@ if ($row_ficha == true) {
 
                     </div>
                 </div>
-            </div>
-            <br>
+            </div>  <!-- Content Header (Page header) -->
+
+
 
             <div class="container caja">
                 <div class="row">
@@ -288,70 +291,11 @@ if ($row_ficha == true) {
                 </div>
             </div>
 
-            <!--Modal para CRUD-->
-            <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"></h5>
-                            <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form method="post" action="" enctype="multipart/form-data">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="" class="col-form-label">Titulo</label>
-                                            <input type="text" class="form-control" id="titulo_ficha" name="titulo_ficha" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group" enctype="multipart/form-data">
-                                    <label for="" class="col-form-label">Documento</label>
-                                    <div class="col-lg-6">
-                                        <input type="file" name="archivo">
-                                        <?php
-                                        $nik = $_SESSION['id_usuario'];
-                                        $sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
-                                        while ($record = mysqli_fetch_assoc($sql)) {
-                                            $id = $record['id_lista_ficha'];
-                                        }
-                                        $path = "../include/estudiante/pdf/" . $id;
-                                        if (file_exists($path)) {
-                                            $directorio = opendir($path);
-                                            while ($archivo = readdir($directorio)) {
-                                                if (!is_dir($archivo)) {
-                                                    echo "<div data='" . $path . "/" . $archivo . "'>
-									<a href = '" . $path . "/" . $archivo . "'
-									title = 'Ver Archivo Adjunto'>
-                                    <span class='fa fa-file-pdf-o' aria-hidden='true'></span></a>";
 
-                                                    echo "$archivo <a href ='fichas.php' id = 'delete'
-                                    title = 'Eliminar Archivo Adjunto'>
-                                    
-                                    <span class='fa fa-trash' aria-hidden='true'></span></a></div>";
 
-                                                    echo "<iframe src='../include/estudiante/pdf/$id/$archivo' width='300'> </iframe>";
-                                                }
-                                            }
-                                        }
 
-                                        ?>
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-
-                                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-                                <button input type="submit" name="mod" class="btn btn-dark">Guardar</button>
-                            </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-
+            
             <div class="modal fade" id="modalCRUD1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

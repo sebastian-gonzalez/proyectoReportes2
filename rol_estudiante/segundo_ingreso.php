@@ -91,7 +91,7 @@ if ($row_ficha == true) {
 
 		<?php
 
-		if (!isset($_SESSION['id_lista_ficha'])) {
+if (!isset($id_lis_fi)) {
 			echo " 
 		<!-- Main Sidebar Container -->
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
@@ -172,12 +172,7 @@ if ($row_ficha == true) {
 										<p>Gestion Ficha</p>
 									</a>
 								</li>
-								<li class='nav-item'>
-									<a href='documento.php' class='nav-link'>
-										<i class='fa fa-file-pdf-o nav-icon'></i>
-										<p>Ver documento</p>
-									</a>
-								</li>
+
 
 
 							</ul>
@@ -198,16 +193,7 @@ if ($row_ficha == true) {
 		<div class="content-wrapper">
 
 			<!-- Content Header (Page header) -->
-			<?php
 
-			$consultaidficha = "SELECT lista.id_lista,lista.id_lista_usuario, lista.id_lista_ficha FROM lista_ficha lista, ficha fi WHERE lista.id_lista_usuario= 118 AND fi.id_ficha = lista.id_lista_ficha AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'";
-			$resultset = mysqli_query($con, $consultaidficha) or die("database error:" . mysqli_error($con));
-
-			while ($record = mysqli_fetch_assoc($resultset)) {
-				$id_ficha = $record['id_lista_ficha'];
-			}
-
-			?>
 
 
 
