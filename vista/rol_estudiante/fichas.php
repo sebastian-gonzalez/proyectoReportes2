@@ -474,11 +474,11 @@ while ($record = mysqli_fetch_assoc($resultset)) {
                             <div class="modal-body">
                                 <div class="row">
 
-                                    <div class="col-lg-7">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="" class="col-form-label">Director</label>
 
-                                            <select name="id_lista_usuario_director" id="id_lista_usuario_director" class="form-control" required>
+                                            <select class="custom-select form-control-border"name="id_lista_usuario_director"  required>
                                                 <?php
                                                 $programa = $_SESSION['id_programa_usu'];
 

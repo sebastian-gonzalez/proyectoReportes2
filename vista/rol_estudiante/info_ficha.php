@@ -294,12 +294,12 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 				<?php
 				$consultaacamposficha = "SELECT fi.id_ficha,fi.titulo_ficha
-FROM lista_ficha lista, ficha fi , campos_fichas campos
-WHERE lista.id_lista_usuario=118
-AND fi.id_ficha = lista.id_lista_ficha 
-AND fi.id_ficha = campos.fk_id_ficha 
-AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
-AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
+				FROM lista_ficha lista, ficha fi , campos_fichas campos
+				WHERE lista.id_lista_usuario=$id_s
+				AND fi.id_ficha = lista.id_lista_ficha 
+				AND fi.id_ficha = campos.fk_id_ficha 
+				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
@@ -318,15 +318,15 @@ AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
 				<?php
 				}
 				?>
-
+<!-- primera modal titulo -->
 				<?php
 				$consultaacamposficha = "SELECT fi.id_ficha, campos.id_campo,  campos.descripcion_campo,  campos.valor_campo,  campos.fk_id_ficha
-FROM lista_ficha lista, ficha fi , campos_fichas campos
-WHERE lista.id_lista_usuario=118
-AND fi.id_ficha = lista.id_lista_ficha 
-AND fi.id_ficha = campos.fk_id_ficha 
-AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
-AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
+				FROM lista_ficha lista, ficha fi , campos_fichas campos
+				WHERE lista.id_lista_usuario=$id_s
+				AND fi.id_ficha = lista.id_lista_ficha 
+				AND fi.id_ficha = campos.fk_id_ficha 
+				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
@@ -353,7 +353,7 @@ AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
 				<?php
 				}
 				?>
-
+<!-- segundo modal-->
 				<hr />
 
 				<label for="" class="col-form-label">Pregunta sistematizadoras</label>
@@ -361,18 +361,23 @@ AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
 
 
 				<?php
-				$consultaacamposficha = "SELECT fi.id_ficha, campos.id_campo,  campos.descripcion_campo,  campos.valor_campo,  campos.fk_id_ficha
-FROM lista_ficha lista, ficha fi , campos_fichas campos
-WHERE lista.id_lista_usuario=118
-AND fi.id_ficha = lista.id_lista_ficha 
-AND fi.id_ficha = campos.fk_id_ficha 
-AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
-AND campos.descripcion_campo LIKE '%Pregunta sistematizadora'";
+				//
+
+			
+
+
+				$consultaacamposficha = "SELECT fi.id_ficha, campos.id_campo,  campos.descripcion_campo,  campos.valor_campo,  campos.fk_id_ficha 
+				FROM lista_ficha lista, ficha fi , campos_fichas campos
+				WHERE lista.id_lista_usuario=$id_s
+				AND fi.id_ficha = lista.id_lista_ficha 
+				AND fi.id_ficha = campos.fk_id_ficha 
+				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND campos.descripcion_campo LIKE '%Pregunta sistematizadora'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
 
-
+					include("modal_editar_ficha.php");
 
 				?>
 
@@ -381,8 +386,8 @@ AND campos.descripcion_campo LIKE '%Pregunta sistematizadora'";
 							<div class="form-group">
 								<hr />
 								<a class="btn btn-danger derechaubicacion" href="documentoanteproyecto.php"><i class='fa fa-trash-o'></i> </a>
-								<a class="btn btn-primary derechaubicacion" href="documentoanteproyecto.php"><i class='fa fa-pencil'></i> </a>
 
+								<button href=" #edit_<?php echo $record['id_campo']; ?>" class="btn btn-primary derechaubicacion" data-toggle="modal"> <i class='fa fa-pencil'></i></button>
 
 								<p><?php echo $record['valor_campo']; ?></p>
 							</div>
@@ -392,17 +397,18 @@ AND campos.descripcion_campo LIKE '%Pregunta sistematizadora'";
 				}
 				?>
 
-
+<!-- segundo modal preguntas  -->
 
 
 				<?php
+				//
 				$consultaacamposficha = "SELECT fi.id_ficha, campos.id_campo,  campos.descripcion_campo,  campos.valor_campo,  campos.fk_id_ficha
-FROM lista_ficha lista, ficha fi , campos_fichas campos
-WHERE lista.id_lista_usuario=118
-AND fi.id_ficha = lista.id_lista_ficha 
-AND fi.id_ficha = campos.fk_id_ficha 
-AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
-AND campos.descripcion_campo LIKE '%Objetivo general%'";
+				FROM lista_ficha lista, ficha fi , campos_fichas campos
+				WHERE lista.id_lista_usuario=$id_s
+				AND fi.id_ficha = lista.id_lista_ficha 
+				AND fi.id_ficha = campos.fk_id_ficha 
+				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND campos.descripcion_campo LIKE '%Objetivo general%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
@@ -412,6 +418,7 @@ AND campos.descripcion_campo LIKE '%Objetivo general%'";
 				?>
 					<hr />
 
+<!-- segundo modal objetivos  -->
 					<section>
 						<h2>Obejtivos</h2>
 					</section>
@@ -440,13 +447,14 @@ AND campos.descripcion_campo LIKE '%Objetivo general%'";
 
 
 				<?php
+				//
 				$consultaacamposficha = "SELECT fi.id_ficha, campos.id_campo,  campos.descripcion_campo,  campos.valor_campo,  campos.fk_id_ficha
-FROM lista_ficha lista, ficha fi , campos_fichas campos
-WHERE lista.id_lista_usuario=118
-AND fi.id_ficha = lista.id_lista_ficha 
-AND fi.id_ficha = campos.fk_id_ficha 
-AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
-AND campos.descripcion_campo LIKE '%Obejtivo especifico%'";
+				FROM lista_ficha lista, ficha fi , campos_fichas campos
+				WHERE lista.id_lista_usuario=$id_s
+				AND fi.id_ficha = lista.id_lista_ficha 
+				AND fi.id_ficha = campos.fk_id_ficha 
+				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND campos.descripcion_campo LIKE '%Obejtivo especifico%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
@@ -510,13 +518,14 @@ AND campos.descripcion_campo LIKE '%Obejtivo especifico%'";
 				<hr />
 
 				<?php
-				$consultaacamposficha = "SELECT fi.id_ficha,fi.evaluacion_ficha
-FROM lista_ficha lista, ficha fi , campos_fichas campos
-WHERE lista.id_lista_usuario=118
-AND fi.id_ficha = lista.id_lista_ficha 
-AND fi.id_ficha = campos.fk_id_ficha 
-AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
-AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
+				//
+					$consultaacamposficha = "SELECT fi.id_ficha,fi.evaluacion_ficha
+					FROM lista_ficha lista, ficha fi , campos_fichas campos
+					WHERE lista.id_lista_usuario=$id_s
+					AND fi.id_ficha = lista.id_lista_ficha 
+					AND fi.id_ficha = campos.fk_id_ficha 
+					AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+					AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {

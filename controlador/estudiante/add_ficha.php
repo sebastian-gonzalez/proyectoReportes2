@@ -88,8 +88,6 @@ if (isset($_POST['add'])) {
             }
         }
 
-
-
         if ($_FILES["anteproyecto"]["error"] > 0) {
             echo "Error al cargar archvio de anteproyecto";
         } else {

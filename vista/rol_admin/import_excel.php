@@ -3,6 +3,7 @@ session_start();
 //Finalizacion de la session transcurridos 10 minutos
 $minutosparafinalizar = 10;
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > ($minutosparafinalizar * 60))) {
+
   session_unset();     // unset $_SESSION   
   session_destroy();   // destroy session data  
   echo '<script language="javascript">alert("Tiempo de la session expirado");</script>';
@@ -20,7 +21,9 @@ if (!isset($_SESSION['id_rol_usu'])) {
 $nombre_usu = $_SESSION['nombre_usu'];
 
 ?>
-
+<?php
+include("../../controlador/conexion.php");
+?>
 
 <!DOCTYPE html>
 <html>
@@ -176,11 +179,11 @@ $nombre_usu = $_SESSION['nombre_usu'];
                               <select name="id_programa_usu" name="id_programa_usu" id="id_programa_usu" class="form-control" required>
 
                                 <?php
-                                $sql = mysqli_query($con, "SELECT * FROM programa  ");
-                                echo '	<option disabled selected value="">Seleccione el programa</option>';
+                                $sql = mysqli_query($con, "SELECT * FROM programa ");
+                                echo '<option disabled selected value="">Seleccione el programa</option>';
 
                                 while ($valores = mysqli_fetch_array($sql)) {
-
+                                $aiuda=$valores['id_programa'];
                                   echo '<option value="' . $valores["id_programa"] . '">' . $valores["nombre_pro"] . '</option>';
                                 }
                                 ?>
@@ -192,6 +195,7 @@ $nombre_usu = $_SESSION['nombre_usu'];
                         <tr>
 
                           <td width="50%"><input type="file" name="import_excel" /></td>
+
                           <td width="25%"><input type="submit" name="import" id="import" class="btn btn-primary" value="Importar" /></td>
                         </tr>
                       </table>
