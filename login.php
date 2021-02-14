@@ -1,5 +1,5 @@
 <?php
-include_once 'include/database.php';
+include_once 'controlador/database.php';
 //Inicializar la sesión
 session_start();
 
@@ -17,19 +17,19 @@ if (isset($_SESSION['id_rol_usu'])) {
 	switch ($_SESSION['id_rol_usu']) {
 			//administrador
 		case 1:
-			header('location: rol_admin/inicio_admin.php');
+			header('location: vista/rol_admin/inicio_admin.php');
 			break;
 			//docente
 		case 2:
-			header('location: rol_docente/inicio_docente.php');
+			header('location: vista/rol_docente/inicio_docente.php');
 			break;
 			//coordinador
 		case 3:
-			header('location: rol_coordinador/inicio_coordinador.php');
+			header('location: vista/rol_coordinador/inicio_coordinador.php');
 			break;
 			//estudiante
 		case 4:
-			header('location: rol_estudiante/inicio_estudiante.php');
+			header('location: vista/rol_estudiante/inicio_estudiante.php');
 			break;
 
 		default:
@@ -75,21 +75,21 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 
 				//administrador
 			case 1:
-				header('location: rol_admin/inicio_admin.php');
+				header('location: vista/rol_admin/inicio_admin.php');
 
 				break;
 				//docente
 			case 2:
-				header('location: rol_docente/inicio_docente.php');
+				header('location: vista/rol_docente/inicio_docente.php');
 				break;
 				//coordinador
 			case 3:
-				header('location: rol_coordinador/inicio_coordinador.php');
+				header('location: vista/rol_coordinador/inicio_coordinador.php');
 				break;
 				//estudiante
 			case 4:
 				
-				header('location: rol_estudiante/inicio_estudiante.php');
+				header('location: vista/rol_estudiante/inicio_estudiante.php');
 				break;
 
 			default:
@@ -114,18 +114,18 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 
 <head>
 	<title>Login</title>
-	<link rel="stylesheet" type="text/css" href="css/loginn.css">
-	<link rel="icon" href="images/favicon.ico" type="image/gif" />
+	<link rel="stylesheet" type="text/css" href="assets/css/loginn.css">
+	<link rel="icon" href="assets/images/favicon.ico" type="image/gif" />
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-	<img class="wave" src="images/login/wave.png">
+	<img class="wave" src="assets/images/login/wave.png">
 	<div class="container">
 		<div class="img">
-			<img src="images/login/bg.svg">
+			<img src="assets/images/login/bg.svg">
 		</div>
 		<div class="login-content">
 			<form action="" method="POST">
@@ -134,7 +134,7 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 					echo "<div style='color:red'>Usuario o contraseña incorrecta </div>";
 				}
 				?>
-				<img src="images/login/avatar.svg">
+				<img src="assets/images/login/avatar.svg">
 				<h2 class="title">Bienvenido</h2>
 				<div class="input-div one">
 					<div class="i">
