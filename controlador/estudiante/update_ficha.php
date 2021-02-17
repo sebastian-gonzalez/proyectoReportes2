@@ -7,33 +7,24 @@ $conexion = $objeto->connect();
 ?>
 <?php
 if (isset($_POST['mod'])) {
+    $consultaacamposficha = "SELECT fi.id_ficha,fi.titulo_ficha
+    FROM lista_ficha lista, ficha fi 
+    WHERE lista.id_lista_usuario=118
+    AND fi.id_ficha = lista.id_lista_ficha 
+ 
+    ";
+    $resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
+    
+    while ($record = mysqli_fetch_assoc($resultset)) {
+    
+        $fichaaprobada = $record['id_ficha'];
+    }
 
-
-    $id_ficha = $_SESSION['id_de_ficha'];
-
-
-    $Titulo = (isset($_POST['titulo_ficha'])) ? $_POST['titulo_ficha'] : '';
-    $Descripcion = 'Proyecto de Grado';
-
-    $Programa = $_SESSION['id_programa_usu'];
-
-    $Estado = 1;
-
-    //TABLA LISTA_FICHA//
-
-    $id_lista_usuario = $_SESSION['id_usuario'];
-
-    $id_lista_ficha = $id_ficha;
-    $id_rol_ficha = 1;
+    $id_ficha = $fichaaprobada ;
 
     
 
-        $consulta = "UPDATE ficha  SET titulo_ficha='$Titulo', id_estado_ficha='$Estado' WHERE id_ficha='$id_ficha'";
-
         $id_lista_ficha = $id_ficha;
-
-        $resultado = $conexion->prepare($consulta);
-        $validacion_id = $resultado->execute();
 
         //if evta problemas con la el PK autoincrement y obliga  que la primera consulta sea verdadera para proceder
         if ($validacion_id = true) {
@@ -50,8 +41,9 @@ if (isset($_POST['mod'])) {
             $permitidos = array('application/pdf');
             $limite_kb = 200000000;
             if (in_array($_FILES["archivo"]["type"], $permitidos) && $_FILES["archivo"]["size"] <= $limite_kb * 1024) {
-                $ruta = "../controlador/estudiante/pdf/$id_insert/";
+                $ruta = "../../controlador/estudiante/pdf/$id_insert/";
                 $archivo = $ruta . $_FILES["archivo"]["name"];
+                
                 if (!file_exists($ruta)) {
                     mkdir($ruta);
                 }
@@ -70,6 +62,6 @@ if (isset($_POST['mod'])) {
                 echo "el archivo no esta permitido o excede el tamaño maximo";
             }
         }
-        header('Location:fichas.php');
+        header('Location:info_ficha.php');
     
 }

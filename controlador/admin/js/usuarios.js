@@ -80,7 +80,7 @@ $(document).ready(function () {
     $("#formFichas").trigger("reset");
     $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
-    $(".modal-title").text("Agregar Ficha");
+    $(".modal-title").text("Editar Perfil");
     $("#modalCRUD1").modal("show");
   });
 

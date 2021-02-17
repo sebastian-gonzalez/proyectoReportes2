@@ -21,7 +21,7 @@ $conexion = $objeto->connect();
 $descripcion_pregprog = "Pregunta problematizadora";
 $descripcion_pregsis = "Pregunta sistematizadora";
 $descripcion_objgen = "Objetivo general";
-$descripcion_objespe = "Obejtivo especifico";
+$descripcion_objespe = "Objetivo especifico";
 
 ?>
 <?php

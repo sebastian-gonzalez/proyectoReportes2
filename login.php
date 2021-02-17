@@ -157,7 +157,6 @@ if (isset($_POST['correo']) && isset($_POST['contrasena'])) {
 				</div>
 
 				<input type="submit" class="btn" value="Ingresar">
-				<input class="btn" type="button" value="Regresar" onclick="location.href='index.php';">
 			</form>
 		</div>
 	</div>

@@ -290,6 +290,9 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
                         $path = "../../controlador/estudiante/pdf/" . $id;
                         if (file_exists($path)) {
+							
+
+							
                             $directorio = opendir($path);
                             while ($archivo = readdir($directorio)) {
                                 if (!is_dir($archivo)) {
@@ -297,8 +300,13 @@ while ($record = mysqli_fetch_assoc($resultset)) {
                                 }
                             }
                         } else {
-                            echo '<script language="javascript">alert("No Tiene un documento agregado");</script>';
+							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo crear el dato.
+
+                
+							</div>';
                         }
+
+
                         ?>
 
 

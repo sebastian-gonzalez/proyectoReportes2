@@ -16,12 +16,13 @@ $nombre_usu = $_SESSION['nombre_usu'];
 include("../../controlador/conexion.php");
 
 
+
 include_once '../../controlador/database.php';
 
 $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
-
+include("../../controlador/estudiante/update_ficha.php");
 $query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha WHERE id_lista_usuario =$id_s");
 $query_ficha->execute();
 $row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
@@ -55,6 +56,18 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 	$fichaaprobada = $record['id_ficha'];
 }
 
+$consultaacamposfichas = "SELECT fi.id_ficha,fi.titulo_ficha
+FROM lista_ficha lista, ficha fi 
+WHERE lista.id_lista_usuario=$id_s
+AND fi.id_ficha = lista.id_lista_ficha 
+
+";
+$resultset = mysqli_query($con, $consultaacamposfichas) or die("database error:" . mysqli_error($con));
+
+while ($records = mysqli_fetch_assoc($resultset)) {
+
+	$ficha_id_final = $records['id_ficha'];
+}
 
 
 
@@ -285,41 +298,105 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 					<h1>Ficha de anteproyecto de grado</h1>
 				</section>
 				<hr />
-				<section>
-					<a class="btn btn-primary derechaubicacion" href="documentoanteproyecto.php"><i class='fa fa-pencil'></i> </a>
-					<h2>Titulo</h2>
 
+				<section>
+					<h2>Titulo</h2>
 				</section>
+
+
+
 				<hr />
 
 				<?php
 				$consultaacamposficha = "SELECT fi.id_ficha,fi.titulo_ficha
-				FROM lista_ficha lista, ficha fi , campos_fichas campos
-				WHERE lista.id_lista_usuario=$id_s
-				AND fi.id_ficha = lista.id_lista_ficha 
-				AND fi.id_ficha = campos.fk_id_ficha 
-				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
-				AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
+				FROM lista_ficha lista, ficha fi 
+				WHERE lista.id_lista_usuario=118
+				AND fi.id_ficha = lista.id_lista_ficha ";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
+					$titu_ficha = $record['titulo_ficha']
 
 
 
 				?>
+					<button href='#edit_titu' class='btn btn-primary derechaubicacion' data-toggle='modal'> <i class='fa fa-pencil'></i></button>
 
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="form-group">
-								<p><?php echo $record['titulo_ficha']; ?></p>
+								<p><?php echo $titu_ficha; ?></p>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="modal fade" id="edit_titu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hnameden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+
+
+									<h4 class="modal-title" id="myModalLabel"> Editar Titulo </h4>
+									<button type="button" class="close" data-dismiss="modal" aria-hnameden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div class="container-fluname">
+										<form method="post" <?php echo 'action="../../controlador/estudiante/editar_campos_ficha.php?aktr=edit&nikfi=' . $record['id_ficha'] . '"'; ?>>
+											<div class="modal-body">
+
+
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="form-group">
+															<label for="" class="col-form-label">Titulo </label>
+
+															<input type="text" class="form-control largocampo" name="titu_ficha" required value='<?php echo $titu_ficha ?>'>
+
+														</div>
+													</div>
+
+
+												</div>
+											</div>
+											<div class="modal-footer">
+
+												<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+												<button input type="submit" name="edit_titu" class="btn btn-dark">Guardar</button>
+											</div>
+
+									</div>
+
+
+									</form>
+								</div>
+
 							</div>
 						</div>
 					</div>
 				<?php
 				}
 				?>
-<!-- primera modal titulo -->
+				<hr />
+
+				<section>
+					<h2>Planteamiento del Problema</h2>
+				</section>
+				<hr />
+				<!-- primera modal titulo -->
 				<?php
+				$consultaacamposficha1 = "SELECT fi.id_ficha, campos.id_campo,  campos.descripcion_campo,  campos.valor_campo,  campos.fk_id_ficha
+								FROM lista_ficha lista, ficha fi , campos_fichas campos
+								WHERE lista.id_lista_usuario=$id_s
+								AND fi.id_ficha = lista.id_lista_ficha 
+								AND fi.id_ficha = campos.fk_id_ficha 
+								AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+								AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
+				$resultset = mysqli_query($con, $consultaacamposficha1) or die("database error:" . mysqli_error($con));
+
+				while ($record = mysqli_fetch_assoc($resultset)) {
+					$validarpreg = $record['valor_campo'];
+				}
 				$consultaacamposficha = "SELECT fi.id_ficha, campos.id_campo,  campos.descripcion_campo,  campos.valor_campo,  campos.fk_id_ficha
 				FROM lista_ficha lista, ficha fi , campos_fichas campos
 				WHERE lista.id_lista_usuario=$id_s
@@ -329,41 +406,145 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
-				while ($record = mysqli_fetch_assoc($resultset)) {
 
+				if (isset($validarpreg)) {
+					while ($record = mysqli_fetch_assoc($resultset)) {
+						$valor_mostrar = $record['valor_campo'];
+						$idcampo1 = $record['id_campo'];
+						include("modal_campo_ficha.php");
+					}
+					echo "
 
-
-				?>
-					<hr />
-
-					<section>
-						<h2>Planteamiento del Problema</h2>
-					</section>
-					<hr />
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="form-group">
-								<a class="btn btn-primary derechaubicacion" href="documentoanteproyecto.php"><i class='fa fa-pencil'></i> </a>
-								<label for="" class="col-form-label">Pregunta problematizadora:</label>
+					<div class='row'>
+						<div class='col-lg-12'>
+							<div class='form-group'>
+							<label class='col-form-label'>Pregunta Problematizadora </label>
+							<button href='#edit_$idcampo1' class='btn btn-primary derechaubicacion' data-toggle='modal'> <i class='fa fa-pencil'></i></button>
 								<hr />
-								<p><?php echo $record['valor_campo']; ?></p>
+							
+								<p> $valor_mostrar </p>
 							</div>
 						</div>
 					</div>
-				<?php
+
+				";
+				} else {
+					echo "
+
+					<div class='row'>
+						<div class='col-lg-12'>
+							<div class='form-group'>
+							<label class='col-form-label'>Pregunta Problematizadora </label>
+							<button href='#create_pregugen' class='btn btn-info derechaubicacion' data-toggle='modal'> <i class='fa fa-plus'></i></button>
+		
+						
+							</div>
+						</div>
+					</div>
+
+				";
 				}
+
 				?>
-<!-- segundo modal-->
+				<!-- segundo modal-->
 				<hr />
 
-				<label for="" class="col-form-label">Pregunta sistematizadoras</label>
-				<a class="btn btn-info derechaubicacion" href="documentoanteproyecto.php"><i class='fa fa-plus'></i> </a>
+				<div class="modal fade" id="create_pregugen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hnameden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+
+
+								<h4 class="modal-title" id="myModalLabel"> Crear Pregunta problematizadora </h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hnameden="true">&times;</button>
+							</div>
+							<div class="modal-body">
+								<div class="container-fluname">
+									<form method="post" <?php echo 'action="../../controlador/estudiante/editar_campos_ficha.php?ak=crear&nikfi=' . $id_lis_fi . '"'; ?>>
+										<div class="modal-body">
+
+
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="form-group">
+														<label for="" class="col-form-label">Pregunta Problematizadora </label>
+
+														<input type="text" class="form-control largocampo" name="valor_campo" required>
+
+													</div>
+												</div>
+
+
+											</div>
+										</div>
+										<div class="modal-footer">
+
+											<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+											<button input type="submit" name="crearpregpro" class="btn btn-dark">Guardar</button>
+										</div>
+
+								</div>
+
+
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<label class="col-form-label">Pregunta sistematizadoras </label>
+				<button href="#create_pregu" class="btn btn-info derechaubicacion" data-toggle="modal"> <i class='fa fa-plus'></i></button>
+
+				<div class="modal fade" id="create_pregu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hnameden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+
+
+								<h4 class="modal-title" id="myModalLabel"> Crear Pregunta sistematizadora </h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hnameden="true">&times;</button>
+							</div>
+							<div class="modal-body">
+								<div class="container-fluname">
+									<form method="post" <?php echo 'action="../../controlador/estudiante/editar_campos_ficha.php?ak=crear&nikfi=' . $id_lis_fi . '"'; ?>>
+										<div class="modal-body">
+
+
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="form-group">
+														<label for="" class="col-form-label">Pregunta sistematizadora </label>
+
+														<input type="text" class="form-control largocampo" name="valor_campo" required>
+
+													</div>
+												</div>
+
+
+											</div>
+										</div>
+										<div class="modal-footer">
+
+											<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+											<button input type="submit" name="crearpreg" class="btn btn-dark">Guardar</button>
+										</div>
+
+								</div>
+
+
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
 
 
 				<?php
 				//
 
-			
+
 
 
 				$consultaacamposficha = "SELECT fi.id_ficha, campos.id_campo,  campos.descripcion_campo,  campos.valor_campo,  campos.fk_id_ficha 
@@ -377,7 +558,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
 
-					include("modal_editar_ficha.php");
+					include("modal_campo_ficha.php");
 
 				?>
 
@@ -385,9 +566,12 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class="col-lg-12">
 							<div class="form-group">
 								<hr />
-								<a class="btn btn-danger derechaubicacion" href="documentoanteproyecto.php"><i class='fa fa-trash-o'></i> </a>
+								<?php
+								echo '
+								<a href="../../controlador/estudiante/editar_campos_ficha.php?aksi=delete&nik=' . $record['id_campo'] . '" class="btn btn-danger derechaubicacion" data-toggle="modal"> <i class="fa fa-trash-o"></i></a>'
+								?>
 
-								<button href=" #edit_<?php echo $record['id_campo']; ?>" class="btn btn-primary derechaubicacion" data-toggle="modal"> <i class='fa fa-pencil'></i></button>
+								<button href="#edit_<?php echo $record['id_campo']; ?>" class="btn btn-primary derechaubicacion" data-toggle="modal"> <i class='fa fa-pencil'></i></button>
 
 								<p><?php echo $record['valor_campo']; ?></p>
 							</div>
@@ -397,10 +581,30 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				}
 				?>
 
-<!-- segundo modal preguntas  -->
+				<!-- segundo modal preguntas  -->
 
+				<hr />
+
+				<!-- segundo modal objetivos  -->
+				<section>
+					<h2>Obejtivos</h2>
+				</section>
+				<hr />
 
 				<?php
+				$consultaacamposficha1 = "SELECT fi.id_ficha, campos.id_campo,  campos.descripcion_campo,  campos.valor_campo,  campos.fk_id_ficha
+				FROM lista_ficha lista, ficha fi , campos_fichas campos
+				WHERE lista.id_lista_usuario=$id_s
+				AND fi.id_ficha = lista.id_lista_ficha 
+				AND fi.id_ficha = campos.fk_id_ficha 
+				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND campos.descripcion_campo LIKE '%Objetivo general%'";
+				$resultset = mysqli_query($con, $consultaacamposficha1) or die("database error:" . mysqli_error($con));
+
+				while ($record = mysqli_fetch_assoc($resultset)) {
+
+					$validarobj = $record['valor_campo'];
+				}
 				//
 				$consultaacamposficha = "SELECT fi.id_ficha, campos.id_campo,  campos.descripcion_campo,  campos.valor_campo,  campos.fk_id_ficha
 				FROM lista_ficha lista, ficha fi , campos_fichas campos
@@ -411,38 +615,137 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				AND campos.descripcion_campo LIKE '%Objetivo general%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
-				while ($record = mysqli_fetch_assoc($resultset)) {
+				if (isset($validarobj)) {
+					while ($record = mysqli_fetch_assoc($resultset)) {
+						$valor_mostrar = $record['valor_campo'];
+						$idcampo1 = $record['id_campo'];
+						include("modal_campo_ficha.php");
+					}
+					echo "
 
-
-
-				?>
-					<hr />
-
-<!-- segundo modal objetivos  -->
-					<section>
-						<h2>Obejtivos</h2>
-					</section>
-					<hr />
-
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="form-group">
-								<a class="btn btn-primary derechaubicacion" href="documentoanteproyecto.php"><i class='fa fa-pencil'></i> </a>
-								<label for="" class="col-form-label">Objetivo general:</label>
+					<div class='row'>
+						<div class='col-lg-12'>
+							<div class='form-group'>
+							<label class='col-form-label'>Objetivo General </label>
+							<button href='#edit_$idcampo1' class='btn btn-primary derechaubicacion' data-toggle='modal'> <i class='fa fa-pencil'></i></button>
 								<hr />
-								<p><?php echo $record['valor_campo']; ?></p>
+							
+								<p> $valor_mostrar </p>
 							</div>
 						</div>
 					</div>
-				<?php
+
+				";
+				} else {
+					echo "
+
+					<div class='row'>
+						<div class='col-lg-12'>
+							<div class='form-group'>
+							<label class='col-form-label'>Objetivo General </label>
+							<button href='#create_objetivogen' class='btn btn-info derechaubicacion' data-toggle='modal'> <i class='fa fa-plus'></i></button>
+		
+						
+							</div>
+						</div>
+					</div>
+
+				";
 				}
+
 				?>
 
+				<div class="modal fade" id="create_objetivogen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hnameden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+
+
+								<h4 class="modal-title" id="myModalLabel"> Crear Objetivo general </h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hnameden="true">&times;</button>
+							</div>
+							<div class="modal-body">
+								<div class="container-fluname">
+									<form method="post" <?php echo 'action="../../controlador/estudiante/editar_campos_ficha.php?ak=crear&nikfi=' . $id_lis_fi . '"'; ?>>
+										<div class="modal-body">
+
+
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="form-group">
+														<label for="" class="col-form-label">Objetivo general </label>
+
+														<input type="text" class="form-control largocampo" name="valor_campo" required>
+
+													</div>
+												</div>
+
+
+											</div>
+										</div>
+										<div class="modal-footer">
+
+											<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+											<button input type="submit" name="crearobjgen" class="btn btn-dark">Guardar</button>
+										</div>
+
+								</div>
+
+
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
 
 				<hr />
+				<label for="" class="col-form-label">Objetivos especificos </label>
+				<button href="#create_obj" class="btn btn-info derechaubicacion" data-toggle="modal"> <i class='fa fa-plus'></i></button>
 
-				<label class="col-form-label">Obejtivo especificos:</label>
-				<a class="btn btn-info derechaubicacion" href="documentoanteproyecto.php"><i class='fa fa-plus'></i> </a>
+				<div class="modal fade" id="create_obj" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hnameden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+
+
+								<h4 class="modal-title" id="myModalLabel"> Crear Objetivo Especifico </h4>
+								<button type="button" class="close" data-dismiss="modal" aria-hnameden="true">&times;</button>
+							</div>
+							<div class="modal-body">
+								<div class="container-fluname">
+									<form method="post" <?php echo 'action="../../controlador/estudiante/editar_campos_ficha.php?akitoy=crear_ob_es&nikfis=' . $id_lis_fi . '"'; ?>>
+										<div class="modal-body">
+
+
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="form-group">
+														<label for="" class="col-form-label">Obejetivo especifico </label>
+
+														<input type="text" class="form-control largocampo" name="valor_campo" required>
+
+													</div>
+												</div>
+
+
+											</div>
+										</div>
+										<div class="modal-footer">
+
+											<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+											<button input type="submit" name="crearobj" class="btn btn-dark">Guardar</button>
+										</div>
+
+								</div>
+
+
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
 
 
 
@@ -454,12 +757,12 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				AND fi.id_ficha = lista.id_lista_ficha 
 				AND fi.id_ficha = campos.fk_id_ficha 
 				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
-				AND campos.descripcion_campo LIKE '%Obejtivo especifico%'";
+				AND campos.descripcion_campo LIKE '%Objetivo especifico%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
 
-
+					include("modal_campo_ficha.php");
 
 				?>
 
@@ -467,11 +770,12 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class="col-lg-12">
 							<div class="form-group">
 								<hr />
-								<a class="btn btn-danger derechaubicacion" href="documentoanteproyecto.php"><i class='fa fa-trash-o'></i> </a>
-								<a class="btn btn-primary derechaubicacion" href="documentoanteproyecto.php"><i class='fa fa-pencil'></i> </a>
+								<?php
+								echo '
+								<a href="../../controlador/estudiante/editar_campos_ficha.php?aksi=delete&nik=' . $record['id_campo'] . '" class="btn btn-danger derechaubicacion" data-toggle="modal"> <i class="fa fa-trash-o"></i></a>'
+								?>
 
-
-
+								<button href="#edit_<?php echo $record['id_campo']; ?>" class="btn btn-primary derechaubicacion" data-toggle="modal"> <i class='fa fa-pencil'></i></button>
 
 								<p><?php echo $record['valor_campo']; ?></p>
 							</div>
@@ -496,6 +800,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 							<br />
 							<a class="btn btn-info" href='documento.php'><i class='fa fa-file-pdf-o'></i></a>
 
+
+
 							<button id="btneditarficha" type="button" class="btn btn-primary editarficha" data-toggle="modal" tooltip-dir="top"><i class='fa fa-pencil'> </i></button>
 						</div>
 					</div>
@@ -519,7 +825,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 				<?php
 				//
-					$consultaacamposficha = "SELECT fi.id_ficha,fi.evaluacion_ficha
+				$consultaacamposficha = "SELECT fi.id_ficha,fi.evaluacion_ficha
 					FROM lista_ficha lista, ficha fi , campos_fichas campos
 					WHERE lista.id_lista_usuario=$id_s
 					AND fi.id_ficha = lista.id_lista_ficha 
@@ -584,13 +890,14 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 								<label for="" class="col-form-label">Documento</label>
 								<div class="col-lg-6">
 									<input type="file" name="archivo">
+
 									<?php
 									$nik = $_SESSION['id_usuario'];
 									$sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
 									while ($record = mysqli_fetch_assoc($sql)) {
 										$id = $record['id_lista_ficha'];
 									}
-									$path = "../include/estudiante/pdf/" . $id;
+									$path = "../../controlador/estudiante/pdf/" . $id;
 									if (file_exists($path)) {
 										$directorio = opendir($path);
 										while ($archivo = readdir($directorio)) {
@@ -600,15 +907,17 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 									title = 'Ver Archivo Adjunto'>
                                     <span class='fa fa-file-pdf-o' aria-hidden='true'></span></a>";
 
-												echo "$archivo <a href ='fichas.php' id = 'delete'
+												echo "$archivo <a href ='info_ficha.php' id = 'delete'
                                     title = 'Eliminar Archivo Adjunto'>
                                     
                                     <span class='fa fa-trash' aria-hidden='true'></span></a></div>";
 
-												echo "<iframe src='../include/estudiante/pdf/$id/$archivo' width='300'> </iframe>";
+												echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' width='400'> </iframe>";
 											}
 										}
 									}
+
+
 
 									?>
 
