@@ -42,16 +42,19 @@ if (isset($_POST['editcampo'])) {
 
         $nik = mysqli_real_escape_string($con, (strip_tags($_GET["nik"], ENT_QUOTES)));
 
-        $query ="UPDATE campos_fichas SET valor_campo= '".$valor_ficha."'  WHERE id_campo=".$nik;
-        $update = mysqli_query($con,$query );
+        $query = "UPDATE campos_fichas SET valor_campo= '" . $valor_ficha . "'  WHERE id_campo=" . $nik;
+        $update = mysqli_query($con, $query);
 
 
         if ($update) {
             header("Location: ../../vista/rol_estudiante/info_ficha.php");
         } else {
-            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo editar los datos.
-                
-                </div>';
+            echo
+            "<script> swal({
+               title: '¡ERROR!',
+               text: 'No se pudieron editar los datos',
+               type: 'error',
+             });</script>";
         }
     }
 }
@@ -71,17 +74,19 @@ if (isset($_POST['edit_titu'])) {
         $nik = mysqli_real_escape_string($con, (strip_tags($_GET["nikfi"], ENT_QUOTES)));
 
 
-        $query ="UPDATE ficha SET titulo_ficha='".$titulo_ficha."' WHERE id_ficha=".$nik;
-        $update1 = mysqli_query($con,$query );
+        $query = "UPDATE ficha SET titulo_ficha='" . $titulo_ficha . "' WHERE id_ficha=" . $nik;
+        $update1 = mysqli_query($con, $query);
 
 
         if ($update1) {
             header("Location: ../../vista/rol_estudiante/info_ficha.php");
         } else {
-            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo crear el dato.
-
-                
-            </div>';
+            echo
+            "<script> swal({
+               title: '¡ERROR!',
+               text: 'No se pudo crear el dato',
+               type: 'error',
+             });</script>";
         }
     }
 }
@@ -100,9 +105,9 @@ if (isset($_POST['crearpregpro'])) {
         $nikfi = mysqli_real_escape_string($con, (strip_tags($_GET["nikfi"], ENT_QUOTES)));
 
 
-         
+
         $query = "INSERT INTO campos_fichas (descripcion_campo,valor_campo,fk_id_ficha)
-        VALUES('".$descripcionfichapregpro."','".$valor_ficha."', '".$nikfi."') ";
+        VALUES('" . $descripcionfichapregpro . "','" . $valor_ficha . "', '" . $nikfi . "') ";
         $crear = mysqli_query($con, $query);
 
 
@@ -111,10 +116,12 @@ if (isset($_POST['crearpregpro'])) {
         if ($crear) {
             header("Location: ../../vista/rol_estudiante/info_ficha.php");
         } else {
-            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo crear el dato.
-
-                
-                </div>';
+            echo
+            "<script> swal({
+               title: '¡ERROR!',
+               text: 'No se pudo crear el dato',
+               type: 'error',
+             });</script>";
         }
     }
 }
@@ -133,8 +140,8 @@ if (isset($_POST['crearpreg'])) {
         $nikfi = mysqli_real_escape_string($con, (strip_tags($_GET["nikfi"], ENT_QUOTES)));
 
         $query = "INSERT INTO campos_fichas (descripcion_campo,valor_campo,fk_id_ficha)
-        VALUES('".$descripcionficha."','".$valor_ficha."', '".$nikfi."') ";
-        $crear = mysqli_query($con,$query);
+        VALUES('" . $descripcionficha . "','" . $valor_ficha . "', '" . $nikfi . "') ";
+        $crear = mysqli_query($con, $query);
 
 
 
@@ -142,10 +149,12 @@ if (isset($_POST['crearpreg'])) {
         if ($crear) {
             header("Location: ../../vista/rol_estudiante/info_ficha.php");
         } else {
-            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo crear el dato.
-
-                
-                </div>';
+            echo
+            "<script> swal({
+               title: '¡ERROR!',
+               text: 'No se pudo crear el dato',
+               type: 'error',
+             });</script>";
         }
     }
 }
@@ -163,9 +172,9 @@ if (isset($_POST['crearobjgen'])) {
 
         $nikfi = mysqli_real_escape_string($con, (strip_tags($_GET["nikfi"], ENT_QUOTES)));
 
-        $query="INSERT INTO campos_fichas (descripcion_campo,valor_campo,fk_id_ficha)
-        VALUES('".$descripcionfichaobjgen."','".$valor_ficha."', '".$nikfi."') ";
-        $crear = mysqli_query($con,$query);
+        $query = "INSERT INTO campos_fichas (descripcion_campo,valor_campo,fk_id_ficha)
+        VALUES('" . $descripcionfichaobjgen . "','" . $valor_ficha . "', '" . $nikfi . "') ";
+        $crear = mysqli_query($con, $query);
 
 
 
@@ -173,10 +182,12 @@ if (isset($_POST['crearobjgen'])) {
         if ($crear) {
             header("Location: ../../vista/rol_estudiante/info_ficha.php");
         } else {
-            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo crear el dato.
-
-                
-                </div>';
+            echo
+            "<script> swal({
+               title: '¡ERROR!',
+               text: 'No se pudo crear el dato',
+               type: 'error',
+             });</script>";
         }
     }
 }
@@ -195,8 +206,8 @@ if (isset($_POST['crearobj'])) {
         $nikfis = mysqli_real_escape_string($con, (strip_tags($_GET["nikfis"], ENT_QUOTES)));
 
         $query1 = "INSERT INTO campos_fichas (descripcion_campo,valor_campo,fk_id_ficha)
-        VALUES('".$descripcionfichaobj."','".$valor_ficha."','".$nikfis."')";
-        $crear1 = mysqli_query($con,$query1);
+        VALUES('" . $descripcionfichaobj . "','" . $valor_ficha . "','" . $nikfis . "')";
+        $crear1 = mysqli_query($con, $query1);
 
 
 
@@ -204,10 +215,12 @@ if (isset($_POST['crearobj'])) {
         if ($crear1) {
             header("Location: ../../vista/rol_estudiante/info_ficha.php");
         } else {
-            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo crear el dato.
-
-                
-                </div>';
+            echo
+            "<script> swal({
+               title: '¡ERROR!',
+               text: 'No se pudo crear el dato',
+               type: 'error',
+             });</script>";
         }
     }
 }
@@ -223,16 +236,19 @@ if (isset($_GET['aksi']) == 'delete') {
 
     $nik = mysqli_real_escape_string($con, (strip_tags($_GET["nik"], ENT_QUOTES)));
 
-    $query="DELETE FROM campos_fichas  WHERE id_campo=".$nik;
-    $delete = mysqli_query($con,$query);
+    $query = "DELETE FROM campos_fichas  WHERE id_campo=" . $nik;
+    $delete = mysqli_query($con, $query);
 
 
     if ($delete) {
         header("Location: ../../vista/rol_estudiante/info_ficha.php");
     } else {
-        echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo Eliminar los datos.
-            
-            </div>';
+        echo
+        "<script> swal({
+           title: '¡ERROR!',
+           text: 'No se pudo eliminar el dato',
+           type: 'error',
+         });</script>";
     }
 }
 ?>

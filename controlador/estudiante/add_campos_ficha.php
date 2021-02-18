@@ -1,3 +1,11 @@
+
+<!--SweetAlert-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css"/>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
+
+
 <?php
 session_start();
 if (!isset($_SESSION['id_rol_usu'])) {
@@ -57,7 +65,7 @@ if (isset($_POST['add'])) {
     $resultado_pregunta = $conexion->prepare($consulta_pregunta);
     $resultado_pregunta->execute();
 
-
+if (isset($_POST['addspreg'])){
 
     foreach ($_POST['addspreg'] as $key => $value) {
         $id_lista_preg = $_POST['addspreg'][$key];
@@ -68,6 +76,9 @@ if (isset($_POST['add'])) {
          VALUES('$descripcion_pregsis','$id_lista_preg', '$idficha') ";
         $resultado_pregsiste = $conexion->prepare($consulta_pregsiste);
         $resultado_pregsiste->execute();
+
+
+    }
     }
 
 
@@ -79,7 +90,7 @@ if (isset($_POST['add'])) {
                     VALUES('$descripcion_objgen','$objetivo_gen', '$idficha') ";
     $resultado_objgen = $conexion->prepare($consulta_objgen);
     $resultado_objgen->execute();
-
+    if (isset($_POST['addsobj'])) {
     foreach ($_POST['addsobj'] as $key => $value) {
         $id_lista_obj = $_POST['addsobj'][$key];
 
@@ -94,7 +105,17 @@ if (isset($_POST['add'])) {
 
 
 
-    echo '<script language="javascript">alert("exito");
+     
           
-                          location.href="../../vista/rol_estudiante/fichas.php";</script>';
+    }
+    echo 
+    "<script> swal({
+        title: '¡Exito!',
+        text: 'Campos agregados',
+        type: 'success',
+      }).then(function(){ 
+        location.href='../../vista/rol_estudiante/fichas.php';
+        }
+     );
+     ;</script>";
 }

@@ -32,8 +32,12 @@ if (isset($_POST['mod'])) {
         } else {
             //Pueden haber errores, como clave duplicada
             $id_insert = 0;
-            echo '<script language="javascript">alert("El director ya ha sido asignado a esta ficha");
-          </script>';
+            echo
+            "<script> swal({
+               title: '¡ERROR!',
+               text: 'El director ya a sido asigando a esta ficha',
+               type: 'error',
+             });</script>";
         }
         if ($_FILES["archivo"]["error"] > 0) {
             echo "Error al cargar archvio";

@@ -106,6 +106,12 @@ while ($record = mysqli_fetch_assoc($resultset)) {
     <link rel="stylesheet" type="text/css" href="../../assets/select2/select2.min.css" />
 
 
+    <!--SweetAlert-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css"/>
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
+
+
 
 </head>
 

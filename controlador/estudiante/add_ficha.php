@@ -1,3 +1,5 @@
+
+
 <?php
 session_start();
 if (!isset($_SESSION['id_rol_usu'])) {
@@ -40,8 +42,18 @@ if (isset($_POST['add'])) {
     $data_vali = $resultado_vali->execute();
 
     if ($resultado_vali->fetchColumn() > 0) {
-        echo '<script language="javascript">alert("El Usuario ya posee una ficha ");
-    location.href="fichas.php";</script>';
+
+
+        echo
+        "<script> swal({
+        title: '¡ERROR!',
+        text: 'El Usuario ya posee una ficha',
+        type: 'error',
+      }).then(function(){ 
+        location.href='fichas.php';
+        }
+     );
+     ;</script>";
     } else {
 
         $consulta = "INSERT INTO ficha (titulo_ficha,descripcion_ficha,id_programa_ficha,id_estado_ficha)
@@ -58,11 +70,22 @@ if (isset($_POST['add'])) {
         } else {
             //Pueden haber errores, como clave duplicada
             $id_insert = 0;
-            echo "no se ejecuto la primera consulta ";
+
+            echo
+            "<script> swal({
+        title: '¡ERROR!',
+        text: 'No se ejecuto la primera consulta',
+        type: 'error',
+      });</script>";
         }
 
         if ($_FILES["archivo"]["error"] > 0) {
-            echo "Error al cargar ficha";
+            echo
+            "<script> swal({
+        title: '¡ERROR!',
+        text: 'Error al cargar la ficha',
+        type: 'error',
+      });</script>";
         } else {
             $permitidos = array('application/pdf');
             $limite_kb = 200000000;
@@ -79,9 +102,19 @@ if (isset($_POST['add'])) {
                     );
                 }
                 if ($resultado) {
-                    echo "archivo guardado";
+                    echo
+        "<script> swal({
+        title: '¡ERROR!',
+        text: 'Archivo guardado',
+        type: 'success',
+      });</script>";
                 } else {
-                    echo " archivo no guardado";
+                    echo
+                    "<script> swal({
+        title: '¡ERROR!',
+        text: 'Archivo no guardado',
+        type: 'error',
+      });</script>";
                 }
             } else {
                 echo "el archivo no esta permitido o excede el tamaño maximo";
@@ -111,7 +144,16 @@ if (isset($_POST['add'])) {
                     echo " anteproyecto no guardado";
                 }
             } else {
-                echo "el anteproyecto no esta permitido o excede el tamaño maximo";
+                echo
+        "<script> swal({
+        title: '¡ERROR!',
+        text: 'El ante proyecto no esta permitido o excede el tamano',
+        type: 'error',
+      }).then(function(){ 
+        location.href='fichas.php';
+        }
+     );
+     ;</script>";
             }
         }
 

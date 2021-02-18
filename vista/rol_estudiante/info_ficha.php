@@ -587,7 +587,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 				<!-- segundo modal objetivos  -->
 				<section>
-					<h2>Obejtivos</h2>
+					<h2>Objetivos</h2>
 				</section>
 				<hr />
 

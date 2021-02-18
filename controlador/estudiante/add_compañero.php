@@ -37,23 +37,38 @@ if (isset($_POST['add_participante'])) {
      $data_vali = $resultado_vali->execute();
 
      if ($resultado_vali->fetchColumn() > 0) {
-          echo '<script language="javascript">alert("El estudiante ya posee un compañero u otra ficha asignada");
-     location.href="fichas.php";</script>';
+
+          echo
+          "<script> swal({
+     title: '¡ERROR!',
+     text: 'El estudiante ya posee un compañero u otra ficha asignada',
+     type: 'error',
+   }).then(function(){ 
+     location.href='fichas.php';
+     }
+  );
+  ;</script>";
      } else {
 
-               //asignar companero
-               $id_lista_usuario = (isset($_POST['id_lista_usuario'])) ? $_POST['id_lista_usuario'] : '';
-               $id_lista_ficha = $_SESSION['id_lista_ficha'];
-               $id_rol_ficha = 1;
+          //asignar companero
+          $id_lista_usuario = (isset($_POST['id_lista_usuario'])) ? $_POST['id_lista_usuario'] : '';
+          $id_lista_ficha = $_SESSION['id_lista_ficha'];
+          $id_rol_ficha = 1;
 
-               $consulta_participante = "INSERT INTO lista_ficha (id_lista_usuario,id_lista_ficha,id_rol_ficha)
+          $consulta_participante = "INSERT INTO lista_ficha (id_lista_usuario,id_lista_ficha,id_rol_ficha)
          VALUES('$id_lista_usuario','$id_lista_ficha', '$id_rol_ficha') ";
 
-               $resultado_participante = $conexion->prepare($consulta_participante);
-               $resultado_participante->execute();
-               echo '<script language="javascript">alert("exito");
-               location.href="fichas.php";</script>';
-               
-          }
+          $resultado_participante = $conexion->prepare($consulta_participante);
+          $resultado_participante->execute();
+          echo
+          "<script> swal({
+     title: '¡Exito!',
+     text: 'Compañero asignado',
+     type: 'success',
+   }).then(function(){ 
+     location.href='fichas.php';
      }
-
+  );
+  ;</script>";
+     }
+}

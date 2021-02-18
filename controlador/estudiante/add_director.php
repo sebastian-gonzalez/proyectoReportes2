@@ -1,4 +1,8 @@
+
+
 <?php
+
+
 
 $db = new Database();
 $id_s = $_SESSION['id_usuario'];
@@ -40,11 +44,34 @@ if (isset($_POST['add_director'])) {
      $data_vali_2 = $resultado_vali_2->execute();
 
      if ($resultado_vali->fetchColumn() > 0) {
-          echo '<script language="javascript">alert("El director ya ha sido asignado a esta ficha");
-          location.href="fichas.php";</script>';
+          
+          echo 
+          "<script> swal({
+               title: '¡ERROR!',
+               text: 'El director ya ha sido asignado a esta ficha',
+               type: 'error',
+             }).then(function(){ 
+               location.href='fichas.php';
+               }
+            );
+            ;</script>";
+
+
      } else if ($resultado_vali_2->fetchColumn() > 0) {
-          echo '<script language="javascript">alert("La ficha ya posee un director");
-          location.href="fichas.php";</script>';
+     
+          "<script> swal({
+               title: '¡ERROR!',
+               text: 'El director ya ha sido asignado a esta ficha',
+               type: 'error',
+             }).then(function(){ 
+               location.href='fichas.php';
+               }
+            );
+            ;</script>";
+        
+
+
+          
      }else {
 
           //asignar director
@@ -59,7 +86,16 @@ if (isset($_POST['add_director'])) {
 
           $resultado_participante = $conexion->prepare($consulta_participante);
           $resultado_participante->execute();
-          echo '<script language="javascript">alert("exito");
-               location.href="fichas.php";</script>';
+          echo 
+         
+               "<script> swal({
+                    title: '¡Exito!',
+                    text: 'Director Asignado',
+                    type: 'success',
+                  }).then(function(){ 
+                    location.href='fichas.php';
+                    }
+                 );
+                 ;</script>";
      }
 }
