@@ -295,6 +295,30 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						}else{
 
 							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> no existen pdf de ficha para anteproyecto porfavor selecionalo.
+
+					<div class="card hovercard ">
+
+						<?php
+
+						$path = "../../controlador/estudiante/pdf/" . $id;
+
+					
+						if (is_dir($path)) {
+
+							$verifi = @scandir($path);
+						}
+						if (count($verifi) >  2) {
+
+						
+							$directorio = opendir($path);
+							while ($archivo = readdir($directorio)) {
+								if (!is_dir($archivo)) {
+									echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' height='680' width='100%'></iframe>";
+								}
+							}
+						}else{
+
+							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> no existen pdf de ficha para anteproyecto porfavor selecionalo.
                 
 							</div>';
 
@@ -303,6 +327,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						}
 
 
+					
 
 
 						?>

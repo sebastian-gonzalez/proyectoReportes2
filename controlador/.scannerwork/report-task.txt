@@ -1,6 +1,6 @@
-projectKey=PROYECTITO_V212348791
+projectKey=proyecto_pruebas_final
 serverUrl=http://localhost:9000
 serverVersion=8.6.1.40680
-dashboardUrl=http://localhost:9000/dashboard?id=PROYECTITO_V212348791
-ceTaskId=AXesepx5hE9iaHpxcNmq
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXesepx5hE9iaHpxcNmq
+dashboardUrl=http://localhost:9000/dashboard?id=proyecto_pruebas_final
+ceTaskId=AXeu1jGHhE9iaHpxcNp7
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXeu1jGHhE9iaHpxcNp7

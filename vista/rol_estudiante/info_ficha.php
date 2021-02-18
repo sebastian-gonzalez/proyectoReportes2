@@ -810,7 +810,9 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 							<label for="" class="col-form-label">Anteproyecto completo:</label>
 							<br />
 							<a class="btn btn-info" href="documentoanteproyecto.php"><i class='fa fa-file-pdf-o'></i></a>
-							<a class="btn btn-primary " href="documentoanteproyecto.php"><i class='fa fa-pencil'></i> </a>
+
+
+							<button id="btneditarfichaanteproyecto" type="button" class="btn btn-primary editarficha" data-toggle="modal" tooltip-dir="top"><i class='fa fa-pencil'> </i></button>
 						</div>
 					</div>
 
@@ -889,7 +891,6 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 							<div class="form-group" enctype="multipart/form-data">
 								<label for="" class="col-form-label">Documento</label>
 								<div class="col-lg-6">
-									<input type="file" name="archivo">
 
 									<?php
 									$nik = $_SESSION['id_usuario'];
@@ -898,24 +899,37 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 										$id = $record['id_lista_ficha'];
 									}
 									$path = "../../controlador/estudiante/pdf/" . $id;
-									if (file_exists($path)) {
-										$directorio = opendir($path);
-										while ($archivo = readdir($directorio)) {
-											if (!is_dir($archivo)) {
-												echo "<div data='" . $path . "/" . $archivo . "'>
-									<a href = '" . $path . "/" . $archivo . "'
-									title = 'Ver Archivo Adjunto'>
-                                    <span class='fa fa-file-pdf-o' aria-hidden='true'></span></a>";
 
-												echo "$archivo <a href ='info_ficha.php' id = 'delete'
-                                    title = 'Eliminar Archivo Adjunto'>
-                                    
-                                    <span class='fa fa-trash' aria-hidden='true'></span></a></div>";
+									if (is_dir($path)) {
 
-												echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' width='400'> </iframe>";
+										$verifi = @scandir($path);
+									}
+									if (count($verifi) >  2) {
+										if (file_exists($path)) {
+											$directorio = opendir($path);
+											while ($archivo = readdir($directorio)) {
+												if (!is_dir($archivo)) {
+													echo "<div data='" . $path . "/" . $archivo . "'>
+										<a href = '" . $path . "/" . $archivo . "'
+										title = 'Ver Archivo Adjunto'>
+										<span class='fa fa-file-pdf-o' aria-hidden='true'></span></a>";
+
+													echo "$archivo <a href ='info_ficha.php' id = 'delete'
+										title = 'Eliminar Archivo Adjunto'>
+										
+										<span class='fa fa-trash' aria-hidden='true'></span></a></div>";
+
+													echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' width='400'> </iframe>";
+												}
 											}
 										}
+									} else {
+
+										echo '<input type="file" name="archivo">';
 									}
+
+
+
 
 
 
@@ -928,6 +942,80 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 							<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
 							<button input type="submit" name="mod" class="btn btn-dark">Guardar</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+
+		
+
+		<div class="modal fade" id="modalCRUDFICHA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel"></h5>
+						<button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form method="post" action="" enctype="multipart/form-data">
+						<div class="modal-body">
+							<div class="form-group" enctype="multipart/form-data">
+								<label for="" class="col-form-label">Documento</label>
+								<div class="col-lg-6">
+
+									<?php
+									$nik = $_SESSION['id_usuario'];
+									$sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
+									while ($record = mysqli_fetch_assoc($sql)) {
+										$id = $record['id_lista_ficha'];
+									}
+									$path = "../../controlador/estudiante/anteproyecto/" . $id;
+
+									if (is_dir($path)) {
+
+										$verifi = @scandir($path);
+									}
+									if (count($verifi) >  2) {
+										if (file_exists($path)) {
+											$directorio = opendir($path);
+											while ($archivo = readdir($directorio)) {
+												if (!is_dir($archivo)) {
+													echo "<div data='" . $path . "/" . $archivo . "'>
+										<a href = '" . $path . "/" . $archivo . "'
+										title = 'Ver Archivo Adjunto'>
+										<span class='fa fa-file-pdf-o' aria-hidden='true'></span></a>";
+
+													echo "$archivo <a href ='info_ficha.php' id = 'deleteante'
+										title = 'Eliminar Archivo Adjunto'>
+										
+										<span class='fa fa-trash' aria-hidden='true'></span></a></div>";
+
+													echo "<iframe src='../../controlador/estudiante/anteproyecto/$id/$archivo' width='400'> </iframe>";
+												}
+											}
+										}
+									} else {
+
+										echo '<input type="file" name="archivo">';
+									}
+
+
+
+
+
+
+									?>
+
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+
+							<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+							<button input type="submit" name="modantepro" class="btn btn-dark">Guardar</button>
 						</div>
 					</form>
 
