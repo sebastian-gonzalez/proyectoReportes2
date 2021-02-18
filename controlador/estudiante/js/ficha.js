@@ -116,7 +116,27 @@ $(document).ready(function () {
 
 
   $('#delete').click(function () {
-    alert('xd');
+    alert('eliminado');
+
+    var parent = $(this).parent().attr('id');
+    var service = $(this).parent().attr('data');
+    var dataString = 'id=' + service;
+    $.ajax({
+      type: "POST",
+      url: "del_document.php",
+      data: dataString,
+
+      succes: function () {
+
+      }
+    });
+
+  });
+
+
+  
+  $('#deleteante').click(function () {
+    alert('eliminar anteproyecto');
 
     var parent = $(this).parent().attr('id');
     var service = $(this).parent().attr('data');
@@ -148,8 +168,17 @@ $(document).ready(function () {
 
     $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
-    $(".modal-title").text("Agregar Ficha");
+    $(".modal-title").text("Gestionar Ficha");
     $("#modalCRUD").modal("show");
+  });
+
+  
+  $("#btneditarfichaanteproyecto").click(function () {
+
+    $(".modal-header").css("background-color", "#0050a0");
+    $(".modal-header").css("color", "white");
+    $(".modal-title").text("Gestionar Ficha");
+    $("#modalCRUDFICHA").modal("show");
   });
 
 

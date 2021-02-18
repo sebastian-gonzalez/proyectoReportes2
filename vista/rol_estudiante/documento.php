@@ -3,11 +3,11 @@
 session_start();
 
 if (!isset($_SESSION['id_rol_usu'])) {
-    header('location: ../../login.php');
+	header('location: ../../login.php');
 } else {
-    if ($_SESSION['id_rol_usu'] != 4) {
-        header('location: ../../login.php');
-    }
+	if ($_SESSION['id_rol_usu'] != 4) {
+		header('location: ../../login.php');
+	}
 }
 
 $nombre_usu = $_SESSION['nombre_usu'];
@@ -28,17 +28,17 @@ $row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
 
 
 if ($row_ficha == true) {
-    $id_lis = $row_ficha[0];
-    $_SESSION['id_lista'] = $id_lis;
+	$id_lis = $row_ficha[0];
+	$_SESSION['id_lista'] = $id_lis;
 
-    $id_lis_u = $row_ficha[1];
-    $_SESSION['id_lista_usuario'] = $id_lis_u;
+	$id_lis_u = $row_ficha[1];
+	$_SESSION['id_lista_usuario'] = $id_lis_u;
 
-    $id_lis_fi = $row_ficha[2];
-    $_SESSION['id_lista_ficha'] = $id_lis_fi;
+	$id_lis_fi = $row_ficha[2];
+	$_SESSION['id_lista_ficha'] = $id_lis_fi;
 
-    $id_rol_fi = $row_ficha[3];
-    $_SESSION['id_rol_ficha'] = $id_rol_fi;
+	$id_rol_fi = $row_ficha[3];
+	$_SESSION['id_rol_ficha'] = $id_rol_fi;
 }
 
 
@@ -78,26 +78,26 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Estudiante</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Estudiante</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../assets/mainTable.css">
-    <link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
-    <link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../assets/mainTable.css">
+	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
+	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
 
 
 
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
-    <!-- Site wrapper -->
-    <div class="wrapper">
-        <!-- Navbar -->
+	<!-- Site wrapper -->
+	<div class="wrapper">
+		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
 			<!-- Left navbar links -->
 			<ul class="navbar-nav">
@@ -271,55 +271,66 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		}
 		?>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="container largopdf">
-                <br />
-                <?php
-                $nik = $_SESSION['id_usuario'];
-                $sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
-                while ($record = mysqli_fetch_assoc($sql)) {
-                    $id = $record['id_lista_ficha']
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div class="container largopdf">
+				<br />
+				<?php
+				$nik = $_SESSION['id_usuario'];
+				$sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
+				while ($record = mysqli_fetch_assoc($sql)) {
+					$id = $record['id_lista_ficha']
 
-                ?>
+				?>
 
-                    <div class="card hovercard ">
+					<div class="card hovercard ">
 
-                        <?php
+						<?php
 
-                        $path = "../../controlador/estudiante/pdf/" . $id;
-                        if (file_exists($path)) {
-							
+						$path = "../../controlador/estudiante/pdf/" . $id;
 
-							
-                            $directorio = opendir($path);
-                            while ($archivo = readdir($directorio)) {
-                                if (!is_dir($archivo)) {
-                                    echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' height='680' width='100%'></iframe>";
-                                }
-                            }
-                        } else {
-							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo crear el dato.
+					
+						if (is_dir($path)) {
+
+							$verifi = @scandir($path);
+						}
+						if (count($verifi) >  2) {
+
+						
+							$directorio = opendir($path);
+							while ($archivo = readdir($directorio)) {
+								if (!is_dir($archivo)) {
+									echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' height='680' width='100%'></iframe>";
+								}
+							}
+						}else{
+
+							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> no existen pdf de ficha para anteproyecto porfavor selecionalo.
 
                 
 							</div>';
-                        }
+
+					
+
+						}
 
 
-                        ?>
+
+
+						?>
 
 
 
-                    </div>
-                <?php } ?>
-            </div>
-        </div>
-    </div>
+					</div>
+				<?php } ?>
+			</div>
+		</div>
+	</div>
 
-    <script src="../../assets/js/jquery-3.5.1.js"></script>
+	<script src="../../assets/js/jquery-3.5.1.js"></script>
 
-    <script src="../../assets/js/nav/adminlte.js"></script>
+	<script src="../../assets/js/nav/adminlte.js"></script>
 
 </body>
 

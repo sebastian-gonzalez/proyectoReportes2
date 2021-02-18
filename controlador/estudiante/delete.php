@@ -37,6 +37,7 @@ $id_rol_ficha = 1;
 
 eliminarAR("pdf/$id_ficha");
 
+
 function eliminarAR($carpeta)
 {
     foreach (glob($carpeta . "/*") as $archivo_carpeta) {
@@ -48,6 +49,23 @@ function eliminarAR($carpeta)
     }
     rmdir($carpeta);
 }
+
+eliminarAR1("anteproyecto/$id_ficha");
+
+
+function eliminarAR1($carpeta)
+{
+    foreach (glob($carpeta . "/*") as $archivo_carpeta) {
+        if (is_dir($archivo_carpeta)) {
+            eliminarAR1($archivo_carpeta);
+        } else {
+            unlink($archivo_carpeta);
+        }
+    }
+    rmdir($carpeta);
+}
+
+
 $consulta = "DELETE FROM lista_ficha WHERE id_lista_ficha='$id_ficha' ";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();

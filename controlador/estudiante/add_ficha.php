@@ -97,7 +97,7 @@ if (isset($_POST['add'])) {
                 $ruta = "../../controlador/estudiante/anteproyecto/$id_insert/";
                 $archivo = $ruta . $_FILES["anteproyecto"]["name"];
                 if (!file_exists($ruta)) {
-                    mkdir($ruta);
+                    mkdir($ruta,0777,true);
                 }
                 if (!file_exists($archivo)) {
                     $resultado = @move_uploaded_file(
