@@ -185,15 +185,26 @@ $nombre_usu = $_SESSION['nombre_usu'];
 
             </div>
         </div>
+        <!-- Modal agregar actas  -->
+        <div class="modal fade" id="modalCRUDedit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" id="repetir">
+
+
+                    <?php
+                    include('../../controlador/docente/editar_pdf_director.php');
+                    ?>
+
+                </div>
+
+            </div>
+        </div>
 
 
 
 
 
-        </form>
-    </div>
-    </div>
-    </div>
+
     </div>
 
 

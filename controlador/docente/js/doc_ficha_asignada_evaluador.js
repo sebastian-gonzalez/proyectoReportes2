@@ -145,23 +145,6 @@ $(document).ready(function () {
 
   });
 
-  $('#deleteante').click(function () {
-    alert('eliminar anteproyecto');
-
-    var parent = $(this).parent().attr('id');
-    var service = $(this).parent().attr('data');
-    var dataString = 'id=' + service;
-    $.ajax({
-      type: "POST",
-      url: "del_document.php",
-      data: dataString,
-
-      succes: function () {
-
-      }
-    });
-
-  });
 
   //Revisar Ficha
 
