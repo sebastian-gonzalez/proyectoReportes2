@@ -262,81 +262,38 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<div class="container largopdf">
-				<br />
-				<?php
-				$nik = $_SESSION['id_usuario'];
-				$sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
-				while ($record = mysqli_fetch_assoc($sql)) {
-					$id = $record['id_lista_ficha']
+            <div class="container largopdf">
+                <br />
+                <?php
+                $nik = $_SESSION['id_usuario'];
+                $sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
+                while ($record = mysqli_fetch_assoc($sql)) {
+                    $id = $record['id_lista_ficha']
 
-				?>
+                ?>
 
-					<div class="card hovercard ">
+                    <div class="card hovercard ">
 
-						<?php
+                        <?php
 
-						$path = "../../controlador/estudiante/pdf/" . $id;
-
-					
-						if (is_dir($path)) {
-
-							$verifi = @scandir($path);
-						}
-						if (count($verifi) >  2) {
-
-						
-							$directorio = opendir($path);
-							while ($archivo = readdir($directorio)) {
-								if (!is_dir($archivo)) {
-									echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' height='680' width='100%'></iframe>";
-								}
-							}
-						}else{
-
-							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> no existen pdf de ficha para anteproyecto porfavor selecionalo.
-
-					<div class="card hovercard ">
-
-						<?php
-
-						$path = "../../controlador/estudiante/pdf/" . $id;
-
-					
-						if (is_dir($path)) {
-
-							$verifi = @scandir($path);
-						}
-						if (count($verifi) >  2) {
-
-						
-							$directorio = opendir($path);
-							while ($archivo = readdir($directorio)) {
-								if (!is_dir($archivo)) {
-									echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' height='680' width='100%'></iframe>";
-								}
-							}
-						}else{
-
-							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> no existen pdf de ficha para anteproyecto porfavor selecionalo.
-                
-							</div>';
-
-					
-
-						}
-
-
-					
-
-
-						?>
+                        $path = "../../controlador/estudiante/pdf/" . $id;
+                        if (file_exists($path)) {
+                            $directorio = opendir($path);
+                            while ($archivo = readdir($directorio)) {
+                                if (!is_dir($archivo)) {
+                                    echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' height='680' width='100%'></iframe>";
+                                }
+                            }
+                        } else {
+                            echo '<script language="javascript">alert("No Tiene un documento agregado");</script>';
+                        }
+                        ?>
 
 
 
-					</div>
-				<?php } ?>
-			</div>
+                    </div>
+                <?php } ?>
+            </div>
 		</div>
 	</div>
 

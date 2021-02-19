@@ -19,7 +19,7 @@ $(document).ready(function () {
         { data: "fecha_ficha" },
         {
           defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnMostrar_P'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnMostrar_P'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
 
             
         },
@@ -110,7 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
       fila = $(this);
       id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
       opcion = 3; //eliminar
-      location.href="revision_documento.php?ficha=" + id_ficha + " ";
+      location.href="info_ficha.php?ficha=" + id_ficha + " ";
     });
+
+
   });
   

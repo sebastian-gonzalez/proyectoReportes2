@@ -129,38 +129,90 @@ include("../../controlador/conexion.php");
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
-
         </aside>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="container largopdf">
-                <br />
+            <div class="container">
+
+                <section>
+                    <h1>Informacion de la ficha</h1>
+                </section>
+
                 <?php
-                $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES)));
-                $tipo = mysqli_real_escape_string($con, (strip_tags($_GET["tipo"], ENT_QUOTES)));
+                $ficha = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES)));
                 ?>
-                    <div class="card hovercard ">
-
-                        <?php
-
-                        $path = "../../controlador/estudiante/".$tipo."/" . $ficha1;
-                        if (file_exists($path)) {
-                            $directorio = opendir($path);
-                            while ($archivo = readdir($directorio)) {
-                                if (!is_dir($archivo)) {
-                                    echo "<iframe src='../../controlador/estudiante/$tipo/$ficha1/$archivo' height='680' width='100%'></iframe>";
-                                }
-                            }
-                        } else {
-                            echo '<script language="javascript">alert("No Tiene un documento agregado");</script>';
-                        }
-                        ?>
 
 
+                <?php
 
+
+                $consultatitulo = "SELECT fi.id_ficha,fi.titulo_ficha
+                FROM ficha fi 
+                WHERE fi.id_ficha=$ficha";
+                $resultset = mysqli_query($con, $consultatitulo) or die("database error:" . mysqli_error($con));
+
+                while ($record = mysqli_fetch_assoc($resultset)) {
+                    $titu_ficha = $record['titulo_ficha']
+
+                ?>
+                    <hr />
+                    <h4> Titulo </h4>
+
+                    <h6><?php echo $titu_ficha  ?> </h6>
+                <?php
+                }
+                ?>
+
+
+                <!-- primera modal titulo -->
+                <?php
+                $consultaacamposficha1 = "SELECT  campos.descripcion_campo,  campos.valor_campo
+                FROM  ficha fi , campos_fichas campos
+                WHERE fi.id_ficha=$ficha
+                AND fi.id_ficha = campos.fk_id_ficha ";
+                $resultset = mysqli_query($con, $consultaacamposficha1) or die("database error:" . mysqli_error($con));
+
+                while ($record = mysqli_fetch_assoc($resultset)) {
+                    $descri_campo = $record['descripcion_campo'];
+                    $valo_campo = $record['valor_campo'];
+
+                ?>
+
+                    <div>
+
+                        <hr />
+                        <h4><?php echo $descri_campo  ?></h4>
+
+                        <h6><?php echo $valo_campo  ?> </h6>
                     </div>
-              
+
+                <?php
+                }
+                ?>
+
+                <!-- segundo modal-->
+                <hr />
+
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="" class="col-form-label">Ficha de anteproyecto:</label>
+                            <br />
+                            <a class="btn btn-info" <?php echo 'href="revision_documento.php?tipo=pdf& ficha=' . $ficha . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
+                        </div>
+                    </div>  
+                    <div class="col-lg-6">
+                    <div class="form-group">
+                            <label for="" class="col-form-label">Anteproyecto completo:</label>
+                            <br />
+                            <a class="btn btn-info" <?php echo 'href="revision_documento.php?tipo=anteproyecto& ficha=' . $ficha . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
         </div>
 

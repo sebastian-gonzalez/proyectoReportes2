@@ -62,20 +62,20 @@ $Evaluacion = (isset($_POST['evaluacion_ficha'])) ? $_POST['evaluacion_ficha'] :
 switch ($opcion) {
     case 1:
 
-           //Director no agrega
+           //evaluador no agrega
 
 
         break;
     case 2:
-        $consulta = "UPDATE ficha  SET id_estado_ficha='$Estado', evaluacion_ficha='$Evaluacion'  WHERE id_ficha='$id_ficha'";
+        
 
-        $resultado = $conexion->prepare($consulta);
-        $validacion_id = $resultado->execute();
+
+
 
         break;
     case 3:
 
-    //Director no elimina
+    //evaluador no elimina
 
     case 4:
 

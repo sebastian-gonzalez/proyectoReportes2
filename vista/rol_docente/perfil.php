@@ -34,11 +34,10 @@ include("../../controlador/conexion.php");
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Perfil Administrador</title>
+	<title>Perfil Docente</title>
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../../assets/mainTable.css">
 	<link rel="stylesheet" href="../../assets/css/perfil.css">
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
@@ -68,7 +67,7 @@ include("../../controlador/conexion.php");
 				<!-- Messages Dropdown Menu -->
 
 				<li class="nav-item">
-					<a class="nav-link"  href="../../logout.php" >
+					<a class="nav-link" href="../../logout.php">
 						<i class="fa fa-power-off"></i>
 					</a>
 				</li>
@@ -284,6 +283,8 @@ include("../../controlador/conexion.php");
 					} ?>
 
 				</div>
+
+
 			</div>
 
 
@@ -293,14 +294,12 @@ include("../../controlador/conexion.php");
 			<!-- jQuery, Popper.js, Bootstrap JS -->
 			<script src="../../assets/js/jquery-3.5.1.js"></script>
 
-<script src="../../assets/popper/popper.min.js"></script>
-<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+			<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 
-<!-- datatables JS -->
-<script type="text/javascript" src="../../assets/datatables/datatables.min.js"></script>
+			<!-- datatables JS -->
 
-<script type="text/javascript" src="../../controlador/docente/js/doc_ficha_asignada_jurado.js"></script>
-<script src="../../assets/js/nav/adminlte.js"></script>
+			<script type="text/javascript" src="../../controlador/docente/js/doc_ficha_asignada_jurado.js"></script>
+			<script src="../../assets/js/nav/adminlte.js"></script>
 
 
 
