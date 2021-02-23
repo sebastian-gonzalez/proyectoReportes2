@@ -16,6 +16,10 @@ include('../../controlador/database.php');
 include("../../controlador/coordinador/add_evaluador.php");
 include("../../controlador/coordinador/add_jurado.php");
 
+
+?>
+<?php
+include("../../controlador/conexion.php");
 ?>
 
 
@@ -51,7 +55,6 @@ include("../../controlador/coordinador/add_jurado.php");
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
-
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
@@ -154,6 +157,8 @@ include("../../controlador/coordinador/add_jurado.php");
             <!-- Content Header (Page header) -->
 
             <br />
+
+
             <div class="container ">
                 <div class="row ">
                     <div class="col-lg-12 ">
@@ -204,24 +209,6 @@ include("../../controlador/coordinador/add_jurado.php");
 
             ?>
 
-            <?php
-            if (isset($_GET['aksi']) == 'delete') {
-                // escaping, additionally removing everything that could be (html/javascript-) code
-
-                $nik = mysqli_real_escape_string($con, (strip_tags($_GET["nik"], ENT_QUOTES)));
-                $cek = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista='$nik'");
-                if (mysqli_num_rows($cek) == 0) {
-                    echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
-                } else {
-                    $delete = mysqli_query($con, "DELETE FROM lista_ficha  WHERE id_lista='$nik'");
-                    if ($delete) {
-                        echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Datos eliminado correctamente.</div>';
-                    } else {
-                        echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar los datos.</div>';
-                    }
-                }
-            }
-            ?>
 
             <!-- Modal ""Participantes"""  -->
             <div class="modal fade" id="modalParticipantes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -254,25 +241,30 @@ include("../../controlador/coordinador/add_jurado.php");
 
     </div>
 
-
     </div>
 
+    <script src="../../assets/js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../../assets/datatables/datatables.min.js"></script>
+    <script src="../../assets/reportes/dataTables.buttons.min.js"></script>
+    <script src="../../assets/reportes/jszip.min.js"></script>
+    <script src="../../assets/reportes/pdfmake.min.js"></script>
+    <script src="../../assets/reportes/vfs_fonts.js"></script>
+    <script src="../../assets/reportes/buttons.html5.min.js"></script>
 
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
-    <script src="../../assets/js/jquery-3.5.1.js"></script>
     <script src="../../assets/popper/popper.min.js"></script>
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- datatables JS -->
-    <script type="text/javascript" src="../../assets/datatables/datatables.min.js"></script>
 
-    <script type="text/javascript" src="../../controlador/coordinador/js/ficha_asignada_jurado.js"></script>
+    <script type="text/javascript" src="../../controlador/coordinador/js/reportes.js"></script>
 
     <!-- Select2 -->
 
     <script src="../../assets/select2/select2.min.js"></script>
     <script src="../../assets/js/nav/adminlte.js"></script>
+
 
 </body>
 

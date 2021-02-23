@@ -19,7 +19,7 @@ $(document).ready(function () {
         { data: "fecha_ficha" },
         {
           defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Editar'><i class='material-icons'>edit</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='PDF'><i class='material-icons'>picture_as_pdf</i></button></div></div>",
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Editar'><i class='material-icons'>edit</i></button><button class='btn btn-primary btn-sm btnMostrar_P'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
         },
       ],
     });
@@ -80,16 +80,29 @@ $(document).ready(function () {
     $("#modalCRUD1").modal("show");
   });
 
-    $("#btnMostrar_P").click(function () {
-      opcion = 1; //alta
-      id_ficha = null;
-      $(".modal-header").css("background-color", "#0050a0");
-      $(".modal-header").css("color", "white");
-      $(".modal-title").text("Participantes");
-      $("#modal_Mostrar_P").modal("show");
+
+
+  $(document).on("click", ".btnMostrar_P", function () {
+    fila = $(this);
+    id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+    $.ajax({
+      url: "../../controlador/docente/captador_Datos.php",
+      type: "POST",
+      data: {
+        "id_fichas": id_ficha,
+      },
+      success: function (data) {
+
+        $("#id").html(data)
+        $(".modal-header").css("background-color", "#0050a0");
+        $(".modal-header").css("color", "white");
+        $(".modal-title").text("Participantes de esta ficha");
+        $("#modalParticipantes").modal("show");
+      },
     });
-    
-  
+    $("#modalParticipantes").modal("hide");
+  });
+
 
     
 //TEXTO FLOTANTE BOTON
@@ -99,38 +112,43 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-    //Editar
-    $(document).on("click", ".btnEditar", function () {
-      opcion = 2; //editar
-      fila = $(this).closest("tr");
-      id_ficha = parseInt(fila.find("td:eq(0)").text()); //capturo el ID
-      titulo_ficha = fila.find("td:eq(1)").text();
-      descripcion_ficha = fila.find("td:eq(2)").text();
-      id_programa_ficha = fila.find("td:eq(3)").text();
-      id_estado_ficha = fila.find("td:eq(4)").text();
-      evaluacion_ficha = fila.find("td:eq(5)").text();
-  
-      $("#titulo_ficha").val(titulo_ficha);
-      $("#descripcion_ficha").val(descripcion_ficha);
-      $("#id_programa_ficha").val(id_programa_ficha);
-      $("#id_estado_ficha").val(id_estado_ficha);
-      $("#evaluacion_ficha").val(evaluacion_ficha);
-  
+$(document).on("click", ".btnEditar", function () {
+  fila = $(this).closest("tr");
+  id_ficha = parseInt(fila.find("td:eq(0)").text()); //capturo el ID
+
+
+
+
+  $.ajax({
+    url: "../../controlador/docente/editar_pdf_jurado.php",
+    type: "POST",
+    data: {
+      "id_fichas": id_ficha,
+    },
+    success: function (data) {
+
+      $("#repetir").html(data)
       $(".modal-header").css("background-color", "#0050a0");
       $(".modal-header").css("color", "white");
-      $(".modal-title").text("Editar Ficha");
-      $("#modalCRUD").modal("show");
-    });
+      $(".modal-title").text("Agregar acta");
+      $("#modalevalua").modal("show");
+    },
+  });
+  $("#modalevalua").modal("hide");
+
+});
+
   
     //Borrar
   
    //Revisar Ficha
   
+
    $(document).on("click", ".btnRevision", function () {
     fila = $(this);
     id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
     opcion = 3; //eliminar
-    location.href="revision_documento.php?ficha=" + id_ficha + " ";
+    location.href = "info_ficha.php?ficha=" + id_ficha + " ";
   });
 });
   

@@ -4,11 +4,25 @@ $(document).ready(function () {
 
   tablaFichas = $("#tablaFichas").DataTable({
     ajax: {
-      url: "../../controlador/docente/crud_fichas_evaluador.php",
+      url: "../../controlador/coordinador/revision_fichas_terminadas.php",
       method: "POST", //usamos el metodo POST
       data: { opcion: opcion }, //enviamos opcion 4 para que haga un SELECT
       dataSrc: "",
     },
+    lengthMenu:[
+[100,200,300,-1],
+['mostrar 100','mostrar 200','mostrar 300','mostrar todos']
+
+    ],
+
+    dom:'lBfrtip',
+    buttons:[
+
+      'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+     
+    ],
     columns: [
       { data: "id_ficha" },
       { data: "titulo_ficha" },
@@ -19,12 +33,8 @@ $(document).ready(function () {
       { data: "fecha_ficha" },
       {
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Evaluar'><i class='material-icons'>edit</i></button><button class='btn btn-primary btn-sm btnMostrar_P'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
-
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnParticipantes'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision1'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
       },
-
-
-
     ],
   });
 
@@ -33,7 +43,7 @@ $(document).ready(function () {
   $("#formFichas").submit(function (e) {
     e.preventDefault(); //evita el comportambiento normal del submit, es decir, recarga total de la página
 
-
+    
     titulo_ficha = $.trim($("#titulo_ficha").val());
     descripcion_ficha = $.trim($("#descripcion_ficha").val());
     id_programa_ficha = $.trim($("#id_programa_ficha").val());
@@ -41,11 +51,11 @@ $(document).ready(function () {
     evaluacion_ficha = $.trim($("#evaluacion_ficha").val());
     archivo = "#archivo";
     $.ajax({
-      url: "../../controlador/docente/crud_fichas_evaluador.php",
+      url: "../../controlador/coordinador/revision_fichas_terminadas.php",
       type: "POST",
       datatype: "json",
       data: {
-
+         
         id_ficha: id_ficha,
         titulo_ficha: titulo_ficha,
         descripcion_ficha: descripcion_ficha,
@@ -73,22 +83,20 @@ $(document).ready(function () {
     $("#modalCRUD").modal("show");
   });
 
-  
 
-
-
-  $(document).on("click", ".btnMostrar_P", function () {
+  $(document).on("click", ".btnParticipantes", function () {
     fila = $(this);
     id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
     $.ajax({
-      url: "../../controlador/docente/captador_Datos.php",
+      url: "../../controlador/coordinador/captador_Datos.php",
+      
       type: "POST",
-      data: {
+      data: { 
         "id_fichas": id_ficha,
       },
-      success: function (data) {
-
-        $("#id").html(data)
+     success: function (data) {
+   
+      $("#id").html(data)
         $(".modal-header").css("background-color", "#0050a0");
         $(".modal-header").css("color", "white");
         $(".modal-title").text("Participantes de esta ficha");
@@ -97,53 +105,50 @@ $(document).ready(function () {
     });
     $("#modalParticipantes").modal("hide");
   });
+  
 
 
-  //TEXTO FLOTANTE BOTON
-  document.addEventListener('DOMContentLoaded', function () {
-    let button = document.getElementById('btnParticipantes');
-    button.setAttribute('tooltip-dir', top);
-  });
+  
+//TEXTO FLOTANTE BOTON
+document.addEventListener('DOMContentLoaded', function() {
+let button = document.getElementById('btnParticipantes');
+button.setAttribute('tooltip-dir', top);
+});
 
 
   //Editar
-
-
-
   $(document).on("click", ".btnEditar", function () {
+    opcion = 2; //editar
     fila = $(this).closest("tr");
     id_ficha = parseInt(fila.find("td:eq(0)").text()); //capturo el ID
+    titulo_ficha = fila.find("td:eq(1)").text();
+    descripcion_ficha = fila.find("td:eq(2)").text();
+    id_programa_ficha = fila.find("td:eq(3)").text();
+    id_estado_ficha = fila.find("td:eq(4)").text();
     evaluacion_ficha = fila.find("td:eq(5)").text();
+
+    $("#titulo_ficha").val(titulo_ficha);
+    $("#descripcion_ficha").val(descripcion_ficha);
+    $("#id_programa_ficha").val(id_programa_ficha);
+    $("#id_estado_ficha").val(id_estado_ficha);
     $("#evaluacion_ficha").val(evaluacion_ficha);
-    
 
-    $.ajax({
-      url: "../../controlador/docente/editar_pdf_evaluador.php",
-      type: "POST",
-      data: {
-        "id_fichas": id_ficha,
-      },
-      success: function (data) {
-
-        $("#repetir").html(data)
-        $(".modal-header").css("background-color", "#0050a0");
-        $(".modal-header").css("color", "white");
-        $(".modal-title").text("Evaluar ficha");
-        $("#modalCRUDedit").modal("show");
-      },
-    });
-    $("#modalCRUDedit").modal("hide");
-
+    $(".modal-header").css("background-color", "#0050a0");
+    $(".modal-header").css("color", "white");
+    $(".modal-title").text("Editar Ficha");
+    $("#modalCRUD").modal("show");
   });
 
+  //Borrar
 
-  //Revisar Ficha
-
-  $(document).on("click", ".btnRevision", function () {
-    fila = $(this);
-    id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
-    opcion = 3; //eliminar
-    location.href = "info_ficha.php?ficha=" + id_ficha + " ";
-  });
+ //Revisar Ficha
+ $(document).on("click", ".btnRevision1", function () {
+  fila = $(this);
+  id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+  opcion = 3; //eliminar
+  location.href = "info_ficha.php?ficha=" + id_ficha + " ";
 });
+
+});
+
 

@@ -132,6 +132,12 @@ include("../../controlador/coordinador/add_evaluador.php");
 										<p>Todas las Fichas</p>
 									</a>
 								</li>
+                                <li class="nav-item">
+									<a href="reportes.php" class="nav-link">
+										<i class="fa fa-bookmark nav-icon"></i>
+										<p>Reportes</p>
+									</a>
+								</li>
 							</ul>
 						</li>
 

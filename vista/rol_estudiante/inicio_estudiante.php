@@ -41,14 +41,28 @@ $consultaacamposfichageneral = "SELECT fi.id_ficha
 	FROM lista_ficha lista, ficha fi 
 	WHERE fi.id_ficha=lista.id_lista_ficha
 	AND lista.id_lista_usuario=$id_s
-	AND fi.id_estado_ficha in (1,2,3,4,5)
-	
+	AND fi.id_estado_ficha in (1,2,4,5,6)	
 ";
 $resultset = mysqli_query($con, $consultaacamposfichageneral) or die("database error:" . mysqli_error($con));
 
 while ($record = mysqli_fetch_assoc($resultset)) {
 
 	$fichaenanteproyecto = $record['id_ficha'];
+}
+
+
+
+
+$consultaacamposficha = "SELECT fi.id_ficha
+FROM lista_ficha lista, ficha fi 
+WHERE lista.id_lista_usuario=$id_s
+AND fi.id_estado_ficha=3
+";
+$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
+
+while ($record = mysqli_fetch_assoc($resultset)) {
+
+	$fichaaprobada = $record['id_ficha'];
 }
 
 $query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha WHERE id_lista_usuario =$id_s");
@@ -247,9 +261,9 @@ if ($row_ficha == true) {
 										</a>
 									</li>
 									<li class='nav-item'>
-									<a href='fichas.php' class='nav-link'>
-										<i class='fa fa-book nav-icon'></i>
-										<p>Gestion Ficha</p>
+									<a href='proyectofinal.php' class='nav-link'>
+										<i class='fa fa-plus-square-o nav-icon'></i>
+										<p>Agregar Proyecto</p>
 									</a>
 								   </li>
 	

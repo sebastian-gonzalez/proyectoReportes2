@@ -9,8 +9,8 @@ if (!isset($_SESSION['id_rol_usu'])) {
         header('location: ../../login.php');
     }
 }
-
 $nombre_usu = $_SESSION['nombre_usu'];
+
 
 ?>
 
@@ -42,117 +42,98 @@ $nombre_usu = $_SESSION['nombre_usu'];
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
-    <link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
+    <link rel="icon" href="../../images/favicon.ico" type="image/gif" />
 
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
 
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
-			<!-- Left navbar links -->
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
-				</li>
-			</ul>
-			<!-- Right navbar links -->
-			<ul class="navbar-nav ml-auto">
-				<!-- Messages Dropdown Menu -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+            </li>
+        </ul>
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- Messages Dropdown Menu -->
 
-				<li class="nav-item">
-					<a class="nav-link"  href="../../logout.php" >
-						<i class="fa fa-power-off"></i>
-					</a>
-				</li>
-			</ul>
-		</nav>
-		<!-- /.navbar -->
+            <li class="nav-item">
+                <a class="nav-link" href="../../logout.php">
+                    <i class="fa fa-power-off"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
 
 
-		<!-- Main Sidebar Container -->
-		<aside class="main-sidebar sidebar-dark-primary elevation-4 navcolor">
-			<!-- Brand Logo -->
-			<a href="inicio_docente.php" class="brand-link">
-				<img src="../../assets/images/admin.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">Inicio</span>
-			</a>
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4 navcolor">
+        <!-- Brand Logo -->
+        <a href="inicio_docente.php" class="brand-link">
+            <img src="../../assets/images/admin.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Inicio</span>
+        </a>
 
-			<!-- Sidebar -->
-			<div class="sidebar">
-				<!-- Sidebar user (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-					<div class="image">
-						<img src="../../assets/images/user.jpg" class="img-circle elevation-2" alt="User Image">
-					</div>
-					<div class="info">
-						<a href="perfil.php" class="d-block"> <?php echo $nombre_usu ?></a>
-					</div>
-				</div>
-				<!-- Sidebar Menu -->
-				<nav class="mt-2">
-					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-						<!-- Add icons to the links using the .nav-icon class
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="../../assets/images/user.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="perfil.php" class="d-block"> <?php echo $nombre_usu ?></a>
+                </div>
+            </div>
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-						<li class="nav-item menu-open">
+                    <li class="nav-item menu-open">
 
-							<ul class="nav nav-treeview">
-								<li class="nav-item">
-									<a href="fichas_asignadas_director.php" class="nav-link">
-										<i class="fa fa-user nav-icon"></i>
-										<p>Fichas directores</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="fichas_asignadas_evaluador.php" class="nav-link">
-										<i class="fa fa-files-o nav-icon"></i>
-										<p>Fichas Evaluador</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="fichas_asignadas_jurado.php" class="nav-link">
-										<i class="fa fa-book nav-icon"></i>
-										<p>Fichas Jurado</p>
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="fichas_aprobadas.php" class="nav-link">
-										<i class="fa fa-check-square-o nav-icon"></i>
-										<p>Fichas Aprobadas</p>
-									</a>
-								</li>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="fichas_asignadas_director.php" class="nav-link">
+                                    <i class="fa fa-user nav-icon"></i>
+                                    <p>Fichas directores</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="fichas_asignadas_evaluador.php" class="nav-link">
+                                    <i class="fa fa-files-o nav-icon"></i>
+                                    <p>Fichas Evaluador</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="fichas_asignadas_jurado.php" class="nav-link">
+                                    <i class="fa fa-book nav-icon"></i>
+                                    <p>Fichas Jurado</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="fichas_aprobadas.php" class="nav-link">
+                                    <i class="fa fa-check-square-o nav-icon"></i>
+                                    <p>Fichas Aprobadas</p>
+                                </a>
+                            </li>
 
-							</ul>
-						</li>
+                        </ul>
+                    </li>
 
-					</ul>
-				</nav>
-				<!-- /.sidebar-menu -->
-			</div>
-			<!-- /.sidebar -->
-		</aside>
-
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         </br>
         <!-- Content Header (Page header) -->
-
-        <div class="container ">
-            <div class="row ">
-                <div class="col-lg-12 ">
-                    <div class='btn-group'>
-
-
-
-                        <button id="btnMostrar_P" type="button" class="btn btn-primary" data-toggle="modal" tooltip-dir="top" title="Mostrar Participantes"><i class="material-icons">groups</i></button>
-
-
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <br>
 
         <div class="container caja">
             <div class="row">
@@ -180,8 +161,8 @@ $nombre_usu = $_SESSION['nombre_usu'];
         </div>
 
 
-        <!-- Modal Mostrar Participantes-->
-        <div class="modal fade" id="modal_Mostrar_P" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal Participantes  -->
+        <div class="modal fade" id="modalParticipantes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -189,64 +170,34 @@ $nombre_usu = $_SESSION['nombre_usu'];
                         <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                        <div class="modal-body">
-                            <div class="row table_modal">
-                                <div>
-                                    <table class="table">
-                                        <thead>
+                    <form id="formFichas" enctype="multipart/form-data">
+                        <div class="modal-body" id="id">
 
-                                            <tr>
-                                                <th scope="col">Nombre </th>
-                                                <th scope="col"> Apellido </th>
-                                                <th scope="col"> Rol </th>
-                                            </tr>
-                                        </thead>
+                            <?php
+                            include('../../controlador/docente/captador_Datos.php');
+                            ?>
 
-
-                                        <br></br>
-
-                                        <?php
-
-                                        $id_lis_fi = $_SESSION['id_lista_ficha'];
-
-                                        $sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha AND lista_ficha.id_lista_ficha = $id_lis_fi  ORDER BY id_rol_ficha");
-                                        if (mysqli_num_rows($sql) == 0) {
-                                            echo 'no hay datos';
-                                        } else {
-
-                                            while ($valores = mysqli_fetch_assoc($sql)) {
-                                                echo '
-                                            <tbody>
-                                    <tr>    
-                                    <td>' . $valores['nombre_usu'] . '</td>
-                                    <td>' . $valores['apellido_usu'] . '</td>
-                                    <td>' . $valores['nombre_rol_ficha'] . '</td>
-                                    </tr>';
-                                            }
-                                        }
-
-                                        ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-dismiss="modal">Regresar</button>
-                        </div>
+
+
                 </div>
-                </form>
+
             </div>
         </div>
+  
+
+
+
+
+
 
     </div>
-    </div>
+
 
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
-	<script src="../../assets/js/jquery-3.5.1.js"></script>
+    <script src="../../assets/js/jquery-3.5.1.js"></script>
 
     <script src="../../assets/popper/popper.min.js"></script>
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
@@ -254,8 +205,9 @@ $nombre_usu = $_SESSION['nombre_usu'];
     <!-- datatables JS -->
     <script type="text/javascript" src="../../assets/datatables/datatables.min.js"></script>
 
-    <script type="text/javascript" src="../../controlador/docente/js/doc_ficha_asignada_evaluador.js"></script>
+    <script type="text/javascript" src="../../controlador/docente/js/doc_fichas_aprobadas.js"></script>
     <script src="../../assets/js/nav/adminlte.js"></script>
+
 
 </body>
 

@@ -1,14 +1,6 @@
 <?php
+include('../../controlador/estudiante/add_ficha.php');
 
-session_start();
-
-if (!isset($_SESSION['id_rol_usu'])) {
-	header('location: ../../login.php');
-} else {
-	if ($_SESSION['id_rol_usu'] != 4) {
-		header('location: ../../login.php');
-	}
-}
 
 $nombre_usu = $_SESSION['nombre_usu'];
 
@@ -61,8 +53,7 @@ $consultaacamposfichageneral = "SELECT fi.id_ficha
 	FROM lista_ficha lista, ficha fi 
 	WHERE fi.id_ficha=lista.id_lista_ficha
 	AND lista.id_lista_usuario=$id_s
-	AND fi.id_estado_ficha in (1,2,4,5,6)
-	
+	AND fi.id_estado_ficha in (1,2,4,5,6)	
 ";
 $resultset = mysqli_query($con, $consultaacamposfichageneral) or die("database error:" . mysqli_error($con));
 
@@ -73,28 +64,35 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 ?>
 
 
-<!DOCTYPE html>
-<html lang="es">
+
+
+
+<!doctype html>
+<html lang="en">
 
 <head>
-
+	<!-- Required meta tags -->
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Estudiante</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="shortcut icon" href="#" />
+	<title>Primer Ficha</title>
 
-	<!-- Bootstrap -->
+	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
+	<!-- CSS personalizado -->
 	<link rel="stylesheet" href="../../assets/mainTable.css">
+
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
 	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
 
 
-
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
+
 	<!-- Site wrapper -->
 	<div class="wrapper">
 		<!-- Navbar -->
@@ -129,6 +127,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				<img src='../../assets/images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
 				<span class='brand-text font-weight-light'>Inicio</span>
 			</a>
+
 			<!-- Sidebar -->
 			<div class='sidebar'>
 				<!-- Sidebar user (optional) -->
@@ -146,6 +145,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 						<li class='nav-item menu-open'>
+
 							<ul class='nav nav-treeview'>
 								<li class='nav-item'>
 									<a href='primer_ingreso.php' class='nav-link'>
@@ -153,8 +153,11 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 										<p>Crear Ficha</p>
 									</a>
 								</li>
+
+
 							</ul>
 						</li>
+
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
@@ -170,6 +173,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				<img src='../../assets/images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
 				<span class='brand-text font-weight-light'>Inicio</span>
 			</a>
+
 			<!-- Sidebar -->
 			<div class='sidebar'>
 				<!-- Sidebar user (optional) -->
@@ -187,6 +191,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 						<li class='nav-item menu-open'>
+
 							<ul class='nav nav-treeview'>
 								<li class='nav-item'>
 									<a href='fichas.php' class='nav-link'>
@@ -194,14 +199,19 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 										<p>Gestion Ficha</p>
 									</a>
 								</li>
+
+
+
 							</ul>
 						</li>
+
 					</ul>
 				</nav>
 				<!-- /.sidebar-menu -->
 			</div>
 			<!-- /.sidebar -->
 		</aside>
+
 		";
 		} else if (isset($id_lis_fi) && isset($fichaaprobada)) {
 			echo  " 
@@ -258,48 +268,68 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 			";
 		}
 		?>
-
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
+
 			<!-- Content Header (Page header) -->
-            <div class="container largopdf">
-                <br />
-                <?php
-                $nik = $_SESSION['id_usuario'];
-                $sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
-                while ($record = mysqli_fetch_assoc($sql)) {
-                    $id = $record['id_lista_ficha']
+			<?php
 
-                ?>
-
-                    <div class="card hovercard ">
-
-                        <?php
-
-                        $path = "../../controlador/estudiante/pdf/" . $id;
-                        if (file_exists($path)) {
-                            $directorio = opendir($path);
-                            while ($archivo = readdir($directorio)) {
-                                if (!is_dir($archivo)) {
-                                    echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' height='680' width='100%'></iframe>";
-                                }
-                            }
-                        } else {
-                            echo '<script language="javascript">alert("No Tiene un documento agregado");</script>';
-                        }
-                        ?>
+			include("../../controlador/estudiante/add_director.php");
+			?>
 
 
 
-                    </div>
-                <?php } ?>
-            </div>
+			<div class="container ">
+
+
+
+
+				<section>
+					<h2>Sube tu proyecto de grado para continuar con el proceso</h2>
+				</section>
+				<hr />
+				<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="" class="col-form-label">Titulo de la ficha</label>
+									<input type="text" class="form-control" name="titulo_ficha" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group" enctype="multipart/form-data">
+							<label for="" class="col-form-label">Proyecto de grado</label>
+							<div class="col-lg-6">
+								<input type="file" name="anteproyecto" required>
+							</div>
+						</div>
+
+					</div>
+					<div class="">
+						<button input type="submit" name="add" id="btnGuardar" class="btn btn-primary">agregar proyecto de grado</button>
+					</div>
+				</form>
+
+			</div>
 		</div>
+
+	</div>
 	</div>
 
-	<script src="../../assets/js/jquery-3.5.1.js"></script>
 
+
+	<!-- jQuery, Popper.js, Bootstrap JS -->
+	<script src="../../assets/js/jquery-3.5.1.js"></script>
+	<script src="../../assets/popper/popper.min.js"></script>
+	<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- datatables JS -->
+	<script type="text/javascript" src="../../assets/datatables/datatables.min.js"></script>
+	<script type="text/javascript" src="../../controlador/estudiante/js/ficha.js"></script>
 	<script src="../../assets/js/nav/adminlte.js"></script>
+
+
 
 </body>
 
