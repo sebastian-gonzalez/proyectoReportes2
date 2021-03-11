@@ -47,6 +47,9 @@ include("../../controlador/conexion.php");
 	<link rel="stylesheet" type="text/css" href="../../assets/datatables/datatables.min.css" />
 	<!--datables estilo bootstrap 4 CSS-->
 	<link rel="stylesheet" type="text/css" href="../../assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">

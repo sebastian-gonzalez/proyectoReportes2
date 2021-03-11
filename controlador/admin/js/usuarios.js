@@ -111,25 +111,38 @@ $(document).ready(function () {
     $("#modalCRUD").modal("show");
   });
  
-
-  //Borrar
   $(document).on("click", ".btnBorrar", function () {
     fila = $(this);
     id_usuario = parseInt($(this).closest("tr").find("td:eq(0)").text());
     opcion = 3; //eliminar
-    var respuesta = confirm(
-      "¿Está seguro de borrar el registro " + id_usuario + "?"
-    );
-    if (respuesta) {
-      $.ajax({
-        url: "../../controlador/admin/crud_usuarios.php",
-        type: "POST",
-        datatype: "json",
-        data: { opcion: opcion, id_usuario: id_usuario },
-        success: function () {
-          tablaUsuarios.row(fila.parents("tr")).remove().draw();
-        },
-      });
-    }
+
+    Swal.fire({
+      title: 'Inhabilitar usuario',
+      text: "deseas inabilitar este usuario?!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'si , inhabilitar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "../../controlador/admin/crud_usuarios.php",
+          type: "POST",
+          datatype: "json",
+          data: { opcion: opcion, id_usuario: id_usuario },
+          success: function () {
+            tablaUsuarios.row(fila.parents("tr")).remove().draw();
+          },
+        });
+        Swal.fire(
+          'Inabilitado!',
+          'El usuario fue inhabilitado.',
+          'success'
+        )
+      }
+    })
+
   });
+  //Borrar
 });

@@ -72,19 +72,33 @@ $(document).ready(function () {
     fila = $(this);
     id_facultad = parseInt($(this).closest("tr").find("td:eq(0)").text());
     opcion = 3; //eliminar
-    var respuesta = confirm(
-      "¿Está seguro de borrar el registro " + id_facultad + "?"
-    );
-    if (respuesta) {
-      $.ajax({
-        url: "../../controlador/admin/crud_facultades.php",
-        type: "POST",
-        datatype: "json",
-        data: { opcion: opcion, id_facultad: id_facultad },
-        success: function () {
-          tablaFacultades.row(fila.parents("tr")).remove().draw();
-        },
-      });
-    }
+
+    Swal.fire({
+      title: 'Inhabilitar facultad',
+      text: "deseas inabilitar esta facultad?!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'si , inhabilitar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "../../controlador/admin/crud_facultades.php",
+          type: "POST",
+          datatype: "json",
+          data: { opcion: opcion, id_facultad: id_facultad },
+          success: function () {
+            tablaFacultades.row(fila.parents("tr")).remove().draw();
+          },
+        });
+        Swal.fire(
+          'Inabilitada!',
+          'La facultad fue inabilitada.',
+          'success'
+        )
+      }
+    })
+
   });
 });

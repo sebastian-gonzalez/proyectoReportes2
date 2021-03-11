@@ -49,7 +49,7 @@ if ($resultado_vali_cedula->fetchColumn() > 0) {
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
 
-    $consulta = "SELECT * FROM usuarios WHERE id_usuario='$id_usuario' ";
+    $consulta = "SELECT * FROM usuarios WHERE id_usuario='$id_usuario' AND activo is null ";
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -69,7 +69,7 @@ if ($resultado_vali_cedula->fetchColumn() > 0) {
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
 
-    $consulta = "SELECT * FROM usuarios WHERE id_usuario='$id_usuario' ";
+    $consulta = "SELECT * FROM usuarios WHERE id_usuario='$id_usuario'AND activo is null ";
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

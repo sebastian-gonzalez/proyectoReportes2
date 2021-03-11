@@ -1,6 +1,10 @@
 
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css"/>
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
 
+   <script src="../../assets/js/jquery-3.5.1.js"></script>
 <?php
 include_once '../../controlador/database.php';
 $objeto = new Database();
@@ -41,7 +45,7 @@ if (isset($_POST['agregaracta'])) {
                     );
                 }
                 if ($resultado) {
-                    echo "actas guardadas";
+                    echo '.';
                 } else {
                     echo " actas no guardado";
                 }
@@ -58,7 +62,17 @@ if (isset($_POST['agregaracta'])) {
      ;</script>";
             }
         }
-    }
+    }                    echo
+    "<script> swal({
+title: '¡EXITO!',
+allowOutsideClick:false,
+text: 'Actas agregadas correctamente',
+type: 'success',
+}).then(function(){ 
+    location.href='../../vista/rol_docente/fichas_asignadas_director.php';
+}
+);
+;</script>";
    
 
 }

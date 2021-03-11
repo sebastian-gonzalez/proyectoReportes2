@@ -279,7 +279,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 			<div class="container">
 
 				<section>
-					<h2>Agrega los demas campos de la ficha</h2>
+					<h2>Completar los campos de la ficha</h2>
 				</section>
 				<hr />
 				<form class="form-horizontal" action="../../controlador/estudiante/add_campos_ficha.php" method="post" enctype="multipart/form-data">
@@ -287,7 +287,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
-									<label for="" class="col-form-label">Pregunta Problematizadora</label>
+									<label for="" class="col-form-label">Pregunta Formulación</label>
 									<textarea type="text" class="form-control" name="pregpro" required> </textarea>
 								</div>
 							</div>
@@ -298,7 +298,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class="row">
 							<div class="col-lg-12" id="dynamic_field">
 								<div class="form-group">
-									<a class="btn btn-primary" id="addspreg">Agregar pregunta sisteamtizadora</a>
+									<a class="btn btn-primary" id="addspreg">Agregar pregunta de sistematizacion</a>
 
 								</div>
 							</div>

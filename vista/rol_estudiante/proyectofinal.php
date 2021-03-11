@@ -271,11 +271,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 
-			<!-- Content Header (Page header) -->
-			<?php
 
-			include("../../controlador/estudiante/add_director.php");
-			?>
 
 
 
@@ -290,25 +286,18 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				<hr />
 				<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label for="" class="col-form-label">Titulo de la ficha</label>
-									<input type="text" class="form-control" name="titulo_ficha" required>
-								</div>
-							</div>
-						</div>
+
 
 						<div class="form-group" enctype="multipart/form-data">
 							<label for="" class="col-form-label">Proyecto de grado</label>
 							<div class="col-lg-6">
-								<input type="file" name="anteproyecto" required>
+								<input type="file" name="proyecto" required>
 							</div>
 						</div>
 
 					</div>
 					<div class="">
-						<button input type="submit" name="add" id="btnGuardar" class="btn btn-primary">agregar proyecto de grado</button>
+						<button input type="submit" name="proyecto" id="proyecto" class="btn btn-primary">agregar proyecto de grado</button>
 					</div>
 				</form>
 

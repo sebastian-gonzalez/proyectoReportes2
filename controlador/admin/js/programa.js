@@ -83,19 +83,36 @@ $(document).ready(function () {
     fila = $(this);
     id_programa = parseInt($(this).closest("tr").find("td:eq(0)").text());
     opcion = 3; //eliminar
-    var respuesta = confirm(
-      "¿Está seguro de borrar el registro " + id_programa + "?"
-    );
-    if (respuesta) {
-      $.ajax({
-        url: "../../controlador/admin/crud_programas.php",
-        type: "POST",
-        datatype: "json",
-        data: { opcion: opcion, id_programa: id_programa },
-        success: function () {
-          tablaProgramas.row(fila.parents("tr")).remove().draw();
-        },
-      });
-    }
+
+    Swal.fire({
+      title: 'Inhabilitar programa',
+      text: "deseas inabilitar este programa?!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'si , inhabilitar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "../../controlador/admin/crud_programas.php",
+          type: "POST",
+          datatype: "json",
+          data: { opcion: opcion, id_programa: id_programa },
+          success: function () {
+            tablaProgramas.row(fila.parents("tr")).remove().draw();
+          },
+        });
+        Swal.fire(
+          'Inabilitado!',
+          'El programa fue inhabilitado.',
+          'success'
+        )
+      }
+    })
+
   });
+  
+  //Borrar
+
 });

@@ -309,8 +309,9 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				<?php
 				$consultaacamposficha = "SELECT fi.id_ficha,fi.titulo_ficha
 				FROM lista_ficha lista, ficha fi 
-				WHERE lista.id_lista_usuario=118
-				AND fi.id_ficha = lista.id_lista_ficha ";
+				WHERE lista.id_lista_usuario=$id_s
+				AND fi.id_ficha = lista.id_lista_ficha
+				AND fi.activo is null ";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
@@ -389,7 +390,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 								WHERE lista.id_lista_usuario=$id_s
 								AND fi.id_ficha = lista.id_lista_ficha 
 								AND fi.id_ficha = campos.fk_id_ficha 
-								AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+								AND fi.activo is null
 								AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
 				$resultset = mysqli_query($con, $consultaacamposficha1) or die("database error:" . mysqli_error($con));
 
@@ -401,7 +402,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				WHERE lista.id_lista_usuario=$id_s
 				AND fi.id_ficha = lista.id_lista_ficha 
 				AND fi.id_ficha = campos.fk_id_ficha 
-				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND fi.activo is null
 				AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
@@ -551,7 +552,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				WHERE lista.id_lista_usuario=$id_s
 				AND fi.id_ficha = lista.id_lista_ficha 
 				AND fi.id_ficha = campos.fk_id_ficha 
-				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND fi.activo is null
+				AND campos.activo is null
 				AND campos.descripcion_campo LIKE '%Pregunta sistematizadora'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
@@ -596,7 +598,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				WHERE lista.id_lista_usuario=$id_s
 				AND fi.id_ficha = lista.id_lista_ficha 
 				AND fi.id_ficha = campos.fk_id_ficha 
-				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND fi.activo is null
 				AND campos.descripcion_campo LIKE '%Objetivo general%'";
 				$resultset = mysqli_query($con, $consultaacamposficha1) or die("database error:" . mysqli_error($con));
 
@@ -610,7 +612,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				WHERE lista.id_lista_usuario=$id_s
 				AND fi.id_ficha = lista.id_lista_ficha 
 				AND fi.id_ficha = campos.fk_id_ficha 
-				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND fi.activo is null
 				AND campos.descripcion_campo LIKE '%Objetivo general%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
@@ -755,7 +757,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				WHERE lista.id_lista_usuario=$id_s
 				AND fi.id_ficha = lista.id_lista_ficha 
 				AND fi.id_ficha = campos.fk_id_ficha 
-				AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
+				AND fi.activo is null
 				AND campos.descripcion_campo LIKE '%Objetivo especifico%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
@@ -795,9 +797,9 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label for="" class="col-form-label">ficha de anteproyecto:</label>
+							<label for="" class="col-form-label">Ficha de anteproyecto:</label>
 							<br />
-							<a class="btn btn-info" href='documento.php'><i class='fa fa-file-pdf-o'></i></a>
+							<a class="btn btn-info" <?php echo 'href="documento.php?tipo=pdf& ficha=' . $ficha_id_final . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
 
 
 
@@ -808,8 +810,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class="form-group">
 							<label for="" class="col-form-label">Anteproyecto completo:</label>
 							<br />
-							<a class="btn btn-info" href="documentoanteproyecto.php"><i class='fa fa-file-pdf-o'></i></a>
-
+							<a class="btn btn-info" <?php echo 'href="documento.php?tipo=anteproyecto& ficha=' . $ficha_id_final . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
 
 							<button id="btneditarfichaanteproyecto" type="button" class="btn btn-primary editarficha" data-toggle="modal" tooltip-dir="top"><i class='fa fa-pencil'> </i></button>
 						</div>
@@ -819,59 +820,163 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				</div>
 
 				<hr />
-				<section>
-					<h1>Evaluacion</h1>
-				</section>
+
+
+				<?php
+
+				$path = "../../controlador/estudiante/evaluacion/" . $ficha_id_final;
+				if (file_exists($path)) {
+
+					echo '	<section>
+				<h1>Evaluacion</h1>
+			    </section>
+			    <hr />';
+
+					$consultaacamposficha = "SELECT distinct fi.id_ficha,fi.evaluacion_ficha
+				FROM lista_ficha lista, ficha fi , campos_fichas campos
+				WHERE lista.id_lista_usuario=$id_s
+				AND fi.id_ficha = lista.id_lista_ficha 
+				AND fi.activo is null
+				AND fi.id_ficha = campos.fk_id_ficha ";
+					$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
+
+					while ($record = mysqli_fetch_assoc($resultset)) {
+						$evaluacion = $record['evaluacion_ficha'];
+					}
+					echo '
+				
+				<div class="row">
+				<div class="col-lg-12">
+					<div class="form-group">
+						<label for="" class="col-form-label">Evaluacion:</label>
+						<p> ' . $evaluacion . ' </p>
+					</div>
+				</div>
+		       	</div>
+				   <div class="row">
+
+				   <div class="col-lg-12">
+					   <div class="form-group">
+						   <label for="" class="col-form-label">Documento Evaluacion:</label>
+						   <br />
+						   <a class="btn btn-info"  href="documento.php?tipo=evaluacion& ficha=' . $ficha_id_final . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
+				   </div>
+			   </div>';
+				} else {
+					echo '	<section>
+					<h4>No se ha realizado la evaluacion del anteproyecto</h1>
+				</section>';
+				}
+				?>
+
+				<hr />
+
+
+
+				<?php
+
+				$path = "../../controlador/estudiante/proyecto/" . $ficha_id_final;
+				if (file_exists($path)) {
+
+					echo '	<section>
+				<h1>Proyecto </h1>
+			    </section>
+			    <hr />';
+
+					echo '
+
+				   <div class="row">
+
+				   <div class="col-lg-12">
+					   <div class="form-group">
+						   <label for="" class="col-form-label">Documento Evaluacion:</label>
+						   <br />
+						   <a class="btn btn-info"  href="documento.php?tipo=proyecto& ficha=' . $ficha_id_final . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
+				   </div>
+			   </div>';
+				} else {
+					echo '	<section>
+					<h4>No se ha subido el proyecto de grado</h1>
+				</section>';
+				}
+				?>
+
+				<hr />
+
+
+				<?php
+
+				$path = "../../controlador/estudiante/actas/" . $ficha_id_final;
+				if (file_exists($path)) {
+
+					echo '	<section>
+				<h1>Proyecto </h1>
+			    </section>
+			    <hr />';
+
+					echo '
+
+				   <div class="row">
+
+				   <div class="col-lg-12">
+					   <div class="form-group">
+						   <label for="" class="col-form-label">Documento Evaluacion:</label>
+						   <br />
+						   <a class="btn btn-info"  href="documento.php?tipo=actas& ficha=' . $ficha_id_final . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
+				   </div>
+			   </div>';
+				} else {
+					echo '	<section>
+					<h4>No se ha subido las actas del director</h1>
+				</section>';
+				}
+				?>
+
 				<hr />
 
 				<?php
-				//
-				$consultaacamposficha = "SELECT fi.id_ficha,fi.evaluacion_ficha
-					FROM lista_ficha lista, ficha fi , campos_fichas campos
-					WHERE lista.id_lista_usuario=$id_s
-					AND fi.id_ficha = lista.id_lista_ficha 
-					AND fi.id_ficha = campos.fk_id_ficha 
-					AND fi.descripcion_ficha LIKE '%Anteproyecto de grado%'
-					AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
-				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
-				while ($record = mysqli_fetch_assoc($resultset)) {
+				$path = "../../controlador/estudiante/eva_proyecto_final/" . $ficha_id_final;
+				if (file_exists($path)) {
 
+					echo '	<section>
+				<h1>Proyecto </h1>
+			    </section>
+			    <hr />';
 
+					echo '
 
-				?>
+				   <div class="row">
 
-
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="form-group">
-								<label for="" class="col-form-label">Evaluacion:</label>
-								<p><?php echo $record['evaluacion_ficha']; ?></p>
-							</div>
-						</div>
-					</div>
-				<?php
+				   <div class="col-lg-12">
+					   <div class="form-group">
+						   <label for="" class="col-form-label">Documento Evaluacion:</label>
+						   <br />
+						   <a class="btn btn-info"  href="documento.php?tipo=eva_proyecto_final& ficha=' . $ficha_id_final . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
+				   </div>
+			   </div>';
+				} else {
+					echo '	<section>
+					<h4>No se ha subido la evaluacion final del jurado</h1>
+				</section>';
 				}
 				?>
-				<div class="row">
 
-					<div class="col-lg-12">
-						<div class="form-group">
-							<label for="" class="col-form-label">Documento Evaluacion:</label>
-							<br />
-							<a class="btn btn-primary" href="documentoanteproyecto.php"><i class='fa fa-file-pdf-o'></i></a>
-						</div>
-					</div>
-				</div>
+				<hr />
+
+
+
+
+
+
+
+
 
 
 			</div>
 		</div>
 
 
-		<?php
-
-		?>
 
 
 
@@ -927,11 +1032,6 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 										echo '<input type="file" name="archivo">';
 									}
 
-
-
-
-
-
 									?>
 
 								</div>
@@ -949,7 +1049,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		</div>
 
 
-		
+
 
 		<div class="modal fade" id="modalCRUDFICHA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">

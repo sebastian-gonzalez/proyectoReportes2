@@ -236,17 +236,19 @@ if (isset($_GET['aksi']) == 'delete') {
 
     $nik = mysqli_real_escape_string($con, (strip_tags($_GET["nik"], ENT_QUOTES)));
 
-    $query = "DELETE FROM campos_fichas  WHERE id_campo=" . $nik;
-    $delete = mysqli_query($con, $query);
+    $consulta = "UPDATE campos_fichas SET activo='n' WHERE id_campo='$nik'";
+
+    $resultado = $conexion->prepare($consulta);
+    $resultado->execute();
 
 
-    if ($delete) {
+    if ($consulta) {
         header("Location: ../../vista/rol_estudiante/info_ficha.php");
     } else {
         echo
         "<script> swal({
            title: '¡ERROR!',
-           text: 'No se pudo eliminar el dato',
+           text: 'No se pudo inabilitar el dato',
            type: 'error',
          });</script>";
     }

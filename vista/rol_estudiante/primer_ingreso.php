@@ -270,11 +270,6 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 
-			<!-- Content Header (Page header) -->
-			<?php
-
-			include("../../controlador/estudiante/add_director.php");
-			?>
 
 
 
@@ -284,7 +279,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 
 				<section>
-					<h2>Crea tu primer ficha para continuar con el proceso</h2>
+					<h2>Crear ficha de anteproyecto</h2>
 				</section>
 				<hr />
 				<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
@@ -298,13 +293,13 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 							</div>
 						</div>
 						<div class="form-group" enctype="multipart/form-data">
-							<label for="" class="col-form-label">ficha de anteproyecto</label>
+							<label for="" class="col-form-label">Ficha de anteproyecto</label>
 							<div class="col-lg-6">
 								<input type="file" name="archivo" required>
 							</div>
 						</div>
 						<div class="form-group" enctype="multipart/form-data">
-							<label for="" class="col-form-label">anteproyecto completo</label>
+							<label for="" class="col-form-label">Anteproyecto completo</label>
 							<div class="col-lg-6">
 								<input type="file" name="anteproyecto" required>
 							</div>

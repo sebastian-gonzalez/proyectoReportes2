@@ -256,25 +256,41 @@ $(document).ready(function () {
 
   //Borrar
 
+
+  //Borrar
   $(document).on("click", ".btnBorrar", function () {
     fila = $(this);
     id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
     opcion = 3; //eliminar
-    var respuesta = confirm(
-      "¿Está seguro de borrar el registro " + id_ficha + "?"
-    );
-    if (respuesta) {
-      $.ajax({
-        url: "../../controlador/estudiante/delete.php",
-        type: "POST",
-        datatype: "json",
-        data: { opcion: opcion, id_ficha: id_ficha },
-        success: function () {
-          tablaFichas.row(fila.parents("tr")).remove().draw();
-          location.href = "fichas.php";
-        },
-      });
-    }
+
+    Swal.fire({
+      title: 'Inhabilitar ficha',
+      text: "deseas inabilitar esta ficha?!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'si , inhabilitar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "../../controlador/estudiante/delete.php",
+          type: "POST",
+          datatype: "json",
+          data: { opcion: opcion, id_ficha: id_ficha },
+          success: function () {
+            tablaFichas.row(fila.parents("tr")).remove().draw();
+            location.href = "fichas.php";
+          },
+        });
+        Swal.fire(
+          'Inabilitada!',
+          'La ficha fue inabilitada.',
+          'success'
+        )
+      }
+    })
+
   });
 
 

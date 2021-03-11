@@ -1,6 +1,14 @@
 <?php
-
 session_start();
+//Finalizacion de la session transcurridos 10 minutos
+$minutosparafinalizar = 10;
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > ($minutosparafinalizar * 60))) {
+	session_unset();     // unset $_SESSION   
+	session_destroy();   // destroy session data  
+	echo '<script language="javascript">alert("Tiempo de la session expirado");</script>';
+	header('location: ../../login.php');
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity
 
 if (!isset($_SESSION['id_rol_usu'])) {
 	header('location: ../../login.php');
@@ -10,8 +18,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 	}
 }
 $nombre_usu = $_SESSION['nombre_usu'];
-
-
+$id_usuario = $_SESSION['id_usuario'];
 ?>
 
 
@@ -26,11 +33,12 @@ include("../../controlador/conexion.php");
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Coordinador</title>
+	<title>Perfil Administrador</title>
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../../assets/mainTable.css">
+	<link rel="stylesheet" href="../../assets/css/perfil.css">
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
 	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
@@ -41,7 +49,9 @@ include("../../controlador/conexion.php");
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
-	<!-- Site wrapper -->
+
+
+
 	<div class="wrapper">
 		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -142,26 +152,37 @@ include("../../controlador/conexion.php");
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<div class="container">
-				<br></br>
-				<h2>Coordinador</h2>
+            <div class="container largopdf">
+                <br />
+                <?php
+                $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES)));
+                $tipo = mysqli_real_escape_string($con, (strip_tags($_GET["tipo"], ENT_QUOTES)));
+                ?>
+                    <div class="card hovercard ">
 
-				<section>
-					<h1>Bienvenido(a) <?php echo $_SESSION['nombre_usu']; ?></h1>
-				</section>
-				<hr />
+                        <?php
 
-				<center>
-					<img src="../../assets/images/uniajc.png" width="50%">
-				</center>
-			</div>
-		</div>
+                        $path = "../../controlador/estudiante/".$tipo."/" . $ficha1;
+                        if (file_exists($path)) {
+                            $directorio = opendir($path);
+                            while ($archivo = readdir($directorio)) {
+                                if (!is_dir($archivo)) {
+                                    echo "<iframe src='../../controlador/estudiante/$tipo/$ficha1/$archivo' height='680' width='100%'></iframe>";
+                                }
+                            }
+                        } else {
+                            echo '<script language="javascript">alert("No Tiene un documento agregado");</script>';
+                        }
+                        ?>
+
+
+
+                    </div>
+              
+            </div>
+
 	</div>
 
-	<!-- jQuery -->
-	<script src="../../assets/js/jquery-3.5.1.js"></script>
-
-	<script src="../../assets/js/nav/adminlte.js"></script>
-</body>
+	</body>
 
 </html>

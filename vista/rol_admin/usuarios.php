@@ -45,6 +45,8 @@ $nombre_usu = $_SESSION['nombre_usu'];
 	<!--datables estilo bootstrap 4 CSS-->
 	<link rel="stylesheet" type="text/css" href="../../assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
 
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
@@ -250,7 +252,7 @@ $nombre_usu = $_SESSION['nombre_usu'];
 											<select name="id_programa_usu" class="form-control" required>
 
 												<?php
-												$sql = mysqli_query($con, "SELECT * FROM programa  ");
+												$sql = mysqli_query($con, "SELECT * FROM programa WHERE activo IS null ");
 												echo '	<option disabled selected value="">Seleccione el programa</option>';
 
 												while ($valores = mysqli_fetch_array($sql)) {
@@ -350,7 +352,7 @@ $nombre_usu = $_SESSION['nombre_usu'];
 											<select name="id_programa_usu" name="id_programa_usu" id="id_programa_usu" class="form-control" required>
 
 												<?php
-												$sql = mysqli_query($con, "SELECT * FROM programa  ");
+												$sql = mysqli_query($con, "SELECT * FROM programa where activo IS null ");
 												echo '	<option disabled selected value="">Seleccione el programa</option>';
 
 												while ($valores = mysqli_fetch_array($sql)) {

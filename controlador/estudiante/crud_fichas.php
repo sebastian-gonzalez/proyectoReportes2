@@ -58,7 +58,7 @@ switch ($opcion) {
             $id_insert = 0;
             echo "no se ejecuto la primera consulta ";
         }
-        $consulta = "SELECT * FROM ficha WHERE id_ficha='$id_ficha' ";
+        $consulta = "SELECT * FROM ficha WHERE id_ficha='$id_ficha' AND activo is null ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -83,10 +83,7 @@ switch ($opcion) {
 
 
 
-        $consulta = "DELETE FROM lista_ficha WHERE id_lista_ficha='$id_ficha' ";
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $consulta1 = "DELETE FROM ficha WHERE id_ficha='$id_ficha' ";
+        $consulta1 = "UPDATE ficha  SET activo='n' WHERE id_ficha='$id_ficha' ";
         $resultado1 = $conexion->prepare($consulta1);
         $resultado1->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -104,7 +101,7 @@ switch ($opcion) {
         INNER JOIN programa ON ficha.id_programa_ficha = programa.id_programa
         INNER JOIN estado ON ficha.id_estado_ficha = estado.id_estado
         INNER JOIN lista_ficha ON ficha.id_ficha = lista_ficha.id_lista_ficha
-        WHERE $id_ficha_vali and id_lista_usuario = $id_lista_usuario LIMIT 1";
+        WHERE ficha.activo is null AND id_lista_usuario = $id_lista_usuario LIMIT 1";
 
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();

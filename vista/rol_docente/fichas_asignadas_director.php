@@ -44,6 +44,12 @@ $nombre_usu = $_SESSION['nombre_usu'];
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
     <link rel="icon" href="../../images/favicon.ico" type="image/gif" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css"/>
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
+
+
+
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">

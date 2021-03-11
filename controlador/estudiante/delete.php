@@ -66,10 +66,7 @@ function eliminarAR1($carpeta)
 }
 
 
-$consulta = "DELETE FROM lista_ficha WHERE id_lista_ficha='$id_ficha' ";
-$resultado = $conexion->prepare($consulta);
-$resultado->execute();
-$consulta1 = "DELETE FROM ficha WHERE id_ficha='$id_ficha' ";
+$consulta1 = "UPDATE ficha  SET activo='n' WHERE id_ficha='$id_ficha'  ";
 $resultado1 = $conexion->prepare($consulta1);
 $resultado1->execute();
 

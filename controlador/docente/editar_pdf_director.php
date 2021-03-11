@@ -1,3 +1,5 @@
+
+
 <?php
 
 $id_fichapdf = (isset($_POST['id_fichas'])) ? $_POST['id_fichas'] : '';
@@ -38,7 +40,7 @@ $id_fichapdf = (isset($_POST['id_fichas'])) ? $_POST['id_fichas'] : '';
                                       title = 'Ver Archivo Adjunto'>
                                       <span class='fa fa-file-pdf-o' aria-hidden='true'></span></a>";
 
-                                    echo "$archivo <a href ='fichas_asignadas_evaluador.php 'id = 'deleteante'
+                                    echo "$archivo <a href ='#'id = 'deleteante'
                                       title = 'Eliminar Archivo Adjunto'>
                                       
                                       <span class='fa fa-trash' aria-hidden='true'></span></a></div>";
@@ -100,20 +102,31 @@ $id_fichapdf = (isset($_POST['id_fichas'])) ? $_POST['id_fichas'] : '';
 
 <script>
     $('#deleteante').click(function() {
-        alert('eliminar actas');
-
         var parent = $(this).parent().attr('id');
         var service = $(this).parent().attr('data');
         var dataString = 'id=' + service;
-        $.ajax({
-            type: "POST",
-            url: "del_document.php",
-            data: dataString,
+        swal({
+            title: '¡Atento!',
+            text: 'Deseas borrar las actas',
+            type: 'warning',
+        }).then(function() {
 
-            succes: function() {
+            $.ajax({
+                type: "POST",
+                url: "del_document.php",
+                data: dataString,
 
-            }
+                succes: function() {
+
+                }
+            });
+            location.href='fichas_asignadas_director.php';
+
+
         });
+
+
 
     });
 </script>
+

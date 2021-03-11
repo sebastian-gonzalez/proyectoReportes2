@@ -18,7 +18,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta = "SELECT * FROM facultad ORDER BY id_facultad DESC LIMIT 1";
+        $consulta = "SELECT * FROM facultad WHERE activo IS null ORDER BY id_facultad DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -29,23 +29,31 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta = "SELECT * FROM facultad WHERE id_facultad='$id_facultad' ";
+        $consulta = "SELECT * FROM facultad WHERE id_facultad='$id_facultad' AND  activo IS  null ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 3:
-        $consulta = "DELETE FROM facultad WHERE id_facultad='$id_facultad' ";
+        $consulta = "UPDATE facultad SET activo='n' WHERE id_facultad='$id_facultad'";
+
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        break;
-    case 4:
-        $consulta = "SELECT * FROM facultad";
+
+        $consulta = "SELECT * FROM facultad WHERE id_facultad='$id_facultad' AND  activo IS  null ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
+    case 4:
+        $consulta = "SELECT * FROM facultad WHERE  activo IS  null";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);   
+        break;
 }
+
+
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //envio el array final el formato json a AJAX
 $conexion = null;

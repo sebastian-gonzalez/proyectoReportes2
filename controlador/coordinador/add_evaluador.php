@@ -41,7 +41,7 @@ if (isset($_POST['add_evaluador'])) {
          VALUES('$id_lista_usuario','$id_lista_ficha', '$id_rol_ficha') ";
                $resultado_participante = $conexion->prepare($consulta_participante);
                $resultado_participante->execute();
-               echo '<script language="javascript">alert("exito");
+               echo '<script>
                location.href="revision_fichas_coordinador.php";</script>';
           }
      }

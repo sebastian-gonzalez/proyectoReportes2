@@ -45,7 +45,7 @@ if (isset($_POST['add_usuario'])) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta = "SELECT * FROM usuarios ORDER BY id_usuario DESC LIMIT 1";
+        $consulta = "SELECT * FROM usuarios WHERE activo is null ORDER BY id_usuario DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

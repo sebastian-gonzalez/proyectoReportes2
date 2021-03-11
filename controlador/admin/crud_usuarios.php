@@ -24,11 +24,15 @@ switch ($opcion) {
     case 2:
      //editar
     case 3:
-        $consulta = "DELETE FROM usuarios WHERE id_usuario='$id_usuario' ";
+        $consulta = "UPDATE usuarios  SET activo='n' WHERE id_usuario='$id_usuario'";
+
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+    
+        $consulta = "SELECT * FROM usuarios WHERE id_usuario='$id_usuario' AND activo is null ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-        break;
     case 4:
         $consulta = "SELECT * FROM usuarios INNER JOIN rol_usu INNER JOIN programa WHERE id_rol_usu=id_rol AND  id_programa_usu=id_programa";
         $resultado = $conexion->prepare($consulta);

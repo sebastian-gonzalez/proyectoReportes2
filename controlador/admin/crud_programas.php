@@ -18,7 +18,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta = "SELECT * FROM programa ORDER BY id_programa DESC LIMIT 1";
+        $consulta = "SELECT * FROM programa WHERE activo IS null ORDER BY id_programa DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -29,18 +29,24 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
-        $consulta = "SELECT * FROM programa WHERE id_programa='$id_programa' ";
+        $consulta = "SELECT * FROM programa WHERE id_programa='$id_programa'AND activo IS null ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 3:
-        $consulta = "DELETE FROM programa WHERE id_programa='$id_programa' ";
+        $consulta = "UPDATE programa SET activo='n' WHERE id_programa='$id_programa' ";
+
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
+
+        $consulta = "SELECT * FROM programa WHERE id_programa='$id_programa' AND activo IS null ";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 4:
-        $consulta = "SELECT * FROM programa INNER JOIN facultad WHERE id_facultad_pro=id_facultad ";
+        $consulta = "SELECT * FROM programa ama INNER JOIN facultad WHERE id_facultad_pro=id_facultad AND ama.activo IS null";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

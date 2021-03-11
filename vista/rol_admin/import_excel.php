@@ -139,7 +139,7 @@ include("../../controlador/conexion.php");
         <div class="container">
           <div class="content">
 
-            <br />
+            <br /> 
             <h2 align="center">Importar Usuarios mediante archivo Excel</h2>
             <br />
 

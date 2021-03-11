@@ -1,9 +1,8 @@
-
 <!--SweetAlert-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css" />
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
 
 
 <?php
@@ -40,9 +39,8 @@ $resultset = mysqli_query($con, $consultaidficha) or die("database error:" . mys
 while ($record = mysqli_fetch_assoc($resultset)) {
     $idficha = $record['id_lista_ficha'];
 }
-echo  $id_usuario;
-echo  $id_usuario;
-echo   $idficha;
+echo  ".";
+
 
 
 
@@ -54,7 +52,7 @@ if (isset($_POST['add'])) {
 
 
 
-    
+
 
 
     $pregunta_problematizadora = (isset($_POST['pregpro'])) ? $_POST['pregpro'] : '';
@@ -65,20 +63,18 @@ if (isset($_POST['add'])) {
     $resultado_pregunta = $conexion->prepare($consulta_pregunta);
     $resultado_pregunta->execute();
 
-if (isset($_POST['addspreg'])){
+    if (isset($_POST['addspreg'])) {
 
-    foreach ($_POST['addspreg'] as $key => $value) {
-        $id_lista_preg = $_POST['addspreg'][$key];
+        foreach ($_POST['addspreg'] as $key => $value) {
+            $id_lista_preg = $_POST['addspreg'][$key];
 
 
 
-        $consulta_pregsiste = "INSERT INTO campos_fichas (descripcion_campo,valor_campo,fk_id_ficha)
+            $consulta_pregsiste = "INSERT INTO campos_fichas (descripcion_campo,valor_campo,fk_id_ficha)
          VALUES('$descripcion_pregsis','$id_lista_preg', '$idficha') ";
-        $resultado_pregsiste = $conexion->prepare($consulta_pregsiste);
-        $resultado_pregsiste->execute();
-
-
-    }
+            $resultado_pregsiste = $conexion->prepare($consulta_pregsiste);
+            $resultado_pregsiste->execute();
+        }
     }
 
 
@@ -91,24 +87,18 @@ if (isset($_POST['addspreg'])){
     $resultado_objgen = $conexion->prepare($consulta_objgen);
     $resultado_objgen->execute();
     if (isset($_POST['addsobj'])) {
-    foreach ($_POST['addsobj'] as $key => $value) {
-        $id_lista_obj = $_POST['addsobj'][$key];
+        foreach ($_POST['addsobj'] as $key => $value) {
+            $id_lista_obj = $_POST['addsobj'][$key];
 
 
 
-        $consulta_objespe = "INSERT INTO campos_fichas (descripcion_campo,valor_campo,fk_id_ficha)
+            $consulta_objespe = "INSERT INTO campos_fichas (descripcion_campo,valor_campo,fk_id_ficha)
                    VALUES('$descripcion_objespe','$id_lista_obj', '$idficha') ";
-        $resultado_objespe = $conexion->prepare($consulta_objespe);
-        $resultado_objespe->execute();
+            $resultado_objespe = $conexion->prepare($consulta_objespe);
+            $resultado_objespe->execute();
+        }
     }
-
-
-
-
-     
-          
-    }
-    echo 
+    echo
     "<script> swal({
         title: '¡Exito!',
         text: 'Campos agregados',

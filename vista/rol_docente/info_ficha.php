@@ -198,92 +198,171 @@ include("../../controlador/conexion.php");
                         <div class="form-group">
                             <label for="" class="col-form-label">Ficha de anteproyecto:</label>
                             <br />
-                            <a class="btn btn-info" <?php echo 'href="revision_documento.php?tipo=pdf& ficha=' . $ficha . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
+                            <a class="btn btn-info" <?php echo 'href="documento.php?tipo=pdf& ficha=' . $ficha . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="" class="col-form-label">Anteproyecto completo:</label>
                             <br />
-                            <a class="btn btn-info" <?php echo 'href="revision_documento.php?tipo=anteproyecto& ficha=' . $ficha . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
+                            <a class="btn btn-info" <?php echo 'href="documento.php?tipo=anteproyecto& ficha=' . $ficha . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
                         </div>
                     </div>
 
 
                 </div>
 
-
-
-
-
-
-
-
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-
-                            <?php
-
-
-                            $consultatitulo = "SELECT fi.id_ficha,fi.evaluacion_ficha
-                            FROM ficha fi 
-                            WHERE fi.id_ficha=$ficha";
-                            $resultset = mysqli_query($con, $consultatitulo) or die("database error:" . mysqli_error($con));
-
-                            while ($record = mysqli_fetch_assoc($resultset)) {
-                                $eva_ficha = $record['evaluacion_ficha']
-
-                            ?>
-                                <hr />
-                                <h4> Evaluacion </h4>
-
-
-                                <h6><?php echo $eva_ficha  ?> </h6>
-                                <hr />
-                            <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-
-                        <div class="form-group">
-                            <label for="" class="col-form-label">Documento evaluacion anteproyecto:</label>
-                            <br />
-                            <a class="btn btn-info" <?php echo 'href="revision_documento.php?tipo=evaluacion& ficha=' . $ficha . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
-                        </div>
-                    </div>
-
-
-                </div>
 
                 <hr />
 
 
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="" class="col-form-label">Actas de entrega:</label>
-                            <br />
-                            <a class="btn btn-info" <?php echo 'href="revision_documento.php?tipo=actas& ficha=' . $ficha . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
-                        </div>
-                    </div>
-                </div>
+                <?php
+
+                $path = "../../controlador/estudiante/evaluacion/" . $ficha;
+                if (file_exists($path)) {
+
+                    echo '	<section>
+				<h1>Evaluacion</h1>
+			    </section>
+			    <hr />';
+
+                    $consultaacamposficha = "SELECT distinct fi.id_ficha,fi.evaluacion_ficha
+				FROM lista_ficha lista, ficha fi , campos_fichas campos
+				WHERE fi.id_ficha=$ficha
+				AND fi.id_ficha = lista.id_lista_ficha 
+				AND fi.id_ficha = campos.fk_id_ficha ";
+                    $resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
+
+                    while ($record = mysqli_fetch_assoc($resultset)) {
+                        $evaluacion = $record['evaluacion_ficha'];
+                    }
+                    echo '
+				
+				<div class="row">
+				<div class="col-lg-12">
+					<div class="form-group">
+						<label for="" class="col-form-label">Evaluacion:</label>
+						<p> ' . $evaluacion . ' </p>
+					</div>
+				</div>
+		       	</div>
+				   <div class="row">
+
+				   <div class="col-lg-12">
+					   <div class="form-group">
+						   <label for="" class="col-form-label">Documento Evaluacion:</label>
+						   <br />
+						   <a class="btn btn-info"  href="documento.php?tipo=evaluacion& ficha=' . $ficha . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
+				   </div>
+			   </div>';
+                } else {
+                    echo '	<section>
+					<h4>No se ha realizado la evaluacion del anteproyecto</h1>
+				</section>';
+                }
+                ?>
+
                 <hr />
 
-                
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label for="" class="col-form-label">Evaluacion Proyecto:</label>
-                            <br />
-                            <a class="btn btn-info" <?php echo 'href="revision_documento.php?tipo=eva_proyecto_final& ficha=' . $ficha . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
-                        </div>
-                    </div>
-                </div>
+
+
+                <?php
+
+                $path = "../../controlador/estudiante/proyecto/" . $ficha;
+                if (file_exists($path)) {
+
+                    echo '	<section>
+				<h1>Proyecto </h1>
+			    </section>
+			    <hr />';
+
+                    echo '
+
+				   <div class="row">
+
+				   <div class="col-lg-12">
+					   <div class="form-group">
+						   <label for="" class="col-form-label">Documento proyecto de grado:</label>
+						   <br />
+						   <a class="btn btn-info"  href="documento.php?tipo=proyecto& ficha=' . $ficha . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
+				   </div>
+			   </div>';
+                } else {
+                    echo '	<section>
+					<h4>No se ha subido el proyecto de grado</h1>
+				</section>';
+                }
+                ?>
+
                 <hr />
+
+
+                <?php
+
+                $path = "../../controlador/estudiante/actas/" . $ficha;
+                if (file_exists($path)) {
+
+                    echo '	<section>
+				<h1>Actas </h1>
+			    </section>
+			    <hr />';
+
+                    echo '
+
+				   <div class="row">
+
+				   <div class="col-lg-12">
+					   <div class="form-group">
+						   <label for="" class="col-form-label">Actas de encuentros:</label>
+						   <br />
+						   <a class="btn btn-info"  href="documento.php?tipo=actas& ficha=' . $ficha . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
+				   </div>
+			   </div>';
+                } else {
+                    echo '	<section>
+					<h4>No se ha subido las actas del director</h1>
+				</section>';
+                }
+                ?>
+
+                <hr />
+
+                <?php
+
+                $path = "../../controlador/estudiante/eva_proyecto_final/" . $ficha;
+                if (file_exists($path)) {
+
+                    echo '	<section>
+				<h1>Proyecto </h1>
+			    </section>
+			    <hr />';
+
+                    echo '
+
+				   <div class="row">
+
+				   <div class="col-lg-12">
+					   <div class="form-group">
+						   <label for="" class="col-form-label">Documento Evaluacion:</label>
+						   <br />
+						   <a class="btn btn-info"  href="documento.php?tipo=eva_proyecto_final& ficha=' . $ficha . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
+				   </div>
+			   </div>';
+                } else {
+                    echo '	<section>
+					<h4>No se ha subido la evaluacion final del jurado</h1>
+				</section>';
+                }
+                ?>
+
+                <hr />
+
+
+
+
+
+
+
             </div>
         </div>
 

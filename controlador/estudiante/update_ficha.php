@@ -15,6 +15,7 @@ if (isset($_POST['mod'])) {
     FROM lista_ficha lista, ficha fi 
     WHERE lista.id_lista_usuario=$id_s
     AND fi.id_ficha = lista.id_lista_ficha 
+    AND activo is null
  
     ";
 

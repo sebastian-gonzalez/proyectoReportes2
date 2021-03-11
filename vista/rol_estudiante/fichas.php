@@ -24,7 +24,7 @@ $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
 
-$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha WHERE id_lista_usuario =$id_s");
+$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha WHERE id_lista_usuario =$id_s ");
 $query_ficha->execute();
 $row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
 
@@ -47,15 +47,15 @@ $consultaacamposficha = "SELECT fi.id_ficha
 FROM lista_ficha lista, ficha fi 
 WHERE lista.id_lista_usuario=$id_s
 AND fi.id_estado_ficha=3
+AND fi.activo is null
+
 ";
 $resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 while ($record = mysqli_fetch_assoc($resultset)) {
 
-	$fichaaprobada = $record['id_ficha'];
+    $fichaaprobada = $record['id_ficha'];
 }
-
-
 
 
 $consultaacamposfichageneral = "SELECT fi.id_ficha
@@ -63,12 +63,15 @@ $consultaacamposfichageneral = "SELECT fi.id_ficha
 	WHERE fi.id_ficha=lista.id_lista_ficha
 	AND lista.id_lista_usuario=$id_s
     AND fi.id_estado_ficha in (1,2,4,5,6)	
+    AND fi.activo is null
+
+    
 ";
 $resultset = mysqli_query($con, $consultaacamposfichageneral) or die("database error:" . mysqli_error($con));
 
 while ($record = mysqli_fetch_assoc($resultset)) {
 
-	$fichaenanteproyecto = $record['id_ficha'];
+    $fichaenanteproyecto = $record['id_ficha'];
 }
 ?>
 
@@ -105,10 +108,14 @@ while ($record = mysqli_fetch_assoc($resultset)) {
     <link rel="stylesheet" type="text/css" href="../../assets/select2/select2.min.css" />
 
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
+
     <!--SweetAlert-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css"/>
-   
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
 
 
 
@@ -130,30 +137,30 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
     <!-- Site wrapper -->
     <div class="wrapper">
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-			<!-- Left navbar links -->
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
-				</li>
-			</ul>
-			<!-- Right navbar links -->
-			<ul class="navbar-nav ml-auto">
-				<!-- Messages Dropdown Menu -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+                </li>
+            </ul>
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Messages Dropdown Menu -->
 
-				<li class="nav-item">
-					<a class="nav-link" href="../../logout.php">
-						<i class="fa fa-power-off"></i>
-					</a>
-				</li>
-			</ul>
-		</nav>
-		<!-- /.navbar -->
+                <li class="nav-item">
+                    <a class="nav-link" href="../../logout.php">
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
 
-		<?php
+        <?php
 
-		if (!isset($id_lis_fi)) {
-			echo " 
+        if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
+            echo " 
 		<!-- Main Sidebar Container -->
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 			<!-- Brand Logo -->
@@ -199,8 +206,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 			<!-- /.sidebar -->
 		</aside>
 		";
-		} else if (isset($id_lis_fi) && isset($fichaenanteproyecto)) {
-			echo  " 
+        } else if (isset($fichaenanteproyecto)) {
+            echo  " 
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 			<!-- Brand Logo -->
 			<a href='inicio_estudiante.php' class='brand-link'>
@@ -247,8 +254,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		</aside>
 
 		";
-		} else if (isset($id_lis_fi) && isset($fichaaprobada)) {
-			echo  " 
+        } else if (isset($fichaaprobada)) {
+            echo  " 
 			<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 				<!-- Brand Logo -->
 				<a href='inicio_estudiante.php' class='brand-link'>
@@ -300,8 +307,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 			</aside>
 	
 			";
-		}
-		?>
+        }
+        ?>
 
 
         <!-- Content Wrapper. Contains page content -->
@@ -326,7 +333,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
                             if ($resultado_vali->fetchColumn() > 0) {
                                 echo ' <button id="btnParticipantes" type="button" class="btn btn-primary" data-toggle="modal" tooltip-dir="top" title="Agregar Participantes"><i class="material-icons" >group_add</i></button>';
 
-                                echo ' <button id="btnDirector" type="button" class="btn btn-primary" data-toggle="modal" tooltip-dir="top" title="Agregar Director"><i class="material-icons" >school</i></button>';
+
 
                                 echo ' <button id="btnMostrar_P" type="button" class="btn btn-primary" data-toggle="modal"tooltip-dir="top" title="Mostrar Participantes"><i class="material-icons">groups</i></button>';
                             } else {
@@ -337,7 +344,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
                     </div>
                 </div>
-            </div>  <!-- Content Header (Page header) -->
+            </div> <!-- Content Header (Page header) -->
 
 
 
@@ -370,7 +377,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 
 
-            
+
             <div class="modal fade" id="modalCRUD1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -483,7 +490,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
                                         <div class="form-group">
                                             <label for="" class="col-form-label">Director</label>
 
-                                            <select class="custom-select form-control-border"name="id_lista_usuario_director"  required>
+                                            <select class="custom-select form-control-border" name="id_lista_usuario_director" required>
                                                 <?php
                                                 $programa = $_SESSION['id_programa_usu'];
 

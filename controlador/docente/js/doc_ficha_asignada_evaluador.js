@@ -19,7 +19,7 @@ $(document).ready(function () {
       { data: "fecha_ficha" },
       {
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Evaluar'><i class='material-icons'>edit</i></button><button class='btn btn-primary btn-sm btnMostrar_P'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnRevisionevaluacion'  tooltip-dir='top' title='Evaluar'><i class='material-icons'>edit</i></button><button class='btn btn-primary btn-sm btnMostrar_P'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
 
       },
 
@@ -138,6 +138,12 @@ $(document).ready(function () {
 
 
   //Revisar Ficha
+  $(document).on("click", ".btnRevisionevaluacion", function () {
+    fila = $(this);
+    id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+    opcion = 3; //eliminar
+    location.href = "evaluacion_ficha.php?ficha=" + id_ficha + " ";
+  });
 
   $(document).on("click", ".btnRevision", function () {
     fila = $(this);

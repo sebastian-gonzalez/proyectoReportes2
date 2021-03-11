@@ -265,23 +265,19 @@ while ($record = mysqli_fetch_assoc($resultset)) {
             <div class="container largopdf">
                 <br />
                 <?php
-                $nik = $_SESSION['id_usuario'];
-                $sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
-                while ($record = mysqli_fetch_assoc($sql)) {
-                    $id = $record['id_lista_ficha']
-
+                $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES)));
+                $tipo = mysqli_real_escape_string($con, (strip_tags($_GET["tipo"], ENT_QUOTES)));
                 ?>
-
                     <div class="card hovercard ">
 
                         <?php
 
-                        $path = "../../controlador/estudiante/pdf/" . $id;
+                        $path = "../../controlador/estudiante/".$tipo."/" . $ficha1;
                         if (file_exists($path)) {
                             $directorio = opendir($path);
                             while ($archivo = readdir($directorio)) {
                                 if (!is_dir($archivo)) {
-                                    echo "<iframe src='../../controlador/estudiante/pdf/$id/$archivo' height='680' width='100%'></iframe>";
+                                    echo "<iframe src='../../controlador/estudiante/$tipo/$ficha1/$archivo' height='680' width='100%'></iframe>";
                                 }
                             }
                         } else {
@@ -292,7 +288,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 
                     </div>
-                <?php } ?>
+              
             </div>
 		</div>
 	</div>
