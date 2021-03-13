@@ -15,7 +15,7 @@ if (isset($_POST['mod'])) {
     FROM lista_ficha lista, ficha fi 
     WHERE lista.id_lista_usuario=$id_s
     AND fi.id_ficha = lista.id_lista_ficha 
-    AND activo is null
+    AND fi.activo is null
  
     ";
 
@@ -79,6 +79,7 @@ if (isset($_POST['modantepro'])) {
     $consultaacamposficha = "SELECT fi.id_ficha,fi.titulo_ficha
     FROM lista_ficha lista, ficha fi 
     WHERE lista.id_lista_usuario=$id_s
+    AND fi.activo is null
     AND fi.id_ficha = lista.id_lista_ficha 
  
     ";

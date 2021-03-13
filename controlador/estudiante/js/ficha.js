@@ -1,4 +1,4 @@
-$(document).ready(function () { 
+$(document).ready(function () {
   var id_ficha, opcion;
   opcion = 4;
 
@@ -19,7 +19,7 @@ $(document).ready(function () {
       { data: "fecha_ficha" },
       {
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary vermas' title='Ver mas'    ><i class='material-icons'>control_point</i></button><button class='btn btn-danger btn-sm btnBorrar' tooltip-dir='top' title='Borrar'><i class='material-icons'>delete</i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary vermas' title='Ver mas'    ><i class='material-icons'>control_point</i></button><button class='btn btn-danger btn-sm btnBborrar' tooltip-dir='top' title='Borrar'><i class='material-icons'>delete</i></button></div></div>",
       },
     ],
   });
@@ -116,7 +116,6 @@ $(document).ready(function () {
 
 
   $('#delete').click(function () {
-    alert('eliminado');
 
     var parent = $(this).parent().attr('id');
     var service = $(this).parent().attr('data');
@@ -134,9 +133,7 @@ $(document).ready(function () {
   });
 
 
-  
   $('#deleteante').click(function () {
-    alert('eliminar anteproyecto');
 
     var parent = $(this).parent().attr('id');
     var service = $(this).parent().attr('data');
@@ -152,6 +149,13 @@ $(document).ready(function () {
     });
 
   });
+
+
+
+
+
+
+
 
 
 
@@ -172,7 +176,7 @@ $(document).ready(function () {
     $("#modalCRUD").modal("show");
   });
 
-  
+
   $("#btneditarfichaanteproyecto").click(function () {
 
     $(".modal-header").css("background-color", "#0050a0");
@@ -185,7 +189,7 @@ $(document).ready(function () {
 
   // agregar pregunta sistematizadora
   $(document).ready(function () {
-    
+
     var i = 1;
     $('#addspreg').click(function () {
       i++;
@@ -197,13 +201,13 @@ $(document).ready(function () {
       $('#row' + button_id + '').remove();
     });
 
-   
+
 
   });
 
   // agregar objetivos especificos
   $(document).ready(function () {
-    
+
     var i = 100;
     $('#addsobj').click(function () {
       i++;
@@ -215,7 +219,7 @@ $(document).ready(function () {
       $('#row' + button_id + '').remove();
     });
 
-   
+
 
   });
 
@@ -258,10 +262,10 @@ $(document).ready(function () {
 
 
   //Borrar
-  $(document).on("click", ".btnBorrar", function () {
+  $(document).on("click", ".btnBborrar", function () {
     fila = $(this);
     id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
-    opcion = 3; //eliminar
+    opcion = 3; //inhabilitar
 
     Swal.fire({
       title: 'Inhabilitar ficha',
@@ -280,15 +284,17 @@ $(document).ready(function () {
           data: { opcion: opcion, id_ficha: id_ficha },
           success: function () {
             tablaFichas.row(fila.parents("tr")).remove().draw();
-            location.href = "fichas.php";
+            location.href = "inicio_estudiante.php";
           },
         });
-        Swal.fire(
-          'Inabilitada!',
-          'La ficha fue inabilitada.',
-          'success'
-        )
+
       }
+      Swal.fire(
+        'Inabilitada!',
+        'La ficha fue inabilitada.',
+        'success'
+      )
+
     })
 
   });

@@ -24,7 +24,7 @@ $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
 
-$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha WHERE id_lista_usuario =$id_s ");
+$query_ficha = $db->connect()->prepare("SELECT id_lista ,id_lista_usuario ,id_lista_ficha, id_rol_ficha FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");
 $query_ficha->execute();
 $row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
 
@@ -337,7 +337,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
                                 echo ' <button id="btnMostrar_P" type="button" class="btn btn-primary" data-toggle="modal"tooltip-dir="top" title="Mostrar Participantes"><i class="material-icons">groups</i></button>';
                             } else {
-                                echo ' ';
+                                echo ' $id_lis_fi1';
                             }
                             ?>
                         </div>
@@ -346,8 +346,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
                 </div>
             </div> <!-- Content Header (Page header) -->
 
-
-
+     
+ 
             <div class="container caja">
                 <div class="row">
                     <div class="col-lg-12">
@@ -448,7 +448,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
                                                 $programa = $_SESSION['id_programa_usu'];
                                                 $user = $_SESSION['id_usuario'];
-                                                $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =4 AND id_usuario != $user");
+                                                $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =4 AND id_usuario != $user AND usuarios.activo is null");
                                                 echo '	<option disabled selected value="">Seleccione su Compañero</option>';
 
                                                 while ($valores = mysqli_fetch_array($sql)) {
@@ -494,7 +494,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
                                                 <?php
                                                 $programa = $_SESSION['id_programa_usu'];
 
-                                                $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 ");
+                                                $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2  AND usuarios.activo is null");
                                                 echo '	<option disabled selected value="">Seleccione su director</option>';
 
                                                 while ($valores = mysqli_fetch_array($sql)) {
@@ -547,9 +547,9 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
                                             <?php
 
-                                            $id_lis_fi = $_SESSION['id_lista_ficha'];
 
-                                            $sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha AND lista_ficha.id_lista_ficha = $id_lis_fi  ORDER BY id_rol_ficha");
+
+                                            $sql = mysqli_query($con, "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha AND lista_ficha.id_lista_ficha = $id_lis_fi AND lista_ficha.activo is null ORDER BY id_rol_ficha");
                                             if (mysqli_num_rows($sql) == 0) {
                                                 echo 'no hay datos';
                                             } else {
@@ -581,6 +581,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
             </div>
         </div>
     </div>
+    <?php   echo $id_lis_fi ?>
 
 
     <!-- jQuery, Popper.js, Bootstrap JS -->

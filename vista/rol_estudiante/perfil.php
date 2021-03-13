@@ -31,8 +31,7 @@ $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
 
-$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha WHERE id_lista_usuario =$id_s");
-$query_ficha->execute();
+$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");$query_ficha->execute();
 $row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
 
 
@@ -55,6 +54,7 @@ $consultaacamposficha = "SELECT fi.id_ficha
 FROM lista_ficha lista, ficha fi 
 WHERE lista.id_lista_usuario=$id_s
 AND fi.id_estado_ficha=3
+AND fi.activo is null
 ";
 $resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
@@ -71,6 +71,7 @@ $consultaacamposfichageneral = "SELECT fi.id_ficha
 	WHERE fi.id_ficha=lista.id_lista_ficha
 	AND lista.id_lista_usuario=$id_s
 	AND fi.id_estado_ficha in (1,2,4,5,6)	
+	AND fi.activo is null
 ";
 $resultset = mysqli_query($con, $consultaacamposfichageneral) or die("database error:" . mysqli_error($con));
 
@@ -131,155 +132,157 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 		<?php
 
-		if (!isset($id_lis_fi)) {
-			echo " 
-		<!-- Main Sidebar Container -->
-		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
-			<!-- Brand Logo -->
-			<a href='inicio_estudiante.php' class='brand-link'>
-				<img src='../../assets/images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
-				<span class='brand-text font-weight-light'>Inicio</span>
-			</a>
+if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
+	echo " 
+<!-- Main Sidebar Container -->
+<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
+	<!-- Brand Logo -->
+	<a href='inicio_estudiante.php' class='brand-link'>
+		<img src='../../assets/images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
+		<span class='brand-text font-weight-light'>Inicio</span>
+	</a>
 
-			<!-- Sidebar -->
-			<div class='sidebar'>
-				<!-- Sidebar user (optional) -->
-				<div class='user-panel mt-3 pb-3 mb-3 d-flex'>
-					<div class='image'>
-						<img src='../../assets/images/user.jpg' class='img-circle elevation-2' alt='User Image'>
-					</div>
-					<div class='info'>
-						<a href='perfil.php' class='d-block'>  $nombre_usu </a>
-					</div>
-				</div>
-				<!-- Sidebar Menu -->
-				<nav class='mt-2'>
-					<ul class='nav nav-pills nav-sidebar flex-column' data-widget='treeview' role='menu' data-accordion='false'>
-						<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-						<li class='nav-item menu-open'>
+	<!-- Sidebar -->
+	<div class='sidebar'>
+		<!-- Sidebar user (optional) -->
+		<div class='user-panel mt-3 pb-3 mb-3 d-flex'>
+			<div class='image'>
+				<img src='../../assets/images/user.jpg' class='img-circle elevation-2' alt='User Image'>
+			</div>
+			<div class='info'>
+				<a href='perfil.php' class='d-block'>  $nombre_usu </a>
+			</div>
+		</div>
+		<!-- Sidebar Menu -->
+		<nav class='mt-2'>
+			<ul class='nav nav-pills nav-sidebar flex-column' data-widget='treeview' role='menu' data-accordion='false'>
+				<!-- Add icons to the links using the .nav-icon class
+	   with font-awesome or any other icon font library -->
+				<li class='nav-item menu-open'>
 
-							<ul class='nav nav-treeview'>
-								<li class='nav-item'>
-									<a href='primer_ingreso.php' class='nav-link'>
-										<i class='fa fa-plus-square-o nav-icon'></i>
-										<p>Crear Ficha</p>
-									</a>
-								</li>
-
-
-							</ul>
+					<ul class='nav nav-treeview'>
+						<li class='nav-item'>
+							<a href='primer_ingreso.php' class='nav-link'>
+								<i class='fa fa-plus-square-o nav-icon'></i>
+								<p>Crear Ficha</p>
+							</a>
 						</li>
 
+
 					</ul>
-				</nav>
-				<!-- /.sidebar-menu -->
+				</li>
+
+			</ul>
+		</nav>
+		<!-- /.sidebar-menu -->
+	</div>
+	<!-- /.sidebar -->
+</aside>
+";
+} else if (isset($fichaenanteproyecto)) {
+	echo  " 
+<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
+	<!-- Brand Logo -->
+	<a href='inicio_estudiante.php' class='brand-link'>
+		<img src='../../assets/images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
+		<span class='brand-text font-weight-light'>Inicio</span>
+	</a>
+
+	<!-- Sidebar -->
+	<div class='sidebar'>
+		<!-- Sidebar user (optional) -->
+		<div class='user-panel mt-3 pb-3 mb-3 d-flex'>
+			<div class='image'>
+				<img src='../../assets/images/user.jpg' class='img-circle elevation-2' alt='User Image'>
 			</div>
-			<!-- /.sidebar -->
-		</aside>
-		";
-		} else if (isset($id_lis_fi) && isset($fichaenanteproyecto)) {
-			echo  " 
-		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
-			<!-- Brand Logo -->
-			<a href='inicio_estudiante.php' class='brand-link'>
-				<img src='../../assets/images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
-				<span class='brand-text font-weight-light'>Inicio</span>
-			</a>
+			<div class='info'>
+				<a href='perfil.php' class='d-block'>  $nombre_usu </a>
+			</div>
+		</div>
+		<!-- Sidebar Menu -->
+		<nav class='mt-2'>
+			<ul class='nav nav-pills nav-sidebar flex-column' data-widget='treeview' role='menu' data-accordion='false'>
+				<!-- Add icons to the links using the .nav-icon class
+	   with font-awesome or any other icon font library -->
+				<li class='nav-item menu-open'>
 
-			<!-- Sidebar -->
-			<div class='sidebar'>
-				<!-- Sidebar user (optional) -->
-				<div class='user-panel mt-3 pb-3 mb-3 d-flex'>
-					<div class='image'>
-						<img src='../../assets/images/user.jpg' class='img-circle elevation-2' alt='User Image'>
-					</div>
-					<div class='info'>
-						<a href='perfil.php' class='d-block'>  $nombre_usu </a>
-					</div>
-				</div>
-				<!-- Sidebar Menu -->
-				<nav class='mt-2'>
-					<ul class='nav nav-pills nav-sidebar flex-column' data-widget='treeview' role='menu' data-accordion='false'>
-						<!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-						<li class='nav-item menu-open'>
-
-							<ul class='nav nav-treeview'>
-								<li class='nav-item'>
-									<a href='fichas.php' class='nav-link'>
-										<i class='fa fa-book nav-icon'></i>
-										<p>Gestion Ficha</p>
-									</a>
-								</li>
-
-
-
-							</ul>
+					<ul class='nav nav-treeview'>
+						<li class='nav-item'>
+							<a href='fichas.php' class='nav-link'>
+								<i class='fa fa-book nav-icon'></i>
+								<p>Gestion Ficha</p>
+							</a>
 						</li>
 
-					</ul>
-				</nav>
-				<!-- /.sidebar-menu -->
-			</div>
-			<!-- /.sidebar -->
-		</aside>
 
-		";
-		} else if (isset($id_lis_fi) && isset($fichaaprobada)) {
-			echo  " 
-			<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
-				<!-- Brand Logo -->
-				<a href='inicio_estudiante.php' class='brand-link'>
-					<img src='../../assets/images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
-					<span class='brand-text font-weight-light'>Inicio</span>
-				</a>
-	
-				<!-- Sidebar -->
-				<div class='sidebar'>
-					<!-- Sidebar user (optional) -->
-					<div class='user-panel mt-3 pb-3 mb-3 d-flex'>
-						<div class='image'>
-							<img src='../../assets/images/user.jpg' class='img-circle elevation-2' alt='User Image'>
-						</div>
-						<div class='info'>
-							<a href='perfil.php' class='d-block'>  $nombre_usu </a>
-						</div>
-					</div>
-					<!-- Sidebar Menu -->
-					<nav class='mt-2'>
-						<ul class='nav nav-pills nav-sidebar flex-column' data-widget='treeview' role='menu' data-accordion='false'>
-							<!-- Add icons to the links using the .nav-icon class
-				   with font-awesome or any other icon font library -->
-							<li class='nav-item menu-open'>
-	
-								<ul class='nav nav-treeview'>
-									<li class='nav-item'>
-										<a href='fichas.php' class='nav-link'>
-											<i class='fa fa-book nav-icon'></i>
-											<p>Gestion Ficha</p>
-										</a>
-									</li>
-									<li class='nav-item'>
-									<a href='proyectofinal.php' class='nav-link'>
-										<i class='fa fa-plus-square-o nav-icon'></i>
-										<p>Agregar Proyecto</p>
-									</a>
-								   </li>
-	
-	
-								</ul>
+
+					</ul>
+				</li>
+
+			</ul>
+		</nav>
+		<!-- /.sidebar-menu -->
+	</div>
+	<!-- /.sidebar -->
+</aside>
+
+";
+} else if (isset($fichaaprobada)) {
+	echo  " 
+	<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
+		<!-- Brand Logo -->
+		<a href='inicio_estudiante.php' class='brand-link'>
+			<img src='../../assets/images/admin.png' alt='AdminLTE Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
+			<span class='brand-text font-weight-light'>Inicio</span>
+		</a>
+
+		<!-- Sidebar -->
+		<div class='sidebar'>
+			<!-- Sidebar user (optional) -->
+			<div class='user-panel mt-3 pb-3 mb-3 d-flex'>
+				<div class='image'>
+					<img src='../../assets/images/user.jpg' class='img-circle elevation-2' alt='User Image'>
+				</div>
+				<div class='info'>
+					<a href='perfil.php' class='d-block'>  $nombre_usu </a>
+				</div>
+			</div>
+			<!-- Sidebar Menu -->
+			<nav class='mt-2'>
+				<ul class='nav nav-pills nav-sidebar flex-column' data-widget='treeview' role='menu' data-accordion='false'>
+					<!-- Add icons to the links using the .nav-icon class
+		   with font-awesome or any other icon font library -->
+					<li class='nav-item menu-open'>
+
+						<ul class='nav nav-treeview'>
+							<li class='nav-item'>
+								<a href='fichas.php' class='nav-link'>
+									<i class='fa fa-book nav-icon'></i>
+									<p>Gestion Ficha</p>
+								</a>
 							</li>
-	
+							<li class='nav-item'>
+							<a href='proyectofinal.php' class='nav-link'>
+								<i class='fa fa-plus-square-o nav-icon'></i>
+								<p>Agregar Proyecto</p>
+							</a>
+						   </li>
+
+
 						</ul>
-					</nav>
-					<!-- /.sidebar-menu -->
-				</div>
-				<!-- /.sidebar -->
-			</aside>
-	
-			";
-		}
+					</li>
+
+				</ul>
+			</nav>
+			<!-- /.sidebar-menu -->
+		</div>
+		<!-- /.sidebar -->
+	</aside>
+
+	";
+}
+?>
+
 		?>
 
 		<!-- Content Wrapper. Contains page content -->

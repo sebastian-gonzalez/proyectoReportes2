@@ -4,7 +4,8 @@ $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
 
-$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha WHERE id_lista_usuario =$id_s");
+
+$query_ficha = $db->connect()->prepare("SELECT id_lista ,id_lista_usuario ,id_lista_ficha, id_rol_ficha FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");
 $query_ficha->execute();
 $row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
 
@@ -32,7 +33,8 @@ if (isset($_POST['add_participante'])) {
 
      $id_lista_usuario = (isset($_POST['id_lista_usuario'])) ? $_POST['id_lista_usuario'] : '';
 
-     $consulta_validacion = "SELECT COUNT(*) FROM lista_ficha WHERE id_lista_usuario=$id_lista_usuario";
+
+     $consulta_validacion = "SELECT COUNT(*) FROM lista_ficha lista,ficha fi WHERE id_lista_usuario=$id_lista_usuario AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null" ;
      $resultado_vali = $conexion->prepare($consulta_validacion);
      $data_vali = $resultado_vali->execute();
 

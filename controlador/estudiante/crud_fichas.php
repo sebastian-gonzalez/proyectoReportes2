@@ -67,23 +67,23 @@ switch ($opcion) {
 
     case 3:
 
-        eliminarAR("pdf/$id_ficha");
+     //   eliminarAR("pdf/$id_ficha");
 
-        function eliminarAR($carpeta)
-        {
-            foreach (glob($carpeta . "/*") as $archivo_carpeta) {
-                if (is_dir($archivo_carpeta)) {
-                    eliminarAR($archivo_carpeta);
-                } else {
-                    unlink($archivo_carpeta);
-                }
-            }
-            rmdir($carpeta);
-        }
+     //   function eliminarAR($carpeta)
+     //   {
+     //       foreach (glob($carpeta . "/*") as $archivo_carpeta) {
+     //           if (is_dir($archivo_carpeta)) {
+     //               eliminarAR($archivo_carpeta);
+     //           } else {
+     //               unlink($archivo_carpeta);
+     //           }
+     //       }
+     //       rmdir($carpeta);
+     //   }
 
 
 
-        $consulta1 = "UPDATE ficha  SET activo='n' WHERE id_ficha='$id_ficha' ";
+        $consulta1 = "UPDATE ficha  SET ficha.activo='n' WHERE id_ficha='$id_ficha' ";
         $resultado1 = $conexion->prepare($consulta1);
         $resultado1->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
