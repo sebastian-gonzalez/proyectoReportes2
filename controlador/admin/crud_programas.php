@@ -35,7 +35,7 @@ switch ($opcion) {
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 3:
-        $consulta = "UPDATE programa SET activo='n' WHERE id_programa='$id_programa' ";
+        $consulta = "UPDATE programa SET activo='N' WHERE id_programa='$id_programa' ";
 
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();

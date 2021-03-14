@@ -236,7 +236,7 @@ if (isset($_GET['aksi']) == 'delete') {
 
     $nik = mysqli_real_escape_string($con, (strip_tags($_GET["nik"], ENT_QUOTES)));
 
-    $consulta = "UPDATE campos_fichas SET activo='n' WHERE id_campo='$nik'";
+    $consulta = "UPDATE campos_fichas SET activo='N' WHERE id_campo='$nik'";
 
     $resultado = $conexion->prepare($consulta);
     $resultado->execute();

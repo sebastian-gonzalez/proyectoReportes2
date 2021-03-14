@@ -24,7 +24,7 @@ switch ($opcion) {
     case 2:
      //editar
     case 3:
-        $consulta = "UPDATE usuarios  SET activo='n' WHERE id_usuario='$id_usuario'";
+        $consulta = "UPDATE usuarios  SET activo='N' WHERE id_usuario='$id_usuario'";
 
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();

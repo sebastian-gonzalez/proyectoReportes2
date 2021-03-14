@@ -66,7 +66,7 @@ $id_rol_ficha = 1;
 //}
 
 
-$consulta1 = "UPDATE ficha  SET activo='n' WHERE id_ficha='$id_ficha'  ";
+$consulta1 = "UPDATE ficha  SET activo='N' WHERE id_ficha='$id_ficha'  ";
 $resultado1 = $conexion->prepare($consulta1);
 $resultado1->execute();
 

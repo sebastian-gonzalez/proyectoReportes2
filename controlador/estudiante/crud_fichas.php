@@ -83,7 +83,7 @@ switch ($opcion) {
 
 
 
-        $consulta1 = "UPDATE ficha  SET ficha.activo='n' WHERE id_ficha='$id_ficha' ";
+        $consulta1 = "UPDATE ficha  SET ficha.activo='N' WHERE id_ficha='$id_ficha' ";
         $resultado1 = $conexion->prepare($consulta1);
         $resultado1->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
