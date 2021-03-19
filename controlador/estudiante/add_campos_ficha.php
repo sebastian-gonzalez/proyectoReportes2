@@ -101,7 +101,7 @@ if (isset($_POST['add'])) {
     echo
     "<script> swal({
         title: '¡Exito!',
-        text: 'Campos agregados',
+        text: 'Ficha agregada correctamente',
         type: 'success',
       }).then(function(){ 
         location.href='../../vista/rol_estudiante/fichas.php';

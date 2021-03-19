@@ -43,10 +43,16 @@ include("../../controlador/coordinador/add_evaluador.php");
     <!--datables estilo bootstrap 4 CSS-->
     <link rel="stylesheet" type="text/css" href="../../assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
-    <link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
+	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
+
+
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -224,7 +230,7 @@ include("../../controlador/coordinador/add_evaluador.php");
 
                                                 $programa = $_SESSION['id_programa_usu'];
                                                 $user = $_SESSION['id_usuario'];
-                                                $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 AND id_usuario != $user");
+                                                $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 AND id_usuario != $user AND usuarios.activo is null" );
 
                                                 while ($valores = mysqli_fetch_array($sql)) {
 

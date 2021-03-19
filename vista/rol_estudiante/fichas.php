@@ -581,7 +581,6 @@ while ($record = mysqli_fetch_assoc($resultset)) {
             </div>
         </div>
     </div>
-    <?php   echo $id_lis_fi ?>
 
 
     <!-- jQuery, Popper.js, Bootstrap JS -->

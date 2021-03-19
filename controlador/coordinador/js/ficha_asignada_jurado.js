@@ -145,6 +145,34 @@ document.addEventListener('DOMContentLoaded', function() {
     location.href = "info_ficha.php?ficha=" + id_ficha + " ";
   });
 
+  $(document).on("click", ".btninhabilitar", function() {
+
+
+		Swal.fire({
+			title: 'Inhabilitar ficha',
+			text: "deseas inabilitar esta ficha?!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'si , inhabilitar'
+		}).then((result) => {
+			if (result.isConfirmed) {
+
+				location.href = "inicio_estudiante.php";
+
+
+			}
+			Swal.fire(
+				'Inabilitada!',
+				'La ficha fue inabilitada.',
+				'success'
+			)
+
+		})
+
+	});
+
 });
   
 

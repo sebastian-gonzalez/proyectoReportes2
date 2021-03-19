@@ -21,7 +21,7 @@ include ("../conexion.php");
                                 <br></br>
                                 <?php
                                 $id_ficha_compa = (isset($_POST['id_fichas'])) ? $_POST['id_fichas'] : '';
-                                $query= "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha AND lista_ficha.id_lista_ficha = '".$id_ficha_compa."' ORDER BY id_rol_ficha";
+                                $query= "SELECT * FROM usuarios INNER JOIN lista_ficha INNER JOIN rol_lista ON usuarios.id_usuario = lista_ficha.id_lista_usuario AND rol_lista.id_rol_lista = lista_ficha.id_rol_ficha  AND usuarios.activo is null  AND lista_ficha.activo is null  AND lista_ficha.id_lista_ficha = '".$id_ficha_compa."' ORDER BY id_rol_ficha";
                                 $sql = mysqli_query($con,$query);
                                 if (mysqli_num_rows($sql) == 0) {
                                     echo 'no hay datos';
@@ -34,7 +34,7 @@ include ("../conexion.php");
                                     <td>' . $valores['nombre_usu'] . '</td>
                                     <td>' . $valores['apellido_usu'] . '</td>
                                     <td>' . $valores['nombre_rol_ficha'] . '</td>
-                                    <td><a href="Eliminar_Participante.php?aksi=delete&nik=' . $valores['id_lista'] . '" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos ' . $valores['nombre_usu'] . '?\')" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>    </td>
+                                    <td><a href="Eliminar_Participante.php?aksi=delete&nik=' . $valores['id_lista'] . '" title="Eliminar"  class="btn btn-danger btn-sm fa fa-trash-o"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>    </td>
 
                                     </tr>';
                                     }

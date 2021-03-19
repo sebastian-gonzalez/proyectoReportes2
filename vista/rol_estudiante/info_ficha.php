@@ -137,8 +137,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 		<?php
 
-if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
-	echo " 
+		if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
+			echo " 
 <!-- Main Sidebar Container -->
 <aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 	<!-- Brand Logo -->
@@ -184,8 +184,8 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 	<!-- /.sidebar -->
 </aside>
 ";
-} else if (isset($fichaenanteproyecto)) {
-	echo  " 
+		} else if (isset($fichaenanteproyecto)) {
+			echo  " 
 <aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 	<!-- Brand Logo -->
 	<a href='inicio_estudiante.php' class='brand-link'>
@@ -232,8 +232,8 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 </aside>
 
 ";
-} else if (isset($fichaaprobada)) {
-	echo  " 
+		} else if (isset($fichaaprobada)) {
+			echo  " 
 	<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 		<!-- Brand Logo -->
 		<a href='inicio_estudiante.php' class='brand-link'>
@@ -285,8 +285,8 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 	</aside>
 
 	";
-}
-?>
+		}
+		?>
 
 
 
@@ -298,9 +298,56 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 			<div class="container">
 
 				<section>
-					<h1>Ficha de anteproyecto de grado</h1>
+					<h1>Ficha</h1>
 				</section>
 				<hr />
+				<?php
+
+				$consulta_validacion_esta = "SELECT fi.id_ficha,fi.id_estado_ficha
+				FROM lista_ficha lista, ficha fi 
+				WHERE lista.id_lista_usuario=$id_s
+				AND fi.id_ficha = lista.id_lista_ficha
+				AND fi.activo is null";
+				$resultset = mysqli_query($con, $consulta_validacion_esta) or die("database error:" . mysqli_error($con));
+
+				while ($record = mysqli_fetch_assoc($resultset)) {
+					$id_estado_ficha_barra = $record['id_estado_ficha'];
+				}
+				if ($id_estado_ficha_barra == 1) {
+					echo '	<div class="progress">
+					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 20%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">20%</div>
+				  </div>	
+				  <h6>ESTADO: La ficha de anteproyecto se encuentra a la espera de su respectiva evaluacion</h6>
+				 ';
+				} else if ($id_estado_ficha_barra == 2) {
+					echo '	<div class="progress">
+					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 40%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">40%</div>
+				  </div>	
+				  <h6>ESTADO: La ficha de anteproyecto se encuentra a la espera de la correccion por parte del estudiante</h6>
+				  <button type="button" class="btn btn btn-info  .validacion" id="validacion" >Validar ficha de anteproyecto</button>
+
+				 ';
+				} else if ($id_estado_ficha_barra == 3) {
+					echo '	<div class="progress">
+						<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 60%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">60%</div>
+					  </div>	
+					  <h6>ESTADO: ficha de anteproyecto aprobado el proceso se encuentra a la espera de subir el proyecto de grado</h6>
+					 ';
+				} else if ($id_estado_ficha_barra == 6) {
+					echo '	<div class="progress">
+					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">20%</div>
+				  </div>	
+				  <h6>ESTADO: El proyecto de grado se encuentra a al espera de su respectiva evaluacion</h6>
+				 ';
+				} else if ($id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
+					echo '	<div class="progress">
+					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">20%</div>
+				  </div>	
+				  <h6>ESTADO: El proyecto de grado ya fue finalizado</h6>
+				 ';
+				}
+
+				?>
 
 				<section>
 					<h2>Titulo</h2>
@@ -319,21 +366,38 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
-					$titu_ficha = $record['titulo_ficha']
+					$titu_ficha = $record['titulo_ficha'];
 
 
+
+
+					if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
+
+						echo "				
+						<button href='#edit_titu' class='btn btn-primary derechaubicacion' data-toggle='modal'> <i class='fa fa-pencil'></i></button>
+	
+						<div class='row'>
+							<div class='col-lg-12'>
+								<div class='form-group'>
+									<p>$titu_ficha</p>
+								</div>
+							</div>
+						</div>";
+					} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
+
+						echo "				
+
+	
+						<div class='row'>
+							<div class='col-lg-12'>
+								<div class='form-group'>
+									<p>$titu_ficha</p>
+								</div>
+							</div>
+						</div>";
+					}
 
 				?>
-					<button href='#edit_titu' class='btn btn-primary derechaubicacion' data-toggle='modal'> <i class='fa fa-pencil'></i></button>
-
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="form-group">
-								<p><?php echo $titu_ficha; ?></p>
-							</div>
-						</div>
-					</div>
-
 
 					<div class="modal fade" id="edit_titu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hnameden="true">
 						<div class="modal-dialog">
@@ -417,9 +481,11 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 						$idcampo1 = $record['id_campo'];
 						include("modal_campo_ficha.php");
 					}
-					echo "
 
-					<div class='row'>
+
+					if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
+
+						echo "						<div class='row'>
 						<div class='col-lg-12'>
 							<div class='form-group'>
 							<label class='col-form-label'>Pregunta Problematizadora </label>
@@ -429,24 +495,55 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 								<p> $valor_mostrar </p>
 							</div>
 						</div>
-					</div>
+					</div>			";
+					} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
 
-				";
-				} else {
-					echo "
-
-					<div class='row'>
+						echo "							<div class='row'>
 						<div class='col-lg-12'>
 							<div class='form-group'>
 							<label class='col-form-label'>Pregunta Problematizadora </label>
-							<button href='#create_pregugen' class='btn btn-info derechaubicacion' data-toggle='modal'> <i class='fa fa-plus'></i></button>
-		
-						
+
+								<hr />
+							
+								<p> $valor_mostrar </p>
 							</div>
 						</div>
-					</div>
+					</div>		";
+					}
+				} else {
 
-				";
+					if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
+
+						echo "
+
+						<div class='row'>
+							<div class='col-lg-12'>
+								<div class='form-group'>
+								<label class='col-form-label'>Pregunta Problematizadora </label>
+								<button href='#create_pregugen' class='btn btn-info derechaubicacion' data-toggle='modal'> <i class='fa fa-plus'></i></button>
+			
+							
+								</div>
+							</div>
+						</div>
+	
+					";
+					} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
+						echo "
+
+						<div class='row'>
+							<div class='col-lg-12'>
+								<div class='form-group'>
+								<label class='col-form-label'>Pregunta Problematizadora </label>
+
+			
+							
+								</div>
+							</div>
+						</div>
+	
+					";
+					}
 				}
 
 				?>
@@ -496,9 +593,19 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 						</div>
 					</div>
 				</div>
+				<?php
 
-				<label class="col-form-label">Pregunta sistematizadoras </label>
-				<button href="#create_pregu" class="btn btn-info derechaubicacion" data-toggle="modal"> <i class='fa fa-plus'></i></button>
+
+				if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
+
+					echo "	<label class='col-form-label'>Preguntas de sistematizacion </label>
+				<button href='#create_pregu' class='btn btn-info derechaubicacion' data-toggle='modal'> <i class='fa fa-plus'></i></button> ";
+				} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
+
+					echo "<label class='col-form-label'>Preguntas de sistematizacion </label> ";
+				}
+				?>
+
 
 				<div class="modal fade" id="create_pregu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hnameden="true">
 					<div class="modal-dialog">
@@ -506,7 +613,7 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 							<div class="modal-header">
 
 
-								<h4 class="modal-title" id="myModalLabel"> Crear Pregunta sistematizadora </h4>
+								<h4 class="modal-title" id="myModalLabel"> Crear Pregunta de sistematizacion </h4>
 								<button type="button" class="close" data-dismiss="modal" aria-hnameden="true">&times;</button>
 							</div>
 							<div class="modal-body">
@@ -518,7 +625,7 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 											<div class="row">
 												<div class="col-lg-12">
 													<div class="form-group">
-														<label for="" class="col-form-label">Pregunta sistematizadora </label>
+														<label for="" class="col-form-label">Pregunta de sistematizacion </label>
 
 														<input type="text" class="form-control largocampo" name="valor_campo" required>
 
@@ -571,14 +678,27 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 						<div class="col-lg-12">
 							<div class="form-group">
 								<hr />
+
 								<?php
-								echo '
-								<a href="../../controlador/estudiante/editar_campos_ficha.php?aksi=delete&nik=' . $record['id_campo'] . '" class="btn btn-danger derechaubicacion" data-toggle="modal"> <i class="fa fa-trash-o"></i></a>'
+
+								if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
+
+									echo "
+									<a href='../../controlador/estudiante/editar_campos_ficha.php?aksi=delete&nik=" . $record["id_campo"] . "' class='btn btn-danger derechaubicacion' data-toggle='modal'> <i class='fa fa-trash-o'></i></a>
+								
+	
+									<button href='#edit_" . $record["id_campo"] . "' class='btn btn-primary derechaubicacion' data-toggle='modal'> <i class='fa fa-pencil'></i></button>
+	
+									<p> " . $record["valor_campo"] . " </p>
+									";
+								} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
+									echo "
+	
+									<p> " . $record["valor_campo"] . " </p>
+									";
+								}
 								?>
 
-								<button href="#edit_<?php echo $record['id_campo']; ?>" class="btn btn-primary derechaubicacion" data-toggle="modal"> <i class='fa fa-pencil'></i></button>
-
-								<p><?php echo $record['valor_campo']; ?></p>
 							</div>
 						</div>
 					</div>
@@ -626,36 +746,77 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 						$idcampo1 = $record['id_campo'];
 						include("modal_campo_ficha.php");
 					}
-					echo "
 
-					<div class='row'>
-						<div class='col-lg-12'>
-							<div class='form-group'>
-							<label class='col-form-label'>Objetivo General </label>
-							<button href='#edit_$idcampo1' class='btn btn-primary derechaubicacion' data-toggle='modal'> <i class='fa fa-pencil'></i></button>
-								<hr />
-							
-								<p> $valor_mostrar </p>
+					if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
+
+						echo "
+
+						<div class='row'>
+							<div class='col-lg-12'>
+								<div class='form-group'>
+								<label class='col-form-label'>Objetivo General </label>
+								<button href='#edit_$idcampo1' class='btn btn-primary derechaubicacion' data-toggle='modal'> <i class='fa fa-pencil'></i></button>
+									<hr />
+								
+									<p> $valor_mostrar </p>
+								</div>
 							</div>
 						</div>
-					</div>
+	
+					";
+					} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
 
-				";
+						echo "
+
+						<div class='row'>
+							<div class='col-lg-12'>
+								<div class='form-group'>
+								<label class='col-form-label'>Objetivo General </label>
+
+									<hr />
+								
+									<p> $valor_mostrar </p>
+								</div>
+							</div>
+						</div>
+	
+					";
+					}
 				} else {
-					echo "
 
-					<div class='row'>
-						<div class='col-lg-12'>
-							<div class='form-group'>
-							<label class='col-form-label'>Objetivo General </label>
-							<button href='#create_objetivogen' class='btn btn-info derechaubicacion' data-toggle='modal'> <i class='fa fa-plus'></i></button>
-		
-						
+					if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
+
+						echo "
+
+						<div class='row'>
+							<div class='col-lg-12'>
+								<div class='form-group'>
+								<label class='col-form-label'>Objetivo General </label>
+								<button href='#create_objetivogen' class='btn btn-info derechaubicacion' data-toggle='modal'> <i class='fa fa-plus'></i></button>
+			
+							
+								</div>
 							</div>
 						</div>
-					</div>
+	
+					";
+					} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
 
-				";
+						echo "
+
+						<div class='row'>
+							<div class='col-lg-12'>
+								<div class='form-group'>
+								<label class='col-form-label'>Objetivo General </label>
+
+			
+							
+								</div>
+							</div>
+						</div>
+	
+					";
+					}
 				}
 
 				?>
@@ -705,8 +866,23 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 				</div>
 
 				<hr />
-				<label for="" class="col-form-label">Objetivos especificos </label>
-				<button href="#create_obj" class="btn btn-info derechaubicacion" data-toggle="modal"> <i class='fa fa-plus'></i></button>
+
+				<?php
+				if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
+
+					echo "
+					<label for='' class='col-form-label'>Objetivos especificos </label>
+					<button href='#create_obj' class='btn btn-info derechaubicacion' data-toggle='modal'> <i class='fa fa-plus'></i></button>
+					
+					";
+				} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
+
+					echo "	<label for='' class='col-form-label'>Objetivos especificos </label>		";
+				}
+
+
+				?>
+
 
 				<div class="modal fade" id="create_obj" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hnameden="true">
 					<div class="modal-dialog">
@@ -777,13 +953,24 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 							<div class="form-group">
 								<hr />
 								<?php
-								echo '
-								<a href="../../controlador/estudiante/editar_campos_ficha.php?aksi=delete&nik=' . $record['id_campo'] . '" class="btn btn-danger derechaubicacion" data-toggle="modal"> <i class="fa fa-trash-o"></i></a>'
+
+								if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
+
+									echo "
+									<a href='../../controlador/estudiante/editar_campos_ficha.php?aksi=delete&nik=" . $record["id_campo"] . "' class='btn btn-danger derechaubicacion' data-toggle='modal'> <i class='fa fa-trash-o'></i></a>
+								
+	
+									<button href='#edit_" . $record["id_campo"] . "' class='btn btn-primary derechaubicacion' data-toggle='modal'> <i class='fa fa-pencil'></i></button>
+	
+									<p> " . $record["valor_campo"] . " </p>
+									";
+								} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
+									echo "
+	
+									<p> " . $record["valor_campo"] . " </p>
+									";
+								}
 								?>
-
-								<button href="#edit_<?php echo $record['id_campo']; ?>" class="btn btn-primary derechaubicacion" data-toggle="modal"> <i class='fa fa-pencil'></i></button>
-
-								<p><?php echo $record['valor_campo']; ?></p>
 							</div>
 						</div>
 					</div>
@@ -802,22 +989,58 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label for="" class="col-form-label">Ficha de anteproyecto:</label>
-							<br />
-							<a class="btn btn-info" <?php echo 'href="documento.php?tipo=pdf& ficha=' . $ficha_id_final . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
+							<?php
+							if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
+
+								echo "		
+								<label for='' class='col-form-label'>Ficha de anteproyecto:</label>
+								<br />
+								<a class='btn btn-info' href='documento.php?tipo=pdf& ficha=" . $ficha_id_final . " '; > <i class='fa fa-file-pdf-o'></i></a>
+	
+							
+	
+								<button id='btneditarficha' type='button' class='btn btn-primary editarficha' data-toggle='modal' tooltip-dir='top'><i class='fa fa-pencil'> </i></button>				";
+							} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
+								echo "		
+								<label for='' class='col-form-label'>Ficha de anteproyecto:</label>
+								<br />
+								<a class='btn btn-info' href='documento.php?tipo=pdf& ficha=" . $ficha_id_final . " '; > <i class='fa fa-file-pdf-o'></i></a>
+				                ";
+							}
 
 
 
-							<button id="btneditarficha" type="button" class="btn btn-primary editarficha" data-toggle="modal" tooltip-dir="top"><i class='fa fa-pencil'> </i></button>
+
+							?>
+
 						</div>
 					</div>
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label for="" class="col-form-label">Anteproyecto completo:</label>
-							<br />
-							<a class="btn btn-info" <?php echo 'href="documento.php?tipo=anteproyecto& ficha=' . $ficha_id_final . '  "'; ?>> <i class='fa fa-file-pdf-o'></i></a>
+							<?php
+							if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
 
-							<button id="btneditarfichaanteproyecto" type="button" class="btn btn-primary editarficha" data-toggle="modal" tooltip-dir="top"><i class='fa fa-pencil'> </i></button>
+								echo "		
+								<label for='' class='col-form-label'>Anteproyecto completo:</label>
+								<br />
+								<a class='btn btn-info' href='documento.php?tipo=anteproyecto& ficha=" . $ficha_id_final . " '; > <i class='fa fa-file-pdf-o'></i></a>
+	
+							
+	
+								<button id='btneditarfichaanteproyecto' type='button' class='btn btn-primary editarficha' data-toggle='modal' tooltip-dir='top'><i class='fa fa-pencil'> </i></button>				";
+							} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
+								echo "		
+								<label for='' class='col-form-label'>Ficha de anteproyecto:</label>
+								<br />
+								<a class='btn btn-info' href='documento.php?tipo=anteproyecto& ficha=" . $ficha_id_final . " '; > <i class='fa fa-file-pdf-o'></i></a>
+				                ";
+							}
+
+
+
+
+							?>
+
 						</div>
 					</div>
 
@@ -829,48 +1052,674 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 
 				<?php
 
-				$path = "../../controlador/estudiante/evaluacion/" . $ficha_id_final;
-				if (file_exists($path)) {
+				$consultaacamposficha = "SELECT  *
+                FROM evaluacion_anteproyecto
+                WHERE id_lista_ficha_ante=$id_lis_fi
+                AND evaluacion_anteproyecto.activo is null
+                ";
+				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
-					echo '	<section>
-				<h1>Evaluacion</h1>
-			    </section>
-			    <hr />';
+				while ($record = mysqli_fetch_assoc($resultset)) {
+					$eva_valid = $record['id_lista_ficha_ante'];
+					$estadofin_camino = $record['estado'];
 
-					$consultaacamposficha = "SELECT distinct fi.id_ficha,fi.evaluacion_ficha
-				FROM lista_ficha lista, ficha fi , campos_fichas campos
-				WHERE lista.id_lista_usuario=$id_s
-				AND fi.id_ficha = lista.id_lista_ficha 
-				AND fi.activo is null
-				AND fi.id_ficha = campos.fk_id_ficha ";
-					$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
-					while ($record = mysqli_fetch_assoc($resultset)) {
-						$evaluacion = $record['evaluacion_ficha'];
-					}
-					echo '
-				
-				<div class="row">
-				<div class="col-lg-12">
-					<div class="form-group">
-						<label for="" class="col-form-label">Evaluacion:</label>
-						<p> ' . $evaluacion . ' </p>
+
+					if (isset($eva_valid)) {
+
+						if($estadofin_camino == 2)
+						{
+							$validacion_Esta_eva='En correccion';
+						}else if($estadofin_camino == 3)
+						{
+							$validacion_Esta_eva='Aprobado';
+						}
+
+
+						echo "
+		
+
+						
+
+				<h2>Evaluacion de anteproyecto</h2>
+				<button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo'>visualizar evaluacion</button>
+				<div id='demo' class='collapse'>
+				<br/>
+					<div class='card'>
+						<div class='card-header'>
+							<h3 class='card-title'>Evaluacion de ficha de anteproyecto</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class='card-body p-0'>
+							<table class='table table-sm'>
+								<thead>
+									<tr>
+										<th style='width: 10px'>#</th>
+										<th>Parametro</th>
+										<th style='width: 40px'>Valor</th>
+									</tr>
+								</thead>
+	
+								<tbody>
+
+
+								<tr>
+								<td class='bg-info'><h6></h6></td>
+								<td class='bg-info'><h6>El problema de investigacion</h6></td>
+								<td class='bg-info'></td>
+
+
+							</tr>
+									<tr>
+										<td>1.</td>
+										<td>PLANTEAMIENTO: Se describe claramente la situación actual (análisis causa-efecto) y la situación deseada</td>
+
+										<td><span class='badge '>" . $record["planteamiento"] . "</span></td>
+									</tr>
+									<tr>
+										<td>2.</td>
+										<td>FORMULACIÓN: Se formula claramente una macropregunta que sintetice el planteamiento realizado</td>
+
+										<td><span class='badge '>" . $record["formulacion"] . "</span></td>
+									</tr>
+									<tr>
+										<td>3.</td>
+										<td>SISTEMATIZACIÓN: Se formulan claramente algunas micropreguntas que jerarquizan la formulación previa</td>
+
+										<td><span class='badge '>" . $record["sistematizacion"] . "</span></td>
+									</tr>
+
+
+									<tr>
+									<td>4.</td>
+									<td>" . $record["comentario_problema_investigacion"] . "</td>
+
+									<td><span class='badge  bg-warning '>Comentario</span></td>
+								    </tr>
+
+
+
+								
+								    <tr>
+								    <td class='bg-info'><h6></h6></td>
+							     	<td class='bg-info'><h6>OBJETIVOS</h6></td>
+							     	<td class='bg-info'></td>
+						     	    </tr>
+									 								
+								    <tr>
+								    <td class='bg-warning'><h6></h6></td>
+							     	<td class='bg-warning'><h6>General</h6></td>
+							     	<td class='bg-warning'></td>
+						     	    </tr>
+							
+							
+									<tr>
+										<td>1.</td>
+										<td>Es claro, preciso y está bien planteado (redactado)</td>
+
+										<td><span class='badge '>" . $record["objetivo_general_a"] . "</span></td>
+									</tr>
+									<tr>
+										<td>2.</td>
+										<td>Guarda relación con el título</td>
+
+										<td><span class='badge '>" . $record["objetivo_general_b"] . "</span></td>
+									</tr>
+									<tr>
+										<td>3.</td>
+										<td>Es coherente con la formulación del problema</td>
+
+										<td><span class='badge '>" . $record["objetivo_general_c"] . "</span></td>
+									</tr>
+
+								    <tr>
+								    <td class='bg-warning'><h6></h6></td>
+							     	<td class='bg-warning'><h6>Especificos</h6></td>
+							     	<td class='bg-warning'></td>
+						     	    </tr>
+
+									<tr>
+										<td>1.</td>
+										<td>Son claros, precisos y están bien planteados (redactados)</td>
+
+										<td><span class='badge '>" . $record["objetivo_especifico_a"] . "</span></td>
+									</tr>
+									<tr>
+										<td>2.</td>
+										<td>Son coherentes con la sistematización del problema</td>
+
+										<td><span class='badge '>" . $record["objetivo_especifico_b"] . "</span></td>
+									</tr>
+									<tr>
+										<td>3.</td>
+										<td>Son coherentes con el Objetivo General</td>
+
+										<td><span class='badge '>" . $record["objetivo_especifico_c"] . "</span></td>
+									</tr>
+							
+									
+									<tr>
+									<td>4.</td>
+									<td>" . $record["comentario_objetivo"] . "</td>
+
+									<td><span class='badge  bg-warning '>Comentario</span></td>
+								    </tr>
+
+
+
+									  <tr>
+									  <td class='bg-info'><h6></h6></td>
+									   <td class='bg-info'><h6>RESULTADOS E IMPACTO ESPERADO</h6></td>
+									   <td class='bg-info'></td>
+									   </tr>
+
+									   
+									   <tr>
+									   <td class='bg-warning'><h6></h6></td>
+										<td class='bg-warning'><h6>RESULTADOS</h6></td>
+										<td class='bg-warning'></td>
+										</tr>
+
+										<tr>
+										<td>1.</td>
+										<td>Especifica claramente resultados tangibles al finalizar el proyecto (prototipo, documento monográfico y articulo científico)</td>
+
+										<td><span class='badge '>" . $record["resultado_a"] . "</span></td>
+									</tr>										
+
+
+									<tr>
+										<td>2.</td>
+										<td>Son coherentes con los objetivos específicos del proyecto y evidencian la solución al problema</td>
+
+										<td><span class='badge '>" . $record["resultado_b"] . "</span></td>
+									</tr>
+
+
+
+
+
+
+										<tr>
+										<td class='bg-warning'><h6></h6></td>
+										 <td class='bg-warning'><h6>IMPACTOS</h6></td>
+										 <td class='bg-warning'></td>
+										 </tr>
+
+										 <tr>
+										 <td>1.</td>
+										 <td>Se define claramente el impacto social y/o económico del proyecto</td>
+ 
+										 <td><span class='badge '>" . $record["impacto_a"] . "</span></td>
+									 </tr>
+
+									<tr>
+										<td>2.</td>
+										<td>Se define claramente el impacto educativo, ingenieril y/o tecnológico</td>
+
+										<td><span class='badge '>" . $record["impacto_b"] . "</span></td>
+									</tr>
+
+									<tr>
+									<td>3.</td>
+									<td>" . $record["comentario_problema_investigacion"] . "</td>
+
+									<td><span class='badge  bg-warning '>Comentario</span></td>
+								    </tr>
+
+										 <tr>
+										 <td class='bg-info'><h6></h6></td>
+										  <td class='bg-info'><h6>JUSTIFICACION</h6></td>
+										  <td class='bg-info'></td>
+										  </tr>
+
+										  
+
+										  <tr>
+										  <td>1.</td>
+										  <td>INTERES: El Proyecto refleja el interés de los autores y puede ser de interés para alguna organización</td>
+  
+										  <td><span class='badge '>" . $record["interes"] . "</span></td>
+									  </tr>
+
+
+									<tr>
+										<td>2.</td>
+										<td>IMPORTANCIA: La temática es importante para la disciplina de estudio, el instituto, una empresa; suple una necesidad</td>
+
+										<td><span class='badge '>" . $record["importancia"] . "</span></td>
+									</tr>
+
+
+									<tr>
+										<td>3.</td>
+										<td>UTILIDAD: El proyecto es útil o aplicable en algún contexto (institución educativa, empresa)</td>
+
+										<td><span class='badge '>" . $record["utilidad"] . "</span></td>
+									</tr>
+
+
+									<tr>
+										<td>4.</td>
+										<td>FACTIBILIDAD: Existe posibilidad por factor tiempo, recurso humano, técnico y cognitivo de llevarlo a cabo</td>
+
+										<td><span class='badge '>" . $record["factibilidad_gen"] . "</span></td>
+									</tr>
+
+									<tr>
+										<td>5.</td>
+										<td>PERTINENCIA: Tiene relación directa o indirecta con la carrera que esta cursando</td>
+
+										<td><span class='badge '>" . $record["pertinencia"] . "</span></td>
+									</tr>
+
+									<tr>
+									<td>6.</td>
+									<td>" . $record["comentario_justificacion"] . "</td>
+
+									<td><span class='badge  bg-warning '>Comentario</span></td>
+								    </tr>
+
+										  <tr>
+										  <td class='bg-info'><h6></h6></td>
+										   <td class='bg-info'><h6>MARCO DE REFERENCIA
+                                           </h6></td>
+										   <td class='bg-info'></td>
+										   </tr>
+
+										   <tr>
+										   <td class='bg-warning'><h6></h6></td>
+											<td class='bg-warning'><h6>HISTÓRICO</h6></td>
+											<td class='bg-warning'></td>
+											</tr>
+
+									<tr>
+										<td>1.</td>
+										<td>La propuesta señala referentes institucionales realizados previamente</td>
+
+										<td><span class='badge '>" . $record["historico_a"] . "</span></td>
+									</tr>											
+
+									<tr>
+										<td>2.</td>
+										<td>Señala estudios previos realizados en otras instituciones</td>
+
+										<td><span class='badge '>" . $record["historico_b"] . "</span></td>
+									</tr>
+
+
+									<tr>
+										<td>3.</td>
+										<td>Señala los aportes de estos trabajos al proyecto a desarrollar</td>
+
+										<td><span class='badge '>" . $record["historico_c"] . "</span></td>
+									</tr>
+
+
+
+
+
+											<tr>
+											<td class='bg-warning'><h6></h6></td>
+											 <td class='bg-warning'><h6>CONTEXTUAL</h6></td>
+											 <td class='bg-warning'></td>
+											 </tr>
+
+											 <tr>
+											 <td>1.</td>
+											 <td>Describe el Contexto en el cual piensa desarrollar el proyecto</td>
+	 
+											 <td><span class='badge '>" . $record["contextual"] . "</span></td>
+										 </tr>											 
+
+
+
+
+
+
+
+
+											 <tr>
+											 <td class='bg-warning'><h6></h6></td>
+											  <td class='bg-warning'><h6>TEÓRICO</h6></td>
+											  <td class='bg-warning'></td>
+											  </tr>
+
+											  
+											  <tr>
+											  <td>1.</td>
+											  <td>Se desarrollan los elementos teóricos y tecnológicos del proyecto</td>
+	  
+											  <td><span class='badge '>" . $record["teorico_a"] . "</span></td>
+										  </tr>
+
+
+
+									<tr>
+										<td>2.</td>
+										<td>Realizan la citación bibliográfica adecuada para la estructuración teórica</td>
+
+										<td><span class='badge '>" . $record["teorico_b"] . "</span></td>
+									</tr>
+
+
+									<tr>
+										<td>3.</td>
+										<td>Refleja construcción propia y/o análisis teórico</td>
+
+										<td><span class='badge '>" . $record["teorico_c"] . "</span></td>
+									</tr>
+
+
+
+
+
+
+											  <tr>
+											  <td class='bg-warning'><h6></h6></td>
+											   <td class='bg-warning'><h6>CONCEPTUAL</h6></td>
+											   <td class='bg-warning'></td>
+											   </tr>
+
+											   
+
+									<tr>
+										<td>1.</td>
+										<td>Define la terminología específica del proyecto</td>
+
+										<td><span class='badge '>" . $record["conceptual"] . "</span></td>
+									</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+											   <tr>
+											   <td class='bg-warning'><h6></h6></td>
+												<td class='bg-warning'><h6>LEGAL</h6></td>
+												<td class='bg-warning'></td>
+												</tr>
+
+												
+									<tr>
+										<td>1.</td>
+										<td>Especifica aspectos legales que tienen impacto dentro del proyecto</td>
+
+										<td><span class='badge '>" . $record["legal"] . "</span></td>
+									</tr>
+
+
+
+
+
+
+
+									<tr>
+									<td>1.</td>
+									<td>" . $record["comentario_marco"] . "</td>
+
+									<td><span class='badge  bg-warning '>Comentario</span></td>
+								    </tr>
+
+
+
+												<tr>
+												<td class='bg-info'><h6></h6></td>
+												 <td class='bg-info'><h6>METODOLOGÍA</h6></td>
+												 <td class='bg-info'></td>
+												 </tr>
+
+												 
+									<tr>
+										<td>1.</td>
+										<td>Se formula el tipo de estudio de manera clara y precisa</td>
+
+										<td><span class='badge '>" . $record["metodologia_a"] . "</span></td>
+									</tr>
+
+
+									<tr>
+										<td>2.</td>
+										<td>Se plantean las técnicas y fuentes de recolección de información</td>
+
+										<td><span class='badge '>" . $record["metodologia_b"] . "</span></td>
+									</tr>
+
+
+									<tr>
+										<td>3.</td>
+										<td>Se exponen los argumentos para las elecciones anteriores</td>
+
+										<td><span class='badge '>" . $record["metodologia_c"] . "</span></td>
+									</tr>
+
+
+
+									<tr>
+										<td>4.</td>
+										<td>Se definen claramente las etapas del proceso de investigación</td>
+
+										<td><span class='badge '>" . $record["metodologia_d"] . "</span></td>
+									</tr>
+
+									<tr>
+									<td>5.</td>
+									<td>" . $record["comentario_metodologia"] . "</td>
+
+									<td><span class='badge  bg-warning '>Comentario</span></td>
+								    </tr>
+
+												 <tr>
+												 <td class='bg-info'><h6></h6></td>
+												  <td class='bg-info'><h6>CRONOGRAMA DE ACTIVIDADES
+												  </h6></td>
+												  <td class='bg-info'></td>
+												  </tr>
+
+												  
+
+									<tr>
+										<td>1.</td>
+										<td>Las etapas de la investigación siguen un proceso lógicoa</td>
+
+										<td><span class='badge '>" . $record["cronograma_a"] . "</span></td>
+									</tr>
+
+									<tr>
+										<td>2.</td>
+										<td>El tiempo asignado para cada etapa es el apropiado</td>
+
+										<td><span class='badge '>" . $record["cronograma_b"] . "</span></td>
+									</tr>
+
+									<tr>
+										<td>3.</td>
+										<td>La tabla o gráfico utilizado es de fácil interpretación</td>
+
+										<td><span class='badge '>" . $record["cronograma_c"] . "</span></td>
+									</tr>
+
+
+
+									<tr>
+									<td>4.</td>
+									<td>" . $record["comentario_cronograma"] . "</td>
+
+									<td><span class='badge  bg-warning '>Comentario</span></td>
+								    </tr>
+
+
+
+												  <tr>
+												  <td class='bg-info'><h6></h6></td>
+												   <td class='bg-info'><h6>RECURSOS Y PRESUPUESTO
+												   </h6></td>
+												   <td class='bg-info'></td>
+												   </tr>
+
+
+									<tr>
+										<td>1.</td>
+										<td>El recurso humano es suficiente y adecuado para el tema de investigación</td>
+
+										<td><span class='badge '>" . $record["recurso_a"] . "</span></td>
+									</tr>												   
+									<tr>
+										<td>2.</td>
+										<td>Se utilizan diferentes recursos institucionales (bibliotecas, universidades, empresas…)</td>
+
+										<td><span class='badge '>" . $record["recurso_b"] . "</span></td>
+									</tr>
+									<tr>
+										<td>3.</td>
+										<td>Especifica los recursos técnicos que se utilizarán en el proyecto</td>
+
+										<td><span class='badge '>" . $record["recurso_c"] . "</span></td>
+									</tr>
+									<tr>
+										<td>4.</td>
+										<td>Se presenta correctamente el análisis presupuestal</td>
+
+										<td><span class='badge '>" . $record["recurso_d"] . "</span></td>
+									</tr>
+
+									<tr>
+									<td>5.</td>
+									<td>" . $record["comentario_recurso"] . "</td>
+
+									<td><span class='badge  bg-warning '>Comentario</span></td>
+								    </tr>
+
+																					  <tr>
+												  <td class='bg-info'><h6></h6></td>
+												   <td class='bg-info'><h6>REFERENCIAS BIBLIOGRAFÍCAS
+
+												   </h6></td>
+												   <td class='bg-info'></td>
+												   </tr>
+			  
+									<tr>
+										<td>1.</td>
+										<td>El proyecto tiene diversas fuentes bibliográficas y refleja una exhaustiva revisión de la temática</td>
+
+										<td><span class='badge '>" . $record["referencias_a"] . "</span></td>
+									</tr>
+
+
+									<tr>
+										<td>2.</td>
+										<td>Utiliza fuentes bibliográficas clásicas y vigentes dentro del campo de acción del proyecto</td>
+
+										<td><span class='badge '>" . $record["referencias_b"] . "</span></td>
+									</tr>
+
+									<tr>
+										<td>3.</td>
+										<td>Utiliza fuentes bibliográficas actualizadas, confiables y con relación directa con el proyecto</td>
+
+										<td><span class='badge '>" . $record["referencias_c"] . "</span></td>
+									</tr>
+
+
+									<tr>
+									<td>4.</td>
+									<td>" . $record["comentario_referencias"] . "</td>
+
+									<td><span class='badge  bg-warning '>Comentario</span></td>
+								    </tr>
+												  <tr>
+												  <td class='bg-info'><h6></h6></td>
+												   <td class='bg-info'><h6>ANALISIS GENERAL
+
+												   </h6></td>
+												   <td class='bg-info'></td>
+												   </tr>
+			  
+									<tr>
+										<td>1.</td>
+										<td>TÍTULO: Refleja claramente el tema tratado</td>
+
+										<td><span class='badge '>" . $record["titulo"] . "</span></td>
+									</tr>
+
+									<tr>
+										<td>2.</td>
+										<td>NIVEL INVESTIGATIVO: La complejidad del trabajo amerita el desarrollo de un Proyecto de Grado</td>
+
+										<td><span class='badge '>" . $record["nivel_investigativo"] . "</span></td>
+									</tr>
+
+									<tr>
+										<td>3.</td>
+										<td>FACTIBILIDAD: Posibilidades de realización (tiempo, conocimiento, recurso humano, técnico y económico)</td>
+
+										<td><span class='badge '>" . $record["factibilidad"] . "</span></td>
+									</tr>												   
+
+
+
+
+
+												  <tr>
+												  <td class='bg-warning'><h6></h6></td>
+												   <td class='bg-warning'><h6>DOCUMENTO
+												   </h6></td>
+												   <td class='bg-warning'></td>
+												   </tr>
+
+									<tr>
+										<td>4.</td>
+										<td>Aplicación de Normas ICONTEC</td>
+
+										<td><span class='badge '>" . $record["documento_a"] . "</span></td>
+									</tr>
+									
+									<tr>
+										<td>5.</td>
+										<td>Redacción y Ortografía</td>
+
+										<td><span class='badge '>" . $record["documento_b"] . "</span></td>
+									</tr>									
+
+									<tr>
+										<td>6.</td>
+										<td>Presentación general</td>
+
+										<td><span class='badge '>" . $record["documento_c"] . "</span></td>
+									</tr>
+									<tr>
+									<td>7.</td>
+									<td>" . $record["concepto_genera"] . "</td>
+
+									<td><span class='badge  bg-warning '>Comentario</span></td>
+								    </tr>
+
+									<tr>
+									<td>8.</td>
+									<td>" . $validacion_Esta_eva. "</td>
+
+									<td><span class='badge  bg-warning '>estado</span></td>
+								    </tr>
+			  
+								</tbody>
+							</table>
+						</div>
+						<!-- /.card-body -->
 					</div>
 				</div>
-		       	</div>
-				   <div class="row">
-
-				   <div class="col-lg-12">
-					   <div class="form-group">
-						   <label for="" class="col-form-label">Documento Evaluacion:</label>
-						   <br />
-						   <a class="btn btn-info"  href="documento.php?tipo=evaluacion& ficha=' . $ficha_id_final . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
-				   </div>
-			   </div>';
-				} else {
-					echo '	<section>
+                       ";
+					} else {
+						echo '	<section>
 					<h4>No se ha realizado la evaluacion del anteproyecto</h1>
 				</section>';
+					}
 				}
 				?>
 
@@ -974,13 +1823,8 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 
 
 
-
-
-
-
 			</div>
 		</div>
-
 
 
 

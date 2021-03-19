@@ -14,7 +14,8 @@ $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
 
-$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");$query_ficha->execute();
+$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");
+$query_ficha->execute();
 $row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
 
 
@@ -119,8 +120,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 		<?php
 
-if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
-	echo " 
+		if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
+			echo " 
 <!-- Main Sidebar Container -->
 <aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 	<!-- Brand Logo -->
@@ -166,8 +167,8 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 	<!-- /.sidebar -->
 </aside>
 ";
-} else if (isset($fichaenanteproyecto)) {
-	echo  " 
+		} else if (isset($fichaenanteproyecto)) {
+			echo  " 
 <aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 	<!-- Brand Logo -->
 	<a href='inicio_estudiante.php' class='brand-link'>
@@ -214,8 +215,8 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 </aside>
 
 ";
-} else if (isset($fichaaprobada)) {
-	echo  " 
+		} else if (isset($fichaaprobada)) {
+			echo  " 
 	<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 		<!-- Brand Logo -->
 		<a href='inicio_estudiante.php' class='brand-link'>
@@ -267,10 +268,10 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 	</aside>
 
 	";
-}
-?>
-
+		}
 		?>
+
+
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 
@@ -292,10 +293,12 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label for="" class="col-form-label">Titulo de la ficha</label>
-									<input type="text" class="form-control" name="titulo_ficha" required>
+									<textarea type="text" class="form-control" name="titulo_ficha" required></textarea>
 								</div>
 							</div>
 						</div>
+
+
 						<div class="form-group" enctype="multipart/form-data">
 							<label for="" class="col-form-label">Ficha de anteproyecto</label>
 							<div class="col-lg-6">
@@ -310,9 +313,9 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 						</div>
 
 					</div>
-					<div class="">
-						<button input type="submit" name="add" id="btnGuardar" class="btn btn-primary">Continuar registro</button>
-					</div>
+
+					<button input type="submit" name="add" id="btnGuardar" class="btn btn-primary">Continuar registro</button>
+
 				</form>
 
 			</div>

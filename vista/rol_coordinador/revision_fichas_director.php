@@ -49,6 +49,9 @@ include("../../controlador/coordinador/add_director.php");
     <link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
     <link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
@@ -194,20 +197,7 @@ include("../../controlador/coordinador/add_director.php");
                 </div>
             </div>
 
-
-
-            <?php
-            //id ficha para evaluador
-            $id_ficha_compa = (isset($_POST['id_fichas_evaluador'])) ? $_POST['id_fichas_evaluador'] : '';
-            $_SESSION['id_fichas_evaluador'] = $id_ficha_compa;
-
-            //id ficha para jurado
-            $id_ficha_jurado = (isset($_POST['id_fichas_jurado'])) ? $_POST['id_fichas_jurado'] : '';
-            $_SESSION['id_fichas_jurado'] = $id_ficha_jurado;
-
-
-            //eliminar participante de la ficha 
-            ?>
+ 
 
 
             <!-- Modal Evaluador  -->
@@ -231,7 +221,7 @@ include("../../controlador/coordinador/add_director.php");
 
                                                 $programa = $_SESSION['id_programa_usu'];
                                                 $user = $_SESSION['id_usuario'];
-                                                $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 AND id_usuario != $user");
+                                                $sql = mysqli_query($con, "SELECT * FROM usuarios WHERE id_programa_usu = $programa AND id_rol_usu =2 AND id_usuario != $user AND usuarios.activo is null");
 
                                                 while ($valores = mysqli_fetch_array($sql)) {
 

@@ -47,7 +47,7 @@ if (isset($_POST['add'])) {
 
 
     $Titulo = (isset($_POST['titulo_ficha'])) ? $_POST['titulo_ficha'] : '';
-    $Descripcion = 'ficha';
+    $Descripcion = 'Anteproyecto de grado';
 
     $Programa = $_SESSION['id_programa_usu'];
 

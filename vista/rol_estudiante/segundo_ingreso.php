@@ -13,7 +13,8 @@ $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
 
-$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");$query_ficha->execute();
+$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");
+$query_ficha->execute();
 $row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
 
 
@@ -119,8 +120,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 		<?php
 
-if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
-	echo " 
+		if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
+			echo " 
 <!-- Main Sidebar Container -->
 <aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 	<!-- Brand Logo -->
@@ -166,8 +167,8 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 	<!-- /.sidebar -->
 </aside>
 ";
-} else if (isset($fichaenanteproyecto)) {
-	echo  " 
+		} else if (isset($fichaenanteproyecto)) {
+			echo  " 
 <aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 	<!-- Brand Logo -->
 	<a href='inicio_estudiante.php' class='brand-link'>
@@ -214,8 +215,8 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 </aside>
 
 ";
-} else if (isset($fichaaprobada)) {
-	echo  " 
+		} else if (isset($fichaaprobada)) {
+			echo  " 
 	<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 		<!-- Brand Logo -->
 		<a href='inicio_estudiante.php' class='brand-link'>
@@ -267,10 +268,10 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 	</aside>
 
 	";
-}
-?>
-
+		}
 		?>
+
+	
 		<!-- Content Wrapper. Contains page content -->
 
 		<!-- Content Wrapper. Contains page content -->
@@ -293,7 +294,7 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label for="" class="col-form-label">Pregunta Formulación</label>
-									<textarea type="text" class="form-control" name="pregpro" required> </textarea>
+									<textarea type="text" required class="form-control" name="pregpro"  ></textarea> 
 								</div>
 							</div>
 						</div>
@@ -303,7 +304,7 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 						<div class="row">
 							<div class="col-lg-12" id="dynamic_field">
 								<div class="form-group">
-									<a class="btn btn-primary" id="addspreg">Agregar pregunta de sistematizacion</a>
+									<a class="btn btn-primary text-light" id="addspreg">Agregar pregunta de sistematizacion</a>
 
 								</div>
 							</div>
@@ -314,7 +315,7 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label for="" class="col-form-label">Objetivo General</label>
-									<textarea type="text" class="form-control" name="objgen" required> </textarea>
+									<textarea type="text" required class="form-control" name="objgen" ></textarea>
 								</div>
 							</div>
 						</div>
@@ -324,15 +325,13 @@ if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
 						<div class="row">
 							<div class="col-lg-12" id="dynamic_fieldobj">
 								<div class="form-group">
-									<a class="btn btn-primary" id="addsobj">Agregar objetivo especifico</a>
+									<a class="btn btn-primary text-light" id="addsobj">Agregar objetivo especifico</a>
 
 								</div>
 							</div>
 						</div>
 						<br />
-						<div class="">
-							<button input type="submit" name="add" id="submit" class="btn btn-primary">Guardar</button>
-						</div>
+						<button input type="submit" name="add" id="submit" class="btn btn-primary">Guardar</button>
 
 
 

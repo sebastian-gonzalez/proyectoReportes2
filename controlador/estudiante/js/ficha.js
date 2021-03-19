@@ -260,6 +260,41 @@ $(document).ready(function () {
 
   //Borrar
 
+  $(document).on("click", ".validacion", function () {
+
+
+    Swal.fire({
+      title: 'Inhabilitar ficha',
+      text: "deseas inabilitar esta ficha?!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'si , inhabilitar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "../../controlador/estudiante/delete.php",
+          type: "POST",
+          datatype: "json",
+          data: { opcion: opcion, id_ficha: id_ficha },
+          success: function () {
+            tablaFichas.row(fila.parents("tr")).remove().draw();
+            location.href = "inicio_estudiante.php";
+          },
+        });
+        Swal.fire(
+          'Inabilitada!',
+          'La ficha fue inabilitada.',
+          'success'
+        )
+      }
+
+
+    })
+
+  });
+
 
   //Borrar
   $(document).on("click", ".btnBborrar", function () {
@@ -287,13 +322,13 @@ $(document).ready(function () {
             location.href = "inicio_estudiante.php";
           },
         });
-
+        Swal.fire(
+          'Inabilitada!',
+          'La ficha fue inabilitada.',
+          'success'
+        )
       }
-      Swal.fire(
-        'Inabilitada!',
-        'La ficha fue inabilitada.',
-        'success'
-      )
+
 
     })
 
