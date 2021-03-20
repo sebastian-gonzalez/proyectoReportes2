@@ -283,8 +283,26 @@ function cargarDataTablesReportes(tabla, completo, data) {
 		$(tabla).DataTable({
 			data: data,
 			"language": { "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json" },
-			responsive: true
-		});
+			responsive: true,
+			dom: 'Bfrltip',
+       		buttons: [
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"> EXCEL </i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fa fa-file-text-o"> CSV </i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="fa fa-file-pdf-o"> PDF </i>',
+                titleAttr: 'PDF'
+            }
+        ]
+	});
 	} else {
 		$(tabla).DataTable({
 			data: data,
@@ -316,9 +334,42 @@ function mostrarLoader() {
 }
 
 
-function llenarTablaReporte(camposFicha) {
+function llenarTablaReporte(camposFicha) {	
+	
+	var idFicha = camposFicha.idFicha; //capturo el ID
+	var tituloFicha = camposFicha.tituloFicha;
+	var descripcionFicha = camposFicha.descripcionFicha;
+	var descripcionCampo = camposFicha.descripcionCampo;
+	var nombreEstado = camposFicha.nombreEstado;
+	var nombrePrograma = camposFicha.nombrePrograma;	
+	var valorCampo = camposFicha.valorCampo;	
+
+	datos.push([idFicha,
+	tituloFicha,
+	descripcionFicha,
+	descripcionCampo,
+	valorCampo,
+	nombrePrograma,
+	nombreEstado,"50"]);
+		
+	
+	//var activo = camposFicha.activo;
+	
+	//var evaluacion_ficha = camposFicha.evaluacion_ficha;
+	//var fecha_ficha = camposFicha.fecha_ficha;
+	//var id_estado_ficha = camposFicha.id_estado_ficha;	
+	
+	//var id_programa_ficha = camposFicha.id_programa_ficha;	
+	
+	//console.log(datos);
+
+	//  var id_programa_ficha = camposFicha.id_programa_ficha;
+	//  var id_estado_ficha = camposFicha.id_estado_ficha;
 
 
+	//	var evaluacion_ficha = camposFicha.evaluacion_ficha;
+	//	var evaluacion_ficha = camposFicha.evaluacion_ficha;
+	
 	/** var arrayGeneral = [];
 	var arrayEspecificos = [];
 
@@ -379,38 +430,6 @@ function llenarTablaReporte(camposFicha) {
 
 	//var fila = $(this).closest("tr");
 	
-	var idFicha = camposFicha.idFicha; //capturo el ID
-	var tituloFicha = camposFicha.tituloFicha;
-	var descripcionFicha = camposFicha.descripcionFicha;
-	var descripcionCampo = camposFicha.descripcionCampo;
-	var nombreEstado = camposFicha.nombreEstado;
-	var nombrePrograma = camposFicha.nombrePrograma;	
-	var valorCampo = camposFicha.valorCampo;
-	//var activo = camposFicha.activo;
-	
-	//var evaluacion_ficha = camposFicha.evaluacion_ficha;
-	//var fecha_ficha = camposFicha.fecha_ficha;
-	//var id_estado_ficha = camposFicha.id_estado_ficha;	
-	
-	//var id_programa_ficha = camposFicha.id_programa_ficha;		
-	
-
-	datos.push([idFicha,
-	tituloFicha,
-	descripcionFicha,
-	descripcionCampo,
-	valorCampo,
-	nombrePrograma,
-	nombreEstado,"50"]);
-	
-	console.log(datos);
-
-	//  var id_programa_ficha = camposFicha.id_programa_ficha;
-	//  var id_estado_ficha = camposFicha.id_estado_ficha;
-
-
-	//	var evaluacion_ficha = camposFicha.evaluacion_ficha;
-	//	var evaluacion_ficha = camposFicha.evaluacion_ficha;
 }
 
 

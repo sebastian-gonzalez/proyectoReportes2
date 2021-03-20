@@ -189,9 +189,9 @@ include("../../controlador/conexion.php");
                                         <th>Valor Parametro</th>
                                         <th>Programa</th>
                                         <th>Estado</th>
-                                        <th>Evaluacion</th>
+                                       <!-- <th>Evaluacion</th> -->
                                        <!--   <th>Creacion</th> -->
-                                        <!-- <th>Opciones</th> -->
+                                       <!-- <th>Opciones</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
