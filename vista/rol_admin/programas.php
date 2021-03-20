@@ -146,7 +146,7 @@ $nombre_usu = $_SESSION['nombre_usu'];
 
             <div class="col-lg-12">
 
-                <button id="btnNuevo" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">library_add</i></button>
+                <button id="btnNuevo" type="button" class="btn btn-primary" data-toggle="modal"  data-toggle="Agregar Programa" data-placement="top" title="Agregar Programa" ><i class="material-icons">library_add</i></button>
             </div>
         </div>
     </div>

@@ -46,7 +46,7 @@ $nombre_usu = $_SESSION['nombre_usu'];
 	<link rel="stylesheet" type="text/css" href="../../assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
 
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
@@ -144,9 +144,12 @@ $nombre_usu = $_SESSION['nombre_usu'];
 				<div class="row">
 					<div class="col-lg-12">
 
-						<button id="btnNuevo" type="button" class="btn btn-primary" data-toggle="modal" title="xd"><i class="material-icons">library_add</i></button>
+					
 
-						<button type="button" class="btn btn-primary" data-toggle="modal" onclick="window.location.href='import_excel.php';"><i class="material-icons">upload_file</i></button>
+						<button id="btnNuevo" type="button" class="btn btn-primary"  data-toggle="Agregar Usuario" data-toggle="modal" data-placement="top" title="Agregar Usuario"><i class="material-icons">library_add</i></button>
+
+
+						<button type="button" class="btn btn-primary"  onclick="window.location.href='import_excel.php';" data-toggle="Importar usuarios" data-toggle="modal" data-placement="top" title="Importar usuarios"><i class="material-icons">upload_file</i></button>
 
 					</div>
 				</div>
@@ -387,19 +390,19 @@ $nombre_usu = $_SESSION['nombre_usu'];
 
 
 
-		<!-- jQuery, Popper.js, Bootstrap JS -->
-		<script src="../../assets/js/jquery-3.5.1.js"></script>
-		<script src="../../assets/popper/popper.min.js"></script>
-		<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- jQuery, Popper.js, Bootstrap JS -->
+	<script src="../../assets/js/jquery-3.5.1.js"></script>
+	<script src="../../assets/popper/popper.min.js"></script>
+	<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 
-		<!-- datatables JS -->
-		<script type="text/javascript" src="../../assets/datatables/datatables.min.js"></script>
+	<!-- datatables JS -->
+	<script type="text/javascript" src="../../assets/datatables/datatables.min.js"></script>
 
-		<script type="text/javascript" src="../../controlador/admin/js/usuarios.js"></script>
-		<!-- jQuery -->
+	<script type="text/javascript" src="../../controlador/admin/js/usuarios.js"></script>
+	<!-- jQuery -->
 
-		<script src="../../assets/js/nav/adminlte.js"></script>
-		<!-- AdminLTE for demo purposes -->
+	<script src="../../assets/js/nav/adminlte.js"></script>
+	<!-- AdminLTE for demo purposes -->
 
 </body>
 

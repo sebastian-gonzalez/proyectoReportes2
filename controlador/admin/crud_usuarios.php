@@ -22,6 +22,8 @@ switch ($opcion) {
     case 1:
         //agregar
     case 2:
+
+        
      //editar
     case 3:
         $consulta = "UPDATE usuarios  SET activo='N' WHERE id_usuario='$id_usuario'";

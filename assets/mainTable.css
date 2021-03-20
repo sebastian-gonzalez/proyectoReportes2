@@ -40,23 +40,6 @@ table.dataTable thead {
 }
 
 
-button:after {
-  background-color: rgba(0, 0, 0, .8);
-  border-radius: 5px;
-  color: #fff;
-  content: attr(title);
-  opacity: 0;
-  padding: 10px 12px;
-  position: absolute;
-  left: 100%;
-  top: 40px;
-  transition: all .25s ease;
-  visibility: hidden;
-  white-space: nowrap;
-}
-
-
-
 
 
 

@@ -52,6 +52,7 @@ if (isset($_POST['add_usuario'])) {
 
         echo '<script language="javascript">alert("Exito");
         location.href="../../vista/rol_admin/usuarios.php";</script>';
-
+        //$data = "Add";
+     
     }
 }

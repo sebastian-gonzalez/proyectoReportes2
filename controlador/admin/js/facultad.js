@@ -10,7 +10,7 @@ $(document).ready(function () {
       dataSrc: "",
     },
     columns: [
-      { data: "id_facultad" ,className:"hide_column"},
+      { data: "id_facultad", className: "hide_column" },
       { data: "nombre_facultad" },
       {
         defaultContent:
@@ -37,6 +37,15 @@ $(document).ready(function () {
       },
       success: function (data) {
         tablaFacultades.ajax.reload(null, false);
+
+
+        if (opcion == 3) {
+          Swal.fire(
+            '!Editado!',
+            'La facultad fue Editada.',
+            'success'
+          )
+        }
       },
     });
     $("#modalCRUD").modal("hide");
@@ -74,13 +83,13 @@ $(document).ready(function () {
     opcion = 3; //eliminar
 
     Swal.fire({
-      title: 'Inhabilitar facultad',
-      text: "deseas inabilitar esta facultad?!",
+      title: 'Inactivar facultad',
+      text: "¿Deseas inactivar esta facultad?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'si , inhabilitar'
+      confirmButtonText: 'Si , inactivar'
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
@@ -93,12 +102,15 @@ $(document).ready(function () {
           },
         });
         Swal.fire(
-          'Inabilitada!',
-          'La facultad fue inabilitada.',
+          'Inactivada!',
+          'La facultad fue inactivar.',
           'success'
         )
       }
     })
 
   });
+  $(function () {
+    $('[data-toggle="Agregar Facultad"]').tooltip()
+  })
 });

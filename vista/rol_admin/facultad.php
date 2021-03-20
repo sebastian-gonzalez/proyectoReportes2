@@ -45,21 +45,22 @@ include("../../controlador/conexion.php");
 
 	<!--datables CSS básico-->
 	<link rel="stylesheet" type="text/css" href="../../assets/datatables/datatables.min.css" />
-	<!--datables estilo bootstrap 4 CSS-->
 	<link rel="stylesheet" type="text/css" href="../../assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
+
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 
 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
+
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
 	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
 
 
 </head>
 
-<body  class="hold-transition sidebar-mini sidebar-collapse">
+<body class="hold-transition sidebar-mini sidebar-collapse">
 
 
 	<div class="wrapper">
@@ -151,8 +152,10 @@ include("../../controlador/conexion.php");
 					<div class="row">
 						<div class="col-lg-12">
 
-							<button id="btnNuevo" type="button" class="btn btn-primary" data-toggle="modal"><i class="material-icons">library_add</i></button>
+							<button id="btnNuevo" type="button" class="btn btn-primary"  data-toggle="Agregar Facultad" data-placement="top" title="Agregar Facultad"data-toggle="modal"><i class="material-icons">library_add</i></button>
 						</div>
+
+
 					</div>
 				</div>
 				<br>

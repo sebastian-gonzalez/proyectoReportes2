@@ -145,7 +145,7 @@ include("../../controlador/conexion.php");
 					</div>
 					<br />
 					<hr />
-					<hr />
+
 
 					<?php
 					$sql = "SELECT*FROM usuarios WHERE id_usuario=$id_usuario";

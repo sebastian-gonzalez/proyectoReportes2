@@ -44,6 +44,22 @@ $(document).ready(function () {
       },
       success: function (data) {
         tablaProgramas.ajax.reload(null, false);
+
+        if (opcion == 1) {
+          Swal.fire(
+            '!Creado!',
+            'El programa fue creado.',
+            'success'
+          )
+        }
+        if (opcion == 2) {
+          Swal.fire(
+            '!Editado!',
+            'El programa fue Editado.',
+            'success'
+          )
+        }
+
       },
     });
     $("#modalCRUD").modal("hide");
@@ -85,13 +101,13 @@ $(document).ready(function () {
     opcion = 3; //eliminar
 
     Swal.fire({
-      title: 'Inhabilitar programa',
-      text: "deseas inabilitar este programa?!",
+      title: 'Inactivar programa',
+      text: "¿Deseas inactivar este programa?!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'si , inhabilitar'
+      confirmButtonText: 'si , inactivar'
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
@@ -104,8 +120,8 @@ $(document).ready(function () {
           },
         });
         Swal.fire(
-          'Inabilitado!',
-          'El programa fue inhabilitado.',
+          '!Inactivado!',
+          'El programa fue inactivado.',
           'success'
         )
       }
@@ -114,5 +130,7 @@ $(document).ready(function () {
   });
   
   //Borrar
-
+  $(function () {
+    $('[data-toggle="Agregar Programa"]').tooltip()
+  })
 });

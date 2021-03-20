@@ -76,4 +76,6 @@ if ($resultado_vali_cedula->fetchColumn() > 0) {
 
     echo '<script language="javascript">alert("Usuario Actualizado");
         location.href="../../vista/rol_admin/usuarios.php";</script>';
+
+        
 }

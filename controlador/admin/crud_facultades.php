@@ -22,6 +22,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
         break;
     case 2:
         $consulta = "UPDATE facultad SET nombre_facultad='$Nombre' WHERE id_facultad='$id_facultad'";

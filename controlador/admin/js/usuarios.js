@@ -55,7 +55,10 @@ $(document).ready(function () {
       },
       success: function (data) {
         tablaUsuarios.ajax.reload(null, false);
-      },
+        
+
+      }
+      ,
     });
     $("#modalCRUD").modal("hide");
     $("#formUsuarios").trigger("reset");
@@ -117,13 +120,13 @@ $(document).ready(function () {
     opcion = 3; //eliminar
 
     Swal.fire({
-      title: 'Inhabilitar usuario',
-      text: "deseas inabilitar este usuario?!",
+      title: 'Inactivar usuario',
+      text: "¿Deseas inactivar este usuario?!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'si , inhabilitar'
+      confirmButtonText: 'si , inactivar'
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
@@ -136,13 +139,18 @@ $(document).ready(function () {
           },
         });
         Swal.fire(
-          'Inabilitado!',
-          'El usuario fue inhabilitado.',
+          '!Inactivado!',
+          'El usuario fue inactivado.',
           'success'
         )
       }
     })
 
   });
+  $(function () {
+    $('[data-toggle="Agregar Usuario"]').tooltip()
+    $('[data-toggle="Importar usuarios"]').tooltip()
+  })
+
   //Borrar
 });
