@@ -182,14 +182,16 @@ include("../../controlador/conexion.php");
                             <table id="tablaFichas" class=" table table-striped table-bordered table-condensed" style="width:100%">
                                 <thead class="text-center">
                                     <tr>
-                                        <th>id_ficha</th>
+                                        <th>ID Ficha</th>
                                         <th>Titulo</th>
                                         <th>Descripcion</th>
+                                        <th>Parametro</th>
+                                        <th>Valor Parametro</th>
                                         <th>Programa</th>
                                         <th>Estado</th>
                                         <th>Evaluacion</th>
-                                        <th>Creacion</th>
-                                        <th>Opciones</th>
+                                       <!--   <th>Creacion</th> -->
+                                        <!-- <th>Opciones</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -267,7 +269,9 @@ include("../../controlador/conexion.php");
 
     <script src="../../assets/select2/select2.min.js"></script>
     <script src="../../assets/js/nav/adminlte.js"></script>
-
+    
+    	<script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
+   
 
 </body>
 

@@ -1,6 +1,10 @@
 <?php
 
 session_start();
+//require 'vendor/autoload.php';
+
+//use PhpOffice\PhpSpreadsheet\Spreadsheet;
+//use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 if (!isset($_SESSION['id_rol_usu'])) {
     header('location: ../login.php');
@@ -68,14 +72,31 @@ $id_lista_ficha = $id_ficha;
 $id_rol_ficha = 1;
 
 
-
 switch ($opcion) {
     case 1:
         //Director no agrega
     case 2:
         // Director no updatea
     case 3:
-        //Director no elimina
+        $programa = $_SESSION['id_programa_usu'];
+        $consulta = "SELECT  
+        cafi.fk_id_ficha AS idFicha,
+        fich.titulo_ficha AS tituloFicha,
+        fich.descripcion_ficha AS descripcionFicha, 
+        cafi.descripcion_campo AS descripcionCampo,
+        cafi.valor_campo AS valorCampo, 
+        prog.nombre_pro AS nombrePrograma, 
+        esta.nombre_estado AS nombreEstado
+        FROM campos_fichas cafi, ficha fich, programa prog,  estado esta 
+        WHERE cafi.fk_id_ficha = fich.id_ficha AND id_programa_ficha IN ($programa)  
+        AND prog.id_programa = fich.id_programa_ficha AND fich.id_estado_ficha = esta.id_estado
+        ORDER BY cafi.fk_id_ficha ASC";
+        
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        break;
+        
     case 4:
         $programa = $_SESSION['id_programa_usu'];
         $consulta = "SELECT distinct id_ficha,
@@ -99,5 +120,15 @@ switch ($opcion) {
         break;
 }
 
-print json_encode($data, JSON_UNESCAPED_UNICODE); //envio el array final el formato json a AJAX
+
+
+print json_encode($data, JSON_UNESCAPED_UNICODE);//envio el array final el formato json a AJAX
 $conexion = null;
+
+/**$spreadsheet = new Spreadsheet();
+$sheet = $spreadsheet->getActiveSheet();
+$sheet->setCellValue('A1', 'Hello World !');
+
+$writer = new Xlsx($spreadsheet);
+$writer->save('hello world.xlsx');**/
+
