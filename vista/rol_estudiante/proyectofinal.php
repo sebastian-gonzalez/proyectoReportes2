@@ -273,7 +273,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
         }
         ?>
 
-		?>
+	
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 

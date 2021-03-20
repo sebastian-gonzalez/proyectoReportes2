@@ -260,34 +260,39 @@ $(document).ready(function () {
 
   //Borrar
 
-  $(document).on("click", ".validacion", function () {
+  $("#validacion_ficha").click(function () { 
+var valorfi =$("#validacion_estudiante").val();
 
-
+  
     Swal.fire({
-      title: 'Inhabilitar ficha',
-      text: "deseas inabilitar esta ficha?!",
+      title: 'Validar ficha',
+      text: "deseas validar la ficha para que pase a ser evaluada nuevamente?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'si , inhabilitar'
+      confirmButtonText: 'si '
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
-          url: "../../controlador/estudiante/delete.php",
+          url: "../../controlador/estudiante/validacion_ficha.php",
           type: "POST",
           datatype: "json",
-          data: { opcion: opcion, id_ficha: id_ficha },
+          data: {valorfi: valorfi },
           success: function () {
-            tablaFichas.row(fila.parents("tr")).remove().draw();
-            location.href = "inicio_estudiante.php";
+            Swal.fire(
+              'validado!',
+              'La ficha fue enviada para ser evaluada.',
+              'success'
+            )
+            location.href = "info_ficha.php";
+
+          
+          
           },
+          
         });
-        Swal.fire(
-          'Inabilitada!',
-          'La ficha fue inabilitada.',
-          'success'
-        )
+
       }
 
 

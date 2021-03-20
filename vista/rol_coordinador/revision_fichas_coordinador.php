@@ -223,7 +223,7 @@ include("../../controlador/coordinador/add_evaluador.php");
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="" class="col-form-label">Director</label>
+                                            <label for="" class="col-form-label">Evaluador</label>
 
                                             <select id="id_lista_usuario_ev" name="id_lista_usuario_ev[]" class="form-control" multiple="multiple" style="width: 15em;" required>
                                                 <?php

@@ -37,31 +37,31 @@ $validacion_empty_contra=empty($_POST['contrasena_usu']);
 if ($resultado_vali_cedula->fetchColumn() > 0) {
 
     if ($id_rol_usu == 1) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script>
         location.href="vista/rol_admin/perfil.php";</script>';
     } elseif ($id_rol_usu == 3) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script >
         location.href="vista/rol_coordinador/perfil.php";</script>';
     } elseif ($id_rol_usu == 2) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script >
         location.href="vista/rol_docente/perfil.php";</script>';
     } elseif ($id_rol_usu == 4) {
-            echo '<script language="javascript">alert("Usuario Actualizado");
+            echo '<script >
             location.href="vista/rol_estudiante/perfil.php";</script>';} 
 
 } else if ($resultado_vali_correo->fetchColumn() > 0) {
 
     if ($id_rol_usu == 1) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script> 
         location.href="vista/rol_admin/perfil.php";</script>';
     } elseif ($id_rol_usu == 3) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script >
         location.href="vista/rol_coordinador/perfil.php";</script>';
     } elseif ($id_rol_usu == 2) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script >
         location.href="vista/rol_docente/perfil.php";</script>';
     } elseif ($id_rol_usu == 4) {
-            echo '<script language="javascript">alert("Usuario Actualizado");
+            echo '<script>
             location.href="vista/rol_estudiante/perfil.php";</script>';} 
 
 
@@ -81,16 +81,16 @@ if ($resultado_vali_cedula->fetchColumn() > 0) {
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
     if ($id_rol_usu == 1) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script>
         location.href="vista/rol_admin/perfil.php";</script>';
     } elseif ($id_rol_usu == 3) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script>
         location.href="vista/rol_coordinador/perfil.php";</script>';
     } elseif ($id_rol_usu == 2) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script >
         location.href="vista/rol_docente/perfil.php";</script>';
     } elseif ($id_rol_usu == 4) {
-            echo '<script language="javascript">alert("Usuario Actualizado");
+            echo '<script>
             location.href="vista/rol_estudiante/perfil.php";</script>';} 
 
 
@@ -111,16 +111,16 @@ if ($resultado_vali_cedula->fetchColumn() > 0) {
     $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
     if ($id_rol_usu == 1) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script >
         location.href="vista/rol_admin/perfil.php";</script>';
     } elseif ($id_rol_usu == 3) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script >
         location.href="vista/rol_coordinador/perfil.php";</script>';
     } elseif ($id_rol_usu == 2) {
-        echo '<script language="javascript">alert("Usuario Actualizado");
+        echo '<script >
         location.href="vista/rol_docente/perfil.php";</script>';
     } elseif ($id_rol_usu == 4) {
-            echo '<script language="javascript">alert("Usuario Actualizado");
+            echo '<script> 
             location.href="vista/rol_estudiante/perfil.php";</script>';} 
 
 }

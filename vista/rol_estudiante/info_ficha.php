@@ -105,6 +105,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 	<link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
 
 
@@ -324,7 +326,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 40%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">40%</div>
 				  </div>	
 				  <h6>ESTADO: La ficha de anteproyecto se encuentra a la espera de la correccion por parte del estudiante</h6>
-				  <button type="button" class="btn btn btn-info  .validacion" id="validacion" >Validar ficha de anteproyecto</button>
+				  <button type="button" class="btn btn btn-info "  id="validacion_ficha" >Validar ficha de anteproyecto</button>
+				  <input type="hidden"  id="validacion_estudiante" value="'.$id_lis_fi.'" ></input>
 
 				 ';
 				} else if ($id_estado_ficha_barra == 3) {
@@ -335,13 +338,13 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 					 ';
 				} else if ($id_estado_ficha_barra == 6) {
 					echo '	<div class="progress">
-					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">20%</div>
+					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">80%</div>
 				  </div>	
 				  <h6>ESTADO: El proyecto de grado se encuentra a al espera de su respectiva evaluacion</h6>
 				 ';
 				} else if ($id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
 					echo '	<div class="progress">
-					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">20%</div>
+					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">100%</div>
 				  </div>	
 				  <h6>ESTADO: El proyecto de grado ya fue finalizado</h6>
 				 ';
@@ -1067,12 +1070,10 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 					if (isset($eva_valid)) {
 
-						if($estadofin_camino == 2)
-						{
-							$validacion_Esta_eva='En correccion';
-						}else if($estadofin_camino == 3)
-						{
-							$validacion_Esta_eva='Aprobado';
+						if ($estadofin_camino == 2) {
+							$validacion_Esta_eva = 'En correccion';
+						} else if ($estadofin_camino == 3) {
+							$validacion_Esta_eva = 'Aprobado';
 						}
 
 
@@ -1703,7 +1704,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 									<tr>
 									<td>8.</td>
-									<td>" . $validacion_Esta_eva. "</td>
+									<td>" . $validacion_Esta_eva . "</td>
 
 									<td><span class='badge  bg-warning '>estado</span></td>
 								    </tr>
@@ -1743,7 +1744,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 				   <div class="col-lg-12">
 					   <div class="form-group">
-						   <label for="" class="col-form-label">Documento Evaluacion:</label>
+						   <label for="" class="col-form-label">Documento proyecto de grado:</label>
 						   <br />
 						   <a class="btn btn-info"  href="documento.php?tipo=proyecto& ficha=' . $ficha_id_final . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
 				   </div>
@@ -1764,7 +1765,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				if (file_exists($path)) {
 
 					echo '	<section>
-				<h1>Proyecto </h1>
+				<h2>Actas de proyecto </h2>
 			    </section>
 			    <hr />';
 
@@ -1774,7 +1775,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 				   <div class="col-lg-12">
 					   <div class="form-group">
-						   <label for="" class="col-form-label">Documento Evaluacion:</label>
+						   <label for="" class="col-form-label">Actas de encuentros:</label>
 						   <br />
 						   <a class="btn btn-info"  href="documento.php?tipo=actas& ficha=' . $ficha_id_final . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
 				   </div>
@@ -1788,39 +1789,265 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 				<hr />
 
+
 				<?php
 
-				$path = "../../controlador/estudiante/eva_proyecto_final/" . $ficha_id_final;
-				if (file_exists($path)) {
+				$consultaacamposficha = "SELECT  *
+                FROM evaluacion_proyecto
+                WHERE id_lista_ficha_eva=$id_lis_fi
+                AND evaluacion_proyecto.activo is null
+                ";
+				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
-					echo '	<section>
-				<h1>Proyecto </h1>
-			    </section>
-			    <hr />';
+				while ($record = mysqli_fetch_assoc($resultset)) {
+					$id_evaluacion_anteproyecto = $record['id_evaluacion_anteproyecto'];
 
-					echo '
 
-				   <div class="row">
+					if (isset($id_evaluacion_anteproyecto)) {
+						echo "
+		
 
-				   <div class="col-lg-12">
-					   <div class="form-group">
-						   <label for="" class="col-form-label">Documento Evaluacion:</label>
-						   <br />
-						   <a class="btn btn-info"  href="documento.php?tipo=eva_proyecto_final& ficha=' . $ficha_id_final . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
-				   </div>
-			   </div>';
-				} else {
-					echo '	<section>
-					<h4>No se ha subido la evaluacion final del jurado</h1>
+						
+
+			    	<h2>Evaluacion de Proyecto de grado</h2>
+			     	<button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demoficha'>visualizar proyecto</button>
+				    <div id='demoficha' class='collapse'>
+				    <br/>
+					<div class='card'>
+						<div class='card-header'>
+							<h3 class='card-title'>Evaluacion de Proyecto de grado</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class='card-body p-0'>
+							<table class='table table-sm'>
+								<thead>
+									<tr>
+										<th style='width: 10px'>#</th>
+										<th>Parametro</th>
+										<th style='width: 40px'>Valor</th>
+									</tr>
+								</thead>
+	
+								<tbody>
+
+
+								<tr>
+								<td class='bg-info'><h6></h6></td>
+								<td class='bg-info'><h6>A. TRABAJO ESCRITO (VALORACION 20%):
+								</h6></td>
+								<td class='bg-info'>" . $record["a"] . "</td>
+
+
+							</tr>
+									<tr>
+										<td>1.</td>
+										<td>A.1 Presentación general del documento (incluye aplicación de normas)
+										</td>
+
+										<td><span class='badge '>" . $record["a1"] . "</span></td>
+									</tr>
+									<tr>
+										<td>2.</td>
+										<td>A.2 Calidad en la redacción y pertinencia de la información (incluye referencias utilizadas)
+										</td>
+
+										<td><span class='badge '>" . $record["a2"] . "</span></td>
+									</tr>
+									<tr>
+										<td>3.</td>
+										<td>A3. El producto de divulgación desarrollado cumple con estándares para la publicación (Obligatorio Profesional Universitario y Opcional Tecnologías)
+										</td>
+
+										<td><span class='badge '>" . $record["a3"] . "</span></td>
+									</tr>
+
+									
+
+
+								
+								    <tr>
+								    <td class='bg-info'><h6></h6></td>
+							     	<td class='bg-info'><h6>B. PROCESO DE DESARROLLO DEL PROYECTO (VALORACION 25%):
+									 </h6></td>
+							     	<td class='bg-info'> " . $record["b"] . "</td>
+						     	    </tr>
+									 								
+
+							
+									<tr>
+										<td>1.</td>
+										<td>B.1 Existe coherencia entre la formulación de problema y el desarrollo de la solución
+										</td>
+
+										<td><span class='badge '>" . $record["b1"] . "</span></td>
+									</tr>
+									<tr>
+										<td>2.</td>
+										<td>B.2 Se cumplen los objetivos propuestos
+										</td>
+
+										<td><span class='badge '>" . $record["b2"] . "</span></td>
+									</tr>
+									<tr>
+										<td>3.</td>
+										<td>B.3 El marco referencial fue suficiente y apropiado para aplicar al proyecto
+										</td>
+
+										<td><span class='badge '>" . $record["b3"] . "</span></td>
+									</tr>
+																		<tr>
+										<td>3.</td>
+										<td>B.4 La Metodología establecida se evidenció en el desarrollo del proyecto
+
+										</td>
+
+										<td><span class='badge '>" . $record["b4"] . "</span></td>
+									</tr>
+																		<tr>
+										<td>3.</td>
+										<td>B.5 La implementación del proyecto fue completa y de calidad
+
+										</td>
+
+										<td><span class='badge '>" . $record["b5"] . "</span></td>
+									</tr>
+																		<tr>
+										<td>3.</td>
+										<td>B.6 Los Resultados del proyecto corresponden a los resultados esperados
+
+										</td>
+
+										<td><span class='badge '>" . $record["b6"] . "</span></td>
+									</tr>
+																		<tr>
+										<td>3.</td>
+										<td>B.7 Las Conclusiones son relevantes y dan razón de lo logrado en proyecto
+
+										</td>
+
+										<td><span class='badge '>" . $record["b7"] . "</span></td>
+									</tr>
+
+
+
+									
+								
+								    <tr>
+								    <td class='bg-info'><h6></h6></td>
+							     	<td class='bg-info'><h6>C. SUSTENTACION DEL PROYECTO (VALORACION 15%):
+
+									 </h6></td>
+							     	<td class='bg-info'>" . $record["c"] . " </td>
+						     	    </tr>
+									 								
+
+							
+									<tr>
+										<td>1.</td>
+										<td>C.1 Se muestran dominio del del proceso de desarrollo del proyecto
+
+										</td>
+
+										<td><span class='badge '>" . $record["c1"] . "</span></td>
+									</tr>
+									<tr>
+										<td>2.</td>
+										<td>C.2 Realizan un adecuado manejo del tiempo
+
+										</td>
+
+										<td><span class='badge '>" . $record["c2"] . "</span></td>
+									</tr>
+									<tr>
+										<td>3.</td>
+										<td>C.3 Utilizan una adecuada expresión oral y corporal
+
+										</td>
+
+										<td><span class='badge '>" . $record["c3"] . "</span></td>
+									</tr>
+																		<tr>
+										<td>3.</td>
+										<td>C.4 El Vocabulario técnico es apropiado
+
+
+										</td>
+
+										<td><span class='badge '>" . $record["c4"] . "</span></td>
+									</tr>
+																		<tr>
+										<td>3.</td>
+										<td>C.5 Da respuestas claras y coherentes a las inquitudes de los jurados
+
+
+										</td>
+
+										<td><span class='badge '>" . $record["c5"] . "</span></td>
+									</tr>
+																		<tr>
+										<td>3.</td>
+										<td>C.6 Utilización de forma correcta las ayudas audiovisuales disponibles
+
+
+										</td>
+
+										<td><span class='badge '>" . $record["c6"] . "</span></td>
+									</tr>
+																		<tr>
+										<td>3.</td>
+										<td>C.7 Presentan una buena presentación personal
+
+
+										</td>
+
+										<td><span class='badge '>" . $record["c7"] . "</span></td>
+									</tr>
+
+								    <td class='bg-info'><h6></h6></td>
+							     	<td class='bg-info'><h6>NOTA FINAL
+
+									 </h6></td>
+							     	<td class='bg-info'></td>
+						     	    </tr>
+
+									 <tr>
+									 <td>3.</td>
+									 <td>NOTA
+
+
+									 </td>
+
+									 <td><span class='badge '>" . $record["nota_final"] . "</span></td>
+								 </tr>
+
+
+								 <tr>
+								 <td>3.</td>
+								 <td>ESTADO
+
+
+								 </td>
+
+								 <td><span class='badge '>" . $record["estado_eva_pro"] . "</span></td>
+							 </tr>
+
+									 		
+						
+			  
+								</tbody>
+							</table>
+						</div>
+			
+					</div>
+                       ";
+					} else {
+						echo '	<section>
+					<h4>No se ha realizado la evaluacion del proyecto de grado</h1>
 				</section>';
+					}
 				}
+
 				?>
-
-				<hr />
-
-
-
-
 
 
 			</div>

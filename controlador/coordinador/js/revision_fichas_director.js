@@ -139,7 +139,7 @@ $(document).ready(function () {
         $("#formEvaluador").trigger("reset");
         $(".modal-header").css("background-color", "#0050a0");
         $(".modal-header").css("color", "white");
-        $(".modal-title").text("Evaluador");
+        $(".modal-title").text("Director");
         $("#modalEvaluador").modal("show");
         $(document).ready(function () {
           $('#id_lista_usuario_ev').select2();
