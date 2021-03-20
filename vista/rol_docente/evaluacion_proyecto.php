@@ -119,7 +119,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                                 <li class="nav-item">
                                     <a href="fichas_aprobadas.php" class="nav-link">
                                         <i class="fa fa-check-square-o nav-icon"></i>
-                                        <p>Fichas Aprobadas</p>
+                                        <p>Fichas Asignadas</p>
                                     </a>
                                 </li>
 

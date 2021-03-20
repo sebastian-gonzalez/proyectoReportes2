@@ -94,7 +94,7 @@ AND fi.id_estado_ficha = es.id_estado
 AND fi.id_programa_ficha = pr.id_programa
 AND rl.id_rol_lista = lf.id_rol_ficha 
 AND fi.id_programa_ficha = $programa
-AND fi.id_estado_ficha = 6
+AND fi.id_estado_ficha IN (3,6)  
 AND fi.activo is null
 AND fi.id_ficha IN (
 SELECT id_lista_ficha FROM lista_ficha WHERE id_lista_ficha NOT IN(

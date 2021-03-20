@@ -117,7 +117,8 @@ if (isset($_POST['evaluarp'])) {
 
 
 
-            echo 'mayor';
+            echo '<script language="javascript">
+            location.href="../../vista/rol_docente/fichas_asignadas_jurado.php";</script>';
         } else {
 
 
@@ -126,7 +127,8 @@ if (isset($_POST['evaluarp'])) {
             $eva_proyecto = $conexion->prepare($eva_proyecto);
             $eva_proyecto->execute();
 
-            echo 'menor';
+            echo '<script language="javascript">
+            location.href="../../vista/rol_docente/fichas_asignadas_jurado.php";</script>';
         }
     }
 
@@ -198,8 +200,7 @@ if (isset($_POST['evaluarp'])) {
                 }
                 
 
-                echo $estadofi;
-                echo $id_ficha_pro;
+          
 
                 $consulta_evaluacionfinal = "UPDATE ficha SET id_estado_ficha=$estadofi WHERE id_ficha=$id_ficha_pro AND  ficha.activo IS null ";
                 $resultado_vali_final = $conexion->prepare($consulta_evaluacionfinal);
@@ -209,12 +210,15 @@ if (isset($_POST['evaluarp'])) {
                 $consulta = "UPDATE evaluacion_proyecto  SET nota_final='$nota',estado_eva_pro='$estado_proyecto' WHERE id_lista_ficha_eva='$id_ficha_pro' AND  evaluacion_proyecto.activo is null  ";
                 $resultado = $conexion->prepare($consulta);
                 $validacion_id = $resultado->execute();
+                echo '<script language="javascript">
+                location.href="../../vista/rol_docente/fichas_asignadas_director.php";</script>';
+
             } else {
             }
 
 
-
-            echo 'mayor';
+            echo '<script language="javascript">
+            location.href="../../vista/rol_docente/fichas_asignadas_director.php";</script>';
         } else {
 
 
@@ -223,7 +227,9 @@ if (isset($_POST['evaluarp'])) {
             $eva_proyecto = $conexion->prepare($eva_proyecto);
             $eva_proyecto->execute();
 
-            echo 'menor';
+          
+            echo '<script language="javascript">
+            location.href="../../vista/rol_docente/fichas_asignadas_director.php";</script>';
         }
     }
 }

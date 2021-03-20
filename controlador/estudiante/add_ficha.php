@@ -23,7 +23,7 @@ $conexion = $objeto->connect();
 $id_lista_usuario = $_SESSION['id_usuario'];
 
 
-$consultaacamposficha ="SELECT fi.id_ficha
+$consultaacamposficha = "SELECT fi.id_ficha
 FROM lista_ficha lista, ficha fi 
 WHERE lista.id_lista_usuario=$id_lista_usuario
 AND lista.id_lista_ficha=fi.id_ficha";
@@ -187,7 +187,7 @@ if (isset($_POST['add'])) {
         $resultado1 = $conexion->prepare($consulta1);
         $resultado1->execute();
 
-        $consulta = "SELECT * FROM ficha ORDER BY id_ficha DESC LIMIT 1";
+        $consulta = "SELECT * FROM ficha ORDER BY id_ficha DESC LIMIT 1 ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -214,7 +214,7 @@ if (isset($_POST['proyecto'])) {
 
 
 
-    $consulta = "UPDATE ficha  SET  id_estado_ficha='$Estado' WHERE id_ficha='$fichafinal'";
+    $consulta = "UPDATE ficha  SET  id_estado_ficha='$Estado' WHERE id_ficha='$fichafinal' AND ficha.activo is null";
     $resultado = $conexion->prepare($consulta);
     $validacion_id = $resultado->execute();
 
@@ -256,7 +256,10 @@ if (isset($_POST['proyecto'])) {
                 $resultado = @move_uploaded_file(
                     $_FILES["proyecto"]["tmp_name"],
                     $archivo
+
                 );
+
+   
             }
             if ($resultado) {
                 echo

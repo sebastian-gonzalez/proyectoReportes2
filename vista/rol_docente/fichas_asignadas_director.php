@@ -123,7 +123,7 @@ $nombre_usu = $_SESSION['nombre_usu'];
                             <li class="nav-item">
                                 <a href="fichas_aprobadas.php" class="nav-link">
                                     <i class="fa fa-check-square-o nav-icon"></i>
-                                    <p>Fichas Aprobadas</p>
+                                    <p>Fichas Asignadas</p>
                                 </a>
                             </li>
 

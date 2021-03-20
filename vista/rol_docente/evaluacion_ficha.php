@@ -119,7 +119,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                                 <li class="nav-item">
                                     <a href="fichas_aprobadas.php" class="nav-link">
                                         <i class="fa fa-check-square-o nav-icon"></i>
-                                        <p>Fichas Aprobadas</p>
+                                        <p>Fichas Asignadas</p>
                                     </a>
                                 </li>
 
@@ -220,7 +220,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                             <div class='form-group'>
 
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control derechaubicacion" placeholder="comentario_problema_investigacion" name="comentario_problema_investigacion" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control derechaubicacion" placeholder="comentario de problema de investigacion" name="comentario_problema_investigacion" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">Comentario</span>
                                 </div>
 
@@ -362,7 +362,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                             <div class='form-group'>
 
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control derechaubicacion" placeholder="Comentario" aria-label="Recipient's username" name="comentario_objetivo" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control derechaubicacion" placeholder="Comentario de objetivos" aria-label="Recipient's username" name="comentario_objetivo" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">Comentario</span>
                                 </div>
 
@@ -466,7 +466,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='col-lg-12'>
                             <div class='form-group'>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control derechaubicacion" placeholder="comentario_resultado" aria-label="Recipient's username" name="comentario_resultado" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control derechaubicacion" placeholder="Comentario de resultados" aria-label="Recipient's username" name="comentario_resultado" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">Comentario</span>
                                 </div>
 
@@ -590,7 +590,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                             <div class='form-group'>
 
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control derechaubicacion" placeholder="comentario_justificacion" aria-label="Recipient's username" name="comentario_justificacion" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control derechaubicacion" placeholder="Comentario de justificacion" aria-label="Recipient's username" name="comentario_justificacion" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">Comentario</span>
                                 </div>
 
@@ -808,7 +808,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='col-lg-12'>
                             <div class='form-group'>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control derechaubicacion" placeholder="comentario_marco" aria-label="Recipient's username" name="comentario_marco" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control derechaubicacion" placeholder="Comentario de marco teorico" aria-label="Recipient's username" name="comentario_marco" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">Comentario</span>
                                 </div>
 
@@ -908,7 +908,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                             <div class='form-group'>
 
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control derechaubicacion" placeholder="comentario_metodologia" aria-label="Recipient's username" name="comentario_metodologia" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control derechaubicacion" placeholder="Comentario de metodologia" aria-label="Recipient's username" name="comentario_metodologia" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">Comentario</span>
                                 </div>
 
@@ -988,7 +988,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                             <div class='form-group'>
 
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control derechaubicacion" placeholder="comentario_cronograma" aria-label="Recipient's username" name="comentario_cronograma" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control derechaubicacion" placeholder="Comentario de cronograma" aria-label="Recipient's username" name="comentario_cronograma" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">Comentario</span>
                                 </div>
 
@@ -1088,7 +1088,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                             <div class='form-group'>
 
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control derechaubicacion" placeholder="comentario_recurso" aria-label="Recipient's username" name="comentario_recurso" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control derechaubicacion" placeholder="Comentario de recurso" aria-label="Recipient's username" name="comentario_recurso" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">Comentario</span>
                                 </div>
 
@@ -1168,7 +1168,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                             <div class='form-group'>
 
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control derechaubicacion" placeholder="comentario_referencias" aria-label="Recipient's username" name="comentario_referencias" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control derechaubicacion" placeholder="Comentario de bibliografia" aria-label="Recipient's username" name="comentario_referencias" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">Comentario</span>
                                 </div>
 
@@ -1307,7 +1307,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='col-lg-12'>
                             <div class='form-group'>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control derechaubicacion" placeholder="concepto_genera" aria-label="Recipient's username" name="concepto_genera" aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control derechaubicacion" placeholder="Comentario general" aria-label="Recipient's username" name="concepto_genera" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">Comentario</span>
                                 </div>
 
