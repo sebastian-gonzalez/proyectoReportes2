@@ -149,13 +149,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 		Swal.fire({
-			title: 'Inhabilitar ficha',
-			text: "deseas inabilitar esta ficha?!",
+			title: 'Inactivar ficha',
+			text: "deseas Inactivar esta ficha?!",
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'si , inhabilitar'
+			confirmButtonText: 'si , inactivar'
 		}).then((result) => {
 			if (result.isConfirmed) {
 

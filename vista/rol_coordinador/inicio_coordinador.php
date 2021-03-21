@@ -156,6 +156,7 @@ include("../../controlador/conexion.php");
 				<center>
 					<img src="../../assets/images/uniajc.png" width="50%">
 				</center>
+				
 			</div>
 		</div>
 	</div>

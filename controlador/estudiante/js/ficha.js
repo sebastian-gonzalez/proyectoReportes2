@@ -19,7 +19,7 @@ $(document).ready(function () {
       { data: "fecha_ficha" },
       {
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary vermas' title='Ver mas'    ><i class='material-icons'>control_point</i></button><button class='btn btn-danger btn-sm btnBborrar' tooltip-dir='top' title='Borrar'><i class='material-icons'>delete</i></button></div></div>",
+          "<div class='text-center btn-group'><button  class='btn btn-primary margin-boton vermas ' > <i class='material-icons'>control_point</i> </button><button class='btn btn-danger btn-sm  btnBborrar' tooltip-dir='top' title='Borrar'><i class='material-icons'>delete</i></button></div>",
       },
     ],
   });
@@ -193,7 +193,7 @@ $(document).ready(function () {
     var i = 1;
     $('#addspreg').click(function () {
       i++;
-      $('#dynamic_field').append('<tr id="row' + i + '"><td><textarea type="text" rows="" cols="100" name="addspreg[]" placeholder="Ingrese pregunta sistematizadora" class="form-control" ></textarea></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button> </td> <br/> <br/> </tr> ');
+      $('#dynamic_field').append('<tr id="row' + i + '"><td><textarea type="text" rows="" cols="100" name="addspreg[]" placeholder="Ingrese Sistematización del Problema" class="form-control" ></textarea><br/></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button> </td> <br/> <br/> </tr> ');
     });
 
     $(document).on('click', '.btn_remove', function () {
@@ -211,7 +211,7 @@ $(document).ready(function () {
     var i = 100;
     $('#addsobj').click(function () {
       i++;
-      $('#dynamic_fieldobj').append('<tr id="row' + i + '"><td><textarea type="text" rows="" cols="100" name="addsobj[]" placeholder="Ingrese objetivo especificos" class="form-control" ></textarea></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button> </td> <br/> <br/> </tr> ');
+      $('#dynamic_fieldobj').append('<tr id="row' + i + '"><td><textarea type="text" rows="" cols="100" name="addsobj[]" placeholder="Ingrese Objetivo Especifico" class="form-control" ></textarea></br></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td> <br/> <br/> </tr> ');
     });
 
     $(document).on('click', '.btn_remove', function () {
@@ -343,6 +343,18 @@ var valorfi =$("#validacion_estudiante").val();
 
   $(document).on("click", ".vermas", function () {
     location.href = "info_ficha.php";
-
+    $('#tooltip').tooltip(options)
+    $(document).tooltip();
   });
+
+
+  $(function () {
+    $('[data-toggle="Agregar Compañero"]').tooltip()
+    $('[data-toggle="Visualizar Participantes"]').tooltip()
+
+   
+  })
+
+
+
 });

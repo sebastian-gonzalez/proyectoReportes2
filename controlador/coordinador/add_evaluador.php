@@ -1,3 +1,9 @@
+<!--SweetAlert-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
+
 <?php
 
 $db = new Database();
@@ -20,6 +26,8 @@ if ($row_ficha == true) {
 ?>
 
 <?php
+
+echo'<body>'; 
 if (isset($_POST['add_evaluador'])) {
      $id_lista_ficha =  $_SESSION['id_fichas_evaluador'];
      foreach ($_POST['id_lista_usuario_ev'] as $key => $value) {
@@ -28,21 +36,42 @@ if (isset($_POST['add_evaluador'])) {
           $id_rol_ficha = 3;
 
 
-          $consulta_validacion = "SELECT * FROM lista_ficha WHERE id_lista_ficha =$id_lista_ficha AND (id_lista_usuario=$id_lista_usuario AND id_rol_ficha = 2)";
+          $consulta_validacion = "SELECT * FROM lista_ficha WHERE id_lista_ficha =$id_lista_ficha AND (id_lista_usuario=$id_lista_usuario AND id_rol_ficha = 2 AND lista_ficha.activo is null)";
           $resultado_vali = $conexion->prepare($consulta_validacion);
           $data_vali = $resultado_vali->execute();
 
           if ($resultado_vali->fetchColumn() > 0) {
-               echo '<script language="javascript">alert("La ficha no puede asignar ese evaluador");
-          location.href="revision_fichas_coordinador.php";</script>';
+       
+               echo
+               "<script> swal({
+                   allowOutsideClick: false,
+                   title: '¡Atencion!',
+                   text: 'Este docente ya se encuentra como director',
+                   type: 'error',
+                 }).then(function(){ 
+                   location.href='../../vista/rol_coordinador/revision_fichas_coordinador.php';
+                   }
+                );
+                ;</script>";
           } else {
 
                $consulta_participante = "INSERT INTO lista_ficha (id_lista_usuario,id_lista_ficha,id_rol_ficha)
          VALUES('$id_lista_usuario','$id_lista_ficha', '$id_rol_ficha') ";
                $resultado_participante = $conexion->prepare($consulta_participante);
                $resultado_participante->execute();
-               echo '<script>
-               location.href="revision_fichas_coordinador.php";</script>';
+               echo
+               "<script> swal({
+                   allowOutsideClick: false,
+                   title: '¡Exito!',
+                   text: 'Evaluador asignado correctamente',
+                   type: 'success',
+                 }).then(function(){ 
+                   location.href='../../vista/rol_coordinador/revision_fichas_coordinador.php';
+                   }
+                );
+                ;</script>";
           }
      }
 }
+echo'</body>';
+?>

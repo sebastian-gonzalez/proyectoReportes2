@@ -40,10 +40,11 @@ table.dataTable thead {
 }
 
 
-
-
-
-button:hover:after {
-  opacity: 1;
-  visibility: visible;
+.margin-boton
+{
+  margin-right: 7px;
 }
+
+.ancho
+{
+margin-left: auto;}

@@ -1,12 +1,27 @@
+<!--SweetAlert-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
 
 <?php
-include_once '../database.php';
+include('../database.php');
+include('../conexion.php');
+
 $objeto = new Database();
 $conexion = $objeto->connect();
 
+session_start();
+if (!isset($_SESSION['id_rol_usu'])) {
+    header('location: ../login.php');
+} else {
+    if ($_SESSION['id_rol_usu'] != 1) {
+        header('location: ../login.php');
+    }
+}
 
 
-
+echo'<body>'; 
 if (isset($_POST['add_usuario'])) {
 
 
@@ -33,11 +48,33 @@ if (isset($_POST['add_usuario'])) {
     $data_vali_correo = $resultado_vali_correo->execute();
 
     if ($resultado_vali_cedula->fetchColumn() > 0) {
-        echo '<script language="javascript">alert("Intente con una cedula diferente");
-        location.href="../../vista/rol_admin/usuarios.php";</script>';
+
+        echo
+        "<script> swal({
+            allowOutsideClick: false,
+            title: '¡Fallo!',
+            text: 'Intente con  una cedula diferente',
+            type: 'error',
+          }).then(function(){ 
+            location.href='../../vista/rol_admin/usuarios.php';
+            }
+         );
+         ;</script>";
     } else if ($resultado_vali_correo->fetchColumn() > 0) {
-        echo '<script language="javascript">alert("Intente con un correo diferente");
-        location.href="../../vista/rol_admin/usuarios.php";</script>';
+
+
+
+        echo
+        "<script> swal({
+            allowOutsideClick: false,
+            title: '¡Fallo!',
+            text: 'Intente con un correo diferente',
+            type: 'error',
+          }).then(function(){ 
+            location.href='../../vista/rol_admin/usuarios.php';
+            }
+         );
+         ;</script>";
     } else {
 
         $consulta = "INSERT INTO usuarios (cedula_usu,nombre_usu,apellido_usu,correo_usu,contrasena_usu,id_rol_usu,id_programa_usu)
@@ -50,9 +87,19 @@ if (isset($_POST['add_usuario'])) {
         $resultado->execute();
         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-        echo '<script language="javascript">alert("Exito");
-        location.href="../../vista/rol_admin/usuarios.php";</script>';
+        echo
+        "<script> swal({
+            allowOutsideClick: false,
+            title: '¡Exito!',
+            text: 'Usuario agregado correctamente',
+            type: 'success',
+          }).then(function(){ 
+            location.href='../../vista/rol_admin/usuarios.php';
+            }
+         );
+         ;</script>";
         //$data = "Add";
      
     }
 }
+echo'</body>';

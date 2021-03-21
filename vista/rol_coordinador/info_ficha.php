@@ -15,7 +15,6 @@ $nombre_usu = $_SESSION['nombre_usu'];
 
 include('../../controlador/conexion.php');
 include('../../controlador/database.php');
-include("../../controlador/coordinador/add_director.php");
 
 ?>
 
@@ -217,6 +216,8 @@ include("../../controlador/coordinador/add_director.php");
                 ?>
                     <hr />
                     <h4> Titulo </h4>
+					
+                    <h6> <i class="fa fa-check-circle-o"></i>  <?php echo $titu_ficha  ?> </h6>
 
                 <?php
                 }
@@ -241,7 +242,7 @@ include("../../controlador/coordinador/add_director.php");
                         <hr />
                         <h4><?php echo $descri_campo  ?></h4>
 
-                        <h6><?php echo $valo_campo  ?> </h6>
+                        <h6>  <i class="fa fa-check-circle-o"></i>  <?php echo $valo_campo  ?> </h6>
                     </div>
 
                 <?php

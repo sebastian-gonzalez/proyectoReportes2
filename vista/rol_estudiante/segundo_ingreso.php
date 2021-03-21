@@ -293,7 +293,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
-									<label for="" class="col-form-label">Pregunta Formulación</label>
+									<label for="" class="col-form-label">Formulación del Problema</label>
 									<textarea type="text" required class="form-control" name="pregpro"  ></textarea> 
 								</div>
 							</div>
@@ -304,7 +304,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class="row">
 							<div class="col-lg-12" id="dynamic_field">
 								<div class="form-group">
-									<a class="btn btn-primary text-light" id="addspreg">Agregar pregunta de sistematizacion</a>
+									<a class="btn btn-primary text-light" id="addspreg">Agregar Sistematización del Problema</a>
 
 								</div>
 							</div>
@@ -325,7 +325,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class="row">
 							<div class="col-lg-12" id="dynamic_fieldobj">
 								<div class="form-group">
-									<a class="btn btn-primary text-light" id="addsobj">Agregar objetivo especifico</a>
+									<a class="btn btn-primary text-light" id="addsobj">Agregar Objetivo Especifico</a>
 
 								</div>
 							</div>

@@ -135,7 +135,7 @@ include("../../controlador/conexion.php");
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="container largopdf">
-                <br />
+              
                 <?php
                 $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES)));
                 $tipo = mysqli_real_escape_string($con, (strip_tags($_GET["tipo"], ENT_QUOTES)));
@@ -149,11 +149,23 @@ include("../../controlador/conexion.php");
                             $directorio = opendir($path);
                             while ($archivo = readdir($directorio)) {
                                 if (!is_dir($archivo)) {
-                                    echo "<iframe src='../../controlador/estudiante/$tipo/$ficha1/$archivo' height='680' width='100%'></iframe>";
+
+                                    echo "
+									<div class='ancho'> 
+									<a href='../../vista/rol_docente/info_ficha.php?ficha=".$ficha1."' class='btn btn-primary ancho fa fa-arrow-circle-left '> Regresar</a>
+									</div>
+									<br />
+									
+									<iframe src='../../controlador/estudiante/$tipo/$ficha1/$archivo' height='680' width='100%'></iframe>";
                                 }
                             }
                         } else {
-                            echo '<script language="javascript">alert("No Tiene un documento agregado");</script>';
+							echo "  
+							<br />             
+							<center><h5> No tienes un documento agregado porfavor ingrese el documento en la seccion de ver campos ficha </h5></center>
+							<br /> 
+							<a href='../../vista/rol_docente/info_ficha.php?ficha=".$ficha1."' class='btn btn-primary ancho fa fa-arrow-circle-left '> Regresar</a>
+							";
                         }
                         ?>
 

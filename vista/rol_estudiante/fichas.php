@@ -331,11 +331,11 @@ while ($record = mysqli_fetch_assoc($resultset)) {
                             $resultado_vali = $conexion->prepare($consulta_validacion);
                             $data_vali = $resultado_vali->execute();
                             if ($resultado_vali->fetchColumn() > 0) {
-                                echo ' <button id="btnParticipantes" type="button" class="btn btn-primary" data-toggle="modal" tooltip-dir="top" title="Agregar Participantes"><i class="material-icons" >group_add</i></button>';
+                                echo ' <button id="btnParticipantes" type="button" class="btn btn-primary margin-boton" data-toggle="Agregar Compañero" data-placement="top" title="Agregar Compañero" data-toggle="modal" ><i class="material-icons" >group_add</i></button>';
 
 
 
-                                echo ' <button id="btnMostrar_P" type="button" class="btn btn-primary" data-toggle="modal"tooltip-dir="top" title="Mostrar Participantes"><i class="material-icons">groups</i></button>';
+                                echo ' <button id="btnMostrar_P" type="button" class="btn btn-primary" data-toggle="Visualizar Participantes" data-placement="top" title="Visualizar Participantes" data-toggle="modal"><i class="material-icons">groups</i></button>';
                             } else {
                                 echo ' $id_lis_fi1';
                             }
@@ -346,8 +346,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
                 </div>
             </div> <!-- Content Header (Page header) -->
 
-     
- 
+
+
             <div class="container caja">
                 <div class="row">
                     <div class="col-lg-12">
@@ -357,11 +357,11 @@ while ($record = mysqli_fetch_assoc($resultset)) {
                                     <tr>
                                         <th>id_ficha</th>
                                         <th>Titulo</th>
-                                        <th>Descripcion</th>
+                                        <th>Descripción</th>
                                         <th>Programa</th>
                                         <th>Estado</th>
                                         <th>Evaluacion</th>
-                                        <th>Creacion</th>
+                                        <th>Fecha Creación</th>
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>

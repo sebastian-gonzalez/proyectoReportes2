@@ -49,13 +49,13 @@
 	
 				var inhabilitar=$('.clas_inabi_yaca').val();
 			Swal.fire({
-				title: 'Inhabilitar Participante',
-				text: 'deseas inabilitar esta Participante?!',
+				title: 'Inactivar Participante',
+				text: 'deseas Inactivar esta Participante?!',
 				icon: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
 				cancelButtonColor: '#d33',
-				confirmButtonText: 'si , inhabilitar'
+				confirmButtonText: 'si , inactivar'
 			}).then((result) => {
 				if (result.isConfirmed) {
 			

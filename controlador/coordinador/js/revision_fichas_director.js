@@ -22,7 +22,7 @@ $(document).ready(function () {
       { data: "fecha_ficha" },
       {
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnDirector'  tooltip-dir='top' title='Agregar Director'><i class='material-icons'>person_add</i></button><button class='btn btn-primary btn-sm btnEditar'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision1'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm margin-boton btnDirector'  tooltip-dir='top' title='Agregar Director'><i class='material-icons'>person_add</i></button><button class='btn btn-primary btn-sm margin-boton btnEditar'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision1'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
       },
     ],
 

@@ -25,8 +25,8 @@ include('../conexion.php');
 
 $objeto = new Database();
 $conexion = $objeto->connect();
-$descripcion_pregprog = "Pregunta problematizadora";
-$descripcion_pregsis = "Pregunta sistematizadora";
+$descripcion_pregprog = "Formulación del Problema";
+$descripcion_pregsis = "Sistematización del problema";
 $descripcion_objgen = "Objetivo general";
 $descripcion_objespe = "Objetivo especifico";
 
@@ -100,6 +100,7 @@ if (isset($_POST['add'])) {
     }
     echo
     "<script> swal({
+        allowOutsideClick: false,
         title: '¡Exito!',
         text: 'Ficha agregada correctamente',
         type: 'success',

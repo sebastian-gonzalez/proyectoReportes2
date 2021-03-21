@@ -150,9 +150,7 @@ include("../../controlador/conexion.php");
                   <div class="table-responsive">
                     <span id="message"></span>
                     <form method="post" id="import_excel_form" enctype="multipart/form-data">
-                      <table class="table">
 
-                        <div class="row">
                           <div class="col-lg-5">
                             <div class="form-group">
                               <label for="" class="col-form-label">Tipo rol a importar</label>
@@ -167,11 +165,9 @@ include("../../controlador/conexion.php");
                             </div>
 
                           </div>
-                        </div>
 
 
 
-                        <div class="row">
                           <div class="col-lg-7">
                             <div class="form-group">
                               <label for="" class="col-form-label">Programa de usuarios a importar</label>
@@ -190,15 +186,12 @@ include("../../controlador/conexion.php");
                               </select>
                             </div>
                           </div>
-                        </div>
 
-                        <tr>
+                      
 
-                          <td width="50%"><input type="file" name="import_excel" /></td>
+                        <input type="file" name="import_excel" />
 
-                          <td width="25%"><input type="submit" name="import" id="import" class="btn btn-primary" value="Importar" /></td>
-                        </tr>
-                      </table>
+                        <input type="submit" name="import" id="import" class="btn btn-primary" value="Importar"/> 
                     </form>
                     <br />
 

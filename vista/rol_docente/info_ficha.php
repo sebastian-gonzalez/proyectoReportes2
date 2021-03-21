@@ -204,7 +204,7 @@ include("../../controlador/conexion.php");
                     <hr />
                     <h4> Titulo </h4>
 
-                    <h6><?php echo $titu_ficha  ?> </h6>
+                    <h6> <i class="fa fa-check-circle-o"> </i> <?php echo $titu_ficha  ?> </h6>
                 <?php
                 }
                 ?>
@@ -228,7 +228,7 @@ include("../../controlador/conexion.php");
                         <hr />
                         <h4><?php echo $descri_campo  ?></h4>
 
-                        <h6><?php echo $valo_campo  ?> </h6>
+                        <h6> <i class="fa fa-check-circle-o"> </i><?php echo $valo_campo  ?> </h6>
                     </div>
 
                 <?php

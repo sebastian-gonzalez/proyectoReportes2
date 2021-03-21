@@ -90,7 +90,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
 	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
-
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 
 
 </head>
@@ -276,7 +277,6 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
             <div class="container largopdf">
-                <br />
                 <?php
                 $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES)));
                 $tipo = mysqli_real_escape_string($con, (strip_tags($_GET["tipo"], ENT_QUOTES)));
@@ -290,11 +290,28 @@ while ($record = mysqli_fetch_assoc($resultset)) {
                             $directorio = opendir($path);
                             while ($archivo = readdir($directorio)) {
                                 if (!is_dir($archivo)) {
-                                    echo "<iframe src='../../controlador/estudiante/$tipo/$ficha1/$archivo' height='680' width='100%'></iframe>";
+									
+                                    echo "
+									<div class='ancho'> 
+									<a href='../../vista/rol_estudiante/info_ficha.php' class='btn btn-primary ancho fa fa-arrow-circle-left '> Regresar</a>
+									</div>
+									<br />
+
+									<iframe src='../../controlador/estudiante/$tipo/$ficha1/$archivo' height='680' width='100%'></iframe>
+									
+									";
+
+									
                                 }
                             }
                         } else {
-                            echo '<script language="javascript">alert("No Tiene un documento agregado");</script>';
+                            echo "  
+							<br />             
+							<center><h5> No tienes un documento agregado porfavor ingrese el documento en la seccion de ver campos ficha </h5></center>
+							<br /> 
+							<a href='../../vista/rol_estudiante/info_ficha.php' class='btn btn-primary  '> Regresar a la ficha</a>
+							";
+
                         }
                         ?>
 
@@ -306,9 +323,13 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		</div>
 	</div>
 
-	<script src="../../assets/js/jquery-3.5.1.js"></script>
-
+    <script src="../../assets/js/jquery-3.5.1.js"></script>
+    <script src="../../assets/popper/popper.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- datatables JS -->
+    <script type="text/javascript" src="../../assets/datatables/datatables.min.js"></script>
 	<script src="../../assets/js/nav/adminlte.js"></script>
+
 
 </body>
 

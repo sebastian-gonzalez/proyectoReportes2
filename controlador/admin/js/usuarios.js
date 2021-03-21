@@ -53,10 +53,40 @@ $(document).ready(function () {
         id_programa_usu: id_programa_usu,
         opcion: opcion,
       },
-      success: function (data) {
+      success: function (reponse) {
         tablaUsuarios.ajax.reload(null, false);
+        //alert(reponse);
         
+        var jsonRespuesta = JSON.parse(reponse);
+        console.log(jsonRespuesta);
 
+        if(jsonRespuesta.success == "0"){
+
+          Swal.fire(
+            'Error!',
+            'Por favor validar la cedula!',
+            'error'
+          )
+        } else if (jsonRespuesta.success == "1"){      
+          
+            Swal.fire(
+              'Error!',
+              'Por favor validar la correo!',
+              'error'
+            )          
+
+        } else if (jsonRespuesta.success == "3" || 
+                  jsonRespuesta.success == "4"){      
+          
+          Swal.fire(
+            'Exito!',
+            '¡Usuario Actualizado Correctamente!',
+            'success'
+          )          
+
+      }
+
+        
       }
       ,
     });

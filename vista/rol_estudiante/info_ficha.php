@@ -462,7 +462,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 								AND fi.id_ficha = lista.id_lista_ficha 
 								AND fi.id_ficha = campos.fk_id_ficha 
 								AND fi.activo is null
-								AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
+								AND campos.descripcion_campo LIKE '%Formulación del Problema%'";
 				$resultset = mysqli_query($con, $consultaacamposficha1) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
@@ -474,7 +474,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				AND fi.id_ficha = lista.id_lista_ficha 
 				AND fi.id_ficha = campos.fk_id_ficha 
 				AND fi.activo is null
-				AND campos.descripcion_campo LIKE '%Pregunta problematizadora%'";
+				AND campos.descripcion_campo LIKE '%Formulación del Problema%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 
@@ -491,7 +491,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						echo "						<div class='row'>
 						<div class='col-lg-12'>
 							<div class='form-group'>
-							<label class='col-form-label'>Pregunta Problematizadora </label>
+							<label class='col-form-label'>Formulación del Problema</label>
 							<button href='#edit_$idcampo1' class='btn btn-primary derechaubicacion' data-toggle='modal'> <i class='fa fa-pencil'></i></button>
 								<hr />
 							
@@ -504,7 +504,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						echo "							<div class='row'>
 						<div class='col-lg-12'>
 							<div class='form-group'>
-							<label class='col-form-label'>Pregunta Problematizadora </label>
+							<label class='col-form-label'>Formulación del Problema</label>
 
 								<hr />
 							
@@ -522,7 +522,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class='row'>
 							<div class='col-lg-12'>
 								<div class='form-group'>
-								<label class='col-form-label'>Pregunta Problematizadora </label>
+								<label class='col-form-label'>Formulación del Problema</label>
 								<button href='#create_pregugen' class='btn btn-info derechaubicacion' data-toggle='modal'> <i class='fa fa-plus'></i></button>
 			
 							
@@ -537,7 +537,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class='row'>
 							<div class='col-lg-12'>
 								<div class='form-group'>
-								<label class='col-form-label'>Pregunta Problematizadora </label>
+								<label class='col-form-label'>Formulación del Problema</label>
 
 			
 							
@@ -559,7 +559,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 							<div class="modal-header">
 
 
-								<h4 class="modal-title" id="myModalLabel"> Crear Pregunta problematizadora </h4>
+								<h4 class="modal-title" id="myModalLabel"> Ingresar Formulación del Problema </h4>
 								<button type="button" class="close" data-dismiss="modal" aria-hnameden="true">&times;</button>
 							</div>
 							<div class="modal-body">
@@ -571,7 +571,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 											<div class="row">
 												<div class="col-lg-12">
 													<div class="form-group">
-														<label for="" class="col-form-label">Pregunta Problematizadora </label>
+														<label for="" class="col-form-label">Formulación del Problema </label>
 
 														<input type="text" class="form-control largocampo" name="valor_campo" required>
 
@@ -601,11 +601,11 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 				if ($id_estado_ficha_barra == 2 or $id_estado_ficha_barra == 3 or $id_estado_ficha_barra == 6) {
 
-					echo "	<label class='col-form-label'>Preguntas de sistematizacion </label>
+					echo "	<label class='col-form-label'>Sistematización del problema </label>
 				<button href='#create_pregu' class='btn btn-info derechaubicacion' data-toggle='modal'> <i class='fa fa-plus'></i></button> ";
 				} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
 
-					echo "<label class='col-form-label'>Preguntas de sistematizacion </label> ";
+					echo "<label class='col-form-label'>Sistematización del problema</label> ";
 				}
 				?>
 
@@ -616,7 +616,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 							<div class="modal-header">
 
 
-								<h4 class="modal-title" id="myModalLabel"> Crear Pregunta de sistematizacion </h4>
+								<h4 class="modal-title" id="myModalLabel"> Sistematización del problema </h4>
 								<button type="button" class="close" data-dismiss="modal" aria-hnameden="true">&times;</button>
 							</div>
 							<div class="modal-body">
@@ -628,7 +628,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 											<div class="row">
 												<div class="col-lg-12">
 													<div class="form-group">
-														<label for="" class="col-form-label">Pregunta de sistematizacion </label>
+														<label for="" class="col-form-label">Sistematización del problema </label>
 
 														<input type="text" class="form-control largocampo" name="valor_campo" required>
 
@@ -668,7 +668,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 				AND fi.id_ficha = campos.fk_id_ficha 
 				AND fi.activo is null
 				AND campos.activo is null
-				AND campos.descripcion_campo LIKE '%Pregunta sistematizadora'";
+				AND campos.descripcion_campo LIKE '%Sistematización del problema%'";
 				$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
 
 				while ($record = mysqli_fetch_assoc($resultset)) {
