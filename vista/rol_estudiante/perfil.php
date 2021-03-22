@@ -93,7 +93,6 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../.../assets/mainTable.css">
 	<link rel="stylesheet" href="../../assets/css/perfil.css">
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>

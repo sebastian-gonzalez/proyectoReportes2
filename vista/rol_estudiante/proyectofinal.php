@@ -1,7 +1,6 @@
 <?php
-include('../../controlador/estudiante/add_ficha.php');
 
-
+session_start();
 $nombre_usu = $_SESSION['nombre_usu'];
 
 
@@ -14,7 +13,8 @@ $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
 
-$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");$query_ficha->execute();
+$query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");
+$query_ficha->execute();
 $row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
 
 
@@ -84,7 +84,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 	<link rel="stylesheet" href="../../assets/mainTable.css">
 
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 
 
 
@@ -92,6 +92,9 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
 	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
 
 
 </head>
@@ -122,8 +125,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		<!-- /.navbar -->
 
 		<?php
-        if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
-            echo " 
+		if (!isset($fichaaprobada) && !isset($fichaenanteproyecto)) {
+			echo " 
 		<!-- Main Sidebar Container -->
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 			<!-- Brand Logo -->
@@ -169,8 +172,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 			<!-- /.sidebar -->
 		</aside>
 		";
-        } else if (isset($fichaenanteproyecto)) {
-            echo  " 
+		} else if (isset($fichaenanteproyecto)) {
+			echo  " 
 		<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 			<!-- Brand Logo -->
 			<a href='inicio_estudiante.php' class='brand-link'>
@@ -217,8 +220,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		</aside>
 
 		";
-        } else if (isset($fichaaprobada)) {
-            echo  " 
+		} else if (isset($fichaaprobada)) {
+			echo  " 
 			<aside class='main-sidebar sidebar-dark-primary elevation-4 navcolor'>
 				<!-- Brand Logo -->
 				<a href='inicio_estudiante.php' class='brand-link'>
@@ -270,10 +273,10 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 			</aside>
 	
 			";
-        }
-        ?>
+		}
+		?>
 
-	
+
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 
@@ -283,7 +286,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 			<div class="container ">
 
-
+				<?php include('../../controlador/estudiante/add_ficha.php');
+                ?>
 
 
 				<section>

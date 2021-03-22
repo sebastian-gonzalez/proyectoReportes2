@@ -117,36 +117,82 @@ $(document).ready(function () {
 
   $('#delete').click(function () {
 
-    var parent = $(this).parent().attr('id');
+    var idFile =  $(this).parent().attr('id');
+    var idFicha =  $(this).parent().attr('idficha');
     var service = $(this).parent().attr('data');
-    var dataString = 'id=' + service;
+    var dataFile = {
+      name: idFile,
+      idficha: idFicha,
+      url: service
+    };
+
+
     $.ajax({
       type: "POST",
-      url: "del_document.php",
-      data: dataString,
+      url: "del_document.php" ,
+      data: dataFile,
 
-      succes: function () {
+      success: function (response) {
 
-      }
-    });
+        var jsonRespuesta = JSON.parse(response);
+        console.log(jsonRespuesta);
+
+        if(jsonRespuesta.success == "1"){
+
+          Swal.fire(
+            'Exito!',
+            'Documento de ficha de anteproyecto inactivado correctamente!',
+            'success'
+          ).then(function(){ 
+          location.href='info_ficha.php';
+          }
+       );
+     
+      }}
+    }); 
+
 
   });
 
 
   $('#deleteante').click(function () {
 
-    var parent = $(this).parent().attr('id');
+
+    
+    var idFile =  $(this).parent().attr('id');
+    var idFicha =  $(this).parent().attr('idficha');
     var service = $(this).parent().attr('data');
-    var dataString = 'id=' + service;
+    var dataFile = {
+      name: idFile,
+      idficha: idFicha,
+      url: service
+    };
+
     $.ajax({
       type: "POST",
-      url: "del_document.php",
-      data: dataString,
+      url: "del_document.php" ,
+      data: dataFile,
 
-      succes: function () {
+      success: function (response) {
 
-      }
-    });
+        var jsonRespuesta = JSON.parse(response);
+        console.log(jsonRespuesta);
+
+        if(jsonRespuesta.success == "1"){
+
+          Swal.fire(
+            'Exito!',
+            'Documento de anteproyecto inactivado correctamente!',
+            'success'
+          ).then(function(){ 
+          location.href='info_ficha.php';
+          }
+       );
+     
+      }}
+    }); 
+    
+
 
   });
 
@@ -309,7 +355,7 @@ var valorfi =$("#validacion_estudiante").val();
 
     Swal.fire({
       title: 'Inhabilitar ficha',
-      text: "deseas inabilitar esta ficha?!",
+      text: '¿deseas inabilitar esta ficha?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -322,16 +368,25 @@ var valorfi =$("#validacion_estudiante").val();
           type: "POST",
           datatype: "json",
           data: { opcion: opcion, id_ficha: id_ficha },
-          success: function () {
+          success: function (data) {
             tablaFichas.row(fila.parents("tr")).remove().draw();
-            location.href = "inicio_estudiante.php";
+            Swal.fire({
+              allowOutsideClick: false,
+              title: '¡Exito!',
+              text: 'Ficha inactivada correctamente',
+              icon: 'success',
+            }).then(function(){ 
+              location.href='../../vista/rol_estudiante/inicio_estudiante.php';
+              }
+           );
+
+
+
+
           },
         });
-        Swal.fire(
-          'Inabilitada!',
-          'La ficha fue inabilitada.',
-          'success'
-        )
+
+
       }
 
 

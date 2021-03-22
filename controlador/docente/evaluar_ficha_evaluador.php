@@ -1,5 +1,8 @@
+<!--SweetAlert-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
 
 <?php
 include_once '../../controlador/database.php';
@@ -10,7 +13,7 @@ include('../conexion.php');
 
 
 
-
+echo'<body>';
 
 if (isset($_POST['evaluar'])) {
 
@@ -76,7 +79,7 @@ if (isset($_POST['evaluar'])) {
         $recurso_c = mysqli_real_escape_string($con, (strip_tags($_POST["recurso_c"], ENT_QUOTES)));
         $recurso_d = mysqli_real_escape_string($con, (strip_tags($_POST["recurso_d"], ENT_QUOTES)));
         $comentario_recurso = mysqli_real_escape_string($con, (strip_tags($_POST["comentario_recurso"], ENT_QUOTES)));
-        
+
         $referencias_a = mysqli_real_escape_string($con, (strip_tags($_POST["referencias_a"], ENT_QUOTES)));
         $referencias_b = mysqli_real_escape_string($con, (strip_tags($_POST["referencias_b"], ENT_QUOTES)));
         $referencias_c = mysqli_real_escape_string($con, (strip_tags($_POST["referencias_c"], ENT_QUOTES)));
@@ -117,9 +120,19 @@ if (isset($_POST['evaluar'])) {
 
             $resultado = $conexion->prepare($consulta);
             $validacion_id = $resultado->execute();
-            
-            echo '<script language="javascript">
-            location.href="../../vista/rol_docente/fichas_asignadas_evaluador.php";</script>';
+
+
+            echo
+            "<script> swal({
+            allowOutsideClick: false,
+            title: '¡Exito!',
+            text: 'Ficha de anteproyecto evaluada correctamente',
+            type: 'success',
+          }).then(function(){ 
+            location.href='../../vista/rol_docente/fichas_asignadas_evaluador.php';
+            }
+         );
+         ;</script>";
         } else {
 
             $eva_anteproyecto = "INSERT INTO evaluacion_anteproyecto (planteamiento,formulacion,sistematizacion,comentario_problema_investigacion,objetivo_general_a,objetivo_general_b,objetivo_general_c,objetivo_especifico_a,objetivo_especifico_b,objetivo_especifico_c,comentario_objetivo,resultado_a,resultado_b,impacto_a,impacto_b,comentario_resultado,interes,importancia,utilidad,factibilidad_gen,pertinencia,comentario_justificacion,historico_a,historico_b,historico_c,contextual,teorico_a,teorico_b,teorico_c,conceptual,legal,comentario_marco,metodologia_a,metodologia_b,metodologia_c,metodologia_d,comentario_metodologia,cronograma_a,cronograma_b,cronograma_c,comentario_cronograma,recurso_a,recurso_b,recurso_c,recurso_d,comentario_recurso,referencias_a,referencias_b,referencias_c,comentario_referencias,titulo,nivel_investigativo,factibilidad,documento_a,documento_b,documento_c,concepto_genera,estado,id_lista_ficha_ante)
@@ -132,8 +145,18 @@ if (isset($_POST['evaluar'])) {
 
             $resultado = $conexion->prepare($consulta);
             $validacion_id = $resultado->execute();
-            echo '<script language="javascript">
-            location.href="../../vista/rol_docente/fichas_asignadas_evaluador.php";</script>';
+            echo
+            "<script> swal({
+                allowOutsideClick: false,
+                title: '¡Exito!',
+                text: 'Ficha de anteproyecto evaluada correctamente',
+                type: 'success',
+          }).then(function(){ 
+            location.href='../../vista/rol_docente/fichas_asignadas_evaluador.php';
+            }
+         );
+         ;</script>";
         }
     }
 }
+echo'</body>';

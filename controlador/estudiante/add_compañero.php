@@ -41,10 +41,10 @@ if (isset($_POST['add_participante'])) {
      if ($resultado_vali->fetchColumn() > 0) {
 
           echo
-          "<script> swal({
+          "<script> Swal.fire({
      title: '¡ERROR!',
      text: 'El estudiante ya posee un compañero u otra ficha asignada',
-     type: 'error',
+     icon : 'error',
    }).then(function(){ 
      location.href='fichas.php';
      }
@@ -63,10 +63,10 @@ if (isset($_POST['add_participante'])) {
           $resultado_participante = $conexion->prepare($consulta_participante);
           $resultado_participante->execute();
           echo
-          "<script> swal({
+          "<script> Swal.fire({
      title: '¡Exito!',
      text: 'Compañero asignado',
-     type: 'success',
+     icon: 'success',
    }).then(function(){ 
      location.href='fichas.php';
      }

@@ -1,4 +1,8 @@
+<!--SweetAlert-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
 
 
 <?php
@@ -8,10 +12,7 @@ $conexion = $objeto->connect();
 include('../conexion.php');
 
 
-
-
-
-
+echo '<body>';
 if (isset($_POST['evaluarp'])) {
 
 
@@ -105,20 +106,27 @@ if (isset($_POST['evaluarp'])) {
                 }
 
                 $consulta_evaluacionfinal = "UPDATE ficha SET id_estado_ficha='$estadofi' WHERE id_ficha  =$id_ficha_pro AND  ficha.activo IS null ";
-                $resultado_vali_final = $conexion->prepare($consulta_validacion_final);
+                $resultado_vali_final = $conexion->prepare($consulta_evaluacionfinal);
                 $data_vali1 = $resultado_vali_final->execute();
 
 
                 $consulta = "UPDATE evaluacion_proyecto  SET nota_final='$nota',estado_eva_pro='$estado_proyecto' WHERE id_lista_ficha_eva='$id_ficha_pro' AND  evaluacion_proyecto.activo is null  ";
                 $resultado = $conexion->prepare($consulta);
                 $validacion_id = $resultado->execute();
-            } else {
+
+
+                echo
+                "<script> swal({
+                allowOutsideClick: false,
+                title: '¡Exito!',
+                text: 'Evaluacion del jurado realizada correctamente',
+                type: 'success',
+              }).then(function(){ 
+                location.href='../../vista/rol_docente/fichas_asignadas_jurado.php';
+                }
+             );
+             ;</script>";
             }
-
-
-
-            echo '<script language="javascript">
-            location.href="../../vista/rol_docente/fichas_asignadas_jurado.php";</script>';
         } else {
 
 
@@ -126,9 +134,18 @@ if (isset($_POST['evaluarp'])) {
             VALUES('$a1','$a2','$a3','$afin', '$b1', '$b2', '$b3', '$b4', '$b5', '$b6', '$b7', '$bfin', '$c1', '$c2', '$c3', '$c4', '$c5', '$c6', '$c7', '$cfin', '$eva_jurado_fi', '$id_ficha_pro' ) ";
             $eva_proyecto = $conexion->prepare($eva_proyecto);
             $eva_proyecto->execute();
-
-            echo '<script language="javascript">
-            location.href="../../vista/rol_docente/fichas_asignadas_jurado.php";</script>';
+            echo
+            "<script> swal({
+            allowOutsideClick: false,
+            title: '¡Exito!',
+            text: 'Evaluacion del jurado realizada correctamente
+            aun falta la evaluacion del director',
+            type: 'success',
+          }).then(function(){ 
+            location.href='../../vista/rol_docente/fichas_asignadas_jurado.php';
+            }
+         );
+         ;</script>";
         }
     }
 
@@ -184,23 +201,23 @@ if (isset($_POST['evaluarp'])) {
 
                 if ($nota < 2.5) {
                     $estado_proyecto = 'Reprobado';
-                    $estadofi =5;
+                    $estadofi = 5;
                 } else if ($nota >= 2.5 && $totalnota < 3.5) {
                     $estado_proyecto = 'Reprobado';
-                    $estadofi =5;
+                    $estadofi = 5;
                 } else if ($nota >= 3.5 && $totalnota < 4.5) {
                     $estado_proyecto = 'Aprobado';
-                    $estadofi =4;
+                    $estadofi = 4;
                 } else if ($nota >= 4.5 && $totalnota <= 4.8) {
                     $estado_proyecto = 'Meritorio';
-                    $estadofi =4;
+                    $estadofi = 4;
                 } else if ($nota > 4.8 && $totalnota < 5) {
                     $estado_proyecto = 'Laureado';
-                    $estadofi =4;
+                    $estadofi = 4;
                 }
-                
 
-          
+
+
 
                 $consulta_evaluacionfinal = "UPDATE ficha SET id_estado_ficha=$estadofi WHERE id_ficha=$id_ficha_pro AND  ficha.activo IS null ";
                 $resultado_vali_final = $conexion->prepare($consulta_evaluacionfinal);
@@ -210,15 +227,19 @@ if (isset($_POST['evaluarp'])) {
                 $consulta = "UPDATE evaluacion_proyecto  SET nota_final='$nota',estado_eva_pro='$estado_proyecto' WHERE id_lista_ficha_eva='$id_ficha_pro' AND  evaluacion_proyecto.activo is null  ";
                 $resultado = $conexion->prepare($consulta);
                 $validacion_id = $resultado->execute();
-                echo '<script language="javascript">
-                location.href="../../vista/rol_docente/fichas_asignadas_director.php";</script>';
-
-            } else {
+                echo
+                "<script> swal({
+                allowOutsideClick: false,
+                title: '¡Exito!',
+                text: 'Evaluacion del Director realizada correctamente
+              ',
+                type: 'success',
+              }).then(function(){ 
+                location.href='../../vista/rol_docente/fichas_asignadas_jurado.php';
+                }
+             );
+             ;</script>";
             }
-
-
-            echo '<script language="javascript">
-            location.href="../../vista/rol_docente/fichas_asignadas_director.php";</script>';
         } else {
 
 
@@ -227,9 +248,19 @@ if (isset($_POST['evaluarp'])) {
             $eva_proyecto = $conexion->prepare($eva_proyecto);
             $eva_proyecto->execute();
 
-          
-            echo '<script language="javascript">
-            location.href="../../vista/rol_docente/fichas_asignadas_director.php";</script>';
+            echo
+            "<script> swal({
+            allowOutsideClick: false,
+            title: '¡Exito!',
+            text: 'Evaluacion del Director realizada correctamente
+            aun falta la evaluacion del jurado',
+            type: 'success',
+          }).then(function(){ 
+            location.href='../../vista/rol_docente/fichas_asignadas_jurado.php';
+            }
+         );
+         ;</script>";
         }
     }
 }
+echo '</body>';

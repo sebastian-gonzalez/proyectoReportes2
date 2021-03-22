@@ -2003,6 +2003,44 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 										<td><span class='badge '>" . $record["c7"] . "</span></td>
 									</tr>
 
+								
+								    <tr>
+								    <td class='bg-info'><h6></h6></td>
+							     	<td class='bg-info'><h6>D. CUMPLIMIENTO DEL PROCESO DE DESARROLLO Y CALIDAD DEL PROYECTO (40%)
+
+									 </h6></td>
+							     	<td class='bg-info'>" . $record["d"] . " </td>
+						     	    </tr>
+									 								
+
+							
+									<tr>
+										<td>1.</td>
+										<td>D.1 El (Los) estudiantes cumplieron con el desarrollo del proyecto con responsabilidad y compromiso
+
+										</td>
+
+										<td><span class='badge '>" . $record["d1"] . "</span></td>
+									</tr>
+									<tr>
+										<td>2.</td>
+										<td>D.2 El (Los) estudiantes apropiaron técnicas y procesos que contribuyeron al logro de los objetivos
+
+										</td>
+
+										<td><span class='badge '>" . $record["d2"] . "</span></td>
+									</tr>
+									<tr>
+										<td>3.</td>
+										<td>D.3 El (Los) estudiantes demostraron interés por seguir avanzando en el desarrollo de otras soluciones y etapas del proyecto
+
+										</td>
+
+										<td><span class='badge '>" . $record["d3"] . "</span></td>
+									</tr>
+
+
+						
 								    <td class='bg-info'><h6></h6></td>
 							     	<td class='bg-info'><h6>NOTA FINAL
 
@@ -2089,12 +2127,12 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 											$directorio = opendir($path);
 											while ($archivo = readdir($directorio)) {
 												if (!is_dir($archivo)) {
-													echo "<div data='" . $path . "/" . $archivo . "'>
+													echo "<div id='".$archivo ."' idficha='".$id."' data='" . $path . "/" . $archivo . "'>
 										<a href = '" . $path . "/" . $archivo . "'
 										title = 'Ver Archivo Adjunto'>
 										<span class='fa fa-file-pdf-o' aria-hidden='true'></span></a>";
 
-													echo "$archivo <a href ='info_ficha.php' id = 'delete'
+													echo "$archivo <a href ='#' id = 'delete'
 										title = 'Eliminar Archivo Adjunto'>
 										
 										<span class='fa fa-trash' aria-hidden='true'></span></a></div>";
@@ -2158,12 +2196,13 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 											$directorio = opendir($path);
 											while ($archivo = readdir($directorio)) {
 												if (!is_dir($archivo)) {
-													echo "<div data='" . $path . "/" . $archivo . "'>
+													echo "<div id='".$archivo ."' idficha='".$id."' data='" . $path . "/" . $archivo . "'>
 										<a href = '" . $path . "/" . $archivo . "'
 										title = 'Ver Archivo Adjunto'>
+										<input type=hidden >
 										<span class='fa fa-file-pdf-o' aria-hidden='true'></span></a>";
 
-													echo "$archivo <a href ='info_ficha.php' id = 'deleteante'
+													echo "$archivo <a href ='#' id = 'deleteante'
 										title = 'Eliminar Archivo Adjunto'>
 										
 										<span class='fa fa-trash' aria-hidden='true'></span></a></div>";

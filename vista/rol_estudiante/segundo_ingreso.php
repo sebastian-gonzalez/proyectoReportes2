@@ -1,8 +1,10 @@
 <?php
-include('../../controlador/estudiante/add_ficha.php');
+
+session_start();
 
 
 $nombre_usu = $_SESSION['nombre_usu'];
+
 
 include("../../controlador/conexion.php");
 
@@ -12,6 +14,36 @@ include_once '../../controlador/database.php';
 $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
+
+$consultaacamposfichageneral = "SELECT fi.id_ficha
+	FROM lista_ficha lista, ficha fi 
+	WHERE fi.id_ficha=lista.id_lista_ficha
+	AND lista.id_lista_usuario=$id_s
+	AND fi.id_estado_ficha in (1,2,4,5,6)
+	AND fi.activo is null	
+";
+$resultset = mysqli_query($con, $consultaacamposfichageneral) or die("database error:" . mysqli_error($con));
+
+while ($record = mysqli_fetch_assoc($resultset)) {
+
+	$fichaenanteproyecto = $record['id_ficha'];
+}
+
+
+
+
+$consultaacamposficha = "SELECT fi.id_ficha
+FROM lista_ficha lista, ficha fi 
+WHERE lista.id_lista_usuario=$id_s
+AND fi.id_estado_ficha=3
+AND fi.activo is null
+";
+$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
+
+while ($record = mysqli_fetch_assoc($resultset)) {
+
+	$fichaaprobada = $record['id_ficha'];
+}
 
 $query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");
 $query_ficha->execute();
@@ -30,37 +62,6 @@ if ($row_ficha == true) {
 
 	$id_rol_fi = $row_ficha[3];
 	$_SESSION['id_rol_ficha'] = $id_rol_fi;
-}
-
-$consultaacamposficha = "SELECT fi.id_ficha
-FROM lista_ficha lista, ficha fi 
-WHERE lista.id_lista_usuario=$id_s
-AND fi.id_estado_ficha=3
-AND fi.activo is null
-";
-$resultset = mysqli_query($con, $consultaacamposficha) or die("database error:" . mysqli_error($con));
-
-while ($record = mysqli_fetch_assoc($resultset)) {
-
-	$fichaaprobada = $record['id_ficha'];
-}
-
-
-
-
-$consultaacamposfichageneral = "SELECT fi.id_ficha
-	FROM lista_ficha lista, ficha fi 
-	WHERE fi.id_ficha=lista.id_lista_ficha
-	AND lista.id_lista_usuario=$id_s
-	AND fi.id_estado_ficha in (1,2,4,5,6)	
-	AND fi.activo is null
-	
-";
-$resultset = mysqli_query($con, $consultaacamposfichageneral) or die("database error:" . mysqli_error($con));
-
-while ($record = mysqli_fetch_assoc($resultset)) {
-
-	$fichaenanteproyecto = $record['id_ficha'];
 }
 ?>
 
@@ -88,6 +89,11 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
 	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
+
+	<!--SweetAlert-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
 
 
 </head>
@@ -271,7 +277,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 		}
 		?>
 
-	
+
 		<!-- Content Wrapper. Contains page content -->
 
 		<!-- Content Wrapper. Contains page content -->
@@ -284,17 +290,19 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 			<div class="container">
 
+
+
 				<section>
 					<h2>Completar los campos de la ficha</h2>
 				</section>
-				<hr />
+				<hr /><br />
 				<form class="form-horizontal" action="../../controlador/estudiante/add_campos_ficha.php" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label for="" class="col-form-label">Formulación del Problema</label>
-									<textarea type="text" required class="form-control" name="pregpro"  ></textarea> 
+									<textarea type="text" required class="form-control" name="pregpro"></textarea>
 								</div>
 							</div>
 						</div>
@@ -315,7 +323,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label for="" class="col-form-label">Objetivo General</label>
-									<textarea type="text" required class="form-control" name="objgen" ></textarea>
+									<textarea type="text" required class="form-control" name="objgen"></textarea>
 								</div>
 							</div>
 						</div>
@@ -340,6 +348,8 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 
 				</form>
+
+
 
 			</div>
 		</div>

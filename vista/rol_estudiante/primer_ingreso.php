@@ -1,6 +1,17 @@
 <?php
-include('../../controlador/estudiante/add_ficha.php');
 
+
+
+session_start();
+if (!isset($_SESSION['id_rol_usu'])) {
+	header('location: ../login.php');
+} else {
+	if ($_SESSION['id_rol_usu'] != 4) {
+		header('location: ../login.php');
+	}
+}
+?>
+<?php
 
 $nombre_usu = $_SESSION['nombre_usu'];
 
@@ -89,6 +100,10 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 	<link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
 	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
+	<script src="../../assets/js/jquery-3.5.1.js"></script>
 
 
 </head>
@@ -280,6 +295,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 			<div class="container ">
 
+				<?php include('../../controlador/estudiante/add_ficha.php'); ?>
 
 
 
@@ -302,7 +318,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 						<div class="form-group" enctype="multipart/form-data">
 							<label for="" class="col-form-label">Ficha de anteproyecto</label>
 							<div class="col-lg-6">
-								<input type="file" name="archivo" required>
+								<input type="file"   name="archivo" required>
 							</div>
 						</div>
 						<div class="form-group" enctype="multipart/form-data">

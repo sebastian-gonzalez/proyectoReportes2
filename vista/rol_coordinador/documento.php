@@ -42,7 +42,7 @@ include("../../controlador/conexion.php");
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
 	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 
 
 
@@ -68,7 +68,7 @@ include("../../controlador/conexion.php");
 				<!-- Messages Dropdown Menu -->
 
 				<li class="nav-item">
-					<a class="nav-link"  href="../../logout.php" >
+					<a class="nav-link" href="../../logout.php">
 						<i class="fa fa-power-off"></i>
 					</a>
 				</li>
@@ -154,51 +154,51 @@ include("../../controlador/conexion.php");
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-            <div class="container largopdf">
-                <?php
-                $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES)));
-                $tipo = mysqli_real_escape_string($con, (strip_tags($_GET["tipo"], ENT_QUOTES)));
-                ?>
-                    <div class="card hovercard ">
+			<div class="container largopdf">
+				<?php
+				$ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES)));
+				$tipo = mysqli_real_escape_string($con, (strip_tags($_GET["tipo"], ENT_QUOTES)));
+				?>
+				<div class="card hovercard ">
 
-                        <?php
-								
+					<?php
 
-                        $path = "../../controlador/estudiante/".$tipo."/" . $ficha1;
-                        if (file_exists($path)) {
-                            $directorio = opendir($path);
-                            while ($archivo = readdir($directorio)) {
-                                if (!is_dir($archivo)) {
 
-                                    echo "
+					$path = "../../controlador/estudiante/" . $tipo . "/" . $ficha1;
+					if (file_exists($path)) {
+						$directorio = opendir($path);
+						while ($archivo = readdir($directorio)) {
+							if (!is_dir($archivo)) {
+
+								echo "
 									<div class='ancho'> 
-									<a href='../../vista/rol_coordinador/info_ficha.php?ficha=".$ficha1."' class='btn btn-primary ancho fa fa-arrow-circle-left '> Regresar</a>
+									<a href='../../vista/rol_coordinador/info_ficha.php?ficha=" . $ficha1 . "' class='btn btn-primary ancho fa fa-arrow-circle-left '> Regresar</a>
 									</div>
 									<br />
 									
 									<iframe src='../../controlador/estudiante/$tipo/$ficha1/$archivo' height='680' width='100%'></iframe>";
-								
-                                }
+							} else {
 
-                            }
-                        } else {
-							echo "  
+							}
+						}
+					} else {
+						echo "  
 							<br />             
 							<center><h5> No tienes un documento agregado porfavor ingrese el documento en la seccion de ver campos ficha </h5></center>
 							<br /> 
-							<a href='../../vista/rol_coordinador/info_ficha.php?ficha=".$ficha1."' class='btn btn-primary ancho fa fa-arrow-circle-left '> Regresar</a>
+							<a href='../../vista/rol_coordinador/info_ficha.php?ficha=" . $ficha1 . "' class='btn btn-primary ancho fa fa-arrow-circle-left '> Regresar</a>
 							";
-                        }
-                        ?>
+					}
+					?>
 
 
 
-                    </div>
-              
-            </div>
+				</div>
 
-	</div>
+			</div>
 
-	</body>
+		</div>
+
+</body>
 
 </html>

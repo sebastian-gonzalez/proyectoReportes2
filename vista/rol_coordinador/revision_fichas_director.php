@@ -48,7 +48,7 @@ include("../../controlador/coordinador/add_director.php");
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
-    <link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
+	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 

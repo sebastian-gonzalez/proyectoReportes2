@@ -1,9 +1,7 @@
-<?php
-include('../../controlador/estudiante/add_ficha.php')
-?>
+
 <?php
 
-
+session_start();
 if (!isset($_SESSION['id_rol_usu'])) {
     header('location: ../../login.php');
 } else {
@@ -23,6 +21,8 @@ include_once '../../controlador/database.php';
 $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
+$objeto = new Database();
+$conexion = $objeto->connect();
 
 $query_ficha = $db->connect()->prepare("SELECT id_lista ,id_lista_usuario ,id_lista_ficha, id_rol_ficha FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");
 $query_ficha->execute();
@@ -107,31 +107,17 @@ while ($record = mysqli_fetch_assoc($resultset)) {
     <!--Select2-->
     <link rel="stylesheet" type="text/css" href="../../assets/select2/select2.min.css" />
 
-
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 
 
-    <!--SweetAlert-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
 
 
 
 </head>
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
-    <?php
-
-    include("../../controlador/estudiante/add_director.php");
-    include("../../controlador/estudiante/update_ficha.php");
-    include("../../controlador/conexion.php");
-
-    //id ficha
-    $id_de_ficha = (isset($_POST['id_de_ficha'])) ? $_POST['id_de_ficha'] : '';
-    $_SESSION['id_de_ficha'] = $id_de_ficha;
-    ?>
 
 
 
@@ -378,54 +364,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 
 
-            <div class="modal fade" id="modalCRUD1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"></h5>
-                            <button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="" class="col-form-label">Titulo</label>
-                                            <input type="text" class="form-control" name="titulo_ficha" required>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-                                <div class="form-group" enctype="multipart/form-data">
-                                    <label for="" class="col-form-label">Documento</label>
-                                    <div class="col-lg-6">
-                                        <input type="file" name="archivo" required>
-
-
-                                    </div>
-                                </div>
-
-
-
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
-
-                                <button input type="submit" name="add" id="btnGuardar" class="btn btn-dark">Guardar</button>
-                            </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-
-
             <?php
-            include("../../controlador/conexion.php");
             include("../../controlador/estudiante/add_compañero.php");
             ?>
             <div class="modal fade" id="modalParticipantes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
