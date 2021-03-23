@@ -13,8 +13,6 @@ $nombre_usu = $_SESSION['nombre_usu'];
 
 include('../../controlador/conexion.php');
 include('../../controlador/database.php');
-include("../../controlador/coordinador/add_evaluador.php");
-include("../../controlador/coordinador/add_jurado.php");
 
 
 ?>
@@ -162,18 +160,8 @@ include("../../controlador/conexion.php");
             <br />
 
 
-            <div class="container ">
-                <div class="row ">
-                    <div class="col-lg-12 ">
-                        <div class='btn-group'>
 
 
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <br>
 
             <div class="container caja">
                 <div class="row">

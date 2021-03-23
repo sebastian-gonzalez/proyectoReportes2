@@ -254,7 +254,7 @@ if (isset($_POST['proyectofin'])) {
             if ($resultado) {
 
                 $Estado = 6;
-                $consulta = "UPDATE ficha  SET  id_estado_ficha='$Estado' , descripcion_ficha ='$Descripcion_proyecto' WHERE id_ficha='$fichafinal' AND ficha.activo is null";
+                $consulta = "UPDATE ficha  SET  id_estado_ficha='$Estado' , descripcion_ficha ='$Descripcion_proyecto' , evaluacion_ficha = null WHERE id_ficha='$fichafinal' AND ficha.activo is null";
                 $resultado = $conexion->prepare($consulta);
                 $validacion_id = $resultado->execute();
 

@@ -22,7 +22,6 @@ include_once '../../controlador/database.php';
 $db = new Database();
 $id_s = $_SESSION['id_usuario'];
 
-include("../../controlador/estudiante/update_ficha.php");
 $query_ficha = $db->connect()->prepare("SELECT *FROM lista_ficha lista,ficha fi WHERE id_lista_usuario =$id_s AND fi.id_ficha=lista.id_lista_ficha AND fi.activo is null");
 $query_ficha->execute();
 $row_ficha = $query_ficha->fetch(PDO::FETCH_NUM);
@@ -288,6 +287,9 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 	";
 		}
+
+		include("../../controlador/estudiante/update_ficha.php");
+
 		?>
 
 
@@ -1746,7 +1748,10 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 					   <div class="form-group">
 						   <label for="" class="col-form-label">Documento proyecto de grado:</label>
 						   <br />
-						   <a class="btn btn-info"  href="documento.php?tipo=proyecto& ficha=' . $ficha_id_final . '  "; > <i class="fa fa-file-pdf-o"></i></a>					   </div>
+						   <a class="btn btn-info"  href="documento.php?tipo=proyecto& ficha=' . $ficha_id_final . '  "; > <i class="fa fa-file-pdf-o"></i></a>	
+
+						   <button id="btneditarproyecto" type="button" class="btn btn-primary editarficha" data-toggle="modal" tooltip-dir="top"><i class="fa fa-pencil"> </i></button>  
+						   </div>
 				   </div>
 			   </div>';
 				} else {
@@ -2112,7 +2117,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 									<?php
 									$nik = $_SESSION['id_usuario'];
-									$sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
+									$sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik AND lista_ficha.activo is null");
 									while ($record = mysqli_fetch_assoc($sql)) {
 										$id = $record['id_lista_ficha'];
 									}
@@ -2181,7 +2186,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 									<?php
 									$nik = $_SESSION['id_usuario'];
-									$sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik");
+									$sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik AND lista_ficha.activo is null" );
 									while ($record = mysqli_fetch_assoc($sql)) {
 										$id = $record['id_lista_ficha'];
 									}
@@ -2230,6 +2235,80 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 							<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
 							<button input type="submit" name="modantepro" class="btn btn-dark">Guardar</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="modal fade" id="modalCRUDPROYECTO" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel"></h5>
+						<button type="button" class="close" data-dismiss="modal" post aria-label="Close"><span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form method="post" action="" enctype="multipart/form-data">
+						<div class="modal-body">
+							<div class="form-group" enctype="multipart/form-data">
+								<label for="" class="col-form-label">Documento</label>
+								<div class="col-lg-6">
+
+									<?php
+									$nik = $_SESSION['id_usuario'];
+									$sql = mysqli_query($con, "SELECT * FROM lista_ficha  WHERE id_lista_usuario=$nik AND lista_ficha.activo is null");
+									while ($record = mysqli_fetch_assoc($sql)) {
+										$id = $record['id_lista_ficha'];
+									}
+									$path = "../../controlador/estudiante/proyecto/" . $id;
+
+									if (is_dir($path)) {
+
+										$verifi = @scandir($path);
+									}
+									if (count($verifi) >  2) {
+										if (file_exists($path)) {
+											$directorio = opendir($path);
+											while ($archivo = readdir($directorio)) {
+												if (!is_dir($archivo)) {
+													echo "<div id='".$archivo ."' idficha='".$id."' data='" . $path . "/" . $archivo . "'>
+										<a href = '" . $path . "/" . $archivo . "'
+										title = 'Ver Archivo Adjunto'>
+										<input type=hidden >
+										<span class='fa fa-file-pdf-o' aria-hidden='true'></span></a>";
+
+													echo "$archivo <a href ='#' id = 'deleteproyecto'
+										title = 'Eliminar Archivo Adjunto'>
+										
+										<span class='fa fa-trash' aria-hidden='true'></span></a></div>";
+
+													echo "<iframe src='../../controlador/estudiante/proyecto/$id/$archivo' width='400'> </iframe>";
+												}
+											}
+										}
+									} else {
+
+										echo '<input type="file" name="archivo">';
+									}
+
+
+
+
+
+
+									?>
+
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+
+							<button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+							<button input type="submit" name="modanpro" class="btn btn-dark">Guardar</button>
 						</div>
 					</form>
 

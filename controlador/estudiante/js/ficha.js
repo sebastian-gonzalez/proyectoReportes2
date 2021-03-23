@@ -198,6 +198,47 @@ $(document).ready(function () {
 
 
 
+  $('#deleteproyecto').click(function () {
+
+
+    
+    var idFile =  $(this).parent().attr('id');
+    var idFicha =  $(this).parent().attr('idficha');
+    var service = $(this).parent().attr('data');
+    var dataFile = {
+      name: idFile,
+      idficha: idFicha,
+      url: service
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "del_document.php" ,
+      data: dataFile,
+
+      success: function (response) {
+
+        var jsonRespuesta = JSON.parse(response);
+        console.log(jsonRespuesta);
+
+        if(jsonRespuesta.success == "1"){
+
+          Swal.fire(
+            'Exito!',
+            'Documento de proyecto de grado inactivado correctamente!',
+            'success'
+          ).then(function(){ 
+          location.href='info_ficha.php';
+          }
+       );
+     
+      }}
+    }); 
+    
+
+
+  });
+
 
 
 
@@ -223,11 +264,23 @@ $(document).ready(function () {
   });
 
 
+  
+  $("#btneditarproyecto").click(function () {
+
+    $(".modal-header").css("background-color", "#0050a0");
+    $(".modal-header").css("color", "white");
+    $(".modal-title").text("Gestionar Proyecto");
+    $("#modalCRUDPROYECTO").modal("show");
+  });
+
+
+  
+
   $("#btneditarfichaanteproyecto").click(function () {
 
     $(".modal-header").css("background-color", "#0050a0");
     $(".modal-header").css("color", "white");
-    $(".modal-title").text("Gestionar Ficha");
+    $(".modal-title").text("Gestionar Anteproyecto");
     $("#modalCRUDFICHA").modal("show");
   });
 
