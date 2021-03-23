@@ -158,8 +158,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                             A.1 Presentación general del documento (incluye aplicación de normas)
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="a1" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="a1" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -171,8 +171,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                             A.2 Calidad en la redacción y pertinencia de la información (incluye referencias utilizadas)
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="a2" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="a2" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -184,8 +184,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         A3. El producto de divulgación desarrollado cumple con estándares para la publicación (Obligatorio Profesional Universitario y Opcional Tecnologías)
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="a3" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="a3" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -204,8 +204,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         B.1 Existe coherencia entre la formulación de problema y el desarrollo de la solución
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="b1" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="1" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="b1" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -217,8 +217,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         B.2  Se cumplen los objetivos propuestos
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="b2" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="b2" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -230,8 +230,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         B.3 El marco referencial fue suficiente y apropiado para aplicar al proyecto
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="b3" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="b3" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -244,8 +244,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         B.4 La Metodología establecida se evidenció en el desarrollo del proyecto				
 
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="b4" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="b4" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -258,8 +258,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         B.5  La implementación del proyecto fue completa y de calidad				
 
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="b5" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="b5" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -272,8 +272,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         B.6  Los Resultados del proyecto corresponden a los resultados esperados				
 
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="b6" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="b6" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -286,8 +286,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         B.7  Las Conclusiones son relevantes  y dan razón de lo logrado en proyecto				
 
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="b7" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="b7" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -306,8 +306,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         C.1 Se muestran dominio del del proceso de desarrollo del proyecto
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="c1" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="c1" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -319,8 +319,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         C.2  Realizan un adecuado manejo del tiempo
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="c2" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="c2" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -332,8 +332,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         C.3  Utilizan una adecuada expresión oral y corporal
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="c3" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="c3" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -345,8 +345,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         C.4  El Vocabulario técnico es apropiado
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="c4" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="c4" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -358,8 +358,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         C.5  Da respuestas claras y coherentes a las inquitudes de los jurados
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="c5" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="c5" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -371,8 +371,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         C.6  Utilización de forma correcta las ayudas audiovisuales disponibles
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="c6" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="c6" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
@@ -384,8 +384,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                         <div class='form-group'>
                         C.7  Presentan una buena presentación personal
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control derechaubicacion" placeholder="Evaluacion" name="c7" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
-                                <span class="input-group-text" id="basic-addon2">evaluacion</span>
+                                <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="c7" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                             </div>
 
 
