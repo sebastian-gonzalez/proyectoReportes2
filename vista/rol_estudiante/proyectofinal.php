@@ -307,7 +307,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 
 					</div>
 					<div class="">
-						<button input type="submit" name="proyecto" id="proyecto" class="btn btn-primary">agregar proyecto de grado</button>
+						<button input type="submit" name="proyectofin" id="proyecto" class="btn btn-primary">agregar proyecto de grado</button>
 					</div>
 				</form>
 

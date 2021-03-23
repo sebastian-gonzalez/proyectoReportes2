@@ -21,7 +21,7 @@ if (!isset($_SESSION['id_rol_usu'])) {
 }
 
 
-echo'<body>'; 
+echo '<body>';
 if (isset($_POST['add_usuario'])) {
 
 
@@ -36,14 +36,19 @@ if (isset($_POST['add_usuario'])) {
 
     $Contrasena = password_hash($Contrasena, PASSWORD_DEFAULT);
 
-    
+
     // Validacion para saber si un usuario ya posee la cedula ingresada
-    $consulta_validacion_cedula = "SELECT COUNT(*) FROM usuarios WHERE cedula_usu=$Cedula";
+    $consulta_validacion_cedula = "SELECT COUNT(*) FROM usuarios WHERE cedula_usu=$Cedula AND usuarios.activo is  null ";
     $resultado_vali_cedula = $conexion->prepare($consulta_validacion_cedula);
     $data_vali_cedula = $resultado_vali_cedula->execute();
 
+    // Validacion para saber si un usuario ya posee la cedula ingresada
+    $consulta_validacion_cedula_inactivo = "SELECT COUNT(*) FROM usuarios WHERE cedula_usu=$Cedula AND usuarios.activo is not null";
+    $resultado_vali_cedula_inactivo = $conexion->prepare($consulta_validacion_cedula_inactivo );
+    $data_vali_cedula_inactivo = $resultado_vali_cedula_inactivo->execute();
+
     // Validacion para saber si un usuario ya posee el correo ingresado
-    $consulta_validacion_correo = "SELECT COUNT(*) FROM usuarios WHERE correo_usu='$Correo'";
+    $consulta_validacion_correo = "SELECT COUNT(*) FROM usuarios WHERE correo_usu='$Correo' AND  usuarios.activo is null";
     $resultado_vali_correo = $conexion->prepare($consulta_validacion_correo);
     $data_vali_correo = $resultado_vali_correo->execute();
 
@@ -60,7 +65,25 @@ if (isset($_POST['add_usuario'])) {
             }
          );
          ;</script>";
-    } else if ($resultado_vali_correo->fetchColumn() > 0) {
+    } 
+    if ($resultado_vali_cedula_inactivo->fetchColumn() > 0) {
+
+        $consulta = "UPDATE usuarios  SET  activo = null  WHERE cedula_usu='$Cedula' ";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+
+        echo
+        "<script> swal({
+            allowOutsideClick: false,
+            title: '¡EXITO!',
+            text: 'Usuario  Activado Correctamente',
+            type: 'success',
+          }).then(function(){ 
+            location.href='../../vista/rol_admin/usuarios.php';
+            }
+         );
+         ;</script>";
+    }else if ($resultado_vali_correo->fetchColumn() > 0) {
 
 
 
@@ -99,7 +122,7 @@ if (isset($_POST['add_usuario'])) {
          );
          ;</script>";
         //$data = "Add";
-     
+
     }
 }
-echo'</body>';
+echo '</body>';

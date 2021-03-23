@@ -19,7 +19,7 @@ $(document).ready(function () {
       { data: "fecha_ficha" },
       {
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnParticipantes margin-boton'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision1 '  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnParticipantes margin-boton'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision1 margin-boton'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></button><button class='btn btn-danger btn-sm  btnBborrar ' tooltip-dir='top' title='Borrar'><i class='material-icons'>delete</i></button></div></div>",
       },
     ],
   });
@@ -134,6 +134,55 @@ button.setAttribute('tooltip-dir', top);
   opcion = 3; //eliminar
   location.href = "info_ficha.php?ficha=" + id_ficha + " ";
 });
+
+
+  //Borrar
+  $(document).on("click", ".btnBborrar", function () {
+    fila = $(this);
+    id_ficha = parseInt($(this).closest("tr").find("td:eq(0)").text());
+
+    Swal.fire({
+      title: 'Inhabilitar ficha',
+      text: '¿deseas inabilitar esta ficha?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'si , inhabilitar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "../../controlador/coordinador/delete.php",
+          type: "POST",
+          datatype: "json",
+          data: { id_ficha: id_ficha },
+          success: function (data) {
+            tablaFichas.row(fila.parents("tr")).remove().draw();
+            Swal.fire({
+              allowOutsideClick: false,
+              title: '¡Exito!',
+              text: 'Ficha inactivada correctamente',
+              icon: 'success',
+            }).then(function(){ 
+              location.href='../../vista/rol_coordinador/revision_fichas_terminadas.php';
+              }
+           );
+
+
+
+
+          },
+        });
+
+
+      }
+
+
+    })
+
+  });
+
+
 
 });
 

@@ -45,7 +45,6 @@ if (isset($_POST['add'])) {
     $id_lista_ficha = $id_ficha;
     $id_rol_ficha = 1;
 
-
     $consulta_validacion = "SELECT COUNT(*) FROM lista_ficha , ficha WHERE ficha.id_ficha = lista_ficha.id_lista_ficha and id_lista_usuario=$id_lista_usuario and ficha.activo is null ";
     $resultado_vali = $conexion->prepare($consulta_validacion);
     $data_vali = $resultado_vali->execute();
@@ -194,6 +193,7 @@ if (isset($_POST['add'])) {
                     ;</script>";
             }
         } else {
+            
             echo
             "<script> swal({
             allowOutsideClick: false,           
@@ -211,13 +211,22 @@ if (isset($_POST['add'])) {
 
 
 
-if (isset($_POST['proyecto'])) {
+if (isset($_POST['proyectofin'])) {
 
+    $Descripcion_proyecto = "Proyecto de grado";
 
 
 
     if ($_FILES["proyecto"]["error"] > 0) {
+
         echo
+        "<script>  alert('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    </script>";  
+
+        echo
+
+
+        
         "<script> swal({
        allowOutsideClick: false,           
         title: '¡ERROR!',
@@ -245,7 +254,7 @@ if (isset($_POST['proyecto'])) {
             if ($resultado) {
 
                 $Estado = 6;
-                $consulta = "UPDATE ficha  SET  id_estado_ficha='$Estado' WHERE id_ficha='$fichafinal' AND ficha.activo is null";
+                $consulta = "UPDATE ficha  SET  id_estado_ficha='$Estado' , descripcion_ficha ='$Descripcion_proyecto' WHERE id_ficha='$fichafinal' AND ficha.activo is null";
                 $resultado = $conexion->prepare($consulta);
                 $validacion_id = $resultado->execute();
 
@@ -263,13 +272,20 @@ if (isset($_POST['proyecto'])) {
             } else {
                 echo
                 "<script> swal({
-            title: '¡ERROR!',
-            text: 'Archivo ficha no guardado',
-            type: 'error',
-            });</script>";
+                allowOutsideClick: false,                    
+                title: '¡ERROR!',
+                text: 'no se pudo subir el archivo intentalo nuevamente',
+                type: 'error',
+                }).then(function(){ 
+                location.href='fichas.php';
+                }
+                );
+                ;</script>";
+
             }
         }
     } else {
+
         echo
         "<script> swal({
             allowOutsideClick: false,                    
@@ -282,4 +298,5 @@ if (isset($_POST['proyecto'])) {
             );
             ;</script>";
     }
+
 }

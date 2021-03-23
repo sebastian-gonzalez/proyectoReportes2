@@ -12,13 +12,17 @@ $conexion = $objeto->connect();
 include('../conexion.php');
 
 
-echo '<body>';
+
+
+echo'<body>';
 if (isset($_POST['evaluarp'])) {
 
 
 
 
     if (isset($_GET['aktrl']) == 'addp') {
+
+     
 
         $id_ficha_pro = mysqli_real_escape_string($con, (strip_tags($_GET["nikfi"], ENT_QUOTES)));
 
@@ -85,6 +89,9 @@ if (isset($_POST['evaluarp'])) {
 
             if ($resultado_vali_final->fetchColumn() > 0) {
 
+
+
+
                 $totalnota =  $eva_jurado_fi + $eva_director_final;
                 $nota = round($totalnota, 1);
 
@@ -121,11 +128,13 @@ if (isset($_POST['evaluarp'])) {
                 title: '¡Exito!',
                 text: 'Evaluacion del jurado realizada correctamente',
                 type: 'success',
-              }).then(function(){ 
+                }).then(function(){ 
                 location.href='../../vista/rol_docente/fichas_asignadas_jurado.php';
                 }
-             );
-             ;</script>";
+                );
+                ;</script>";
+
+
             }
         } else {
 
@@ -138,8 +147,7 @@ if (isset($_POST['evaluarp'])) {
             "<script> swal({
             allowOutsideClick: false,
             title: '¡Exito!',
-            text: 'Evaluacion del jurado realizada correctamente
-            aun falta la evaluacion del director',
+            text: 'Evaluacion del jurado realizada correctamente aun falta la evaluacion del director',
             type: 'success',
           }).then(function(){ 
             location.href='../../vista/rol_docente/fichas_asignadas_jurado.php';
@@ -231,8 +239,7 @@ if (isset($_POST['evaluarp'])) {
                 "<script> swal({
                 allowOutsideClick: false,
                 title: '¡Exito!',
-                text: 'Evaluacion del Director realizada correctamente
-              ',
+                text: 'Evaluacion del Director realizada correctamente',
                 type: 'success',
               }).then(function(){ 
                 location.href='../../vista/rol_docente/fichas_asignadas_jurado.php';
@@ -252,8 +259,7 @@ if (isset($_POST['evaluarp'])) {
             "<script> swal({
             allowOutsideClick: false,
             title: '¡Exito!',
-            text: 'Evaluacion del Director realizada correctamente
-            aun falta la evaluacion del jurado',
+            text: 'Evaluacion del Director realizada correctamente aun falta la evaluacion del jurado',
             type: 'success',
           }).then(function(){ 
             location.href='../../vista/rol_docente/fichas_asignadas_jurado.php';
@@ -263,4 +269,4 @@ if (isset($_POST['evaluarp'])) {
         }
     }
 }
-echo '</body>';
+echo'</body>';

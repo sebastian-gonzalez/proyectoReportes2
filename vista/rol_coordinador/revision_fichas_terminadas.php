@@ -30,6 +30,9 @@ include("../../controlador/coordinador/add_jurado.php");
     <link rel="shortcut icon" href="#" />
     <title>Fichas</title>
 
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
     <!-- CSS personalizado -->
@@ -49,8 +52,7 @@ include("../../controlador/coordinador/add_jurado.php");
     <link rel="stylesheet" href="../../assets/css/css/nav/adminlte.css">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css'>
 	<link rel="icon" href="../../assets/images/favicon.ico" type="image/gif" />
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
 
 </head>
 

@@ -1033,7 +1033,7 @@ while ($record = mysqli_fetch_assoc($resultset)) {
 								<button id='btneditarfichaanteproyecto' type='button' class='btn btn-primary editarficha' data-toggle='modal' tooltip-dir='top'><i class='fa fa-pencil'> </i></button>				";
 							} else if ($id_estado_ficha_barra == 1 or $id_estado_ficha_barra == 4 or $id_estado_ficha_barra == 5) {
 								echo "		
-								<label for='' class='col-form-label'>Ficha de anteproyecto:</label>
+								<label for='' class='col-form-label'>Anteproyecto completo:</label>
 								<br />
 								<a class='btn btn-info' href='documento.php?tipo=anteproyecto& ficha=" . $ficha_id_final . " '; > <i class='fa fa-file-pdf-o'></i></a>
 				                ";
