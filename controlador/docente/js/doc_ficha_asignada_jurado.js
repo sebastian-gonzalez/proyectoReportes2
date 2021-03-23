@@ -19,7 +19,7 @@ $(document).ready(function () {
         { data: "fecha_ficha" },
         {
           defaultContent:
-            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnRevisionevaluacion'  tooltip-dir='top' title='Editar'><i class='material-icons'>edit</i></button><button class='btn btn-primary btn-sm btnMostrar_P'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
+            "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnRevisionevaluacion margin-boton'  tooltip-dir='top' title='Editar'><i class='material-icons'>edit</i></button><button class='btn btn-primary btn-sm btnMostrar_P margin-boton'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></div></div>",
         },
       ],
     });

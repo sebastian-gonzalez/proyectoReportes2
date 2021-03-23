@@ -112,7 +112,7 @@ if (isset($_POST['evaluarp'])) {
                     $estadofi = 4;
                 }
 
-                $consulta_evaluacionfinal = "UPDATE ficha SET id_estado_ficha='$estadofi' WHERE id_ficha  =$id_ficha_pro AND  ficha.activo IS null ";
+                $consulta_evaluacionfinal = "UPDATE ficha SET id_estado_ficha='$estadofi' , evaluacion_ficha = '$estado_proyecto' WHERE id_ficha  =$id_ficha_pro AND  ficha.activo IS null ";
                 $resultado_vali_final = $conexion->prepare($consulta_evaluacionfinal);
                 $data_vali1 = $resultado_vali_final->execute();
 
@@ -227,7 +227,7 @@ if (isset($_POST['evaluarp'])) {
 
 
 
-                $consulta_evaluacionfinal = "UPDATE ficha SET id_estado_ficha=$estadofi WHERE id_ficha=$id_ficha_pro AND  ficha.activo IS null ";
+                $consulta_evaluacionfinal = "UPDATE ficha SET id_estado_ficha=$estadofi ,evaluacion_ficha = '$estado_proyecto' WHERE id_ficha=$id_ficha_pro AND  ficha.activo IS null ";
                 $resultado_vali_final = $conexion->prepare($consulta_evaluacionfinal);
                 $data_vali1 = $resultado_vali_final->execute();
 
