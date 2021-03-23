@@ -85,7 +85,7 @@ switch ($opcion) {
         INNER JOIN lista_ficha ON ficha.id_ficha = lista_ficha.id_lista_ficha
         INNER JOIN programa ON ficha.id_programa_ficha = programa.id_programa
         INNER JOIN estado  ON ficha.id_estado_ficha = estado.id_estado
-        WHERE id_lista_usuario=$user  AND id_rol_ficha= 2
+        WHERE id_lista_usuario=$user  AND id_rol_ficha= 2 AND  id_estado_ficha not in (4,5)
         AND ficha.activo is null
         AND lista_ficha.activo is null";
 
