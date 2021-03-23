@@ -158,7 +158,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                             <div class='form-group'>
                                 D.1 El (Los) estudiantes cumplieron con el desarrollo del proyecto con responsabilidad y compromiso
                                 <div class="input-group mb-3">
-                                    <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="d1" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                    <input type="number" min="0" max="5" step="any" class="form-control derechaubicacion" placeholder="Evaluacion" name="d1" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
                                     <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                                 </div>
 
@@ -171,7 +171,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                             <div class='form-group'>
                                 D.2 El (Los) estudiantes apropiaron técnicas y procesos que contribuyeron al logro de los objetivos
                                 <div class="input-group mb-3">
-                                    <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="d2" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                    <input type="number" min="0" max="5" step="any" class="form-control derechaubicacion" placeholder="Evaluacion" name="d2" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
                                     <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                                 </div>
 
@@ -184,7 +184,7 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
                             <div class='form-group'>
                                 D.3 El (Los) estudiantes demostraron interés por seguir avanzando en el desarrollo de otras soluciones y etapas del proyecto
                                 <div class="input-group mb-3">
-                                    <input type="number" name="number" min="0" max="5" class="form-control derechaubicacion" placeholder="Evaluacion" name="d3" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                    <input type="number" min="0" max="5" step="any" class="form-control derechaubicacion" placeholder="Evaluacion" name="d3" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
                                     <span class="input-group-text" id="basic-addon2">Evaluacion</span>
                                 </div>
 
