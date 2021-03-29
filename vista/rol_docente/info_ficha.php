@@ -283,6 +283,8 @@ include("../../controlador/conexion.php");
 							$validacion_Esta_eva = 'En correccion';
 						} else if ($estadofin_camino == 3) {
 							$validacion_Esta_eva = 'Aprobado';
+						}else if ($estadofin_camino == 5) {
+							$validacion_Esta_eva = 'Rechazado';
 						}
 
 

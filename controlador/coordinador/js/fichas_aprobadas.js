@@ -19,7 +19,7 @@ $(document).ready(function () {
       { data: "fecha_ficha" },
       {
         defaultContent:
-          "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnParticipantes margin-boton'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision1 margin-boton'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></button><button class='btn btn-danger btn-sm  btnBborrar ' tooltip-dir='top' title='Borrar'><i class='material-icons'>delete</i></button></div></div>",
+          "<div class='text-center'><div class='btn-group'>   <button class='btn btn-primary btn-sm btnParticipantes margin-boton'  tooltip-dir='top' title='Integrantes'><i class='material-icons'>groups</i></button><button class='btn btn-primary btn-sm btnRevision1 margin-boton'  tooltip-dir='top' title='Ver mas'><i class='material-icons'>control_point</i></button></button><button class='btn btn-danger btn-sm  btnBborrar ' tooltip-dir='top' title='Borrar'><i class='material-icons'>delete</i></button></div></div>",
       },
     ],
   });

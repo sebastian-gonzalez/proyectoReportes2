@@ -13,8 +13,7 @@ $nombre_usu = $_SESSION['nombre_usu'];
 
 include('../../controlador/conexion.php');
 include('../../controlador/database.php');
-include("../../controlador/coordinador/add_evaluador.php");
-include("../../controlador/coordinador/add_jurado.php");
+
 
 
 ?>

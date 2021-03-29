@@ -1326,6 +1326,8 @@ $ficha1 = mysqli_real_escape_string($con, (strip_tags($_GET["ficha"], ENT_QUOTES
 
                                     <option value="3">Aprobado</option>
                                     <option value="2">En correccion</option>
+                                    <option value="5">Rechazado</option>
+
 
                                 </select>
 
