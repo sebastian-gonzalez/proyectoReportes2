@@ -171,12 +171,12 @@ $nombre_usu = $_SESSION['nombre_usu'];
                     <form id="formFichas" enctype="multipart/form-data">
                         <div class="modal-body" id="id">
 
-                            <?php
-                            include('../../controlador/docente/captador_Datos.php');
-
+                  //         <?php
+                      //    include('../../controlador/docente/captador_Datos.php');
+                           
 
                             
-                            ?>
+                    //        ?> 
 
                             <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
                         </div>
